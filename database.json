@@ -1,0 +1,10 @@
+{
+	"host":"54.37.128.202",
+	"port":"3306",
+	"database":"admin_gta",
+	"user":"admin_gta",
+	"pass":"1122",
+	"minPool":"1",
+	"maxPool":"30",
+	"serverName":"MilkyWay",
+}

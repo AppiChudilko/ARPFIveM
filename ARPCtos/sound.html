@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sound</title>
+</head>
+<body>
+	<script type="text/javascript">
+		window.addEventListener('message', function(event) {
+            if(event.data.type == 'blackoutStart') {
+                var obj = document.createElement('audio');
+				obj.volume = 0.5;
+				obj.src = "start.wav";
+				obj.play();
+            }
+
+            if(event.data.type == 'blackoutStop') {
+                var obj = document.createElement('audio');
+				obj.volume = 0.5;
+				obj.src = "stop.wav";
+				obj.play();
+            }
+            if(event.data.type == 'radioPeer') {
+                var obj = document.createElement('audio');
+				obj.volume = 0.1;
+				obj.src = "radio_peer.wav";
+				obj.play();
+            }
+            if(event.data.type == 'radioOff') {
+                var obj = document.createElement('audio');
+				obj.volume = 0.1;
+				obj.src = "radio_off.wav";
+				obj.play();
+            }
+
+            if(event.data.type == 'radioOn') {
+                var obj = document.createElement('audio');
+				obj.volume = 0.1;
+				obj.src = "radio_on.wav";
+				obj.play();
+            }
+        });
+	</script>
+</body>
+</html>

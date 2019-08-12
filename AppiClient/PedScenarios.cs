@@ -1,0 +1,226 @@
+﻿using System.Collections.Generic;
+
+namespace Client
+{
+    public class PedScenarios
+    {
+        public static List<string> PositionBasedScenarios = new List<string>()
+        {
+            "PROP_HUMAN_SEAT_ARMCHAIR",
+            "PROP_HUMAN_SEAT_BAR",
+            "PROP_HUMAN_SEAT_BENCH",
+            "PROP_HUMAN_SEAT_BUS_STOP_WAIT",
+            "PROP_HUMAN_SEAT_CHAIR",
+            "PROP_HUMAN_SEAT_CHAIR_UPRIGHT",
+            "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER",
+            "PROP_HUMAN_SEAT_COMPUTER",
+            "PROP_HUMAN_SEAT_DECKCHAIR",
+            //"PROP_HUMAN_SEAT_DECKCHAIR_DRINK",
+            //"PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS",
+            //"PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS_PRISON",
+            "PROP_HUMAN_SEAT_STRIP_WATCH",
+            "PROP_HUMAN_SEAT_SUNLOUNGER",
+            "WORLD_HUMAN_SEAT_LEDGE",
+            "WORLD_HUMAN_SEAT_STEPS",
+            "WORLD_HUMAN_SEAT_WALL",
+        };
+
+        /// <summary>
+        /// All scenario names (readable version) linked to the actual scenario strings (code names).
+        /// </summary>
+        public static Dictionary<string, string> ScenarioNames = new Dictionary<string, string>
+        {
+            ["Сесть"] = "PROP_HUMAN_SEAT_BENCH", //
+            /*["Сесть 2"] = "WORLD_HUMAN_SEAT_LEDGE", //
+            ["Сесть 3"] = "WORLD_HUMAN_SEAT_STEPS", //
+            ["Сесть 4"] = "WORLD_HUMAN_SEAT_WALL", // */
+            ["Записать в блокнот"] = "CODE_HUMAN_MEDIC_TIME_OF_DEATH",
+            ["Регулировщик (Полиция)"] = "CODE_HUMAN_POLICE_CROWD_CONTROL",
+            ["Осмотреть землю (Полиция)"] = "CODE_HUMAN_POLICE_INVESTIGATE",
+            ["Фоткать на фотоаппарат"] = "WORLD_HUMAN_PAPARAZZI",
+            ["Осмотреть труп"] = "CODE_HUMAN_MEDIC_TEND_TO_DEAD",
+            ["Кофе в руках"] = "WORLD_HUMAN_AA_COFFEE",
+            ["Курить сигарету"] = "WORLD_HUMAN_AA_SMOKE",
+            ["Курить траву"] = "WORLD_HUMAN_DRUG_DEALER",
+            ["Смотреть в бинокль"] = "WORLD_HUMAN_BINOCULARS",
+            ["Стоять с табличкой"] = "WORLD_HUMAN_BUM_FREEWAY",
+            ["Спать"] = "WORLD_HUMAN_BUM_SLUMPED",
+            //["Bum Standing"] = "WORLD_HUMAN_BUM_STANDING",
+            ["Мыть руки в озере"] = "WORLD_HUMAN_BUM_WASH",
+            ["Регулировщик"] = "WORLD_HUMAN_CAR_PARK_ATTENDANT",
+            ["Хлопать"] = "WORLD_HUMAN_CHEERING",
+            ["Читать документ"] = "WORLD_HUMAN_CLIPBOARD",
+            //["Сверлить асфальт"] = "WORLD_HUMAN_CONST_DRILL",
+            ["Руки на поясе"] = "WORLD_HUMAN_COP_IDLES",
+            ["Пить пиво"] = "WORLD_HUMAN_DRINKING",
+            //["Нарко диллер"] = "WORLD_HUMAN_DRUG_DEALER_HARD",
+            ["Сфоткать на телефон"] = "WORLD_HUMAN_MOBILE_FILM_SHOCKING",
+            ["Садовник - Убирать листья"] = "WORLD_HUMAN_GARDENER_LEAF_BLOWER",
+            ["Садовник - Сажать"] = "WORLD_HUMAN_GARDENER_PLANT",
+            //["Играть в гольф"] = "WORLD_HUMAN_GOLF_PLAYER",
+            ["Высматривать"] = "WORLD_HUMAN_GUARD_PATROL",
+            ["Охрана"] = "WORLD_HUMAN_GUARD_STAND",
+            //["Стучать молотком"] = "WORLD_HUMAN_HAMMERING",
+            ["Смотреть"] = "WORLD_HUMAN_HANG_OUT_STREET",
+            //["Hiker Standing"] = "WORLD_HUMAN_HIKER_STANDING",
+            ["Позировать"] = "WORLD_HUMAN_HUMAN_STATUE",
+            ["Со шваброй"] = "WORLD_HUMAN_JANITOR",
+            ["Бежать на месте"] = "WORLD_HUMAN_JOG_STANDING",
+            ["Облокотиться на стену"] = "WORLD_HUMAN_LEANING",
+            ["Мыть"] = "WORLD_HUMAN_MAID_CLEAN",
+            ["Качок"] = "WORLD_HUMAN_MUSCLE_FLEX",
+            //["Качаться"] = "WORLD_HUMAN_MUSCLE_FREE_WEIGHTS",
+            ["Играть на инструменте"] = "WORLD_HUMAN_MUSICIAN",
+            ["Фоткать на фотоаппарат"] = "WORLD_HUMAN_PAPARAZZI",
+            ["Пить пиво"] = "WORLD_HUMAN_PARTYING",
+            ["Сесть (Полулёжа)"] = "WORLD_HUMAN_PICNIC",
+            ["Проститутка - Курить"] = "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS",
+            ["Проститутка"] = "WORLD_HUMAN_PROSTITUTE_LOW_CLASS",
+            ["Отжиматься"] = "WORLD_HUMAN_PUSH_UPS",
+            ["Искать с фонариком"] = "WORLD_HUMAN_SECURITY_SHINE_TORCH",
+            ["Делать пресс"] = "WORLD_HUMAN_SIT_UPS",
+            ["Курить 1"] = "WORLD_HUMAN_SMOKING",
+            ["Курить 2"] = "WORLD_HUMAN_SMOKING_POT",
+            ["Греться у костра"] = "WORLD_HUMAN_STAND_FIRE",
+            //["Ловить рыбу"] = "WORLD_HUMAN_STAND_FISHING",
+            ["Стоять покачиваясь 1"] = "WORLD_HUMAN_STAND_IMPATIENT",
+            ["Стоять покачиваясь 2"] = "WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT",
+            ["Лазить в телефоне 1"] = "WORLD_HUMAN_STAND_MOBILE",
+            ["Лазить в телефоне 2"] = "WORLD_HUMAN_STAND_MOBILE_UPRIGHT",
+            ["Танцевать"] = "WORLD_HUMAN_STRIP_WATCH_STAND",
+            ["Сесть полулёжа"] = "WORLD_HUMAN_STUPOR",
+            ["Лечь на живот"] = "WORLD_HUMAN_SUNBATHE",
+            ["Лечь на спину"] = "WORLD_HUMAN_SUNBATHE_BACK",
+            ["Теннис"] = "WORLD_HUMAN_TENNIS_PLAYER",
+            ["Смотреть карту"] = "WORLD_HUMAN_TOURIST_MAP",
+            ["Смотреть в телефон"] = "WORLD_HUMAN_TOURIST_MOBILE",
+            //["Механик"] = "WORLD_HUMAN_VEHICLE_MECHANIC",
+            //["Сварка"] = "WORLD_HUMAN_WELDING",
+            ["Смотреть"] = "WORLD_HUMAN_WINDOW_SHOP_BROWSE",
+            ["Йога"] = "WORLD_HUMAN_YOGA",
+            //["Банкомат"] = "PROP_HUMAN_ATM",
+            ["Готовить на гриле"] = "PROP_HUMAN_BBQ",
+            ["Что-то искать в ящике"] = "PROP_HUMAN_BUM_BIN",
+            //["Облакотиться на стойку"] = "PROP_HUMAN_BUM_SHOPPING_CART",
+            //["Подтягиваться"] = "PROP_HUMAN_MUSCLE_CHIN_UPS",
+            //["Muscle Chin Ups Army"] = "PROP_HUMAN_MUSCLE_CHIN_UPS_ARMY",
+            //["Muscle Chin Ups Prison"] = "PROP_HUMAN_MUSCLE_CHIN_UPS_PRISON",
+            ["Оплатить за парковку"] = "PROP_HUMAN_PARKING_METER",
+            //["Сесть1"] = "PROP_HUMAN_SEAT_ARMCHAIR", //
+            //["Seat Bar"] = "PROP_HUMAN_SEAT_BAR", //
+            ["Сесть"] = "PROP_HUMAN_SEAT_BENCH", //
+            /*["Сесть3"] = "PROP_HUMAN_SEAT_BUS_STOP_WAIT", //
+            ["Сесть4"] = "PROP_HUMAN_SEAT_CHAIR", //
+            ["Сесть5"] = "PROP_HUMAN_SEAT_CHAIR_UPRIGHT", //
+            ["Seat MP Player"] = "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER", //
+            ["Seat Computer"] = "PROP_HUMAN_SEAT_COMPUTER", //
+            ["Seat Deckchair"] = "PROP_HUMAN_SEAT_DECKCHAIR", // 
+            ["Seat Deckchair Drink"] = "PROP_HUMAN_SEAT_DECKCHAIR_DRINK", // 
+            ["Тянуть штангу"] = "PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS", // 
+            ["Seat Muscle Bench Press Prison"] = "PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS_PRISON", //
+            ["Seat Stripclub Watch"] = "PROP_HUMAN_SEAT_STRIP_WATCH", //
+            ["Seat Sunlounger"] = "PROP_HUMAN_SEAT_SUNLOUNGER", //
+            ["Stand Impatient"] = "PROP_HUMAN_STAND_IMPATIENT",*/
+            ["Смотреть по сторонам"] = "CODE_HUMAN_CROSS_ROAD_WAIT",
+            ["Высматривать"] = "CODE_HUMAN_MEDIC_KNEEL",
+        };
+
+        /// <summary>
+        /// A list containing all readable strings.
+        /// </summary>
+        public static List<string> Scenarios = new List<string>
+        {
+            "AA Drink Coffee",
+            "AA Smoke Cig",
+            "Binoculars",
+            "Bum Freeway",
+            "Bum Slumped",
+            "Bum Standing",
+            "Bum Wash",
+            "Car Park Attendant",
+            "Cheering",
+            "Clipboard",
+            "Constant Drilling",
+            "Cop Idle",
+            "Drinking",
+            "Drug Dealer",
+            "Drug Dealer Hard",
+            "Mobile Film Shocking",
+            "Garderner Leaf Blower",
+            "Garderner Plant",
+            "Golf Player",
+            "Guard Patrol",
+            "Guard Stand",
+            "Hamering",
+            "Hang Out Street",
+            "Hiker Standing",
+            "Human Statue",
+            "Janitor",
+            "Jog Standing",
+            "Leaning",
+            "Maid Clean",
+            "Muscle Flex",
+            "Muscle Free Weights",
+            "Musician",
+            "Paparazzi",
+            "Partying",
+            "Picnic",
+            "Prostitue High Class",
+            "Prostitue Low Class",
+            "Pushups",
+            "Seat Ledge",
+            "Seat Steps",
+            "Seat Wall",
+            "Security Shine Torch",
+            "Situps",
+            "Smoking",
+            "Smoking Pot",
+            "Stand Fire",
+            "Stand Fishing",
+            "Stand Impatient",
+            "Stand Impatient Upright",
+            "Stand Mobile",
+            "Stand Mobile Upright",
+            "Stripclub Watch Stand",
+            "Stupor",
+            "Sunbathe",
+            "Sunbathe Back",
+            "Tennis Player",
+            "Tourist Map",
+            "Tourist Mobile",
+            "Vehicle Mechanic",
+            "Welding",
+            "Window Shop Browse",
+            "Yoga",
+            "ATM",
+            "BBQ",
+            "Bum Bin",
+            "Bum Shopping Cart",
+            "Muscle Chin Ups",
+            "Muscle Chin Ups Army",
+            "Muscle Chin Ups Prison",
+            "Parking Meter",
+            "Seat Armchair",
+            "Seat Bar",
+            "Seat Bench",
+            "Seat Bus Stop Wait",
+            "Seat Chair",
+            "Seat Chair Upright",
+            "Seat MP Player",
+            "Seat Computer",
+            "Seat Deckchair",
+            "Seat Deckchair Drink",
+            "Seat Muscle Bench Press",
+            "Seat Muscle Bench Press Prison",
+            "Seat Stripclub Watch",
+            "Seat Sunlounger",
+            "Stand Impatient",
+            "Cross Road Wait",
+            "Medic Kneel",
+            "Medic Tend To Dead",
+            "Medic Time Of Death",
+            "Police Crowd Control",
+            "Police Investigate",
+        };
+    }
+}

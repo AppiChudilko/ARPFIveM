@@ -34,7 +34,7 @@ namespace Client
             /*["Сесть 2"] = "WORLD_HUMAN_SEAT_LEDGE", //
             ["Сесть 3"] = "WORLD_HUMAN_SEAT_STEPS", //
             ["Сесть 4"] = "WORLD_HUMAN_SEAT_WALL", // */
-            ["Записать в блокнот"] = "CODE_HUMAN_MEDIC_TIME_OF_DEATH",
+            ["Записать в блокнот 123123"] = "CODE_HUMAN_MEDIC_TIME_OF_DEATH",
             ["Регулировщик (Полиция)"] = "CODE_HUMAN_POLICE_CROWD_CONTROL",
             ["Осмотреть землю (Полиция)"] = "CODE_HUMAN_POLICE_INVESTIGATE",
             ["Фоткать на фотоаппарат"] = "WORLD_HUMAN_PAPARAZZI",

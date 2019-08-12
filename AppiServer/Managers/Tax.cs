@@ -286,7 +286,7 @@ namespace Server.Managers
                         Server.Sync.Data.Set(User.GetServerId(player), "apartment_id", 0);
                         User.AddBankMoney(player, price);
                         
-                        TriggerClientEvent(player, "ARP:SendPlayerNotification", "~r~Ваши апартаменты была изъята государством за неуплату");
+                        TriggerClientEvent(player, "ARP:SendPlayerNotification", "~r~Ваши апартаменты были изъяты государством за неуплату");
                         BankNotification(player, (int) Server.Sync.Data.Get(User.GetServerId(player), "bank_prefix"), price);
                         
                         User.UpdateAllData(player);

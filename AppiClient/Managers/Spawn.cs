@@ -67,7 +67,6 @@ namespace Client.Managers
                 if (User.IsDead())
                 {
                     User.Respawn(HospSpawn, 90);
-                    SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) - 80); // эксперимент
                     if (User.Data.wanted_level > 0)
                         Jail.JailPlayerScene(User.Data.wanted_level * 600);
                 }

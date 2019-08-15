@@ -1660,6 +1660,7 @@ namespace Client
                 RemoveCashMoney(150);
                 Coffer.AddMoney(150);
                 Notification.SendWithTime("~g~Стоимость лечения $150");
+                SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) - 80); // эксперимент
             }
             
             Sync.Data.Reset(GetServerId(), "isCuff");

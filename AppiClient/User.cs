@@ -1653,15 +1653,15 @@ namespace Client
             {
                 RemoveCashMoney(10);
                 Coffer.AddMoney(10);
-                Notification.SendWithTime("~g~Стоимость лечения со страховкой $10");
-                Notification.SendPicture("Стоимость лечения со страховкой ~g~$10", "Mors Mutual Insurance", "", "CHAR_MP_MORS_MUTUAL", Notification.TypeChatbox);
+                //Notification.SendWithTime("~g~Стоимость лечения со страховкой $10");
+                Notification.SendPicture("Стоимость лечения со страховкой ~g~$10", "Mors Mutual Insurance", "Оповещение", "CHAR_MP_MORS_MUTUAL", Notification.TypeChatbox);
             }
             else
             {
                 RemoveCashMoney(150);
                 Coffer.AddMoney(150);
-                Notification.SendWithTime("~g~Стоимость лечения $150");
-                Notification.SendPicture("Стоимость лечения без страховки ~g~$150", "Mors Mutual Insurance", "", "CHAR_MP_MORS_MUTUAL", Notification.TypeChatbox);
+                //Notification.SendWithTime("~g~Стоимость лечения $150");
+                Notification.SendPicture("Стоимость лечения ~g~$150", "Mors Mutual Insurance", "Оповещение", "CHAR_MP_MORS_MUTUAL", Notification.TypeChatbox);
             }
             
             Sync.Data.Reset(GetServerId(), "isCuff");

@@ -7218,9 +7218,9 @@ namespace Client
             HideMenu();
             
             var menu = new Menu();
-            UiMenu = menu.Create("GPS 123", "~b~Меню вашего GPSSS");
+            UiMenu = menu.Create("GPS", "~b~Меню вашего GPSSS");
             
-            menu.AddMenuItem(UiMenu, "Важные местаыы").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Важные месты").Activated += (uimenu, item) =>
             {
                 ShowGpsImportantMenu();
             };

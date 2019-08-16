@@ -111,6 +111,10 @@ namespace Client.Managers
                     DeleteWithMarker(checkpointId);
                     Jobs.Builder.WorkProcess();
                     break;
+                case "job:ocean:work":
+                    DeleteWithMarker(checkpointId);
+                    Jobs.Ocean.WorkProcessOcean();
+                    break;
                 case "job:roadworker:work":
                     DeleteWithMarker(checkpointId);
                     Jobs.RoadWorker.WorkProcess();

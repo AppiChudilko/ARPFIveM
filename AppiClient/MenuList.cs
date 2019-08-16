@@ -3196,6 +3196,36 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        public static void ShowJobOceanMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Чистка берега", "~b~Выберите пункт меню");
+
+            menu.AddMenuItem(UiMenu, "~g~Начать/~r~Закончить~s~ работу").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Jobs.Ocean.StartOrEndOcean();
+            };
+
+            menu.AddMenuItem(UiMenu, "Забрать деньги").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Jobs.Ocean.TakeMoneyOcean();
+            };
+      
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
         public static void ShowJobRoadWorkerMenu()
         {
             HideMenu();
@@ -7394,6 +7424,11 @@ namespace Client
             {
                 HideMenu();
                 User.SetWaypoint(-717, -2175);
+            };
+            menu.AddMenuItem(UiMenu, "Чистка берега").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                User.SetWaypoint(-1470, -1394);
             };
             
             var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");

@@ -266,6 +266,8 @@ namespace Client
                     return "~g~Двигайтесь к следующей остановке";
                 case "_lang_123":
                     return "~r~Вы завершили досрочно свой рейс";
+                case "_lang_124":
+                    return "~r~Собирайте мусор возле берега";
                 /*case "_lang_":
                     return "";
                 case "_lang_":

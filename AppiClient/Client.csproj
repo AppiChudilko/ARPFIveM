@@ -83,6 +83,7 @@
     <Compile Include="Fractions\Sapd.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Jobs\Bugstars.cs" />
+    <Compile Include="Jobs\Ocean.cs" />
     <Compile Include="Jobs\Builder.cs" />
     <Compile Include="Jobs\Bus.cs" />
     <Compile Include="Jobs\Cleaner.cs" />

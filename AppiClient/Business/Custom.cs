@@ -811,6 +811,8 @@ namespace Client.Business
             
             UI.HideLoadDisplay();
         }
+        
+        
 
         public static async void CloseMenuWithRemoveMod(CitizenFX.Core.Vehicle veh)
         {            

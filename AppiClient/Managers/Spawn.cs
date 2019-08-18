@@ -25,7 +25,10 @@ namespace Client.Managers
             if (User.IsDead())
             {
                 var ped = GetPlayerPed(-1);
-                
+                Notification.SendWithTime("Нужна помощь? Нажмите на..");
+                Notification.SendWithTime("~y~Y-Чтобы задать вопрос.");
+                Notification.SendWithTime("~r~U-Чтобы оставить жалобу.");
+
                 //User.Freeze(true);
                 
                 /*var playerPos = GetEntityCoords(ped, true);
@@ -66,6 +69,9 @@ namespace Client.Managers
                 
                 if (User.IsDead())
                 {
+                    Notification.SendWithTime("Нужна помощь? Нажмите на..");
+                    Notification.SendWithTime("~y~Y-Чтобы задать вопрос.");
+                    Notification.SendWithTime("~r~U-Чтобы оставить жалобу.");
                     User.Respawn(HospSpawn, 90);
                     if (User.Data.wanted_level > 0)
                         Jail.JailPlayerScene(User.Data.wanted_level * 600);

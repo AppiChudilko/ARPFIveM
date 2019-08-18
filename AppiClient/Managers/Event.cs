@@ -437,6 +437,18 @@ namespace Client.Managers
             Notification.SendWithTime($"~g~Вы заработали: ~s~${money:#,#}");
             User.AddCashMoney(money);
         }
+        public static void SellJewelry(int money, int count)
+        {
+            if (count == 0)
+            {
+                Notification.SendWithTime("~r~У Вас нет предметов для продажи");
+                return;
+            }
+            
+            Notification.SendWithTime($"~g~Вы продали {count}шт. предметов");
+            Notification.SendWithTime($"~g~Вы заработали: ~s~${money:#,#}");
+            User.AddCashMoney(money);
+        }
 
         public static void TeleportToAdmin(float x, float y, float z)
         {

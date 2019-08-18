@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.UI;
@@ -29,6 +30,8 @@ namespace Client
         private static int _lastSpec = 0;
         
         public static Camera Camera;
+
+        public static bool soson = false;
         
         public MenuList()
         {
@@ -36,6 +39,7 @@ namespace Client
             Tick += ProcessMenuPool;
             Tick += ProcessMainMenu;
         }
+        
         
         public static async void ShowAuthMenu(string nick = "", string pass = "")
         {
@@ -3225,7 +3229,31 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
-        
+        /*public static void ShowJobJewelryMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Поиск предметов", "~b~Выберите пункт меню");
+
+            menu.AddMenuItem(UiMenu, "~g~Начать/~r~Закончить~s~ работу").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Jobs.Search.StartOrEndJewelry();
+            };
+
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+            
+        }*/
+
         public static void ShowJobRoadWorkerMenu()
         {
             HideMenu();
@@ -5045,6 +5073,7 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        
         public static void ShowFractionMenu()
         {
             HideMenu();
@@ -5547,6 +5576,22 @@ namespace Client
                     {
                         HideMenu();
                         ShowGoHospMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                    };
+                    menu.AddMenuItem(UiMenu, "Использовать Дефибриллятор").Activated += (uimenu, item) => 
+                    {
+                        HideMenu();
+                        //foreach (CitizenFX.Core.Player p in Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), Convert.ToInt32(1)))
+                          //  Shared.TriggerEventToPlayer(p.ServerId, "ARP:UseAdrenalin");
+                          var pPos = GetEntityCoords(GetPlayerPed(-1), true);
+                          var player = Main.GetPlayerOnRadius(pPos, 1.2f);
+                          if (player == null)
+                          {
+                              Notification.SendWithTime("~r~Рядом с вами никого нет");
+                              return;
+                          }
+                          Main.SaveLog("GangBang", $"[ANDRENALINE] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
+                          Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseAdrenalin");
+                          Chat.SendMeCommand("использовал дефибриллятор");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
@@ -8152,6 +8197,7 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        
         
         public static async void ShowPlayerEquipMenu()
         {
@@ -11431,13 +11477,13 @@ namespace Client
                 Main.AddFractionGunLog(User.Data.rp_name, "Дымовая граната", User.Data.fraction_id);
             };
             
-            menu.AddMenuItem(UiMenu, "Газовая граната").Activated += (uimenu, item) =>
+           /* menu.AddMenuItem(UiMenu, "Газовая граната").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 User.GiveWeapon((uint) WeaponHash.BZGas, 3, false, false);
                 Notification.SendWithTime("~b~Вы взяли газовую гранату");
                 Main.AddFractionGunLog(User.Data.rp_name, "Газовая граната", User.Data.fraction_id);
-            };
+            };  */
             
             menu.AddMenuItem(UiMenu, "Парашют").Activated += (uimenu, item) =>
             {
@@ -16635,7 +16681,7 @@ namespace Client
             }
             
             var menu = new Menu();
-            UiMenu = menu.Create(title1 != "" ? " " : "Vangelico", "~b~Магазин", true, true);
+        UiMenu = menu.Create(title1 != "" ? " " : "Vangelico", "~b~Магазин", true, true);
 
             if (title1 != "")
                 menu.SetMenuBannerSprite(UiMenu, title1, title2);
@@ -18165,6 +18211,7 @@ namespace Client
             UiMenu = null;
         }
         
+        
         private static async Task ProcessMainMenu()
         {
             if (UiMenu != null)
@@ -18204,6 +18251,27 @@ namespace Client
             {
                 if ((Game.IsControlJustPressed(0, (Control) 244) || Game.IsDisabledControlJustPressed(0, (Control) 244)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //M
                     ShowMainMenu();
+                if ((Game.IsControlJustPressed(0, (Control) 246) || Game.IsDisabledControlJustPressed(0, (Control) 303))) //U
+                {
+                    var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendAskMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Вопрос отправлен");
+                    Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
+                }
+                if ((Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303))) //U
+                {
+                    var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendReportMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Жалоба отправлена");
+                    Notification.SendWithTime("~g~Если администрация в сети, она её рассмотрит");
+                }
+                    
                 if ((Game.IsControlJustPressed(0, (Control) 157) || Game.IsDisabledControlJustPressed(0, (Control) 157)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //1
                     ShowPlayerMenu();
                 

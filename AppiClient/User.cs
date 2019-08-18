@@ -1648,6 +1648,38 @@ namespace Client
             UnTieBandage();
             User.TimerAbduction = -1;
 			SetVirtualWorld(0);
+            
+            if (User.IsEms())
+            {
+                
+                    if (User.IsDuty())
+                    {
+                        Fractions.Ems.Garderob(0);
+                        Notification.SendWithTime("~b~Вы ушли с дежурства");
+                        Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
+                    }
+            }
+            if (User.IsFib())
+            {
+
+                if (User.IsDuty())
+                    {
+                        Notification.SendWithTime("~b~Вы ушли с дежурства");
+                        Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
+                    }
+            }
+            
+            if (User.IsSapd())
+            {
+                if (User.IsDuty())
+                    {
+                        Fractions.Sapd.Garderob(0);
+                        Notification.SendWithTime("~b~Вы ушли с дежурства");
+                        Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
+                    }
+            }
+            
+
 
             if (Data.med_lic)
             {
@@ -1655,6 +1687,7 @@ namespace Client
                 Coffer.AddMoney(10);
                 //Notification.SendWithTime("~g~Стоимость лечения со страховкой $10");
                 Notification.SendPicture("Стоимость лечения со страховкой ~g~$10", "Mors Mutual Insurance", "Оповещение", "CHAR_MP_MORS_MUTUAL", Notification.TypeChatbox);
+                SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) - 80);
             }
             else
             {
@@ -1662,6 +1695,7 @@ namespace Client
                 Coffer.AddMoney(150);
                 //Notification.SendWithTime("~g~Стоимость лечения $150");
                 Notification.SendPicture("Стоимость лечения ~g~$150", "Mors Mutual Insurance", "Оповещение", "CHAR_MP_MORS_MUTUAL", Notification.TypeChatbox);
+                SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) - 80);
             }
             
             Sync.Data.Reset(GetServerId(), "isCuff");

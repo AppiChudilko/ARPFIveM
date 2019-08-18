@@ -35,6 +35,7 @@ namespace Server.Managers
             EventHandlers.Add("ARP:Inventory:CookFood", new Action<Player, int>(CookFood));
             EventHandlers.Add("ARP:Inventory:SellMeat", new Action<Player, int, int>(SellMeat));
             EventHandlers.Add("ARP:Inventory:SellFish", new Action<Player, int, int>(SellFish));
+            //EventHandlers.Add("ARP:Inventory:SellJewelry", new Action<Player, int, int>(SellJewelry));
         }
         
         public static readonly dynamic[,] ItemList =

@@ -1531,7 +1531,7 @@ namespace Client.Managers
                 case 215:
                 {
                     Chat.SendMeCommand("использовал аптечку");
-                    SetEntityHealth(GetPlayerPed(-1), 200);
+                    SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 40);
                     DeleteItemServer(id);
                     break;
                 }

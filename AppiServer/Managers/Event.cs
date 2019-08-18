@@ -382,6 +382,7 @@ namespace Server.Managers
                 msg = msg.Remove(0, 3);
                 TriggerClientEvent("ARP:SendRadiusMessageToClient", name, $"(( {msg} ))", x, y, z, false);
             }
+
             else
                 TriggerClientEvent("ARP:SendRadiusMessageToClient", name, msg, x, y, z, false);
         }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CitizenFX.Core;
 using Client.Vehicle;
 using static CitizenFX.Core.Native.API;
+using static Client.MenuList;
 
 namespace Client.Managers
 {
@@ -56,7 +57,12 @@ namespace Client.Managers
                 if (MenuList.UiMenu.Visible)
                 {
                     if (User.IsDead())
+                    {
+                        Notification.SendWithTime("Нужна помощь? Нажмите на..");
+                        Notification.SendWithTime("~y~Y-Чтобы задать вопрос.");
+                        Notification.SendWithTime("~r~U-Чтобы оставить жалобу.");
                         MenuList.HideMenu();
+                    }
                 }
             }
         }

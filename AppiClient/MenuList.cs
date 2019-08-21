@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Configuration;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.UI;
@@ -3841,6 +3840,7 @@ namespace Client
                 if (text == "NULL") return;
                 Notification.SendPictureToAll(text, "Администрация", title, "CHAR_LIFEINVADER", Notification.TypeChatbox);
                 Main.SaveLog("AdminNotification", $"{User.Data.rp_name} | {title} | {text}");
+                
             };
                 
             menu.AddMenuItem(UiMenu, "NoClip").Activated += (uimenu, item) =>
@@ -3863,13 +3863,17 @@ namespace Client
             menu.AddMenuItem(UiMenu, "~g~Посадить в тюрьму").Activated += async (uimenu, item) =>
             {
                 HideMenu();
+                Debug.WriteLine("ok");
                 int id = Convert.ToInt32(await Menu.GetUserInput("ID игрока", "", 10));
                 int m = Convert.ToInt32(await Menu.GetUserInput("Кол-во минут", "", 10));
                 string text = await Menu.GetUserInput("Причина", null, 50);
+                Debug.WriteLine("ok");
                 Shared.TriggerEventToAllPlayers("ARP:Admin:JailPlayer", id, m, text);
+                Debug.WriteLine("ok");
                 Notification.SendWithTime("~b~Вы посадили игрока в тюрьму");
                 Main.SaveLog("AdminJail", $"{User.Data.rp_name} jail {id}, {m} {text}");
             };
+            
 
             menu.AddMenuItem(UiMenu, "~y~Кикнуть игрока").Activated += (uimenu, item) =>
             {
@@ -5090,12 +5094,14 @@ namespace Client
                         var text = await Menu.GetUserInput("Текст...", null, 50);
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"Правительство [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "CHAR_BANK_MAZE", Notification.TypeChatbox, 1);
+                        Chat.SendMeCommand("отравляет сообщение по служебному телефону");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
                     {
                         HideMenu();
                         Main.FindNearestVehicle().Delete();
+                        Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
                     };
                     
                     if (User.Data.rank > 6)
@@ -5103,18 +5109,22 @@ namespace Client
                         menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
                         {
                             ShowGovGiveLawLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                            Chat.SendMeCommand("передает документ");
                         };
                         menu.AddMenuItem(UiMenu, "Выдать лицензию на бизнес").Activated += (uimenu, item) =>
                         {
                             ShowGovGiveBizzLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                            Chat.SendMeCommand("передает документ");
                         };
                         menu.AddMenuItem(UiMenu, "Выдать лицензию на охоту").Activated += (uimenu, item) =>
                         {
                             ShowGovGiveAnimalLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                            Chat.SendMeCommand("передает документ");
                         };
                         menu.AddMenuItem(UiMenu, "Выдать лицензию на рыбалку").Activated += (uimenu, item) =>
                         {
                             ShowGovGiveFishLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                            Chat.SendMeCommand("передает документ");
                         };
                     }
                     
@@ -5274,6 +5284,7 @@ namespace Client
                         var text = await Menu.GetUserInput("Текст...", null, 50);
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"SAPD [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox, 2);
+                        Chat.SendMeCommand("отправляет сообщение по служебному телефону");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
@@ -5433,6 +5444,7 @@ namespace Client
                         var text = await Menu.GetUserInput("Текст...", null, 50);
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"SAPD [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox, 2);
+                        Chat.SendMeCommand("отправляет сообщение по служебному телефону");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
@@ -5553,6 +5565,7 @@ namespace Client
                         var text = await Menu.GetUserInput("Текст...", null, 50);
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"EMS [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "CHAR_CALL911", Notification.TypeChatbox, 16);
+                        Chat.SendMeCommand("отправляет сообщение по служебному телефону");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
@@ -5590,9 +5603,25 @@ namespace Client
                               return;
                           }
                           Main.SaveLog("GangBang", $"[ANDRENALINE] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
-                          Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseAdrenalin");
+                          Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseDef");
                           Chat.SendMeCommand("использовал дефибриллятор");
                     };
+                    menu.AddMenuItem(UiMenu, "Использовать набор первой помощи").Activated += (uimenu, item) => 
+                    {
+                        HideMenu();
+                        //foreach (CitizenFX.Core.Player p in Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), Convert.ToInt32(1)))
+                        //  Shared.TriggerEventToPlayer(p.ServerId, "ARP:UseAdrenalin");
+                        var pPos = GetEntityCoords(GetPlayerPed(-1), true);
+                        var player = Main.GetPlayerOnRadius(pPos, 1.2f);
+                        if (player == null)
+                        {
+                            Notification.SendWithTime("~r~Рядом с вами никого нет");
+                            return;
+                        }
+                        Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseFirstAidKit");
+                        Chat.SendMeCommand("использовал набор первой помощи");
+                    };
+                    
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
                     {
@@ -5651,6 +5680,7 @@ namespace Client
                         var text = await Menu.GetUserInput("Текст...", null, 50);
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"FIB [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "DIA_TANNOY", Notification.TypeChatbox, 3);
+                        Chat.SendMeCommand("отправляет сообщение по служебному телефону");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
@@ -6011,26 +6041,31 @@ namespace Client
             {
                 HideMenu();
                 PedAi.SendCode(idx, true, 600, UnitTypes.Standart);
+                Chat.SendMeCommand("говорит \"запрашиваю поддержку\" в рацию");
             };
             menu.AddMenuItemList(UiMenu, "Хайвей патруль", list).OnListSelected += (uimenu, idx) =>
             {
                 HideMenu();
                 PedAi.SendCode(idx, true, 600, UnitTypes.HightWay);
+                Chat.SendMeCommand("говорит \"запрашиваю поддержку\" в рацию");
             };
             menu.AddMenuItemList(UiMenu, "Детективы", list).OnListSelected += (uimenu, idx) =>
             {
                 HideMenu();
                 PedAi.SendCode(idx, true, 600, UnitTypes.Detective);
+                Chat.SendMeCommand("говорит \"запрашиваю поддержку\" в рацию");
             };
             menu.AddMenuItemList(UiMenu, "FIB", list).OnListSelected += (uimenu, idx) =>
             {
                 HideMenu();
                 PedAi.SendCode(idx, true, 600, UnitTypes.Fib);
+                Chat.SendMeCommand("говорит \"запрашиваю поддержку\" в рацию");
             };
             menu.AddMenuItemList(UiMenu, "SWAT", list).OnListSelected += (uimenu, idx) =>
             {
                 HideMenu();
                 PedAi.SendCode(idx, true, 600, UnitTypes.Swat);
+                Chat.SendMeCommand("говорит \"запрашиваю поддержку\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Medic Unit").Activated += (uimenu, item) =>
@@ -6039,12 +6074,14 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 PedAi.Add(pos.X, pos.Y, pos.Z, UnitTypes.Medic, 600);
                 Notification.SendPicture("Поддержка в пути", "Диспетчер", "Медики", "CHAR_CALL911", Notification.TypeChatbox);
+                Chat.SendMeCommand("говорит \"запрашиваю поддержку\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 4", "Помощь не требуется.\nВсе спокойно").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 PedAi.SendCode(4);
+                Chat.SendMeCommand("говорит \"помощь не требуется\" в рацию");
             };
             
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
@@ -6123,6 +6160,7 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToFraction($"{User.Data.rp_name} - запрашивает поддержку", "Диспетчер", "Код 0", "CHAR_CALL911", Notification.TypeChatbox, User.Data.fraction_id);
                 Shared.SetWaypointToFraction(User.Data.fraction_id, pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 0\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 1", "Офицер в бедственном положении").Activated += (uimenu, item) =>
@@ -6131,6 +6169,8 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToFraction($"{User.Data.rp_name} - в бедственном положении", "Диспетчер", "Код 1", "CHAR_CALL911", Notification.TypeChatbox, User.Data.fraction_id);
                 Shared.SetWaypointToFraction(User.Data.fraction_id, pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 1\" в рацию");
+
             };
             
             menu.AddMenuItem(UiMenu, "Код 2", "Приоритетный вызов\n(без сирен/стробоскопов)").Activated += (uimenu, item) =>
@@ -6139,6 +6179,8 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToFraction($"{User.Data.rp_name} - запрашивает поддержку", "Диспетчер", "Код 2", "CHAR_CALL911", Notification.TypeChatbox, User.Data.fraction_id);
                 Shared.SetWaypointToFraction(User.Data.fraction_id, pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 2\" в рацию");
+
             };
             
             menu.AddMenuItem(UiMenu, "Код 3", "Срочный вызов\n(сирены, стробоскопы)").Activated += (uimenu, item) =>
@@ -6147,24 +6189,30 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToFraction($"{User.Data.rp_name} - запрашивает поддержку", "Диспетчер", "Код 3", "CHAR_CALL911", Notification.TypeChatbox, User.Data.fraction_id);
                 Shared.SetWaypointToFraction(User.Data.fraction_id, pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 3\" в рацию");
+
             };
             
             menu.AddMenuItem(UiMenu, "Код 4", "Помощь не требуется.\nВсе спокойно").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Notification.SendPictureToFraction($"{User.Data.rp_name} - все спокойно", "Диспетчер", "Код 4", "CHAR_CALL911", Notification.TypeChatbox, User.Data.fraction_id);
+                Chat.SendMeCommand("говорит \"Код 4\" в рацию");
+
             };
             
             menu.AddMenuItem(UiMenu, "Код 6", "Задерживаюсь на месте").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Notification.SendPictureToFraction($"{User.Data.rp_name} задерживается на месте", "Диспетчер", "Код 6", "CHAR_CALL911", Notification.TypeChatbox, User.Data.fraction_id);
+                Chat.SendMeCommand("говорит \"Код 6\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 7", "Перерыв на обед").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Notification.SendPictureToFraction($"{User.Data.rp_name} вышел на обед", "Диспетчер", "Код 7", "CHAR_CALL911", Notification.TypeChatbox, User.Data.fraction_id);
+                Chat.SendMeCommand("говорит \"Код 7\" в рацию");
             };
             
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
@@ -6197,6 +6245,7 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToDep($"{User.Data.rp_name} - запрашивает поддержку", "Диспетчер", "Код 0", "CHAR_CALL911", Notification.TypeChatbox);
                 Shared.SetWaypointToDep(pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 0\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 1", "Офицер в бедственном положении").Activated += (uimenu, item) =>
@@ -6205,6 +6254,7 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToDep($"{User.Data.rp_name} - в бедственном положении", "Диспетчер", "Код 1", "CHAR_CALL911", Notification.TypeChatbox);
                 Shared.SetWaypointToDep(pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 1\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 2", "Приоритетный вызов\n(без сирен/стробоскопов)").Activated += (uimenu, item) =>
@@ -6213,6 +6263,7 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToDep($"{User.Data.rp_name} - запрашивает поддержку", "Диспетчер", "Код 2", "CHAR_CALL911", Notification.TypeChatbox);
                 Shared.SetWaypointToDep(pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 2\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 3", "Срочный вызов\n(сирены, стробоскопы)").Activated += (uimenu, item) =>
@@ -6221,24 +6272,28 @@ namespace Client
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Notification.SendPictureToDep($"{User.Data.rp_name} - запрашивает поддержку", "Диспетчер", "Код 3", "CHAR_CALL911", Notification.TypeChatbox);
                 Shared.SetWaypointToDep(pos.X, pos.Y);
+                Chat.SendMeCommand("говорит \"Код 3\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 4", "Помощь не требуется.\nВсе спокойно").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Notification.SendPictureToDep($"{User.Data.rp_name} - все спокойно", "Диспетчер", "Код 4", "CHAR_CALL911", Notification.TypeChatbox);
+                Chat.SendMeCommand("говорит \"Код 4\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 6", "Задерживаюсь на месте").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Notification.SendPictureToDep($"{User.Data.rp_name} задерживается на месте", "Диспетчер", "Код 6", "CHAR_CALL911", Notification.TypeChatbox);
+                Chat.SendMeCommand("говорит \"Код 6\" в рацию");
             };
             
             menu.AddMenuItem(UiMenu, "Код 7", "Перерыв на обед").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Notification.SendPictureToDep($"{User.Data.rp_name} вышел на обед", "Диспетчер", "Код 7", "CHAR_CALL911", Notification.TypeChatbox);
+                Chat.SendMeCommand("говорит \"Код 7\" в рацию");
             };
             
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
@@ -6280,6 +6335,7 @@ namespace Client
                     if (itemList.WithCoord)
                     {
                         Dispatcher.SendNotification("10-4 - 911", $"{rank} {User.Data.rp_name} принял вызов \"{itemList.Title}\"", $"~y~Детали: ~s~{itemList.Desc}", $"~y~Район: ~s~{itemList.Street1}");
+                        Chat.SendMeCommand("говорит \"принимаю вызов\" в рацию");
                         User.SetWaypoint(itemList.X, itemList.Y);
                         
                         int length = itemList.Title.Split('-').Length;
@@ -7400,6 +7456,11 @@ namespace Client
             {
                 HideMenu();
                 User.SetWaypoint(437, -982);
+            };
+            menu.AddMenuItem(UiMenu, "Департамент Шерифов").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                User.SetWaypoint(-443, 6016);
             };
 
             menu.AddMenuItem(UiMenu, "Больница Лос-Сантоса").Activated += (uimenu, item) =>
@@ -9672,6 +9733,14 @@ namespace Client
                             Managers.Inventory.DropItemToStockGang(id, itemId, User.IsSapd() ? 2 : User.Data.fraction_id);
                         };
                     }
+                    if (User.IsSheriff() && Main.GetDistanceToSquared(Managers.Pickup.StockSheriffPos, plPos) < Managers.Pickup.DistanceCheck)
+                    {
+                        menu.AddMenuItem(UiMenu, "~y~Положить на склад").Activated += (uimenu, item) =>
+                        {
+                            HideMenu();
+                            Managers.Inventory.DropItemToStockGang(id, itemId, User.IsSheriff() ? 7 : User.Data.fraction_id);
+                        };
+                    }
 
                     int kitchenId = Main.GetKitchenId();
                     if (kitchenId != 0)
@@ -9768,6 +9837,14 @@ namespace Client
                         {
                             HideMenu();
                             Managers.Inventory.DropItemToStockGang(id, itemId, User.IsSapd() ? 2 : User.Data.fraction_id);
+                        };
+                    }
+                    if (User.IsSheriff() && Main.GetDistanceToSquared(Managers.Pickup.StockSheriffPos, plPos) < Managers.Pickup.DistanceCheck)
+                    {
+                        menu.AddMenuItem(UiMenu, "~y~Положить на склад").Activated += (uimenu, item) =>
+                        {
+                            HideMenu();
+                            Managers.Inventory.DropItemToStockGang(id, itemId, User.IsSheriff() ? 7 : User.Data.fraction_id);
                         };
                     }
                     
@@ -11362,6 +11439,7 @@ namespace Client
                     
                     Notification.SendPictureToDep($"Выдал розыск {User.PlayerIdList[p.ServerId.ToString()]}. Уровень: {idx}", "Диспетчер", User.Data.rp_name, "CHAR_CALL911", Notification.TypeChatbox);
                     Notification.SendWithTime($"~g~Вы выдали розыск {User.PlayerIdList[p.ServerId.ToString()]}. Уровень: {idx}");
+                    Chat.SendMeCommand("объявляет подозреваемого в розыск по рации");
                 };
             }
 
@@ -12638,7 +12716,7 @@ namespace Client
             Sync.Data.ResetLocally(User.GetServerId(), "isTimeoutArsenal");
         }
         
-        public static async void ShowEmsArsenalMenu()
+        /*public static async void ShowEmsArsenalMenu()
         {
             HideMenu();
             
@@ -12694,7 +12772,7 @@ namespace Client
             await Delay(20 * 60 * 1000);
             Sync.Data.ResetLocally(User.GetServerId(), "isTimeoutArsenal");
         }
-        
+        */
         public static void ShowEmsAptekaMenu()
         {
             HideMenu();
@@ -13120,6 +13198,48 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        public static void ShowHealMenu()
+        {
+            if (User.IsEms())
+            {
+                if (User.IsDuty())
+                {
+                    HideMenu();
+
+                    var menu = new Menu();
+                    UiMenu = menu.Create("Курс лечения", "Меню");
+
+                    menu.AddMenuItem(UiMenu, "Провести курс лечение человеку рядом").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        //foreach (CitizenFX.Core.Player p in Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), Convert.ToInt32(1)))
+                        //  Shared.TriggerEventToPlayer(p.ServerId, "ARP:UseAdrenalin");
+                        var pPos = GetEntityCoords(GetPlayerPed(-1), true);
+                        var player = Main.GetPlayerOnRadius(pPos, 2f);
+                        if (player == null)
+                        {
+                            Notification.SendWithTime("~r~Рядом с вами никого нет");
+                            return;
+                        }
+
+                        Shared.TriggerEventToPlayer(player.ServerId, "ARP:EmsHeal");
+                        Chat.SendMeCommand("проводит курс лечения человеку рядом");
+                    };
+
+
+                    var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                    UiMenu.OnItemSelect += (sender, item, index) =>
+                    {
+                        if (item == closeButton)
+                            HideMenu();
+                    };
+
+                    MenuPool.Add(UiMenu);
+                }
+            }
+        }
+        
         
         public static async void ShowFractionKeyMenu(string title, string desc, int fraction = -1)
         {

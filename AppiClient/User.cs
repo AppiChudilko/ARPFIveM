@@ -2119,10 +2119,58 @@ namespace Client
             SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
             NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
             StopAllScreenEffects();
-            SetEntityHealth(GetPlayerPed(-1), 120);
+            SetEntityHealth(GetPlayerPed(-1), 105);
             Freeze(PlayerId(), false);
             
             Dispatcher.SendEms("Код 4", "Человек в сознании");
+        }
+        
+        public static void UseDef()
+        {
+            /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
+            if (ped.IsAlive)
+                return;*/
+            
+            var pos = GetEntityCoords(GetPlayerPed(-1), true);
+            PlayScenario("forcestop");
+            NetworkSetTalkerProximity(5f);
+            SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
+            NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
+            StopAllScreenEffects();
+            SetEntityHealth(GetPlayerPed(-1), 105);
+            Freeze(PlayerId(), false);
+            
+            Dispatcher.SendEms("Код 4", "Человек в сознании");
+        }
+        public static void EmsHeal()
+        {
+            /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
+            if (ped.IsAlive)
+                return;*/
+            
+            var pos = GetEntityCoords(GetPlayerPed(-1), true);
+            PlayScenario("forcestop");
+            NetworkSetTalkerProximity(5f);
+            SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
+            NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
+            StopAllScreenEffects();
+            SetEntityHealth(GetPlayerPed(-1), 200);
+            Freeze(PlayerId(), false);
+        }
+        
+        public static void UseFirstAidKit()
+        {
+            /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
+            if (ped.IsAlive)
+                return;*/
+            
+            var pos = GetEntityCoords(GetPlayerPed(-1), true);
+            PlayScenario("forcestop");
+            NetworkSetTalkerProximity(5f);
+            SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
+            NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
+            StopAllScreenEffects();
+            SetEntityHealth(GetPlayerPed(-1), 130);
         }
 
         public static void UseTie()

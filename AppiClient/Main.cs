@@ -727,9 +727,16 @@ namespace Client
         {
             var blip = World.CreateBlip(new Vector3(437.5687f, -982.9395f, 30.69f));
             blip.Sprite = (BlipSprite) 60;
-            blip.Name = "San Andreas Police Departament";
+            blip.Name = "Los Santos Police Department";
             blip.IsShortRange = true;
             blip.Scale = 0.8f; //86
+            
+            blip = World.CreateBlip(new Vector3(-439.1755f, 6010.428f, 26.98567f));
+            blip.Sprite = (BlipSprite) 570;
+            blip.Color = (BlipColor) 71;
+            blip.Name = "Sheriff's Department";
+            blip.IsShortRange = true;
+            blip.Scale = 0.8f;
             
             blip = World.CreateBlip(new Vector3(-138.8656f, -634.0953f, 168.8204f));
             blip.Sprite = (BlipSprite) 535;

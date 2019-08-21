@@ -18,6 +18,10 @@ namespace Client.Managers
         //public static Vector3 CartelUnloadPos = new Vector3(253.535f, 375.433f, 104.5269f);
         //public static Vector3 StockCartelPos = new Vector3(245.6572f, 371.6031f, 104.7381f);
         public static Vector3 StockSapdPos = new Vector3(477.2227f, -984.3262f, 23.91476f);
+        public static Vector3 StockSheriffPos = new Vector3(-439.1755f, 6010.428f, 26.98567f);
+        
+        public static Vector3 ArcadiusUp = new Vector3(-145.3776f, -605.22f, 166.0067f);
+        public static Vector3 ArcadiusDown = new Vector3(-146.2469f, -604.0237f, 166.0001f);
         
         public static readonly Vector3 BankMazeLiftOfficePos = new Vector3(-77.77799f, -829.6542f, 242.3859f);
         public static readonly Vector3 BankMazeLiftStreetPos = new Vector3(-66.66476f, -802.0474f, 43.22729f);
@@ -77,7 +81,7 @@ namespace Client.Managers
         /*Keys*/
         public static readonly Vector3 GovKeyPos = new Vector3(-1366.483f, -480.0415f, 30.59574f);
         public static readonly Vector3 SapdKeyPos = new Vector3(458.65f, -1007.944f, 27.27073f);
-        public static readonly Vector3 SheriffKeyPos = new Vector3(-452.0805f, 6005.747f, 30.84093f);
+        public static readonly Vector3 SheriffKeyPos = new Vector3(-459.5084f, 6016.024f, 30.4901f);
         public static readonly Vector3 FibKeyPos = new Vector3(138.4407f, -702.3063f, 32.12376f);
         public static readonly Vector3 CartelKeyPos = new Vector3(1401.796f, 1114.37f, 113.8376f);
         public static readonly Vector3 TrashKeyPos = new Vector3(1569.828f, -2130.211f, 77.33018f);
@@ -101,8 +105,9 @@ namespace Client.Managers
         public static readonly Vector3 EmsFireGarderobPos = new Vector3(215.5956f, -1648.889f, 28.80321f);
         public static readonly Vector3 EmsDuty1Pos = new Vector3(305.501f, -598.3095f, 42.2928f);
         public static readonly Vector3 EmsDuty2Pos = new Vector3(265.9458f, -1364.34f, 23.53779f);
-        public static readonly Vector3 EmsTakeMedPos = new Vector3(343.9628f, -573.6544f, 42.2816f);
+        //public static readonly Vector3 EmsTakeMedPos = new Vector3(343.9628f, -573.6544f, 42.2816f);
         //public static readonly Vector3 EmsAptekaPos = new Vector3(260.5087f, -1358.359f, 23.53779f);
+        public static readonly Vector3 EmsHealPos = new Vector3(307.922f, -566.7927f, 42.30193f);
         
         public static readonly Vector3 EmsInPos = new Vector3(275.4971f, -1361.269f, 23.53781f);
         public static readonly Vector3 EmsOutPos = new Vector3(344.0675f, -1397.467f, 31.50924f);
@@ -190,6 +195,7 @@ namespace Client.Managers
 
         public static readonly Vector3 BuilderStartPos = new Vector3(-142.2255f, -936.2115f, 28.29189f);
         public static readonly Vector3 OceanStartPos = new Vector3(-1470.16f, -1394.12f, 1.6f);
+        public static readonly Vector3 JewelryStartPos = new Vector3(-623.37f, -236.85f, 37.06f);
         public static readonly Vector3 BuilderUpPos = new Vector3(-155.5601f, -945.4041f, 268.1353f);
         public static readonly Vector3 BuilderDownPos = new Vector3(-163.4722f, -942.6283f, 28.28476f);
         
@@ -305,14 +311,16 @@ namespace Client.Managers
             Checkpoint.Create(EmsFireGarderobPos, 1.4f, "show:menu");
             Marker.Create(EmsGarderobPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsGarderobPos, 1.4f, "show:menu");
-            Marker.Create(EmsTakeMedPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
-            Checkpoint.Create(EmsTakeMedPos, 1.4f, "show:menu");
+            //Marker.Create(EmsTakeMedPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            //Checkpoint.Create(EmsTakeMedPos, 1.4f, "show:menu");
             //Marker.Create(EmsAptekaPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             //Checkpoint.Create(EmsAptekaPos, 1.4f, "show:menu");
             Marker.Create(EmsDuty1Pos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsDuty1Pos, 1.4f, "show:menu");
             Marker.Create(EmsDuty2Pos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsDuty2Pos, 1.4f, "show:menu");
+            Marker.Create(EmsHealPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(EmsHealPos, 1.4f, "show:menu");
             
             //Apteka
             Marker.Create(AptekaPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -468,6 +476,9 @@ namespace Client.Managers
             
             Marker.Create(StockSapdPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(StockSapdPos, 1.4f, "show:menu");
+            
+            Marker.Create(StockSheriffPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(StockSheriffPos, 1.4f, "show:menu");
             
             Marker.Create(SapdClearPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SapdClearPos, 1.4f, "show:menu");
@@ -785,6 +796,16 @@ namespace Client.Managers
                     return;
                 }
                 User.Teleport(HackerSpaceInPos);
+            }
+            
+            //ArcadiusPrivate
+            if (Main.GetDistanceToSquared(ArcadiusDown, playerPos) < DistanceCheck)
+            {
+                User.Teleport(ArcadiusUp);
+            }
+            if (Main.GetDistanceToSquared(ArcadiusUp, playerPos) < DistanceCheck)
+            {
+                User.Teleport(ArcadiusUp);
             }
             
             /*EMS*/
@@ -1119,8 +1140,8 @@ namespace Client.Managers
                         MenuList.ShowEmsFIreGarderobMenu();
                     if (Main.GetDistanceToSquared(EmsGarderobPos, playerPos) < DistanceCheck)
                         MenuList.ShowEmsGarderobMenu();
-                    if (Main.GetDistanceToSquared(EmsTakeMedPos, playerPos) < DistanceCheck)
-                        MenuList.ShowEmsArsenalMenu();
+                    //if (Main.GetDistanceToSquared(EmsTakeMedPos, playerPos) < DistanceCheck)
+                    //    MenuList.ShowEmsArsenalMenu();
                 }
             }
                 
@@ -1149,6 +1170,9 @@ namespace Client.Managers
                 
             if (Main.GetDistanceToSquared(Apteka3Pos, playerPos) < DistanceCheck)
                 MenuList.ShowAptekaMenu(158);
+            
+            if (Main.GetDistanceToSquared(EmsHealPos, playerPos) < DistanceCheck)
+                MenuList.ShowHealMenu();
             
             /*SAPD*/
             if (User.IsSapd())

@@ -1530,9 +1530,12 @@ namespace Client.Managers
                 }
                 case 215:
                 {
-                    Chat.SendMeCommand("использовал аптечку");
-                    SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 40);
-                    DeleteItemServer(id);
+                    Chat.SendMeCommand("использует аптечку"); 
+                    // SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 40);
+                    if (GetEntityHealth(GetPlayerPed(-1)) <= 160)
+                        SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 40);
+                    else
+                        SetEntityHealth(GetPlayerPed(-1), 200); 
                     break;
                 }
                 case 221:

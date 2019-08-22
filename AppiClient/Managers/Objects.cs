@@ -3082,6 +3082,19 @@ namespace Client.Managers
 		        
 	        if (Main.ServerName == "MilkyWay" || Main.ServerName == "Venus") {
 		        
+		        //MW_House356
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-124.4855f, 905.0458f, 235.7119f), -124.0099f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-123.0971f, 896.2321f, 235.7343f), -45.14265f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-162.1921f, 920.0997f, 235.6557f), -38.18807f, false, "WORLD_HUMAN_SMOKING");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-148.3973f, 879.9197f, 239.0254f), -158.9992f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-136.538f, 856.7523f, 232.2315f), 59.99987f, false, "WORLD_HUMAN_SMOKING");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-169.1143f, 827.9405f, 204.2364f), 92.99978f, false, "WORLD_HUMAN_STAND_IMPATIENT");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-170.8424f, 825.4385f, 204.0847f), 31.99997f, false, "WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-162.8118f, 820.9022f, 207.8563f), -164.9993f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-175.836f, 890.5402f, 233.4651f), 140.9996f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-170.809f, 927.7059f, 235.6557f), 47.99975f, false, "WORLD_HUMAN_COP_IDLES");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-182.7127f, 915.5424f, 233.4599f), 93.99957f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+
 		        // MW_Benny
                 CreateObject(168901740, new Vector3(-204.23f, -1311.479f, 37.12f), new Vector3(0f, 0f, -13.99984f), false, false);
                 CreateObject(168901740, new Vector3(-216.1794f, -1342.8f, 37.12f), new Vector3(0f, 0f, 131.0004f), false, false);
@@ -5977,6 +5990,10 @@ namespace Client.Managers
 
 	        if (Main.ServerName == "Andromeda" || Main.ServerName == "Venus")
 	        { 
+		        //A_House389
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-1046.126f, 739.7877f, 166.7243f), -7.99998f, false, "WORLD_HUMAN_GUARD_STAND");
+
+
 		        //A_House240
 		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1460.468f, 65.2618f, 52.87849f), 150.5861f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1610.624f, 85.72976f, 61.63162f), 112.9996f, false, "WORLD_HUMAN_GUARD_STAND");
@@ -5991,12 +6008,12 @@ namespace Client.Managers
 
 
 		        //A_ArcadiusMotors
-		        await Managers.Ped.CreatePed("a_c_cat_01", new Vector3(-146.1052f, -610.0793f, 166.6992f), 39.77491f, false, "");
-		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-140.4197f, -594.5333f, 167.0001f), 33.99995f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("a_c_cat_01", new Vector3(-144.3803f, -608.6167f, 166.6643f), 40.66037f, false, "");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-140.375f, -594.2966f, 167.0001f), 33.99995f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-142.8308f, -586.7182f, 167.0001f), -169.0001f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
 		        await Managers.Ped.CreatePed("s_m_y_xmech_01", new Vector3(-155.4695f, -588.3683f, 167.0001f), 62.99981f, false, "WORLD_HUMAN_STAND_IMPATIENT");
 		        await Managers.Ped.CreatePed("s_m_y_xmech_02", new Vector3(-149.8778f, -605.6003f, 167.0001f), -47.99994f, false, "WORLD_HUMAN_JANITOR");
-		        await Managers.Ped.CreatePed("mp_m_waremech_01", new Vector3(-141.8932f, -606.0696f, 167.6001f), -4.999965f, false, "CODE_HUMAN_MEDIC_TIME_OF_DEATH");
+		        await Managers.Ped.CreatePed("mp_f_execpa_01", new Vector3(-141.8932f, -606.0696f, 167.6001f), -4.999965f, false, "CODE_HUMAN_MEDIC_TIME_OF_DEATH");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-148.3344f, -580.1176f, 32.59664f), 166.1996f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-143.2493f, -581.9644f, 32.59664f), 165.9994f, false, "WORLD_HUMAN_GUARD_STAND");
 

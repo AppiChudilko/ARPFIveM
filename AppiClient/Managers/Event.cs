@@ -33,6 +33,7 @@ namespace Client.Managers
             EventHandlers.Add("ARP:EjectCar", new Action(User.EjectCar));
             EventHandlers.Add("ARP:TakeAllGuns", new Action<int>(User.TakeAllGuns));
             EventHandlers.Add("ARP:UseAdrenalin", new Action(User.UseAdrenalin));
+            EventHandlers.Add("ARP:EmsHeal", new Action(User.EmsHeal));
             EventHandlers.Add("ARP:HospPlayer", new Action(HospPlayer));
             EventHandlers.Add("ARP:SellVehicleToUserShowMenu", new Action<int, int, string, string, int>(MenuList.ShowSellVehicleToUserMenu));
             EventHandlers.Add("ARP:SellBusinessToUserShowMenu", new Action<int, int, string, int>(MenuList.SellBusinessToUserShowMenu));

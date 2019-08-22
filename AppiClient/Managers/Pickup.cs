@@ -805,7 +805,7 @@ namespace Client.Managers
             }
             if (Main.GetDistanceToSquared(ArcadiusUp, playerPos) < DistanceCheck)
             {
-                User.Teleport(ArcadiusUp);
+                User.Teleport(ArcadiusDown);
             }
             
             /*EMS*/

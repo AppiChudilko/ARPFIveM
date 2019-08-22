@@ -5291,6 +5291,7 @@ namespace Client
                     {
                         HideMenu();
                         Main.FindNearestVehicle().Delete();
+                        Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
@@ -5451,6 +5452,7 @@ namespace Client
                     {
                         HideMenu();
                         Main.FindNearestVehicle().Delete();
+                        Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
@@ -5572,6 +5574,7 @@ namespace Client
                     {
                         HideMenu();
                         Main.FindNearestVehicle().Delete();
+                        Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший труп").Activated += (uimenu, item) =>

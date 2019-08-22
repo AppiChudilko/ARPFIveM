@@ -1535,7 +1535,8 @@ namespace Client.Managers
                     if (GetEntityHealth(GetPlayerPed(-1)) <= 160)
                         SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 40);
                     else
-                        SetEntityHealth(GetPlayerPed(-1), 200); 
+                        SetEntityHealth(GetPlayerPed(-1), 200);
+                    DeleteItemServer(id);
                     break;
                 }
                 case 221:

@@ -195,6 +195,8 @@ namespace Client.Managers
 
         public static readonly Vector3 BuilderStartPos = new Vector3(-142.2255f, -936.2115f, 28.29189f);
         public static readonly Vector3 OceanStartPos = new Vector3(-1470.16f, -1394.12f, 1.6f);
+        public static readonly Vector3 JailCareerJobEndPos = new Vector3(2945.142f, 2746.357f, 42.34696f);
+        public static readonly Vector3 JailJobStartPos = new Vector3(1774.745f, 2552.335f, 44.56499f);
         public static readonly Vector3 JewelryStartPos = new Vector3(-623.37f, -236.85f, 37.06f);
         public static readonly Vector3 BuilderUpPos = new Vector3(-155.5601f, -945.4041f, 268.1353f);
         public static readonly Vector3 BuilderDownPos = new Vector3(-163.4722f, -942.6283f, 28.28476f);
@@ -646,6 +648,12 @@ namespace Client.Managers
             Marker.Create(OceanStartPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(OceanStartPos, 1.4f, "show:menu");
             
+            //Jail Job Career
+            Marker.Create(JailCareerJobEndPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(JailCareerJobEndPos, 1.4f, "show:menu");
+            Marker.Create(JailJobStartPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(JailJobStartPos, 1.4f, "show:menu");
+
             //Houses
             Marker.Create(CondoPaletoTeleportPos1, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
             Checkpoint.Create(CondoPaletoTeleportPos1, 1.4f, "pickup:teleport");
@@ -1087,6 +1095,12 @@ namespace Client.Managers
             /*Ocean Cleaner*/
             if (Main.GetDistanceToSquared(OceanStartPos, playerPos) < DistanceCheck)
                 MenuList.ShowJobOceanMenu();
+            
+            /*Jail Job*/
+            if (Main.GetDistanceToSquared(JailJobStartPos, playerPos) < DistanceCheck)
+                MenuList.ShowJobJailTeleportMenu();
+            if (Main.GetDistanceToSquared(JailCareerJobEndPos, playerPos) < DistanceCheck)
+                MenuList.ShowJobJailMenu();
 
             /*Cleaner*/
             if (Main.GetDistanceToSquared(CleanerStartPos, playerPos) < DistanceCheck)

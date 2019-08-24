@@ -9,6 +9,7 @@ namespace Client.Managers
     public class Jail : BaseScript
     {
         public static readonly Vector3 JailCenter = new Vector3(1707.69f, 2546.69f, 45.56f);
+        public static readonly Vector3 CareerPos = new Vector3(2951.45f, 2791.428f, 40.08484f);
         public static readonly Vector3 JailCop = new Vector3(1707.69f, 2546.69f, 45.56f);
         //public static readonly Vector3 JailCop = new Vector3(460.464f, -994.4287f, 24.91487f);
         public static readonly Vector3 JailFree = new Vector3(1849.444f, 2601.747f, 45.60717f);
@@ -42,7 +43,7 @@ namespace Client.Managers
                             "Emergency")
                         {
                             var coords = GetEntityCoords(GetPlayerPed(-1), true);
-                            if (Main.GetDistanceToSquared(coords, JailCenter) > 200f)
+                            if (Main.GetDistanceToSquared(coords, JailCenter) > 200f && Main.GetDistanceToSquared(coords, CareerPos) > 100f)
                             {
                                 Warrning++;
 
@@ -100,6 +101,7 @@ namespace Client.Managers
             Notification.SendWithTime("~g~Вы отплатили свой долг. Теперь вы свободны.");
             User.Teleport(Client.Sync.Data.HasLocally(User.GetServerId(), "jailedCop") ? JailCopFree : JailFree);
             Characher.UpdateCloth();
+            Jobs.JailJob.TakeMoneyJail();
         }
 
         public static async void JailPlayerScene(int sec)

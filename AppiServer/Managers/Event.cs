@@ -99,6 +99,8 @@ namespace Server.Managers
             EventHandlers.Add("ARP:OpenApartamentListMenu", new Action<Player, int, int>(OpenApartamentListMenu));
             EventHandlers.Add("ARP:SaveBusiness", new Action<int>(Save.Business));
             
+            EventHandlers.Add("ARP:UnDuty", new Action<Player>(UnDuty));
+            
             EventHandlers.Add("ARP:ChangeNumberPhone", new Action<Player, int, int>(ChangeNumberPhone));
             EventHandlers.Add("ARP:ChangeNumberCard", new Action<Player, int, int>(ChangeNumberCard));
             EventHandlers.Add("ARP:TransferMoneyBank", new Action<Player, int, int, int>(TransferMoneyBank));
@@ -108,6 +110,7 @@ namespace Server.Managers
             EventHandlers.Add("ARP:GivePlayerRank2", new Action<Player, string, int>(GivePlayerRank2));
             EventHandlers.Add("ARP:Uninvite", new Action<Player, string>(Uninvite));
             EventHandlers.Add("ARP:Uninvite2", new Action<Player, string>(Uninvite2));
+            
             EventHandlers.Add("ARP:ResetLoto", new Action(Sync.ResetLoto));
             EventHandlers.Add("ARP:WinLotoLoto", new Action<string>(Sync.WinLotoLoto));
             
@@ -297,6 +300,17 @@ namespace Server.Managers
             User.SendPlayerSubTitle(player, $"~g~Вы выдали ранг {name} - {rank}");
         }
 
+        protected static void UnDuty([FromSource] Player player)
+        {
+            foreach (var pl in new PlayerList())
+            {
+                if (!User.IsLogin(User.GetServerId(pl))) continue;
+                Server.Sync.Data.Set(User.GetServerId(pl), "duty", 0);
+                TriggerClientEvent("ARP:UpdateAllData");
+                return;
+            }
+        }
+        
         protected static void Uninvite([FromSource] Player player, string name)
         {
             Main.SaveLog("fractionLog", $"[UNINVITE] {Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} ({Server.Sync.Data.Get(User.GetServerId(player), "fraction_id")}) - {name}");

@@ -3253,6 +3253,66 @@ namespace Client
             
         }*/
 
+        public static void ShowJobJailMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Охранник", "~b~Выберите пункт меню");
+
+            menu.AddMenuItem(UiMenu, "~g~Начать/~r~Закончить~s~ работу").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Jobs.JailJob.StartOrEndJailJob();
+            };
+
+            menu.AddMenuItem(UiMenu, "Забрать деньги").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Jobs.JailJob.TakeMoneyJail();
+            };
+
+            menu.AddMenuItem(UiMenu, "~g~Вернуться во двор тюрьмы").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                //Jobs.JailJob.JailTeleport();
+            };
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+
+        public static void ShowJobJailTeleportMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Тюремщик", "~b~Выберите пункт меню");
+
+            menu.AddMenuItem(UiMenu, "~g~Отправиться в карьер на работу").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Jobs.JailJob.JailJobTeleportFromJail();
+            };
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
         public static void ShowJobRoadWorkerMenu()
         {
             HideMenu();
@@ -8955,16 +9015,16 @@ namespace Client
         public static void ShowPlayerDoMenu()
         {
             HideMenu();
-            
+
             var menu = new Menu();
             UiMenu = menu.Create("Действия", "~b~Меню ваших действий");
-            
+
             menu.AddMenuItem(UiMenu, "Передать деньги").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 ShowPlayerGiveMoneyMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
             };
-            
+
             menu.AddMenuItem(UiMenu, "Вырубить").Activated += async (uimenu, item) =>
             {
                 HideMenu();
@@ -8986,21 +9046,23 @@ namespace Client
                 var rand = new Random();
                 if (rand.Next(3) >= 1)
                 {
-                    Main.SaveLog("GangBang", $"[KNOCK] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
+                    Main.SaveLog("GangBang",
+                        $"[KNOCK] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
                     Shared.TriggerEventToPlayer(player.ServerId, "ARP:Knockout");
                     Chat.SendMeCommand("замахнулся кулаком и ударил человека напротив");
                 }
                 else
                 {
-                    Main.SaveLog("GangBang", $"[FAIL_KNOCK] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
+                    Main.SaveLog("GangBang",
+                        $"[FAIL_KNOCK] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
                     Chat.SendMeCommand("замахнулся кулаком и промахнулся");
                 }
-                
+
                 Sync.Data.SetLocally(User.GetServerId(), "isKnockoutTimeout", true);
                 await Delay(60000);
                 Sync.Data.ResetLocally(User.GetServerId(), "isKnockoutTimeout");
             };
-            
+
             menu.AddMenuItem(UiMenu, "Снять наручники").Activated += async (uimenu, item) =>
             {
                 HideMenu();
@@ -9018,9 +9080,10 @@ namespace Client
                     Managers.Inventory.AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
                     return;
                 }
+
                 Notification.SendWithTime("~y~Человек не в наручниках");
             };
-            
+
             menu.AddMenuItem(UiMenu, "Развязать человека").Activated += async (uimenu, item) =>
             {
                 HideMenu();
@@ -9039,6 +9102,7 @@ namespace Client
                     Managers.Inventory.AddItemServer(0, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
                     return;
                 }
+
                 Notification.SendWithTime("~y~Человек не связан");
             };
 
@@ -9051,6 +9115,7 @@ namespace Client
                     Notification.SendWithTime("~r~Рядом с вами никого нет");
                     return;
                 }
+
                 if (await Client.Sync.Data.Has(player.ServerId, "isTieBandage"))
                 {
                     Shared.TriggerEventToPlayer(player.ServerId, "ARP:UnTieBandage");
@@ -9059,6 +9124,7 @@ namespace Client
                     Managers.Inventory.AddItemServer(1, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
                     return;
                 }
+
                 Notification.SendWithTime("~y~На игроке нет мешка");
             };
 
@@ -9071,8 +9137,8 @@ namespace Client
                     Notification.SendWithTime("~r~Рядом с вами никого нет");
                     return;
                 }
-                
-                if (!await Sync.Data.Has(player.ServerId, "isTie") && !await Sync.Data.Has(player.ServerId, "isCuff") )
+
+                if (!await Sync.Data.Has(player.ServerId, "isTie") && !await Sync.Data.Has(player.ServerId, "isCuff"))
                 {
                     Notification.SendWithTime("~r~Игрок должен быть связан или в наручниках");
                     return;
@@ -9080,9 +9146,37 @@ namespace Client
                 
                 Shared.TriggerEventToPlayer(player.ServerId, "ARP:Incar");
             };
-            
+
             menu.AddMenuItem(UiMenu, "Обыск игрока").Activated += async (uimenu, item) =>
             {
+                var pPos = GetEntityCoords(GetPlayerPed(-1), true);
+                var player = Main.GetPlayerOnRadius(pPos, 1f);
+                if (player == null)
+                {
+                    Notification.SendWithTime("~r~Рядом с вами никого нет");
+                    return;
+                }
+
+                if (!await Sync.Data.Has(player.ServerId, "isTie") && !await Sync.Data.Has(player.ServerId, "isCuff"))
+                {
+                    Notification.SendWithTime("~r~Игрок должен быть связан или в наручниках");
+                    return;
+                }
+
+                Main.SaveLog("GangBang",
+                    $"[FIND] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
+
+                User.PlayScenario("CODE_HUMAN_MEDIC_KNEEL");
+                await Delay(5000);
+
+                Managers.Inventory.GetItemList((int) await Sync.Data.Get(player.ServerId, "id"), InventoryTypes.Player);
+
+                User.StopScenario();
+            };
+
+            menu.AddMenuItem(UiMenu, "Снять спец. экипировку").Activated += async (uimenu, item) =>
+            {
+                
                 var pPos = GetEntityCoords(GetPlayerPed(-1), true);
                 var player = Main.GetPlayerOnRadius(pPos, 1f);
                 if (player == null)
@@ -9096,17 +9190,15 @@ namespace Client
                     Notification.SendWithTime("~r~Игрок должен быть связан или в наручниках");
                     return;
                 }
-                
-                Main.SaveLog("GangBang", $"[FIND] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
-                        
-                User.PlayScenario("CODE_HUMAN_MEDIC_KNEEL");
-                await Delay(5000);
-                        
-                Managers.Inventory.GetItemList((int) await Sync.Data.Get(player.ServerId, "id"), InventoryTypes.Player);
-                        
-                User.StopScenario();
+                //Main.SaveLog("UnDuty", $"[FIND] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
+                TriggerServerEvent("ARP:UnDuty");
+                Shared.TriggerEventToPlayer(player.ServerId, "ARP:UnDuty");
+                Notification.SendWithTime("~r~Вы отобрали у человека рацию");
+                Chat.SendMeCommand("Обыскивает человека");
+                await Delay(2000);
+                Chat.SendMeCommand("Отобрал рацию");
             };
-
+            
             menu.AddMenuItem(UiMenu, "Изъять оружие").Activated += async (uimenu, item) =>
             {
                 HideMenu();
@@ -9124,6 +9216,7 @@ namespace Client
                 }
                 
                 Shared.TriggerEventToPlayer(player.ServerId, "ARP:TakeAllGuns", User.Data.id);
+                
                 Chat.SendMeCommand("обыскал человека напротив и изъял оружие");
             };
             

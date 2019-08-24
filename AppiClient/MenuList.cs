@@ -3576,15 +3576,16 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
-                    if (User.PlayerIdList[p.ServerId.ToString()] == id)
-                    {
-                        HideMenu();
-                        var reason = await Menu.GetUserInput("Причина", null, 32);
-                        if (reason == "NULL") return;
-                        TriggerServerEvent("ARP:KickPlayerServerId", p.ServerId, reason);
-                        Notification.SendWithTime($"~y~Вы кикнули игрока {User.PlayerIdList[p.ServerId.ToString()]}");
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                        menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
+                        {
+                            HideMenu();
+                            var reason = await Menu.GetUserInput("Причина", null, 32);
+                            if (reason == "NULL") return;
+                            TriggerServerEvent("ARP:KickPlayerServerId", p.ServerId, reason);
+                            Notification.SendWithTime($"~y~Вы кикнули игрока");
+                        };
+                        continue;
                     }
                 }
             };
@@ -3662,15 +3663,16 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
-                    if (User.PlayerIdList[p.ServerId.ToString()] == id)
-                    {
-                        HideMenu();
-                        var reason = await Menu.GetUserInput("Причина", null, 32);
-                        if (reason == "NULL") return;
-                        TriggerServerEvent("ARP:BanPlayerServerId", p.ServerId, idx, reason);
-                        Notification.SendWithTime($"~y~Вы забанили игрока {User.PlayerIdList[p.ServerId.ToString()]}");
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                        menu.AddMenuItemList(UiMenu, $"~b~ID: ~s~Не авторизован", list).OnListSelected += async (uimenu, idx) =>
+                        {
+                            HideMenu();
+                            var reason = await Menu.GetUserInput("Причина", null, 32);
+                            if (reason == "NULL") return;
+                            TriggerServerEvent("ARP:BanPlayerServerId", p.ServerId, idx, reason);
+                            Notification.SendWithTime($"~y~Вы забанили игрока");
+                        };
+                        continue;
                     }
                 }
             };
@@ -3745,16 +3747,16 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
-                    if (User.PlayerIdList[p.ServerId.ToString()] == id)
-                    {
-                        HideMenu();
-                        var reason = await Menu.GetUserInput("Причина", null, 32);
-                        if (reason == "NULL") return;
-                        TriggerServerEvent("ARP:BlackListPlayerServerId", p.ServerId, reason);
-                        Notification.SendWithTime(
-                            $"~y~Вы занесли в черный список игрока {User.PlayerIdList[p.ServerId.ToString()]}");
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                        menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
+                        {
+                            HideMenu();
+                            var reason = await Menu.GetUserInput("Причина", null, 32);
+                            if (reason == "NULL") return;
+                            TriggerServerEvent("ARP:BlackListPlayerServerId", p.ServerId, reason);
+                            Notification.SendWithTime($"~y~Вы занесли в черный список игрока");
+                        };
+                        continue;
                     }
                 }
             };

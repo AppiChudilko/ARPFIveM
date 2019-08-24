@@ -2127,10 +2127,6 @@ namespace Client
         
         public static void UseDef()
         {
-            /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
-            if (ped.IsAlive)
-                return;*/
-            
             var pos = GetEntityCoords(GetPlayerPed(-1), true);
             PlayScenario("forcestop");
             NetworkSetTalkerProximity(5f);
@@ -2144,10 +2140,6 @@ namespace Client
         }
         public static void EmsHeal()
         {
-            /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
-            if (ped.IsAlive)
-                return;*/
-            
             var pos = GetEntityCoords(GetPlayerPed(-1), true);
             PlayScenario("forcestop");
             NetworkSetTalkerProximity(5f);

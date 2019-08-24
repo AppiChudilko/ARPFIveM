@@ -2235,6 +2235,13 @@ namespace Client
             new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(veh, VehicleSeat.Any);
         }
         
+        public static void UnDuty()
+        {
+            //UI.HideLoadDisplay();
+            Sync.Data.Reset(GetServerId(), "duty");
+            Sync.Data.ResetLocally(GetServerId(), "duty");
+        }
+        
         public static void PlayScenario(string scenarioName)
         {
             if (IsBlockAnimation) return;

@@ -28,6 +28,7 @@ namespace Client.Managers
             EventHandlers.Add("ARP:TieBandage", new Action(User.TieBandage));
             EventHandlers.Add("ARP:UnTieBandage", new Action(User.UnTieBandage));
             EventHandlers.Add("ARP:Incar", new Action(User.Incar));
+            EventHandlers.Add("ARP:UnDuty", new Action(User.UnDuty));
             EventHandlers.Add("ARP:UpdateAllData", new Action(User.GetAllDataEvent));
             EventHandlers.Add("ARP:SellPlayer", new Action(User.SellPlayer));
             EventHandlers.Add("ARP:EjectCar", new Action(User.EjectCar));

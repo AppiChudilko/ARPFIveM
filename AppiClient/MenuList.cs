@@ -3576,7 +3576,8 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue; // это нада удолить когда пофиксу внизу то шо
+                    /* if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
                         menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
                         {
                             HideMenu();
@@ -3586,7 +3587,7 @@ namespace Client
                             Notification.SendWithTime($"~y~Вы кикнули игрока");
                         };
                         continue;
-                    }
+                    }*/
                 }
             };
             
@@ -3663,7 +3664,8 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue; // это нада удолить когда пофиксу внизу то шо
+                        /*if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
                         menu.AddMenuItemList(UiMenu, $"~b~ID: ~s~Не авторизован", list).OnListSelected += async (uimenu, idx) =>
                         {
                             HideMenu();
@@ -3673,7 +3675,7 @@ namespace Client
                             Notification.SendWithTime($"~y~Вы забанили игрока");
                         };
                         continue;
-                    }
+                    }*/
                 }
             };
             
@@ -3747,7 +3749,9 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue; // это нада удолить когда пофиксу внизу то шо
+                    /* (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) 
+                    {
                         menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
                         {
                             HideMenu();
@@ -3757,7 +3761,7 @@ namespace Client
                             Notification.SendWithTime($"~y~Вы занесли в черный список игрока");
                         };
                         continue;
-                    }
+                    }*/
                 }
             };
             
@@ -18376,7 +18380,7 @@ namespace Client
             {
                 if ((Game.IsControlJustPressed(0, (Control) 244) || Game.IsDisabledControlJustPressed(0, (Control) 244)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //M
                     ShowMainMenu();
-                if ((Game.IsControlJustPressed(0, (Control) 246) || Game.IsDisabledControlJustPressed(0, (Control) 303))) //U
+                if ((Game.IsControlJustPressed(0, (Control) 246) || Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //Y
                 {
                     var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
                     if (msg == "NULL") return;
@@ -18386,7 +18390,7 @@ namespace Client
                     Notification.SendWithTime("~g~Вопрос отправлен");
                     Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
                 }
-                if ((Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303))) //U
+                if ((Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //U
                 {
                     var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
                     if (msg == "NULL") return;

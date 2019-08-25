@@ -5607,7 +5607,7 @@ namespace Client
                             var title = await Menu.GetUserInput("Заголовок", null, 15);
                             var text = await Menu.GetUserInput("Текст...", null, 50);
                             if (text == "NULL") return;
-                            Notification.SendPictureToAll(text, "Новости SAPD", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
+                            Notification.SendPictureToAll(text, "Новости Sheriff's Dept.", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
                         };
                         
                         menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>

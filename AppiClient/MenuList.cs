@@ -984,7 +984,15 @@ namespace Client
         public static void ShowVehicleSpeedLimitMenu(CitizenFX.Core.Vehicle veh)
         {
             HideMenu();
-            
+            if (VehInfo.GetClassName(veh.Model.Hash) != "Helicopters" &&
+                VehInfo.GetClassName(veh.Model.Hash) != "Planes" &&
+                VehInfo.GetClassName(veh.Model.Hash) != "Cycles" &&
+                VehInfo.GetClassName(veh.Model.Hash) != "Motorcycles"
+            )
+            {
+                Notification.SendWithTime("~r~Ограничитель недоступен на даном ТС");
+                return;
+            }
             var menu = new Menu();
             UiMenu = menu.Create("Транспорт", "~b~Ограничитель скорости");
             

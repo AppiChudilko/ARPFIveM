@@ -5518,7 +5518,7 @@ namespace Client
                         HideMenu();
                         var text = await Menu.GetUserInput("Текст...", null, 50);
                         if (text == "NULL") return;
-                        Notification.SendPictureToFraction(text, $"SAPD [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox, 2);
+                        Notification.SendPictureToFraction(text, $"Sheriff's Dept. [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox, 7);
                         Chat.SendMeCommand("отправляет сообщение по служебному телефону");
                     };
                     
@@ -5615,7 +5615,7 @@ namespace Client
                             var title = await Menu.GetUserInput("Заголовок", null, 15);
                             var text = await Menu.GetUserInput("Текст...", null, 50);
                             if (text == "NULL") return;
-                            Notification.SendPictureToAll(text, "Новости SAPD", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
+                            Notification.SendPictureToAll(text, "Новости Sheriff's Dept.", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
                         };
                         
                         menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>

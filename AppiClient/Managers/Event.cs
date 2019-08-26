@@ -645,7 +645,7 @@ namespace Client.Managers
                         var killerPos = GetEntityCoords(GetPlayerPed(killerId), true);
                         TriggerEvent("ARP:OnPlayerKiller", killerType, killerId, KillerWeapon, killerVehicleName, pos.X, pos.Y, pos.Z, killerPos.X, killerPos.Y, killerPos.Z);
 
-                        if (User.IsSapd() || User.IsEms() || User.IsGov() && User.Data.rank > 5)
+                        if (User.IsSapd() || User.IsSheriff() || User.IsEms() || User.IsGov() && User.Data.rank > 5)
                         {
                             Client.Sync.Data.Set(killerId, "wanted_level", 10);
                             Client.Sync.Data.Set(killerId, "wanted_reason", "Убийство сотрудника при исполнении");

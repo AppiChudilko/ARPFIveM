@@ -115,6 +115,7 @@ namespace Client.Managers
             Notification.SendPictureToFraction(desc, "Диспетчер", title, "CHAR_CALL911", Notification.TypeChatbox, 2);
             Notification.SendPictureToFraction(desc, "Диспетчер", title, "CHAR_CALL911", Notification.TypeChatbox, 3);
             Notification.SendPictureToFraction(desc, "Диспетчер", title, "CHAR_CALL911", Notification.TypeChatbox, 16);
+            Notification.SendPictureToFraction(desc, "Диспетчер", title, "CHAR_CALL911", Notification.TypeChatbox, 7);
 
             if (desc2 != "")
             {
@@ -122,6 +123,7 @@ namespace Client.Managers
                 Notification.SendToFraction(desc2, 2);
                 Notification.SendToFraction(desc2, 3);
                 Notification.SendToFraction(desc2, 16);
+                Notification.SendToFraction(desc2, 7);
             }
             
             if (desc3 != "")
@@ -130,6 +132,7 @@ namespace Client.Managers
                 Notification.SendToFraction(desc3, 2);
                 Notification.SendToFraction(desc3, 3);
                 Notification.SendToFraction(desc3, 16);
+                Notification.SendToFraction(desc3, 7);
             }
         }
     }

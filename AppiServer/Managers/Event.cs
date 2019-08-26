@@ -100,6 +100,7 @@ namespace Server.Managers
             EventHandlers.Add("ARP:SaveBusiness", new Action<int>(Save.Business));
             
             EventHandlers.Add("ARP:UnDuty", new Action<Player>(UnDuty));
+            //EventHandlers.Add("ARP:PartnerCheck", Action<Players>(PartnerCheck));
             
             EventHandlers.Add("ARP:ChangeNumberPhone", new Action<Player, int, int>(ChangeNumberPhone));
             EventHandlers.Add("ARP:ChangeNumberCard", new Action<Player, int, int>(ChangeNumberCard));
@@ -1587,8 +1588,18 @@ namespace Server.Managers
                 DropPlayer(player.Handle, "Ban: " + Main.UnixTimeStampToDateTime(tryLogin) + " (msk)");
                 return;
             }
-            
-            User.LoadAccount(player, name);
+
+            try
+            {
+                User.LoadAccount(player, name);
+            }
+            catch (Exception e)
+            {
+                string guid = GetPlayerGuid(player.Handle);
+                string license = player.Identifiers["license"];
+                Main.SaveLog("ExceptionAuth", $"[{player.EndPoint}] [{license}] [{guid}] {name}");
+            }
+
         }
         
         private static async Task DataBaseSync()

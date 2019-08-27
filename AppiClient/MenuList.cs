@@ -18481,7 +18481,7 @@ namespace Client
             {
                 if ((Game.IsControlJustPressed(0, (Control) 244) || Game.IsDisabledControlJustPressed(0, (Control) 244)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //M
                     ShowMainMenu();
-                if ((Game.IsControlJustPressed(0, (Control) 246) || Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //Y
+                if ((Game.IsControlJustPressed(0, (Control) 246) && Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //Y
                 {
                     var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
                     if (msg == "NULL") return;
@@ -18491,7 +18491,7 @@ namespace Client
                     Notification.SendWithTime("~g~Вопрос отправлен");
                     Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
                 }
-                if ((Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //U
+                if ((Game.IsControlJustPressed(0, (Control) 246) && Game.IsDisabledControlJustPressed(0, (Control) 246)) && User.IsDead()) //U
                 {
                     var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
                     if (msg == "NULL") return;
@@ -18501,6 +18501,49 @@ namespace Client
                     Notification.SendWithTime("~g~Жалоба отправлена");
                     Notification.SendWithTime("~g~Если администрация в сети, она её рассмотрит");
                 }
+                
+                if (Game.IsControlJustPressed(0, (Control) 246) && Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //Y
+                {
+                    var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendAskMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Вопрос отправлен");
+                    Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
+                }
+                if (Game.IsControlJustPressed(0, (Control) 303) && Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //U
+                {
+                    var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendReportMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Жалоба отправлена");
+                    Notification.SendWithTime("~g~Если администрация в сети, она её рассмотрит");
+                }
+                
+                if (Game.IsControlJustPressed(0, (Control) 246) && Sync.Data.HasLocally(User.GetServerId(), "isTie")) //Y
+                {
+                    var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendAskMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Вопрос отправлен");
+                    Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
+                }
+                if (Game.IsControlJustPressed(0, (Control) 303) && Sync.Data.HasLocally(User.GetServerId(), "isTie")) //U
+                {
+                    var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendReportMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Жалоба отправлена");
+                    Notification.SendWithTime("~g~Если администрация в сети, она её рассмотрит");
+                }
+
                     
                 if ((Game.IsControlJustPressed(0, (Control) 157) || Game.IsDisabledControlJustPressed(0, (Control) 157)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //1
                     ShowPlayerMenu();

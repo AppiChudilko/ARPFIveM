@@ -990,48 +990,47 @@ namespace Client
                 VehInfo.GetClassName(veh.Model.Hash) != "Motorcycles"
             )
             {
-                Notification.SendWithTime("~r~Ограничитель недоступен на даном ТС");
-                return;
-            }
-            var menu = new Menu();
-            UiMenu = menu.Create("Транспорт", "~b~Ограничитель скорости");
-            
-            menu.AddMenuItem(UiMenu, "~g~Вкл~s~ / ~r~выкл~s~ ограничитель скорости").Activated += (sender, item) =>
-            {
-                if (!Client.Sync.Data.HasLocally(User.GetServerId(), "speedlimit"))
+                var menu = new Menu();
+                UiMenu = menu.Create("Транспорт", "~b~Ограничитель скорости");
+
+                menu.AddMenuItem(UiMenu, "~g~Вкл~s~ / ~r~выкл~s~ ограничитель скорости").Activated += (sender, item) =>
                 {
-                    veh.MaxSpeed = Managers.Vehicle.MaxSpeed;
-                    Client.Sync.Data.SetLocally(User.GetServerId(), "speedlimit", true);
-                    Notification.SendWithTime("~g~Ограничитель скорости активирован");
-                }
-                else
+                    if (!Client.Sync.Data.HasLocally(User.GetServerId(), "speedlimit"))
+                    {
+                        veh.MaxSpeed = Managers.Vehicle.MaxSpeed;
+                        Client.Sync.Data.SetLocally(User.GetServerId(), "speedlimit", true);
+                        Notification.SendWithTime("~g~Ограничитель скорости активирован");
+                    }
+                    else
+                    {
+                        veh.MaxSpeed = GetVehicleHandlingFloat(veh.Handle, "CHandlingData", "fInitialDriveMaxFlatVel");
+                        Client.Sync.Data.ResetLocally(User.GetServerId(), "speedlimit");
+                        Notification.SendWithTime("~g~Ограничитель скорости деактивирован");
+                    }
+                };
+
+                var list = new List<dynamic> {"5", "10", "20", "30", "40", "50", "60", "70", "80", "100"};
+
+                menu.AddMenuItemList(UiMenu, "Допустимая скорость", list, "Нажмите ~g~Enter~s~ чтобы применить")
+                    .OnListSelected += (sender, idx) =>
                 {
-                    veh.MaxSpeed = GetVehicleHandlingFloat(veh.Handle, "CHandlingData", "fInitialDriveMaxFlatVel");
-                    Client.Sync.Data.ResetLocally(User.GetServerId(), "speedlimit");
-                    Notification.SendWithTime("~g~Ограничитель скорости деактивирован");
-                }
-            };
-            
-            var list = new List<dynamic> {"5", "10", "20", "30", "40", "50", "60", "70", "80", "100"};
-            
-            menu.AddMenuItemList(UiMenu, "Допустимая скорость", list, "Нажмите ~g~Enter~s~ чтобы применить").OnListSelected += (sender, idx) =>
-            {
-                Managers.Vehicle.MaxSpeed = Convert.ToInt32(Convert.ToInt32(list[idx]) / 2.2);
-                Notification.SendWithTime("~g~Скорость: " + Convert.ToInt32(list[idx]));
-            };
-            
-            var backBtn = menu.AddMenuItem(UiMenu, "~g~Назад");
-            var closeBtn = menu.AddMenuItem(UiMenu, "~r~Закрыть");
-            
-            UiMenu.OnItemSelect += (sender, item, index) =>
-            {
-                if (item == closeBtn)
+                    Managers.Vehicle.MaxSpeed = Convert.ToInt32(Convert.ToInt32(list[idx]) / 2.2);
+                    Notification.SendWithTime("~g~Скорость: " + Convert.ToInt32(list[idx]));
+                };
+
+                var backBtn = menu.AddMenuItem(UiMenu, "~g~Назад");
+                var closeBtn = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeBtn)
                     HideMenu();
-                if (item == backBtn)
+                    if (item == backBtn)
                     ShowVehicleMenu(veh);
-            };
-                
-            MenuPool.Add(UiMenu);
+                };
+
+                MenuPool.Add(UiMenu);
+            }
         }
         
         public static void ShowCopMegaphoneMenu()

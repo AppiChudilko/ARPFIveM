@@ -825,7 +825,7 @@ namespace Server.Managers
                     {
                         color1 = 111;
                         color2 = 0;
-                        styleNubmer = 2;
+                        styleNubmer = 4;
                         number = "PD" + CountCars;
                         livery = rand.Next(0, 6);
 
@@ -925,7 +925,7 @@ namespace Server.Managers
                     {
                         color1 = 111;
                         color2 = 0;
-                        styleNubmer = 2;
+                        styleNubmer = 4;
                         number = "SRHF" + CountCars;
                         break;
                     }

@@ -5598,7 +5598,7 @@ namespace Client
                             ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
                     }
-                    if (User.Data.rank > 9)
+                    if (User.Data.rank > 6)
                     {
                         menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
                         {
@@ -5617,6 +5617,15 @@ namespace Client
                             Notification.SendPictureToAll(text, "Новости Sheriff's Dept.", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
                         };
                         
+                        /*menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
+                        {
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerVehicleLog");
+                        };*/
+                    }
+
+                    if (User.Data.rank > 7)
+                    {
                         menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
                         {
                             HideMenu();
@@ -6054,6 +6063,12 @@ namespace Client
             UiMenu = menu.Create("Организация", "~b~Меню организации");
             
             menu.AddMenuItem(UiMenu, "Получить задание на угон").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Grab.GetGrabRandomVehicle();
+            };
+            
+            menu.AddMenuItem(UiMenu, "Запросить спец. фургон").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Grab.GetGrabRandomVehicle();

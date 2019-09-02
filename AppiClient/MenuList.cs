@@ -5660,7 +5660,7 @@ namespace Client
                             ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
                     }
-                    if (User.Data.rank > 9)
+                    if (User.Data.rank > 6)
                     {
                         menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
                         {
@@ -5679,6 +5679,15 @@ namespace Client
                             Notification.SendPictureToAll(text, "Новости Sheriff's Dept.", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
                         };
                         
+                        /*menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
+                        {
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerVehicleLog");
+                        };*/
+                    }
+
+                    if (User.Data.rank > 7)
+                    {
                         menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
                         {
                             HideMenu();
@@ -6120,6 +6129,38 @@ namespace Client
                 HideMenu();
                 Grab.GetGrabRandomVehicle();
             };
+            
+            /*menu.AddMenuItem(UiMenu, "Запросить спец. фургон").Activated += (uimenu, item) =>
+            {
+                if (Managers.Weather.Hour < 22 && Managers.Weather.Hour > 6)
+                {
+                    Notification.SendWithTime("~r~Можно заказать с 22 до 6 утра.");
+                    return;
+                }
+                if (Sync.Data.HasLocally(User.GetServerId(), "cartel:block"))
+                {
+                    Notification.SendWithTime("~r~Вы уже заказывали фургон");
+                    return;
+                }
+                if (User.Data.money < 1000)
+                {
+                    Notification.SendWithTime("~r~У Вас нет столько налички");
+                    return;
+                }
+                            
+                User.RemoveCashMoney(1000);
+                            
+                var rand = new Random();
+                int randCp = rand.Next(Main.CartelGetCarStockCpPos.Length / 3);
+                            
+                var cpPos = new Vector3((float) Main.CartelGetCarStockCpPos[randCp, 0], (float) Main.CartelGetCarStockCpPos[randCp, 1], (float) Main.CartelGetCarStockCpPos[randCp, 2]);
+                            
+                Managers.Checkpoint.CreateWithMarker(cpPos, 1f, 1f, Marker.Red.R, Marker.Red.G, Marker.Red.B, Marker.Red.A, "cartel:car:drugm:" + randCp);
+                User.SetWaypoint(cpPos.X, cpPos.Y);
+                            
+                Sync.Data.SetLocally(User.GetServerId(), "cartel:block", true);
+                Sync.Data.SetLocally(User.GetServerId(), "cartel:car:drugm:" + randCp, true);
+            };*/
 
             if (User.IsLeader2() || User.IsSubLeader2())
             {
@@ -12401,115 +12442,116 @@ namespace Client
         public static void ShowSapdCyberPcMenu()
         {
             HideMenu();
-
             var menu = new Menu();
-            UiMenu = menu.Create("SAPD", "~b~PC");
+                UiMenu = menu.Create("SAPD", "~b~PC");
 
-            menu.AddMenuItem(UiMenu, "Информация о человеке (Телефон)").Activated += async (uimenu, item) =>
-            {
-                HideMenu();
-                int prefix = Convert.ToInt32(await Menu.GetUserInput("Префикс", null, 3));
-                int number = Convert.ToInt32(await Menu.GetUserInput("Номер", null, 10));
-                if (prefix == 0 || number == 0) return;
-                TriggerServerEvent("ARP:SendPlayerShowPassByHackerByPhone", prefix, number);
-            };
-
-            menu.AddMenuItem(UiMenu, "Информация о человеке (CardID)").Activated += async (uimenu, item) =>
-            {
-                HideMenu();
-                int id = Convert.ToInt32(await Menu.GetUserInput("CardID", null, 10));
-                TriggerServerEvent("ARP:SendPlayerShowPassByHacker", id);
-            };
-
-            menu.AddMenuItem(UiMenu, "Доступ к СМС").Activated += async (uimenu, item) =>
-            {
-                HideMenu();
-                int prefix = Convert.ToInt32(await Menu.GetUserInput("Префикс", null, 3));
-                int number = Convert.ToInt32(await Menu.GetUserInput("Номер", null, 10));
-                if (prefix == 0 || number == 0) return;
-                TriggerServerEvent("ARP:OpenSmsListMenu", prefix + "-" + number);
-            };
-
-            menu.AddMenuItem(UiMenu, "Получить местоположение человека", "(( Если номер телефона экипирован и человек не связан ))").Activated += async (uimenu, item) =>
-            {
-                HideMenu();
-
-                if (await Ctos.IsBlackout())
+                menu.AddMenuItem(UiMenu, "Информация о человеке (Телефон)").Activated += async (uimenu, item) =>
                 {
-                    Notification.SendWithTime("~r~Связь во время блекаута не работает");
-                    return;
-                }
-                
-                int prefix = Convert.ToInt32(await Menu.GetUserInput("Префикс", null, 3));
-                int number = Convert.ToInt32(await Menu.GetUserInput("Номер", null, 10));
-                
-                Sync.Data.ShowSyncMessage = false;
-                CitizenFX.Core.UI.Screen.LoadingPrompt.Show("Загрузка данных...");
-            
-                foreach (Player p in new PlayerList())
+                    HideMenu();
+                    int prefix = Convert.ToInt32(await Menu.GetUserInput("Префикс", null, 3));
+                    int number = Convert.ToInt32(await Menu.GetUserInput("Номер", null, 10));
+                    if (prefix == 0 || number == 0) return;
+                    TriggerServerEvent("ARP:SendPlayerShowPassByHackerByPhone", prefix, number);
+                };
+
+                menu.AddMenuItem(UiMenu, "Информация о человеке (CardID)").Activated += async (uimenu, item) =>
                 {
-                    try
+                    HideMenu();
+                    int id = Convert.ToInt32(await Menu.GetUserInput("CardID", null, 10));
+                    TriggerServerEvent("ARP:SendPlayerShowPassByHacker", id);
+                };
+
+                menu.AddMenuItem(UiMenu, "Доступ к СМС").Activated += async (uimenu, item) => 
+                {
+                    HideMenu();
+                    int prefix = Convert.ToInt32(await Menu.GetUserInput("Префикс", null, 3));
+                    int number = Convert.ToInt32(await Menu.GetUserInput("Номер", null, 10));
+                    if (prefix == 0 || number == 0) return;
+                    TriggerServerEvent("ARP:OpenSmsListMenu", prefix + "-" + number);
+                };
+
+                menu.AddMenuItem(UiMenu, "Получить местоположение человека",
+                    "(( Если номер телефона экипирован и человек не связан ))").Activated += async (uimenu, item) =>
+                {
+                    HideMenu();
+
+                    if (await Ctos.IsBlackout())
                     {
-                        var plData = await User.GetAllDataByServerId(p.ServerId);
-                        if (plData == null) continue;
-                        if (plData.phone_code == prefix && plData.phone == number)
+                        Notification.SendWithTime("~r~Связь во время блекаута не работает");
+                        return;
+                    }
+
+                    int prefix = Convert.ToInt32(await Menu.GetUserInput("Префикс", null, 3));
+                    int number = Convert.ToInt32(await Menu.GetUserInput("Номер", null, 10));
+
+                    Sync.Data.ShowSyncMessage = false;
+                    CitizenFX.Core.UI.Screen.LoadingPrompt.Show("Загрузка данных...");
+
+                    foreach (Player p in new PlayerList())
+                    {
+                        try
                         {
-                            if (!await Sync.Data.Has(p.ServerId, "disableNetwork") &&
-                                !await Sync.Data.Has(p.ServerId, "disablePhone") &&
-                                !await Sync.Data.Has(p.ServerId, "isTie") && !await Sync.Data.Has(p.ServerId, "isCuff"))
+                            var plData = await User.GetAllDataByServerId(p.ServerId);
+                            if (plData == null) continue;
+                            if (plData.phone_code == prefix && plData.phone == number)
                             {
-                                var playerPos = GetEntityCoords(GetPlayerPed(p.Handle), true);
-                                User.SetWaypoint(playerPos.X, playerPos.Y);
-                                CitizenFX.Core.UI.Screen.LoadingPrompt.Hide();
+                                if (!await Sync.Data.Has(p.ServerId, "disableNetwork") &&
+                                    !await Sync.Data.Has(p.ServerId, "disablePhone") &&
+                                    !await Sync.Data.Has(p.ServerId, "isTie") &&
+                                    !await Sync.Data.Has(p.ServerId, "isCuff"))
+                                {
+                                    var playerPos = GetEntityCoords(GetPlayerPed(p.Handle), true);
+                                    User.SetWaypoint(playerPos.X, playerPos.Y);
+                                    CitizenFX.Core.UI.Screen.LoadingPrompt.Hide();
 
-                                Notification.SendWithTime("~g~Местоположение было установлено");
-                                await Delay(50);
-                                Notification.Send($"~y~Район:~s~ {World.GetZoneLocalizedName(playerPos)}");
-                                await Delay(50);
-                                Notification.Send($"~y~Улица:~s~ {World.GetStreetName(playerPos)}");
+                                    Notification.SendWithTime("~g~Местоположение было установлено");
+                                    await Delay(50);
+                                    Notification.Send($"~y~Район:~s~ {World.GetZoneLocalizedName(playerPos)}");
+                                    await Delay(50);
+                                    Notification.Send($"~y~Улица:~s~ {World.GetStreetName(playerPos)}");
 
-                                Sync.Data.ShowSyncMessage = true;
-                                return;
-                            }
-                            else
-                            {
-                                Notification.SendWithTime("~g~Телефон выключен или вне зоны действия сети");
-                                return;
+                                    Sync.Data.ShowSyncMessage = true;
+                                    return;
+                                }
+                                else
+                                {
+                                    Notification.SendWithTime("~g~Телефон выключен или вне зоны действия сети");
+                                    return;
+                                }
                             }
                         }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.Message);
+                            throw;
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.Message);
-                        throw;
-                    }
-                }
 
-                Notification.SendWithTime("~r~Человек не найден");
-            
-                CitizenFX.Core.UI.Screen.LoadingPrompt.Hide();
-                Sync.Data.ShowSyncMessage = true;
-            };
+                    Notification.SendWithTime("~r~Человек не найден");
 
-            menu.AddMenuItem(UiMenu, "Проверка подключения").Activated += async (uimenu, item) =>
-            {
-                HideMenu();
-                int id = Convert.ToInt32(await Menu.GetUserInput("CardID", null, 10));
-                bool isUserConnect = await Client.Sync.Data.Has(id, "isConnectConsole");
-                Notification.Send($"~g~Connected: {isUserConnect}");
-                if (isUserConnect)
-                    Notification.Send($"~g~Connect IP: {await Client.Sync.Data.Has(id, "connectIp")}");
-            };
-            
-            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
-            
-            UiMenu.OnItemSelect += (sender, item, index) =>
-            {
-                if (item == closeButton)
+                    CitizenFX.Core.UI.Screen.LoadingPrompt.Hide();
+                    Sync.Data.ShowSyncMessage = true;
+                };
+
+                menu.AddMenuItem(UiMenu, "Проверка подключения").Activated += async (uimenu, item) =>
+                {
                     HideMenu();
-            };
-            
-            MenuPool.Add(UiMenu);
+                    int id = Convert.ToInt32(await Menu.GetUserInput("CardID", null, 10));
+                    bool isUserConnect = await Client.Sync.Data.Has(id, "isConnectConsole");
+                    Notification.Send($"~g~Connected: {isUserConnect}");
+                    if (isUserConnect)
+                        Notification.Send($"~g~Connect IP: {await Client.Sync.Data.Has(id, "connectIp")}");
+                };
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
         }
 
         public static void ShowHackerSpacePcMenu()
@@ -18544,7 +18586,7 @@ namespace Client
             {
                 if ((Game.IsControlJustPressed(0, (Control) 244) || Game.IsDisabledControlJustPressed(0, (Control) 244)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //M
                     ShowMainMenu();
-                if ((Game.IsControlJustPressed(0, (Control) 246) || Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //Y
+                if ((Game.IsControlJustPressed(0, (Control) 246) && Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //Y
                 {
                     var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
                     if (msg == "NULL") return;
@@ -18554,7 +18596,7 @@ namespace Client
                     Notification.SendWithTime("~g~Вопрос отправлен");
                     Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
                 }
-                if ((Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //U
+                if ((Game.IsControlJustPressed(0, (Control) 246) && Game.IsDisabledControlJustPressed(0, (Control) 246)) && User.IsDead()) //U
                 {
                     var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
                     if (msg == "NULL") return;
@@ -18564,6 +18606,49 @@ namespace Client
                     Notification.SendWithTime("~g~Жалоба отправлена");
                     Notification.SendWithTime("~g~Если администрация в сети, она её рассмотрит");
                 }
+                
+                if (Game.IsControlJustPressed(0, (Control) 246) && Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //Y
+                {
+                    var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendAskMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Вопрос отправлен");
+                    Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
+                }
+                if (Game.IsControlJustPressed(0, (Control) 303) && Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //U
+                {
+                    var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendReportMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Жалоба отправлена");
+                    Notification.SendWithTime("~g~Если администрация в сети, она её рассмотрит");
+                }
+                
+                if (Game.IsControlJustPressed(0, (Control) 246) && Sync.Data.HasLocally(User.GetServerId(), "isTie")) //Y
+                {
+                    var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendAskMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Вопрос отправлен");
+                    Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
+                }
+                if (Game.IsControlJustPressed(0, (Control) 303) && Sync.Data.HasLocally(User.GetServerId(), "isTie")) //U
+                {
+                    var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
+                    if (msg == "NULL") return;
+                
+                    Shared.TriggerEventToAllPlayers("ARP:SendReportMessage", msg, User.Data.id, User.Data.rp_name);
+                
+                    Notification.SendWithTime("~g~Жалоба отправлена");
+                    Notification.SendWithTime("~g~Если администрация в сети, она её рассмотрит");
+                }
+
                     
                 if ((Game.IsControlJustPressed(0, (Control) 157) || Game.IsDisabledControlJustPressed(0, (Control) 157)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //1
                     ShowPlayerMenu();

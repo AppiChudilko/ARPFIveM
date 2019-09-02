@@ -17,7 +17,7 @@ namespace Client.Managers
         //public static Vector3 StockMaraPos = new Vector3(1166.715f, -1641.621f, 35.95082f);
         //public static Vector3 CartelUnloadPos = new Vector3(253.535f, 375.433f, 104.5269f);
         //public static Vector3 StockCartelPos = new Vector3(245.6572f, 371.6031f, 104.7381f);
-        public static Vector3 StockSapdPos = new Vector3(477.2227f, -984.3262f, 23.91476f);
+        public static Vector3 StockSapdPos = new Vector3(477.36f, -989.2f, 23.91476f);
         public static Vector3 StockSheriffPos = new Vector3(-439.1755f, 6010.428f, 26.98567f);
         
         public static Vector3 ArcadiusUp = new Vector3(-145.3776f, -605.22f, 166.0067f);
@@ -48,14 +48,14 @@ namespace Client.Managers
         public static readonly Vector3 SapdArsenalPos = new Vector3(452.057f, -980.2347f, 29.6896f);
         public static readonly Vector3 SapdClearPos = new Vector3(440.5925f, -975.6348f, 29.69f);
         public static readonly Vector3 SapdArrestPos = new Vector3(459.6778f, -989.071f, 23.91487f);
-        public static readonly Vector3 SapdToCyberRoomPos = new Vector3(464.357f, -983.8818f, 34.89194f);
-        public static readonly Vector3 SapdFromCyberRoomPos = new Vector3(463.7193f, -1003.186f, 31.7847f);
-        public static readonly Vector3 SapdToBalconPos = new Vector3(463.0852f, -1009.47f, 31.78511f);
-        public static readonly Vector3 SapdFromBalconPos = new Vector3(463.5898f, -1012.111f, 31.9835f);
-        public static readonly Vector3 SapdToBalcon2Pos = new Vector3(428.4888f, -995.2952f, 34.68689f);
-        public static readonly Vector3 SapdFromBalcon2Pos = new Vector3(464.1708f, -984.0346f, 38.89184f);
-        public static readonly Vector3 SapdToInterrogationPos = new Vector3(404.0302f, -997.302f, -100.004f);
-        public static readonly Vector3 SapdFromInterrogationPos = new Vector3(446.7996f, -985.8127f, 25.67422f);
+        public static readonly Vector3 SapdToCyberRoomPos = new Vector3(445.4317f, -989.8f, 34.93f);
+        public static readonly Vector3 SapdFromCyberRoomPos = new Vector3(445.4317f, -987.8f, 34.93f);
+        //public static readonly Vector3 SapdToBalconPos = new Vector3(463.0852f, -1009.47f, 31.78511f);
+        //public static readonly Vector3 SapdFromBalconPos = new Vector3(463.5898f, -1012.111f, 31.9835f);
+        //public static readonly Vector3 SapdToBalcon2Pos = new Vector3(428.4888f, -995.2952f, 34.68689f);
+        //public static readonly Vector3 SapdFromBalcon2Pos = new Vector3(464.1708f, -984.0346f, 38.89184f);
+        //public static readonly Vector3 SapdToInterrogationPos = new Vector3(404.0302f, -997.302f, -100.004f);
+        //public static readonly Vector3 SapdFromInterrogationPos = new Vector3(446.7996f, -985.8127f, 25.67422f);
         
         public static readonly Vector3 SheriffGarderobPos = new Vector3(-452.945f, 6013.818f, 30.716f);
         public static readonly Vector3 SheriffGarderobPos2 = new Vector3(1848.908f, 3689.9604f, 33.2670f);
@@ -258,9 +258,9 @@ namespace Client.Managers
         /*Hackers*/
         public static double[,] SapdCyberPcPos =
         {
-            { 461.0905, -1009.099, 31.77658, 357.2727 },
-            { 461.4277, -1006.34, 31.77658, 86.39652 },
-            { 460.9647, -1003.635, 31.77855, 175.9913 },
+            { 438.35, -985.16, 34.93, 350 },
+            { 439.61, -983.3, 34.93, 129.61 },
+            { 437.31, -983.27, 34.93, 240 },
         };
         
         public static double[,] HackerSpacePcPos =
@@ -407,7 +407,7 @@ namespace Client.Managers
             Checkpoint.Create(EmsElevatorHosp1Pos, 1.4f, "pickup:teleport:menu");
             
             //SAPD
-            Marker.Create(SapdFromCyberRoomPos, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
+            /*Marker.Create(SapdFromCyberRoomPos, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
             Checkpoint.Create(SapdFromCyberRoomPos, 1.4f, "pickup:teleport");
             
             Marker.Create(SapdToCyberRoomPos, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
@@ -423,7 +423,7 @@ namespace Client.Managers
             Checkpoint.Create(SapdToBalcon2Pos, 1.4f, "pickup:teleport");
             
             Marker.Create(SapdFromBalcon2Pos, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
-            Checkpoint.Create(SapdFromBalcon2Pos, 1.4f, "pickup:teleport");
+            Checkpoint.Create(SapdFromBalcon2Pos, 1.4f, "pickup:teleport");*/
             
             //Marker.Create(SapdToInterrogationPos, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
             //Checkpoint.Create(SapdToInterrogationPos, 1.4f, "pickup:teleport");
@@ -844,7 +844,7 @@ namespace Client.Managers
                 MenuList.ShowEmsNewTeleportMenu();
             
             /*SAPD*/
-            if (Main.GetDistanceToSquared(SapdToBalconPos, playerPos) < DistanceCheck)
+            /*if (Main.GetDistanceToSquared(SapdToBalconPos, playerPos) < DistanceCheck)
             {
                 int pass = Convert.ToInt32(await Menu.GetUserInput("Введите пароль", null, 4));
                 if (pass == (int) await Client.Sync.Data.Get(-9999, "sapdPass"))
@@ -859,7 +859,7 @@ namespace Client.Managers
                     User.Teleport(SapdToBalconPos);
                 else
                     Notification.SendWithTime("~r~Неверный пароль");
-            }
+            }*/
 
             if (Main.GetDistanceToSquared(SapdFromCyberRoomPos, playerPos) < DistanceCheck)
             {
@@ -878,10 +878,10 @@ namespace Client.Managers
                     Notification.SendWithTime("~r~Неверный пароль");
             }
             
-            if (Main.GetDistanceToSquared(SapdToBalcon2Pos, playerPos) < DistanceCheck)
+            /*if (Main.GetDistanceToSquared(SapdToBalcon2Pos, playerPos) < DistanceCheck)
                 User.Teleport(SapdFromBalcon2Pos);
             if (Main.GetDistanceToSquared(SapdFromBalcon2Pos, playerPos) < DistanceCheck)
-                User.Teleport(SapdToBalcon2Pos);
+                User.Teleport(SapdToBalcon2Pos); */
 
             /*if (Main.GetDistanceToSquared(SapdToInterrogationPos, playerPos) < DistanceCheck)
             {
@@ -1048,7 +1048,11 @@ namespace Client.Managers
                 SetEntityCoords(GetPlayerPed(-1), gumPos.X, gumPos.Y, gumPos.Z, true, false, false, true);
                 await Delay(1000);
                 User.PlayScenario("PROP_HUMAN_SEAT_BENCH");
-                MenuList.ShowSapdCyberPcMenu();
+                int pass = Convert.ToInt32(await Menu.GetUserInput("Введите пароль", null, 4));
+                if (pass == (int) await Client.Sync.Data.Get(-9999, "sapdPass"))
+                    MenuList.ShowSapdCyberPcMenu();
+                else
+                    Notification.SendWithTime("~r~Неверный пароль");
                 return;
             }
             

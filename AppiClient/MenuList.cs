@@ -5300,26 +5300,6 @@ namespace Client
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
                         };
                     }
-                    menu.AddMenuItem(UiMenu, "Снять наручники").Activated += async (uimenu, item) =>
-                    {
-                        HideMenu();
-                        var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
-                        if (player == null)
-                        {
-                            Notification.SendWithTime("~r~Рядом с вами никого нет");
-                            return;
-                        }
-
-                        if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
-                        {
-                            User.PlayAnimation("mp_arresting", "a_uncuff", 8);
-                            Shared.Cuff(player.ServerId);
-                            Managers.Inventory.AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
-                            return;
-                        }
-
-                        Notification.SendWithTime("~y~Человек не в наручниках");
-                    };
                     break;
                 case 2:
 
@@ -5828,6 +5808,26 @@ namespace Client
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"FIB [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "DIA_TANNOY", Notification.TypeChatbox, 3);
                         Chat.SendMeCommand("отправляет сообщение по служебному телефону");
+                    };
+                    menu.AddMenuItem(UiMenu, "Снять наручники").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
+                        if (player == null)
+                        {
+                            Notification.SendWithTime("~r~Рядом с вами никого нет");
+                            return;
+                        }
+
+                        if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
+                        {
+                            User.PlayAnimation("mp_arresting", "a_uncuff", 8);
+                            Shared.Cuff(player.ServerId);
+                            Managers.Inventory.AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+                            return;
+                        }
+
+                        Notification.SendWithTime("~y~Человек не в наручниках");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>

@@ -817,7 +817,7 @@ namespace Client
                 Notification.SendWithTime("~r~Админ вас выпустил из тюрьмы");
                 return;
             }
-            Jail.JailPlayer(count * 60);   
+            Jail.JailPlayer(count * 60);
             Notification.SendWithTime("~r~Админ вас посадил в тюрьму");
             Notification.SendWithTime("~r~" + reason);
         }
@@ -2180,7 +2180,7 @@ namespace Client
             Sync.Data.Set(GetServerId(), "isTie", true);
             Sync.Data.SetLocally(GetServerId(), "isTie", true);
             IsBlockAnimation = true;
-            Freeze(PlayerId(), true);
+            //Freeze(PlayerId(), true);
             
             Notification.SendWithTime("~r~Вас связали");
         }
@@ -2211,20 +2211,40 @@ namespace Client
             //await Delay(2000);
             //UI.ShowLoadDisplay();
         }
-
+        
         public static void UnTieBandage()
         {
             //UI.HideLoadDisplay();
             Sync.Data.Reset(GetServerId(), "isTieBandage");
             Sync.Data.ResetLocally(GetServerId(), "isTieBandage");
         }
-
+        
         public static void Incar()
         {
             var veh = Main.FindNearestVehicle();
             if (veh == null)
                 return;
             new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(veh, VehicleSeat.Any);
+        }
+        
+        public static async void UnTieKnife()
+        {
+            var pPos = GetEntityCoords(GetPlayerPed(-1), true);
+            var player = Main.GetPlayerOnRadius(pPos, 1.5f);
+            if (player == null)
+            {
+                Notification.SendWithTime("~r~Рядом с вами никого нет");
+                return;
+            }
+
+            if (await Client.Sync.Data.Has(player.ServerId, "isTie"))
+            {
+                Shared.TriggerEventToPlayer(player.ServerId, "ARP:UnTie");
+                Notification.SendWithTime("~y~Вы разрезали веревки");
+                Chat.SendMeCommand("освободил человека рядом");
+                return;
+            }
+            Notification.SendWithTime("~y~Игрок не связан");
         }
         
         public static void UnDuty()

@@ -326,7 +326,7 @@ namespace Client.Managers
                         string name = Enum.GetName(typeof(WeaponHash), hash);
                         if (!String.Equals(name, Client.Inventory.GetItemNameHashById(n), StringComparison.CurrentCultureIgnoreCase)) continue;
                         User.GiveWeapon((uint) hash, 0, false, true);
-                    
+                        
                         Notification.SendWithTime("~g~Вы экипировали оружие");
                         DeleteItemServer(id);
                         break;
@@ -809,7 +809,7 @@ namespace Client.Managers
             UpdateAmount(User.Data.id, InventoryTypes.Player);
         }
 
-        public static async void UseItem(int id, int itemId)
+        public static async void UseItem(int id, int itemId, int use)
         {
             switch (itemId)
             {
@@ -825,10 +825,11 @@ namespace Client.Managers
 
                     if (await Client.Sync.Data.Has(player.ServerId, "isTie"))
                     {
-                        Shared.TriggerEventToPlayer(player.ServerId, "ARP:UnTie");
-                        Notification.SendWithTime("~y~Вы развязали игрока");
-                        Chat.SendMeCommand("развязал человека рядом");
-                        AddItemServer(itemId, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+                        Notification.SendWithTime("~y~Игрок уже связан");
+                        //Shared.TriggerEventToPlayer(player.ServerId, "ARP:UnTie");
+                        //Notification.SendWithTime("~y~Вы развязали игрока");
+                        //Chat.SendMeCommand("развязал человека рядом");
+                        //AddItemServer(itemId, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
                     }
                     else
                     {
@@ -1003,66 +1004,107 @@ namespace Client.Managers
                 }
                 case 4:
                 {
-                    CitizenFX.Core.Vehicle v = Main.FindNearestVehicle();
-                    if (v == null)
-                    {
-                        Notification.SendWithTime("~r~Нужно быть рядом с машиной");
-                        return;
-                    }
-
-                    if (VehInfo.Get(v.Model.Hash).FuelMinute == 0)
-                    {
-                        Notification.SendWithTime("~r~Электрокары можно взломать только с Kali Linux");
-                        return;
-                    }
-                    
-                    if (VehInfo.Get(v.Model.Hash).ClassName == "Super")
-                    {
-                        Notification.SendWithTime("~r~Спорткары можно взломать только с Kali Linux");
-                        return;
-                    }
-                    
-                    if (VehInfo.Get(v.Model.Hash).ClassName == "Helicopters" || VehInfo.Get(v.Model.Hash).ClassName == "Planes")
-                    {
-                        Notification.SendWithTime("~r~Вы не можете взломать это транспортное средство");
-                        return;
-                    }
-                    
-                    if (v.LockStatus == VehicleLockStatus.Unlocked)
-                    {
-                        Notification.SendWithTime("~r~Транспорт уже открыт");
-                        return;
-                    }
                     var rand = new Random();
-                    
-                    foreach (var p in Main.GetPedListOnRadius(100f))
+                    CitizenFX.Core.Vehicle v = Main.FindNearestVehicle();
+                    var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
+                    if(use == 1)
                     {
-                        if (User.IsAnimal(p.Model.Hash)) continue;
-                        if (rand.Next(2) != 0) continue;
-                        p.Task.StartScenario("WORLD_HUMAN_STAND_MOBILE", p.Position);
-                        await Delay(10000);
-                        if (p.IsDead) break;
-                        Dispatcher.SendEms("Код 2", $"Возможен угон ТС.\nНомера: ~y~{Vehicle.GetVehicleNumber(v.Handle)}\n~s~Модель: ~y~{v.DisplayName}");
-                        p.Task.ClearAll();
-                        break;
+                            if (v == null)
+                            {
+                                Notification.SendWithTime("~r~Нужно быть рядом с машиной");
+                                return;
+                            }
+
+                            if (VehInfo.Get(v.Model.Hash).FuelMinute == 0)
+                            {
+                                Notification.SendWithTime("~r~Электрокары можно взломать только с Kali Linux");
+                                return;
+                            }
+
+                            if (VehInfo.Get(v.Model.Hash).ClassName == "Super")
+                            {
+                                Notification.SendWithTime("~r~Спорткары можно взломать только с Kali Linux");
+                                return;
+                            }
+
+                            if (VehInfo.Get(v.Model.Hash).ClassName == "Helicopters" ||
+                                VehInfo.Get(v.Model.Hash).ClassName == "Planes")
+                            {
+                                Notification.SendWithTime("~r~Вы не можете взломать это транспортное средство");
+                                return;
+                            }
+
+                            if (v.LockStatus == VehicleLockStatus.Unlocked)
+                            {
+                                Notification.SendWithTime("~r~Транспорт уже открыт");
+                                return;
+                            }
+
+                            foreach (var p in Main.GetPedListOnRadius(100f))
+                            {
+                                if (User.IsAnimal(p.Model.Hash)) continue;
+                                if (rand.Next(2) != 0) continue;
+                                p.Task.StartScenario("WORLD_HUMAN_STAND_MOBILE", p.Position);
+                                await Delay(10000);
+                                if (p.IsDead) break;
+                                Dispatcher.SendEms("Код 2",
+                                    $"Возможен угон ТС.\nНомера: ~y~{Vehicle.GetVehicleNumber(v.Handle)}\n~s~Модель: ~y~{v.DisplayName}");
+                                p.Task.ClearAll();
+                                break;
+                            }
+                            
+                            Chat.SendMeCommand("ковыряется отмычкой в замке автомобиля");
+                            User.PlayAnimation("mp_arresting", "a_uncuff", 8);
+                            await Delay(2500);
+
+
+                            if (rand.Next(0, 3) == 1)
+                            {
+                                v.LockStatus = VehicleLockStatus.Unlocked;
+                                Notification.SendWithTime("~g~Вы открыли транспорт");
+                            }
+                            else
+                            {
+                                Notification.SendWithTime("~g~Вы сломали отмычку");
+                                DeleteItemServer(id);
+                            }
+
+                            break;
                     }
-                
+                    
+                    if (player == null)
+                    { 
+                        Notification.SendWithTime("~r~Рядом с вами никого нет");
+                        return;
+                    }
+                    
+                    Chat.SendMeCommand("ковыряется отмычкой в замке автомобиля");
                     User.PlayAnimation("mp_arresting", "a_uncuff", 8);
                     await Delay(2500);
-                
-                
-                    if (rand.Next(0, 3) == 1)
+                    
+                    if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
                     {
-                        v.LockStatus = VehicleLockStatus.Unlocked;
-                        Notification.SendWithTime("~g~Вы открыли транспорт");
+                        if (rand.Next(0, 10) == 1)
+                        {
+                            Shared.Cuff(player.ServerId);
+                            Notification.SendWithTime("~y~Вскрыли замки в наручниках");
+                            Chat.SendMeCommand("снял наручники с человека рядом");
+                            AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+                            return;
+                        }
+                        else
+                        {
+                            Notification.SendWithTime("~g~Вы сломали отмычку");
+                            DeleteItemServer(id);
+                            return;
+                        }
+                                
                     }
-                    else
-                    {
-                        Notification.SendWithTime("~g~Вы сломали отмычку");
-                        DeleteItemServer(id);
-                    }
+                            
+                    Notification.SendWithTime("~y~Человек не в наручниках");
                     break;
                 }
+
                 case 5:
                 {
                     if (IsPedInAnyVehicle(PlayerPedId(), true))

@@ -5360,6 +5360,27 @@ namespace Client
                         Chat.SendMeCommand("отправляет сообщение по служебному телефону");
                     };
                     
+                    menu.AddMenuItem(UiMenu, "Снять наручники").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
+                        if (player == null)
+                        {
+                            Notification.SendWithTime("~r~Рядом с вами никого нет");
+                            return;
+                        }
+
+                        if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
+                        {
+                            User.PlayAnimation("mp_arresting", "a_uncuff", 8);
+                            Shared.Cuff(player.ServerId);
+                            Managers.Inventory.AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+                            return;
+                        }
+
+                        Notification.SendWithTime("~y~Человек не в наручниках");
+                    };
+                    
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
                     {
                         HideMenu();
@@ -5519,6 +5540,27 @@ namespace Client
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"Sheriff's Dept. [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox, 7);
                         Chat.SendMeCommand("отправляет сообщение по служебному телефону");
+                    };
+                    
+                    menu.AddMenuItem(UiMenu, "Снять наручники").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
+                        if (player == null)
+                        {
+                            Notification.SendWithTime("~r~Рядом с вами никого нет");
+                            return;
+                        }
+
+                        if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
+                        {
+                            User.PlayAnimation("mp_arresting", "a_uncuff", 8);
+                            Shared.Cuff(player.ServerId);
+                            Managers.Inventory.AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+                            return;
+                        }
+
+                        Notification.SendWithTime("~y~Человек не в наручниках");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
@@ -5766,6 +5808,26 @@ namespace Client
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"FIB [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "DIA_TANNOY", Notification.TypeChatbox, 3);
                         Chat.SendMeCommand("отправляет сообщение по служебному телефону");
+                    };
+                    menu.AddMenuItem(UiMenu, "Снять наручники").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
+                        if (player == null)
+                        {
+                            Notification.SendWithTime("~r~Рядом с вами никого нет");
+                            return;
+                        }
+
+                        if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
+                        {
+                            User.PlayAnimation("mp_arresting", "a_uncuff", 8);
+                            Shared.Cuff(player.ServerId);
+                            Managers.Inventory.AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+                            return;
+                        }
+
+                        Notification.SendWithTime("~y~Человек не в наручниках");
                     };
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
@@ -9111,28 +9173,7 @@ namespace Client
                 Sync.Data.ResetLocally(User.GetServerId(), "isKnockoutTimeout");
             };
 
-            menu.AddMenuItem(UiMenu, "Снять наручники").Activated += async (uimenu, item) =>
-            {
-                HideMenu();
-                var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
-                if (player == null)
-                {
-                    Notification.SendWithTime("~r~Рядом с вами никого нет");
-                    return;
-                }
-
-                if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
-                {
-                    User.PlayAnimation("mp_arresting", "a_uncuff", 8);
-                    Shared.Cuff(player.ServerId);
-                    Managers.Inventory.AddItemServer(40, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
-                    return;
-                }
-
-                Notification.SendWithTime("~y~Человек не в наручниках");
-            };
-
-            menu.AddMenuItem(UiMenu, "Развязать человека").Activated += async (uimenu, item) =>
+            /*menu.AddMenuItem(UiMenu, "Развязать человека").Activated += async (uimenu, item) =>
             {
                 HideMenu();
                 var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
@@ -9152,7 +9193,7 @@ namespace Client
                 }
 
                 Notification.SendWithTime("~y~Человек не связан");
-            };
+            };*/
 
             menu.AddMenuItem(UiMenu, "Снять мешок с игрока").Activated += async (uimenu, item) =>
             {
@@ -9752,7 +9793,7 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
 
-        public static void ShowToPlayerInfoItemMenu(int id, int prefix, int number, int keyId, int itemId, int ownerType, int ownerId, int countItems, bool justInfo = false)
+        public static async void ShowToPlayerInfoItemMenu(int id, int prefix, int number, int keyId, int itemId, int ownerType, int ownerId, int countItems, bool justInfo = false)
         {
             HideMenu();
 
@@ -9778,12 +9819,21 @@ namespace Client
                     var plPos = GetEntityCoords(GetPlayerPed(-1), true);
                     if (Inventory.CanEquipById(itemId))
                     {
+                        if (itemId == 54 || itemId == 56 || itemId == 57 || itemId == 62 || itemId == 63 ||
+                            itemId == 65 || itemId == 69)
+                        {
+                            menu.AddMenuItem(UiMenu, "~g~Разрезать веревки").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                User.UnTieKnife();
+                            };
+                        }
                         if (itemId == 7 || itemId == 63)
                         {
                             menu.AddMenuItem(UiMenu, "~g~Использовать").Activated += (uimenu, item) =>
                             {
                                 HideMenu();
-                                Managers.Inventory.UseItem(id, itemId);
+                                Managers.Inventory.UseItem(id, itemId, 1);
                             };
                         }
                         menu.AddMenuItem(UiMenu, "~g~Экипировать").Activated += (uimenu, item) =>
@@ -9837,12 +9887,26 @@ namespace Client
                                 Notification.SendWithTime($"~g~В пачке {countItems}гр.");
                             };
                         }
+
+                        if (itemId == 4)
+                        {
+                            menu.AddMenuItem(UiMenu, "~g~Вскрыть ближайший ТС").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Managers.Inventory.UseItem(id, itemId, 1);
+                            };
+                            menu.AddMenuItem(UiMenu, "~g~Вскрыть наручники").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Managers.Inventory.UseItem(id, itemId, 2);
+                            };
+                        }
                         else
                         {
                             menu.AddMenuItem(UiMenu, "~g~Использовать").Activated += (uimenu, item) =>
                             {
                                 HideMenu();
-                                Managers.Inventory.UseItem(id, itemId);
+                                Managers.Inventory.UseItem(id, itemId, 1);
                             };
                         }
                     }

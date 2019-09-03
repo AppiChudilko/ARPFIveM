@@ -1077,12 +1077,15 @@ namespace Client.Managers
                         Notification.SendWithTime("~r~Рядом с вами никого нет");
                         return;
                     }
-                    Chat.SendMeCommand("ковыряется отмычкой в замке наручников");
+                    
+                    Chat.SendMeCommand("ковыряется отмычкой в замке автомобиля");
+                    User.PlayAnimation("mp_arresting", "a_uncuff", 8);
+                    await Delay(2500);
+                    
                     if (await Client.Sync.Data.Has(player.ServerId, "isCuff"))
                     {
                         if (rand.Next(0, 10) == 1)
                         {
-                            User.PlayAnimation("mp_arresting", "a_uncuff", 8);
                             Shared.Cuff(player.ServerId);
                             Notification.SendWithTime("~y~Вскрыли замки в наручниках");
                             Chat.SendMeCommand("снял наручники с человека рядом");

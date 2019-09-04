@@ -3935,6 +3935,18 @@ namespace Client
                 User.SetEatLevel(1000);
                 Notification.SendWithTime("~b~Готово");
             };
+            menu.AddMenuItem(UiMenu, "Восстановить здоровье и броню").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                int r = 1;
+                int pt = 200;
+                var coords = GetEntityCoords(GetPlayerPed(-1), true);
+                Shared.TriggerEventToAllPlayers("ARP:GiveHealthMp", coords.X, coords.Y, coords.Z, r, pt);
+                Shared.TriggerEventToAllPlayers("ARP:GiveArmorMp", coords.X, coords.Y, coords.Z, r, pt);
+                Notification.SendWithTime("~b~Готово");
+                Main.SaveLog("AdminMpHeal", $"{User.Data.rp_name} {r}f, {pt}");
+                Main.SaveLog("AdminMpArmor", $"{User.Data.rp_name} {r}f, {pt}");
+            };
 
             menu.AddMenuItem(UiMenu, "~y~Спектатор").Activated += (uimenu, item) =>
             {

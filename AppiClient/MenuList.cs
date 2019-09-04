@@ -3927,6 +3927,14 @@ namespace Client
             {
                 ShowAdminMpMenu();
             };
+            
+            menu.AddMenuItem(UiMenu, "Пополнить шкалу жажды и голода").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                User.SetWaterLevel(100);
+                User.SetEatLevel(1000);
+                Notification.SendWithTime("~b~Готово");
+            };
 
             menu.AddMenuItem(UiMenu, "~y~Спектатор").Activated += (uimenu, item) =>
             {

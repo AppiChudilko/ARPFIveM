@@ -202,7 +202,7 @@ namespace Client.Managers
             //NetworkFadeInEntity(GetPlayerPed(-1), false);
 
             GetIsLoadingScreenActive();
-            ShutdownLoadingScreenNui();
+            ShutdownLoadingScreen();
             
             DoScreenFadeIn(500);
             

@@ -201,8 +201,8 @@ namespace Client.Managers
             }
             //NetworkFadeInEntity(GetPlayerPed(-1), false);
 
-            GetIsLoadingScreenActive();
             ShutdownLoadingScreen();
+            ShutdownLoadingScreenNui();
             
             DoScreenFadeIn(500);
             

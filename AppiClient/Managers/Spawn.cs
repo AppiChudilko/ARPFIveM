@@ -200,9 +200,9 @@ namespace Client.Managers
                 RenderScriptCams(true, false, MenuList.Camera.Handle, false, false);
             }
             //NetworkFadeInEntity(GetPlayerPed(-1), false);
-            
-            if(GetIsLoadingScreenActive())
-                ShutdownLoadingScreenNui();
+
+            GetIsLoadingScreenActive();
+            ShutdownLoadingScreenNui();
             
             DoScreenFadeIn(500);
             

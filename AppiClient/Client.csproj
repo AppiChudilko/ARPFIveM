@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CitizenFX.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\Desktop\CitizenFX.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\FiveM\CitizenFX.Core.dll</HintPath>
     </Reference>
     <Reference Include="ClientData.net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>ClientData.net.dll</HintPath>
@@ -83,6 +83,7 @@
     <Compile Include="Fractions\Sapd.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Jobs\Bugstars.cs" />
+    <Compile Include="Jobs\GroupSix.cs" />
     <Compile Include="Jobs\JaiiJob.cs" />
     <Compile Include="Jobs\Ocean.cs" />
     <Compile Include="Jobs\Builder.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Managers\UI.cs" />
     <Compile Include="Managers\Vehicle.cs" />
     <Compile Include="Managers\Voice.cs" />
+    <Compile Include="Managers\Board.cs" />
     <Compile Include="Managers\Weather.cs" />
     <Compile Include="MenuList.cs" />
     <Compile Include="NoClip.cs" />

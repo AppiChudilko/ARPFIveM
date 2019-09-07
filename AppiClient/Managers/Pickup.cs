@@ -20,6 +20,8 @@ namespace Client.Managers
         public static Vector3 StockSapdPos = new Vector3(477.36f, -989.2f, 23.91476f);
         public static Vector3 StockSheriffPos = new Vector3(-439.1755f, 6010.428f, 26.98567f);
         
+        public static Vector3 SheriffLicense = new Vector3(-449.33f, 6008.115f, 35.50835f);
+        
         public static Vector3 GovNews = new Vector3(-1372.48f, -464.12f, 71.06f);
         public static Vector3 SheriffNews = new Vector3(-439.1755f, 6010.428f, 26.98567f);
         public static Vector3 SapdNews = new Vector3(447.03f, -973.31f, 29.69f);
@@ -511,6 +513,8 @@ namespace Client.Managers
             Checkpoint.Create(SheriffArrestPos, 1.4f, "show:menu");
             Marker.Create(SheriffKeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SheriffKeyPos, 1.4f, "show:menu");
+            Marker.Create(SheriffLicense, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(SheriffLicense, 1.4f, "show:menu");
             
             //FIB
             Marker.Create(FibDutyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -1255,6 +1259,9 @@ namespace Client.Managers
                     
                 if (Main.GetDistanceToSquared(SheriffKeyPos, playerPos) < DistanceCheck)
                     MenuList.ShowFractionKeyMenu("Sheriff", "Транспорт Sheriff");
+                
+                if (Main.GetDistanceToSquared(SheriffLicense, playerPos) < DistanceCheck)
+                    MenuList.ShowLicenseMenu();
             }
             
             /*Fib*/

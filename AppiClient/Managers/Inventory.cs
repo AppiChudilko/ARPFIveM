@@ -1078,7 +1078,7 @@ namespace Client.Managers
                         return;
                     }
                     
-                    Chat.SendMeCommand("ковыряется отмычкой в замке автомобиля");
+                    Chat.SendMeCommand("ковыряется отмычкой в замке");
                     User.PlayAnimation("mp_arresting", "a_uncuff", 8);
                     await Delay(2500);
                     

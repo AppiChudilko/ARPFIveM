@@ -5765,8 +5765,9 @@ namespace Client
                             Notification.SendWithTime("~r~Рядом с вами никого нет");
                             return;
                         }
-                        Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseFirstAidKit");
-                        Chat.SendMeCommand("использовал набор первой помощи");
+
+                            Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseFirstAidKit");
+                            Chat.SendMeCommand("использовал набор первой помощи");
                     };
                     
                     
@@ -13442,7 +13443,7 @@ namespace Client
                     HideMenu();
 
                     var menu = new Menu();
-                    UiMenu = menu.Create("Курс лечения", "Меню");
+                    UiMenu = menu.Create("Курс лечения", "~b~Меню");
 
                     menu.AddMenuItem(UiMenu, "Провести курс лечение человеку рядом").Activated += async (uimenu, item) =>
                     {
@@ -13459,6 +13460,7 @@ namespace Client
 
                         Shared.TriggerEventToPlayer(player.ServerId, "ARP:EmsHeal");
                         Chat.SendMeCommand("проводит курс лечения человеку рядом");
+                        
                     };
 
 
@@ -13472,6 +13474,35 @@ namespace Client
 
                     MenuPool.Add(UiMenu);
                 }
+            }
+        }
+        
+        public static void ShowLicenseMenu()
+        {
+            if (User.IsSheriff())
+            {
+                    HideMenu();
+
+                    var menu = new Menu();
+                    UiMenu = menu.Create("Выдача лицензии", "~b~Меню");
+
+                    menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                    };
+
+
+                    var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                    UiMenu.OnItemSelect += (sender, item, index) =>
+                    {
+                        if (item == closeButton)
+                            HideMenu();
+                    };
+
+                    MenuPool.Add(UiMenu);
+                
             }
         }
         

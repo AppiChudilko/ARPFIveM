@@ -13476,37 +13476,64 @@ namespace Client
                 }
             }
         }
-        
+
         public static void ShowLicenseMenu()
         {
             if (User.IsSheriff())
             {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Выдача лицензии", "~b~Меню");
+
+                menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += async (uimenu, item) =>
+                {
                     HideMenu();
+                    ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                };
 
-                    var menu = new Menu();
-                    UiMenu = menu.Create("Выдача лицензии", "~b~Меню");
 
-                    menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += async (uimenu, item) =>
-                    {
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
                         HideMenu();
-                        ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
-                    };
+                };
 
+                MenuPool.Add(UiMenu);
 
-                    var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
-
-                    UiMenu.OnItemSelect += (sender, item, index) =>
-                    {
-                        if (item == closeButton)
-                            HideMenu();
-                    };
-
-                    MenuPool.Add(UiMenu);
-                
             }
         }
-        
-        
+
+        public static void ShowSapdLicenseMenu()
+        {
+            if (User.IsSapd())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Выдача лицензии", "~b~Меню");
+
+                menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += async (uimenu, item) =>
+                {
+                    HideMenu();
+                    ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                };
+
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
+            }
+        }
+
         public static async void ShowFractionKeyMenu(string title, string desc, int fraction = -1)
         {
             HideMenu();

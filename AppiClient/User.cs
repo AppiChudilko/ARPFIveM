@@ -2162,7 +2162,10 @@ namespace Client
             SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
             NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
             StopAllScreenEffects();
-            SetEntityHealth(GetPlayerPed(-1), 130);
+            if (GetEntityHealth(GetPlayerPed(-1)) <= 130)
+            {
+                SetEntityHealth(GetPlayerPed(-1), 130);
+            }
         }
 
         public static void UseTie()

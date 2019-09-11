@@ -5471,13 +5471,13 @@ namespace Client
                         ShowSapdGiveTicketMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                     };*/
                     
-                    if (User.Data.rank > 3)
+                    /*if (User.Data.rank > 3)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += (uimenu, item) =>
                         {
                             ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
-                    }
+                    }*/
                     if (User.Data.rank > 9)
                     {
                         menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
@@ -5653,13 +5653,13 @@ namespace Client
                         ShowSapdGiveTicketMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                     };*/
                     
-                    if (User.Data.rank > 3)
+                    /*if (User.Data.rank > 3)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += (uimenu, item) =>
                         {
                             ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
-                    }
+                    } */
                     if (User.Data.rank > 6)
                     {
                         menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
@@ -5781,7 +5781,7 @@ namespace Client
                         ShowTenCodeDepList();
                     };
                     
-                    if (User.Data.rank > 8)
+                        /*if (User.Data.rank > 8)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать рецепт марихуаны", "~y~Запрещено выдавать его платно!").Activated += (uimenu, item) =>
                         {
@@ -5792,7 +5792,7 @@ namespace Client
                         {
                             ShowGiveMedLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
-                    }
+                    }*/
                     
                     if (User.IsLeader() || User.IsSubLeader())
                     {
@@ -12459,6 +12459,35 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        
+        public static void ShowSapdLicenseMenu()
+        {
+            if (User.IsSapd())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Выдача лицензии", "~b~Меню");
+        
+                menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += async (uimenu, item) =>
+                {
+                    HideMenu();
+                    ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                };
+        
+        
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+        
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                { 
+                    if (item == closeButton) 
+                        HideMenu();
+                };
+        
+                MenuPool.Add(UiMenu);
+        
+            }
+        }
 
         public static void ShowSapdCyberPcMenu()
         {
@@ -13476,6 +13505,43 @@ namespace Client
                 }
             }
         }
+        public static void ShowEmsLicenseMenu()
+        {
+            if (User.IsEms())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Выдача лицензии", "~b~Меню");
+
+                if (User.Data.rank > 8)
+                {
+                    menu.AddMenuItem(UiMenu, "Выдать рецепт марихуаны", "~y~Запрещено выдавать его платно!")
+                        .Activated += (uimenu, item) =>
+                    {
+                        ShowGiveMargLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                            1f));
+                    };
+
+                    menu.AddMenuItem(UiMenu, "Выдать мед. страховку").Activated += (uimenu, item) =>
+                    {
+                        ShowGiveMedLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                            1f));
+                    };
+                }
+
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
+            }
+        }
 
         public static void ShowLicenseMenu()
         {
@@ -13506,33 +13572,8 @@ namespace Client
             }
         }
 
-        public static void ShowSapdLicenseMenu()
-        {
-            if (User.IsSapd())
-            {
-                HideMenu();
-
-                var menu = new Menu();
-                UiMenu = menu.Create("Выдача лицензии", "~b~Меню");
-
-                menu.AddMenuItem(UiMenu, "Выдать лицензию на оружие").Activated += async (uimenu, item) =>
-                {
-                    HideMenu();
-                    ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
-                };
-
-
-                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
-
-                UiMenu.OnItemSelect += (sender, item, index) =>
-                {
-                    if (item == closeButton)
-                        HideMenu();
-                };
-
-                MenuPool.Add(UiMenu);
-            }
-        }
+        
+        
 
         public static async void ShowFractionKeyMenu(string title, string desc, int fraction = -1)
         {

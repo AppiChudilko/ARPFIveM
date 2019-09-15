@@ -209,7 +209,6 @@ namespace Client.Fractions
         public static void SetPension(int number)
         {
             if (!User.IsGov()) return;
-            if (number < 30 || number > 140)
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_103", 30, 140));
                 return;

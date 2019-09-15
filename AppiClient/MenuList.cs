@@ -12,7 +12,7 @@ using static CitizenFX.Core.Native.API;
 using Notification = Client.Managers.Notification;
 using Weather = CitizenFX.Core.Weather;
 
-namespace Client
+namespace Client 
 {
     public class MenuList : BaseScript
     {
@@ -4106,6 +4106,7 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+       
         
         public static async void ShowAdminMpMenu()
         {
@@ -5197,7 +5198,7 @@ namespace Client
                         Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
                     };
                     
-                    if (User.Data.rank > 6)
+                    /*if (User.Data.rank > 6)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
                         {
@@ -5219,10 +5220,10 @@ namespace Client
                             ShowGovGiveFishLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                             Chat.SendMeCommand("передает документ");
                         };
-                    }
+                    }*/
                     
                     if (User.Data.rank > 8)
-                    {
+                    {/*
                         menu.AddMenuItem(UiMenu, "Пособие", $"Ставка: ~g~${Coffer.GetPosob()}").Activated += async (uimenu, item) =>
                         {
                             HideMenu();
@@ -5242,7 +5243,7 @@ namespace Client
                         {
                             HideMenu();
                             Fractions.Government.SetPension(Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 3)));
-                        };
+                        };*/
                         
                         menu.AddMenuItem(UiMenu, "Положить деньги в казну").Activated += async (uimenu, item) =>
                         {
@@ -5477,7 +5478,7 @@ namespace Client
                         {
                             ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
-                    }*/
+                    }
                     if (User.Data.rank > 9)
                     {
                         menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
@@ -5502,7 +5503,7 @@ namespace Client
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
                         };
-                    }
+                    }*/
                     
                     break;
                 case 7:
@@ -5659,7 +5660,7 @@ namespace Client
                         {
                             ShowSapdGiveGunLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
-                    } */
+                    } 
                     if (User.Data.rank > 6)
                     {
                         menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
@@ -5683,7 +5684,7 @@ namespace Client
                         {
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
-                        };*/
+                        };
                     }
 
                     if (User.Data.rank > 7)
@@ -5693,7 +5694,7 @@ namespace Client
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
                         };
-                    }
+                    }*/
                     
                     break;
                 case 16:
@@ -5794,7 +5795,7 @@ namespace Client
                         };
                     }*/
                     
-                    if (User.IsLeader() || User.IsSubLeader())
+                    /*if (User.IsLeader() || User.IsSubLeader())
                     {
                         menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
                         {
@@ -5810,7 +5811,7 @@ namespace Client
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
                         };
-                    }
+                    }*/
                     
                     break;
                 case 3:
@@ -12460,6 +12461,291 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        public static void SapdNewsMenu()
+        {
+            if (User.IsSapd())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Компьютер", "~b~Меню");
+                
+                if (User.IsLeader() || User.IsSubLeader())
+                {
+                    menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var title = await Menu.GetUserInput("Заголовок", null, 15);
+                        var text = await Menu.GetUserInput("Текст...", null, 50);
+                        if (text == "NULL") return;
+                        Notification.SendPictureToAll(text, "Новости SAPD", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
+                    };
+                        
+                    menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                        TriggerServerEvent("ARP:SendPlayerVehicleLog");
+                    };
+                    
+                    if (User.IsLeader() || User.IsSubLeader())
+                    {
+                        menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
+                        {
+                            //ShowFractionMemberListMenu();
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerGunLog");
+                        };
+                        
+                        menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
+                        {
+                            ShowFractionMemberInviteMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                        };
+                    }
+                }
+        
+                if (User.Data.rank > 9)
+                {
+                    menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
+                    {
+                        Notification.Send($"~g~Текущий пароль: ~s~{await Client.Sync.Data.Get(-9999, "sapdPass")}");
+                    };
+                }
+        
+        
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+        
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                { 
+                    if (item == closeButton) 
+                        HideMenu();
+                };
+        
+                MenuPool.Add(UiMenu);
+            }
+        }
+        public static void EmsNewsMenu()
+        {
+            if (User.IsEms())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Компьютер", "~b~Меню");
+
+                if (User.IsLeader() || User.IsSubLeader())
+                {
+                    menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var title = await Menu.GetUserInput("Заголовок", null, 15);
+                        var text = await Menu.GetUserInput("Текст...", null, 50);
+                        if (text == "NULL") return;
+                        Notification.SendPictureToAll(text, "Новости EMS", title, "CHAR_CALL911", Notification.TypeChatbox);
+                    };
+
+                    if (User.IsLeader() || User.IsSubLeader())
+                    {
+                        menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
+                        {
+                            //ShowFractionMemberListMenu();
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerGunLog");
+                        };
+                        menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
+                        {
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerVehicleLog");
+                        };
+                        menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
+                        {
+                            ShowFractionMemberInviteMenu(
+                                Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                        };
+                    }
+                }
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
+            }
+        }
+        public static void GovNewsMenu()
+        {
+            if (User.IsGov())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Компьютер", "~b~Меню");
+
+                if (User.IsLeader() || User.IsSubLeader())
+                {
+                    menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var title = await Menu.GetUserInput("Заголовок", null, 15);
+                        var text = await Menu.GetUserInput("Текст...", null, 50);
+                        if (text == "NULL") return;
+                        Notification.SendPictureToAll(text, "Новости правительства", title, "CHAR_BANK_MAZE",
+                            Notification.TypeChatbox);
+                    };
+
+                    if (User.IsLeader() || User.IsSubLeader())
+                    {
+                        menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
+                        {
+                            //ShowFractionMemberListMenu();
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerGunLog");
+                        };
+                        menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
+                        {
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerVehicleLog");
+                        };
+                        menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
+                        {
+                            ShowFractionMemberInviteMenu(
+                                Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                        };
+                    }
+
+                    if (User.Data.rank > 6)
+                    {
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveLawLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию на бизнес").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveBizzLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию на охоту").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveAnimalLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию на рыбалку").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveFishLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                    }
+
+                    if (User.Data.rank > 8)
+                    {
+                        menu.AddMenuItem(UiMenu, "Пособие", $"Ставка: ~g~${Coffer.GetPosob()}").Activated +=
+                            async (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Fractions.Government.SetPosob(
+                                    Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 3)));
+                            };
+                        menu.AddMenuItem(UiMenu, "Налог", $"Ставка: ~g~{Coffer.GetNalog()}%").Activated +=
+                            async (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Fractions.Government.SetNalog(
+                                    Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 1)));
+                            };
+                        menu.AddMenuItem(UiMenu, "Налог на бизнес", $"Ставка: ~g~{Coffer.GetBizzNalog()}%").Activated +=
+                            async (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Fractions.Government.SetNalogBusiness(
+                                    Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 1)));
+                            };
+                        menu.AddMenuItem(UiMenu, "Пенсия", $"Ставка: ~g~${Coffer.GetMoneyOld()}").Activated +=
+                            async (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Fractions.Government.SetPension(
+                                    Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 3)));
+                            };
+                    }
+                }
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
+            }
+        }
+        public static void SheriffNewsMenu()
+        {
+            if (User.IsSheriff())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Компьютер", "~b~Меню");
+
+                if (User.IsLeader() || User.IsSubLeader())
+                {
+                    menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var title = await Menu.GetUserInput("Заголовок", null, 15);
+                        var text = await Menu.GetUserInput("Текст...", null, 50);
+                        if (text == "NULL") return;
+                        Notification.SendPictureToAll(text, "Новости Sheriff's Dept.", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
+                    };
+
+                    if (User.IsLeader() || User.IsSubLeader())
+                    {
+                        menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
+                        {
+                            //ShowFractionMemberListMenu();
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerGunLog");
+                        };
+                        menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
+                        {
+                            HideMenu();
+                            TriggerServerEvent("ARP:SendPlayerVehicleLog");
+                        };
+                        menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
+                        {
+                            ShowFractionMemberInviteMenu(
+                                Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                        };
+
+                        menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
+                        { 
+                            Notification.Send($"~g~Текущий пароль: ~s~{await Client.Sync.Data.Get(-9999, "sapdPass")}");
+                        };
+                    }
+                }
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
+            }
+        }
+        
         public static void ShowSapdLicenseMenu()
         {
             if (User.IsSapd())
@@ -18985,3 +19271,4 @@ namespace Client
         }
     }
 }
+

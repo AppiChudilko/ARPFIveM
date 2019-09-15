@@ -5245,7 +5245,7 @@ namespace Client
                             Fractions.Government.SetPension(Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 3)));
                         };*/
                         
-                        menu.AddMenuItem(UiMenu, "Положить деньги в казну").Activated += async (uimenu, item) =>
+                        /*menu.AddMenuItem(UiMenu, "Положить деньги в казну").Activated += async (uimenu, item) =>
                         {
                             HideMenu();
                                 
@@ -5289,10 +5289,10 @@ namespace Client
                                 Notification.SendWithTime("~g~Вы взяли деньги");
                                 Main.SaveLog("CofferTakeLog", User.Data.rp_name + " - " + number);
                             };
-                        }
+                        }*/
                     }
                     
-                    menu.AddMenuItem(UiMenu, "В казне:").SetRightLabel($"~g~${Coffer.GetMoney():#,#}");
+                    //menu.AddMenuItem(UiMenu, "В казне:").SetRightLabel($"~g~${Coffer.GetMoney():#,#}");
                     
                     menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
                     {
@@ -5306,6 +5306,7 @@ namespace Client
                     
                     if (User.IsLeader() || User.IsSubLeader())
                     {
+                        /*
                         menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
                         {
                             HideMenu();
@@ -5319,7 +5320,7 @@ namespace Client
                         {
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
-                        };
+                        };*/
                     }
                     break;
                 case 2:
@@ -5701,7 +5702,7 @@ namespace Client
 
                     if (!User.IsDuty()) break;
                     
-                    menu.AddMenuItem(UiMenu, "Диспетчерская").Activated += (uimenu, item) =>
+                    /*menu.AddMenuItem(UiMenu, "Диспетчерская").Activated += (uimenu, item) =>
                     {
                         ShowDispatcherList();
                     };
@@ -5713,7 +5714,7 @@ namespace Client
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"EMS [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "CHAR_CALL911", Notification.TypeChatbox, 16);
                         Chat.SendMeCommand("отправляет сообщение по служебному телефону");
-                    };
+                    };*/
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
                     {
@@ -6088,7 +6089,7 @@ namespace Client
 
             if (User.IsLeader() || User.IsSubLeader())
             {
-                menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
+                /*menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
                 {
                     //ShowFractionMemberListMenu();
                     HideMenu();
@@ -6097,7 +6098,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
                 {
                     ShowFractionMemberInviteMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
-                };
+                };*/
             }
             
             menu.AddMenuItem(UiMenu, "Установить тег").Activated += async (uimenu, item) =>
@@ -12575,6 +12576,61 @@ namespace Client
                 MenuPool.Add(UiMenu);
             }
         }
+        public static void GovLicenseMenu()
+        {
+            if (User.IsGov())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Лицензии", "~b~Меню");
+
+                if (User.IsLeader() || User.IsSubLeader())
+                {
+                    
+
+                    if (User.Data.rank > 6)
+                    {
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveLawLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию на бизнес").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveBizzLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию на охоту").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveAnimalLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                        menu.AddMenuItem(UiMenu, "Выдать лицензию на рыбалку").Activated += (uimenu, item) =>
+                        {
+                            ShowGovGiveFishLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
+                                1f));
+                            Chat.SendMeCommand("передает документ");
+                        };
+                    }
+
+                    
+                }
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
+            }
+        }
         public static void GovNewsMenu()
         {
             if (User.IsGov())
@@ -12616,34 +12672,6 @@ namespace Client
                         };
                     }
 
-                    if (User.Data.rank > 6)
-                    {
-                        menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
-                        {
-                            ShowGovGiveLawLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
-                                1f));
-                            Chat.SendMeCommand("передает документ");
-                        };
-                        menu.AddMenuItem(UiMenu, "Выдать лицензию на бизнес").Activated += (uimenu, item) =>
-                        {
-                            ShowGovGiveBizzLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
-                                1f));
-                            Chat.SendMeCommand("передает документ");
-                        };
-                        menu.AddMenuItem(UiMenu, "Выдать лицензию на охоту").Activated += (uimenu, item) =>
-                        {
-                            ShowGovGiveAnimalLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
-                                1f));
-                            Chat.SendMeCommand("передает документ");
-                        };
-                        menu.AddMenuItem(UiMenu, "Выдать лицензию на рыбалку").Activated += (uimenu, item) =>
-                        {
-                            ShowGovGiveFishLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
-                                1f));
-                            Chat.SendMeCommand("передает документ");
-                        };
-                    }
-
                     if (User.Data.rank > 8)
                     {
                         menu.AddMenuItem(UiMenu, "Пособие", $"Ставка: ~g~${Coffer.GetPosob()}").Activated +=
@@ -12677,6 +12705,82 @@ namespace Client
                     }
                 }
 
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+
+                MenuPool.Add(UiMenu);
+            }
+        }
+        public static void GovCofferMenu()
+        {
+            if (User.IsGov())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Казна", "~b~Меню");
+
+                if (User.Data.rank > 8)
+                    {
+                        menu.AddMenuItem(UiMenu, "Положить деньги в казну").Activated += async (uimenu, item) =>
+                        {
+                            HideMenu();
+                                
+                            if (await Ctos.IsBlackout())
+                            {
+                                Notification.SendWithTime("~r~Банк во время блекаута не работает");
+                                return;
+                            }
+                                
+                            int number = Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 10));
+
+                            if (number > await User.GetCashMoney())
+                            {
+                                Notification.SendWithTime("~g~Нет деняк");
+                                return;
+                            }
+                            
+                            Coffer.AddMoney(number);
+                            User.RemoveCashMoney(number);
+                                
+                            Notification.SendWithTime("~g~Вы положили деньги");
+                            Main.SaveLog("CofferTakeLog", User.Data.rp_name + " - " + number);
+                        };
+                        
+                        if (User.IsLeader())
+                        {
+                            menu.AddMenuItem(UiMenu, "Взять деньги").Activated += async (uimenu, item) =>
+                            {
+                                HideMenu();
+                                
+                                if (await Ctos.IsBlackout())
+                                {
+                                    Notification.SendWithTime("~r~Банк во время блекаута не работает");
+                                    return;
+                                }
+                                
+                                int number = Convert.ToInt32(await Menu.GetUserInput("Введите число", null, 10));
+                                Coffer.RemoveMoney(number);
+                                User.AddCashMoney(number);
+                                
+                                Notification.SendWithTime("~g~Вы взяли деньги");
+                                Main.SaveLog("CofferTakeLog", User.Data.rp_name + " - " + number);
+                            };
+                        }
+                    }
+                    
+                    menu.AddMenuItem(UiMenu, "В казне:").SetRightLabel($"~g~${Coffer.GetMoney():#,#}");
+                    
+                    menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
+                    {
+                        ShowTenCodeLocalList();
+                    };
+                
                 var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
 
                 UiMenu.OnItemSelect += (sender, item, index) =>

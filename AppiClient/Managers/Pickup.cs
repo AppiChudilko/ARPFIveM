@@ -23,7 +23,9 @@ namespace Client.Managers
         public static Vector3 SheriffLicense = new Vector3(-449.33f, 6008.115f, 35.50835f);
         public static Vector3 SapdLicense = new Vector3(441.3231f, -978.7f, 29.68967f);
         
-        public static Vector3 GovNews = new Vector3(-1379.8f, -477.014f, 71.04215f);
+        public static Vector3 GovLicense = new Vector3(-1379.8f, -477.014f, 71.04215f);
+        public static Vector3 GovNews = new Vector3(-1372.8f, -464.014f, 71.04215f);
+        public static Vector3 GovCoffer = new Vector3(-1371.007f, -462.3383f, 71.0467f);
         public static Vector3 SheriffNews = new Vector3(-445.9962f, 6014.372f, 35.51099f);
         public static Vector3 SapdNews = new Vector3(447.03f, -973.31f, 29.69f);
         public static Vector3 EmsNews = new Vector3(361.9435f, -588.364f, 46.3222f);
@@ -334,14 +336,18 @@ namespace Client.Managers
             Checkpoint.Create(EmsHealPos, 1.4f, "show:menu");
             
             //Computers
-            Marker.Create(EmsNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            /*Marker.Create(EmsNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsNews, 1.4f, "show:menu");
-            Marker.Create(GovNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
-            Checkpoint.Create(GovNews, 1.4f, "show:menu");
+            Marker.Create(GovLicense, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(GovLicense, 1.4f, "show:menu");
             Marker.Create(SheriffNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SheriffNews, 1.4f, "show:menu");
             Marker.Create(SapdNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SapdNews, 1.4f, "show:menu");
+            Marker.Create(GovCoffer, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(GovCoffer, 1.4f, "show:menu");
+            Marker.Create(GovNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(GovNews, 1.4f, "show:menu");*/
             //Apteka
             Marker.Create(AptekaPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(AptekaPos, 1.4f, "show:menu");
@@ -1160,8 +1166,12 @@ namespace Client.Managers
                 MenuList.SapdNewsMenu();
             if (Main.GetDistanceToSquared(SheriffNews, playerPos) < DistanceCheck)
                 MenuList.SheriffNewsMenu();
+            if (Main.GetDistanceToSquared(GovLicense, playerPos) < DistanceCheck)
+                MenuList.GovLicenseMenu();
             if (Main.GetDistanceToSquared(GovNews, playerPos) < DistanceCheck)
                 MenuList.GovNewsMenu();
+            if (Main.GetDistanceToSquared(GovCoffer, playerPos) < DistanceCheck)
+                MenuList.GovCofferMenu();
             /*EMS*/
             
             if (User.IsEms())

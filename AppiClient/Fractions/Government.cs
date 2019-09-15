@@ -170,9 +170,9 @@ namespace Client.Fractions
         public static void SetPosob(int money)
         {
             if (!User.IsGov()) return;
-            if (money < 3 || money > 43)
+            if (money < 20 || money > 80)
             {
-                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_103", 3, 43));
+                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_103", 20, 80));
                 return;
             }
 
@@ -183,9 +183,9 @@ namespace Client.Fractions
         public static void SetNalog(int number)
         {
             if (!User.IsGov()) return;
-            if (number < 1 || number > 20)
+            if (number < 5 || number > 25)
             {
-                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_103", 1, 20));
+                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_103", 5, 25));
                 return;
             }
 
@@ -209,8 +209,9 @@ namespace Client.Fractions
         public static void SetPension(int number)
         {
             if (!User.IsGov()) return;
+            if (number < 20 || number > 80)
             {
-                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_103", 30, 140));
+                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_103", 20, 80));
                 return;
             }
 

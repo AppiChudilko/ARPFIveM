@@ -6089,7 +6089,7 @@ namespace Client
 
             if (User.IsLeader() || User.IsSubLeader())
             {
-                /*menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
+                menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
                 {
                     //ShowFractionMemberListMenu();
                     HideMenu();
@@ -6098,7 +6098,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
                 {
                     ShowFractionMemberInviteMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
-                };*/
+                };
             }
             
             menu.AddMenuItem(UiMenu, "Установить тег").Activated += async (uimenu, item) =>
@@ -12965,7 +12965,7 @@ namespace Client
                             Debug.WriteLine(e.Message);
                             throw;
                         }
-                    }
+                    }а
 
                     Notification.SendWithTime("~r~Человек не найден");
 

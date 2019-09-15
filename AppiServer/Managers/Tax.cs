@@ -32,7 +32,7 @@ namespace Server.Managers
             await Delay(Convert.ToInt32(60000 * 60 * 3.4));
             RemoveTax();
             await Delay(5000);
-            //Sell();
+            Sell();
         }
 
         public static void BankNotification(Player p, int prefix, int sum)

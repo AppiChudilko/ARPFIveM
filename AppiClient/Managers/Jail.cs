@@ -276,12 +276,14 @@ namespace Client.Managers
 
         public static void JailPlayer(int sec)
         {
-            TeleportToJail(sec);
+            //Notification.SendWithTime("~g~public static void JailPlayer(int sec) works");
+            TeleportToJail(sec); //не работает хуита
             JailPlayerWithoutTeleport(sec);
         }
 
         public static async void TeleportToJail(int sec)
         {
+            //Notification.SendWithTime("~g~public static async void TeleportToJail(int sec) done");
             User.UnTie();
             
             if (await Client.Sync.Data.Has(User.GetServerId(), "isCuff"))
@@ -310,6 +312,8 @@ namespace Client.Managers
 
         public static void JailPlayerWithoutTeleport(int sec)
         {
+            //Notification.SendWithTime("~g~public static void JailPlayerWithoutTeleport(int sec) done");
+
             User.Data.jail_time = sec;
             User.Data.wanted_level = 0;
             Client.Sync.Data.Set(User.GetServerId(), "jail_time", sec);

@@ -19280,6 +19280,8 @@ namespace Client
                         ShowBankAtmMenu();
                     if (User.Data.bank_prefix > 0 && (Timer.EntityOther1 > 0 || Timer.EntityOther2 > 0 || Timer.EntityOther3 > 0))
                         ShowBankAtmMenu();
+                    if (User.Data.bank_prefix > 0 && (Timer.EntityHeal > 0 || Timer.EntityHeal > 0 || Timer.EntityHeal > 0))
+                        UseFirstAidKit();
                     
                     Managers.Apartment.MenuEnter();
                     Managers.Apartment.MenuExit();

@@ -16,6 +16,8 @@ namespace Client.Managers
         public static int EntityOther1 = 0;
         public static int EntityOther2 = 0;
         public static int EntityOther3 = 0;
+
+        public static int EntityHeal = 0;
         
         public static Vector3 OutPos;
         public static bool IsDisableClipset;
@@ -451,6 +453,8 @@ namespace Client.Managers
             Model other2 = -1364697528;
             Model other3 = -870868698;
 
+            Model Heal = 0;
+
             Model fire1 = -1065766299;
             Model fire2 = -1350614541;
             Model fire3 = 690464963;
@@ -459,6 +463,9 @@ namespace Client.Managers
             EntityOther1 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) other1.Hash, false, false, false);
             EntityOther2 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) other2.Hash, false, false, false);
             EntityOther3 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) other3.Hash, false, false, false);  
+            
+            EntityHeal = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) Heal.Hash, false, false, false);  
+
             
             var entityFire1 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 5f, (uint) fire1.Hash, false, false, false);
             var entityFire2 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 5f, (uint) fire2.Hash, false, false, false);

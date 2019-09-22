@@ -11141,6 +11141,49 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        public static async void ShowHealWardrobeMenu()
+        {
+            HideMenu();
+            
+
+            await Delay(300);
+            
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Банк", "Нажмите \"~g~Enter~s~\", чтобы выбрать пункт.", true, true);
+
+            menu.AddMenuItem(UiMenu, "Использовать набор первой помощи").Activated += (uimenu, item) => 
+            {
+                HideMenu();
+                //foreach (CitizenFX.Core.Player p in Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), Convert.ToInt32(1)))
+                //  Shared.TriggerEventToPlayer(p.ServerId, "ARP:UseAdrenalin");
+                var pPos = GetEntityCoords(GetPlayerPed(-1), true);
+                var player = Main.GetPlayerOnRadius(pPos, 1.2f);
+                if (player == null)
+                {
+                    Notification.SendWithTime("~r~Рядом с вами никого нет");
+                    return;
+                }
+
+                Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseFirstAidKit");
+                Chat.SendMeCommand("использовал набор первой помощи");
+            };
+            
+
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                {
+                    HideMenu();
+                    User.PlayScenario("PROP_HUMAN_ATM");
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
         
         public static async void ShowBusinessMenu()
         {
@@ -12585,10 +12628,7 @@ namespace Client
                 var menu = new Menu();
                 UiMenu = menu.Create("Лицензии", "~b~Меню");
 
-                if (User.IsLeader() || User.IsSubLeader())
-                {
-                    
-
+               
                     if (User.Data.rank > 6)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
@@ -12617,8 +12657,6 @@ namespace Client
                         };
                     }
 
-                    
-                }
 
                 var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
 
@@ -12965,7 +13003,7 @@ namespace Client
                             Debug.WriteLine(e.Message);
                             throw;
                         }
-                    }а
+                    }
 
                     Notification.SendWithTime("~r~Человек не найден");
 
@@ -14104,7 +14142,7 @@ namespace Client
                     Main.AddFractionGunLog(User.Data.rp_name, "Бронежилет", User.Data.fraction_id);
                 };
 
-                if (User.Data.rank < 3)
+                if (User.Data.rank == 3 || User.Data.rank == 6)
                 {
                     menu.AddMenuItem(UiMenu, "Набор охранника").Activated += (uimenu, item) =>
                     {
@@ -19281,7 +19319,7 @@ namespace Client
                     if (User.Data.bank_prefix > 0 && (Timer.EntityOther1 > 0 || Timer.EntityOther2 > 0 || Timer.EntityOther3 > 0))
                         ShowBankAtmMenu();
                     if (User.Data.bank_prefix > 0 && (Timer.EntityHeal > 0 || Timer.EntityHeal > 0 || Timer.EntityHeal > 0))
-                        UseFirstAidKit();
+                        ShowHealWardrobeMenu();
                     
                     Managers.Apartment.MenuEnter();
                     Managers.Apartment.MenuExit();

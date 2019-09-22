@@ -453,7 +453,7 @@ namespace Client.Managers
             Model other2 = -1364697528;
             Model other3 = -870868698;
 
-            Model Heal = 0;
+            Model heal1 = 0;
 
             Model fire1 = -1065766299;
             Model fire2 = -1350614541;
@@ -464,7 +464,7 @@ namespace Client.Managers
             EntityOther2 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) other2.Hash, false, false, false);
             EntityOther3 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) other3.Hash, false, false, false);  
             
-            EntityHeal = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) Heal.Hash, false, false, false);  
+            EntityHeal = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 0.68f, (uint) heal1.Hash, false, false, false);  
 
             
             var entityFire1 = GetClosestObjectOfType(plPos.X, plPos.Y, plPos.Z, 5f, (uint) fire1.Hash, false, false, false);

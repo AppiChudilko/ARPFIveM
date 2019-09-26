@@ -103,7 +103,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="Managers\Apartment.cs" />
     <Compile Include="Managers\Blip.cs" />
-    <Compile Include="Managers\Board.cs" />
     <Compile Include="Managers\Chat.cs" />
     <Compile Include="Managers\Condo.cs" />
     <Compile Include="Managers\Ctos.cs" />
@@ -134,6 +133,7 @@
     <Compile Include="Managers\UI.cs" />
     <Compile Include="Managers\Vehicle.cs" />
     <Compile Include="Managers\Voice.cs" />
+    <Compile Include="Managers\Board.cs" />
     <Compile Include="Managers\Weather.cs" />
     <Compile Include="MenuList.cs" />
     <Compile Include="NoClip.cs" />

@@ -1604,6 +1604,14 @@ namespace Client
                 await Delay(1);
         }
 
+        public static async void HealthCheck()
+        {
+            if (GetEntityHealth(GetPlayerPed(-1)) > 130)
+            {
+                User.SetPlayerNonStaticClipset("move_heist_lester");
+            }
+        }
+
         public static async void Respawn(Vector3 pos, float rot)
         {
             if (GetEntityHealth(GetPlayerPed(-1)) > 110)

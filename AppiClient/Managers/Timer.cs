@@ -502,6 +502,11 @@ namespace Client.Managers
         {
             await Delay(1500);
 
+            if (User.IsAuth)
+            {
+                User.HealthCheck();
+            }
+
             if (User.GetVipStatus() == "none" && User.Data.last_login < User.Data.date_reg + 604800)
                 User.Data.vip_status = "Light";
 
@@ -547,7 +552,7 @@ namespace Client.Managers
             if (User.GetEatLevel() < 250)
             {
                 IsDisableClipset = true;
-                User.SetPlayerNonStaticClipset("move_heist_lester");
+                //User.SetPlayerNonStaticClipset("move_heist_lester");
             }
             else if (User.GetDrunkLevel() > 50)
             {
@@ -567,7 +572,7 @@ namespace Client.Managers
             }
             else if(User.GetDrunkLevel() < 5)
                 IsDisableClipset = false;
-            
+
             if (!IsDisableClipset)
                 User.SetPlayerCurrentClipset();
              

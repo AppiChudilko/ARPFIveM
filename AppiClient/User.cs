@@ -2112,36 +2112,51 @@ namespace Client
             /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
             if (ped.IsAlive)
                 return;*/
+            if (GetEntityHealth(GetPlayerPed(-1)) < 0)
+
+            {
+                var pos = GetEntityCoords(GetPlayerPed(-1), true);
+                PlayScenario("forcestop");
+                NetworkSetTalkerProximity(5f);
+                SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
+                NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
+                StopAllScreenEffects();
+                SetEntityHealth(GetPlayerPed(-1), 105);
+                Freeze(PlayerId(), false);
             
-            var pos = GetEntityCoords(GetPlayerPed(-1), true);
-            PlayScenario("forcestop");
-            NetworkSetTalkerProximity(5f);
-            SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
-            NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
-            StopAllScreenEffects();
-            SetEntityHealth(GetPlayerPed(-1), 105);
-            Freeze(PlayerId(), false);
-            
-            Dispatcher.SendEms("Код 4", "Человек в сознании");
+                Dispatcher.SendEms("Код 4", "Человек в сознании");
+            }
+            else
+            {
+                Notification.SendWithTime("Человек в сознании");
+            }
         }
         
         public static void UseDef()
         {
-            var pos = GetEntityCoords(GetPlayerPed(-1), true);
-            PlayScenario("forcestop");
-            NetworkSetTalkerProximity(5f);
-            SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
-            NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
-            StopAllScreenEffects();
-            SetEntityHealth(GetPlayerPed(-1), 105);
-            Freeze(PlayerId(), false);
-            
-            Dispatcher.SendEms("Код 4", "Человек в сознании");
+            if (GetEntityHealth(GetPlayerPed(-1)) < 0)
+            {
+                var pos = GetEntityCoords(GetPlayerPed(-1), true);
+                PlayScenario("forcestop");
+                NetworkSetTalkerProximity(5f);
+                SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
+                NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
+                StopAllScreenEffects();
+                SetEntityHealth(GetPlayerPed(-1), 105);
+                Freeze(PlayerId(), false);
+                
+                Dispatcher.SendEms("Код 4", "Человек в сознании");
+            }
+            else
+            {
+                Notification.SendWithTime("Человек в сознании");
+            }
+    
         }
         public static void EmsHeal()
         {
             var pos = GetEntityCoords(GetPlayerPed(-1), true);
-            PlayScenario("forcestop");
+            //PlayScenario("forcestop");
             NetworkSetTalkerProximity(5f);
             SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
             NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
@@ -2156,15 +2171,19 @@ namespace Client
             if (ped.IsAlive)
                 return;*/
             
-            var pos = GetEntityCoords(GetPlayerPed(-1), true);
-            PlayScenario("forcestop");
+            //var pos = GetEntityCoords(GetPlayerPed(-1), true);
+            //PlayScenario("forcestop");
             NetworkSetTalkerProximity(5f);
-            SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
-            NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
+            //SetEntityCoords(GetPlayerPed(-1), pos.X, pos.Y, pos.Z, true, false, false, true);
+            //NetworkResurrectLocalPlayer(pos.X, pos.Y, pos.Z, 0, true, false);
             StopAllScreenEffects();
-            if (GetEntityHealth(GetPlayerPed(-1)) <= 130)
+            if (GetEntityHealth(GetPlayerPed(-1)) < 120 && GetEntityHealth(GetPlayerPed(-1)) > 110)
             {
-                SetEntityHealth(GetPlayerPed(-1), 130);
+                SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 20);
+            }
+            else if (GetEntityHealth(GetPlayerPed(-1)) < 110 && GetEntityHealth(GetPlayerPed(-1)) > 100)
+            {
+                SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 30);
             }
         }
 

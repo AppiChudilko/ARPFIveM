@@ -3592,7 +3592,19 @@ namespace Client
             foreach (Player p in new PlayerList())
             {
                 if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
-                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
+                    {
+                        if (NetworkIsInSpectatorMode())
+                            NetworkSetInSpectatorMode(false, GetPlayerPed(_lastSpec));
+                        
+                        var plPos = GetEntityCoords(GetPlayerPed(p.Handle), true);
+                        RequestCollisionAtCoord(plPos.X, plPos.Y, plPos.Z);
+                        _lastSpec = p.Handle;
+                        NetworkSetInSpectatorMode(true, GetPlayerPed(p.Handle));
+                    };
+                    continue;
+                }
                 try
                 {
                     menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu, item) =>
@@ -3643,28 +3655,36 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue; // это нада удолить когда пофиксу внизу то шо
-                    /* if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
-                        menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
-                        {
-                            HideMenu();
-                            var reason = await Menu.GetUserInput("Причина", null, 32);
-                            if (reason == "NULL") return;
-                            TriggerServerEvent("ARP:KickPlayerServerId", p.ServerId, reason);
-                            Notification.SendWithTime($"~y~Вы кикнули игрока");
-                        };
-                        continue;
-                    }*/
+                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                    if (User.PlayerIdList[p.ServerId.ToString()] == id)
+                    {
+                        HideMenu();
+                        var reason = await Menu.GetUserInput("Причина", null, 32);
+                        if (reason == "NULL") return;
+                        TriggerServerEvent("ARP:KickPlayerServerId", p.ServerId, reason);
+                        Notification.SendWithTime($"~y~Вы кикнули игрока {User.PlayerIdList[p.ServerId.ToString()]}");
+                    }
                 }
             };
             
             foreach (Player p in new PlayerList())
             {
                 if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
-                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var reason = await Menu.GetUserInput("Причина", null, 32);
+                        if (reason == "NULL") return;
+                        TriggerServerEvent("ARP:KickPlayerServerId", p.ServerId, reason);
+                        Notification.SendWithTime($"~y~Вы кикнули игрока");
+                    };
+                    continue;
+                }
                 try
                 {
-                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu, item) =>
+                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu1, item1) =>
                     {
                         HideMenu();
                         var reason = await Menu.GetUserInput("Причина", null, 32);
@@ -3726,38 +3746,46 @@ namespace Client
 
             var list = new List<dynamic> {"1ч", "12ч", "1д", "3д", "7д", "14д", "30д", "90д"};
             
-            menu.AddMenuItemList(UiMenu, "~b~По ID", list).OnListSelected += async (uimenu, idx) =>
+            menu.AddMenuItemList(UiMenu, "~b~По ID", list).OnListSelected += async (uimenu1, idx1) =>
             {
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue; // это нада удолить когда пофиксу внизу то шо
-                        /*if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
-                        menu.AddMenuItemList(UiMenu, $"~b~ID: ~s~Не авторизован", list).OnListSelected += async (uimenu, idx) =>
-                        {
-                            HideMenu();
-                            var reason = await Menu.GetUserInput("Причина", null, 32);
-                            if (reason == "NULL") return;
-                            TriggerServerEvent("ARP:BanPlayerServerId", p.ServerId, idx, reason);
-                            Notification.SendWithTime($"~y~Вы забанили игрока");
-                        };
-                        continue;
-                    }*/
+                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                    if (User.PlayerIdList[p.ServerId.ToString()] == id)
+                    {
+                        HideMenu();
+                        var reason = await Menu.GetUserInput("Причина", null, 32);
+                        if (reason == "NULL") return;
+                        TriggerServerEvent("ARP:BanPlayerServerId", p.ServerId, idx1, reason);
+                        Notification.SendWithTime($"~y~Вы забанили игрока {User.PlayerIdList[p.ServerId.ToString()]}");
+                    }
                 }
             };
             
             foreach (Player p in new PlayerList())
             {
                 if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
-                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
-                try
-                {
-                    menu.AddMenuItemList(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}", list).OnListSelected += async (uimenu, idx) =>
+                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                    menu.AddMenuItemList(UiMenu, $"~b~ID: ~s~Не авторизован", list).OnListSelected += async (uimenu, idx) =>
                     {
                         HideMenu();
                         var reason = await Menu.GetUserInput("Причина", null, 32);
                         if (reason == "NULL") return;
                         TriggerServerEvent("ARP:BanPlayerServerId", p.ServerId, idx, reason);
+                        Notification.SendWithTime($"~y~Вы забанили игрока");
+                    };
+                    continue;
+                }
+                try
+                {
+                    menu.AddMenuItemList(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}", list).OnListSelected += async (uimenu1, idx1) =>
+                    {
+                        HideMenu();
+                        var reason = await Menu.GetUserInput("Причина", null, 32);
+                        if (reason == "NULL") return;
+                        TriggerServerEvent("ARP:BanPlayerServerId", p.ServerId, idx1, reason);
                         Notification.SendWithTime($"~y~Вы забанили игрока {User.PlayerIdList[p.ServerId.ToString()]}");
                     };
                 }
@@ -3816,26 +3844,34 @@ namespace Client
                 var id = Convert.ToInt32(await Menu.GetUserInput("ID Игрока", null, 11));
                 foreach (Player p in new PlayerList())
                 {
-                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue; // это нада удолить когда пофиксу внизу то шо
-                    /* (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) 
+                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                    if (User.PlayerIdList[p.ServerId.ToString()] == id)
                     {
-                        menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
-                        {
-                            HideMenu();
-                            var reason = await Menu.GetUserInput("Причина", null, 32);
-                            if (reason == "NULL") return;
-                            TriggerServerEvent("ARP:BlackListPlayerServerId", p.ServerId, reason);
-                            Notification.SendWithTime($"~y~Вы занесли в черный список игрока");
-                        };
-                        continue;
-                    }*/
+                        HideMenu();
+                        var reason = await Menu.GetUserInput("Причина", null, 32);
+                        if (reason == "NULL") return;
+                        TriggerServerEvent("ARP:BlackListPlayerServerId", p.ServerId, reason);
+                        Notification.SendWithTime(
+                            $"~y~Вы занесли в черный список игрока {User.PlayerIdList[p.ServerId.ToString()]}");
+                    }
                 }
             };
             
             foreach (Player p in new PlayerList())
             {
                 if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
-                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) {
+                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~Не авторизован").Activated += async (uimenu, item) =>
+                    {
+                        HideMenu();
+                        var reason = await Menu.GetUserInput("Причина", null, 32);
+                        if (reason == "NULL") return;
+                        TriggerServerEvent("ARP:BlackListPlayerServerId", p.ServerId, reason);
+                        Notification.SendWithTime($"~y~Вы занесли в черный список игрока");
+                    };
+                    continue;
+                }
                 try
                 {
                     menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu, item) =>
@@ -5753,7 +5789,7 @@ namespace Client
                           }
                           Main.SaveLog("GangBang", $"[ANDRENALINE] {User.Data.rp_name} - {User.PlayerIdList[player.ServerId.ToString()]} | {pPos.X} {pPos.Y} {pPos.Z}");
                           Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseDef");
-                          Chat.SendMeCommand("использовал дефибриллятор");
+                              //Chat.SendMeCommand("использовал дефибриллятор");
                     };
                     menu.AddMenuItem(UiMenu, "Использовать набор первой помощи").Activated += (uimenu, item) => 
                     {
@@ -5767,9 +5803,10 @@ namespace Client
                             Notification.SendWithTime("~r~Рядом с вами никого нет");
                             return;
                         }
+                        
 
                             Shared.TriggerEventToPlayer(player.ServerId, "ARP:UseFirstAidKit");
-                            Chat.SendMeCommand("использовал набор первой помощи");
+                            //Chat.SendMeCommand("использовал набор первой помощи");
                     };
                     
                     
@@ -12814,10 +12851,7 @@ namespace Client
                     
                     menu.AddMenuItem(UiMenu, "В казне:").SetRightLabel($"~g~${Coffer.GetMoney():#,#}");
                     
-                    menu.AddMenuItem(UiMenu, "Локальные коды").Activated += (uimenu, item) =>
-                    {
-                        ShowTenCodeLocalList();
-                    };
+                
                 
                 var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
 

@@ -141,12 +141,16 @@ namespace Client.Jobs
             money = money * 3;
             
             money = money * User.Bonus;
+            if(money != 0)
+            {
+                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_118", $"{money:#,#}"));
+            }
             
             User.AddCashMoney(money);
             Coffer.RemoveMoney(money);
 
             Count = 0;
-            Notification.SendWithTime(Lang.GetTextToPlayer("_lang_118", $"{money:#,#}"));
+            
         }
     }
 }

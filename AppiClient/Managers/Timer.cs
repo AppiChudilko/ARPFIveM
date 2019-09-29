@@ -21,6 +21,7 @@ namespace Client.Managers
         
         public static Vector3 OutPos;
         public static bool IsDisableClipset;
+        public static bool on;
         
         public static float WeatherTemp = -99;
         
@@ -44,6 +45,7 @@ namespace Client.Managers
             Tick += SetTickHidehud;
             Tick += SetTickCheckId;
             Tick += SetTimerFindNetwork;
+            Tick += OnTick;
         }
 
         private static async Task Tick100Timer()
@@ -179,6 +181,8 @@ namespace Client.Managers
                     await Delay(10000);
                     StopScreenEffect("DrugsMichaelAliensFightOut");
                 }
+
+                
 
                 if (User.GetDrugCocaLevel() > 0)
                 {
@@ -390,6 +394,14 @@ namespace Client.Managers
                         Client.Sync.Data.Reset(User.GetServerId(), hash.ToString());
                     }
                 }
+                
+                User.HealthCheck();
+                
+                if (GetEntityHealth(GetPlayerPed(-1)) > 130)
+                {
+                    User.SetPlayerNonStaticClipset("move_heist_lester");
+                }
+                
             }
         }
 
@@ -439,6 +451,30 @@ namespace Client.Managers
                     User.Data.mp0_wheelie_ability--;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_wheelie_ability", User.Data.mp0_wheelie_ability);
                 }
+            }
+        }
+
+        public  async Task OnTick()
+        {
+            if (GetEntityHealth(GetPlayerPed(-1)) < 130)
+            {
+                //User.SetPlayerNonStaticClipset("move_heist_lester");
+                on = true;
+                //return;
+            }
+            if (GetEntityHealth(GetPlayerPed(-1)) >= 130)
+            {
+                on = false;
+                //return;
+            }
+
+            if (on == true)
+            {
+                User.SetPlayerNonStaticClipset("move_heist_lester");
+            }
+            else if (on != true || on == true)
+            {
+                await Delay(300);
             }
         }
 
@@ -502,10 +538,7 @@ namespace Client.Managers
         {
             await Delay(1500);
 
-            if (User.IsAuth)
-            {
-                User.HealthCheck();
-            }
+            
 
             if (User.GetVipStatus() == "none" && User.Data.last_login < User.Data.date_reg + 604800)
                 User.Data.vip_status = "Light";

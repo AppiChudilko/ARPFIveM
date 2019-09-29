@@ -33,6 +33,15 @@ namespace Client.Managers
         public static Vector3 ArcadiusUp = new Vector3(-145.3776f, -605.22f, 166.0067f);
         public static Vector3 ArcadiusDown = new Vector3(-146.2469f, -604.0237f, 166.0001f);
         
+        //===========Больничные Койки============
+        public static Vector3 Koika1Pos = new Vector3(351.387f, -590.12f, 42.31f);
+        public static Vector3 Koika1Bed = new Vector3(350.72f, -591.82f, 42.98f);
+
+        
+        
+        //=======================================
+        
+
         public static readonly Vector3 BankMazeLiftOfficePos = new Vector3(-77.77799f, -829.6542f, 242.3859f);
         public static readonly Vector3 BankMazeLiftStreetPos = new Vector3(-66.66476f, -802.0474f, 43.22729f);
         public static readonly Vector3 BankMazeLiftRoofPos = new Vector3(-67.13605f, -821.9f, 320.2874f);
@@ -334,6 +343,11 @@ namespace Client.Managers
             Checkpoint.Create(EmsDuty2Pos, 1.4f, "show:menu");
             Marker.Create(EmsHealPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsHealPos, 1.4f, "show:menu");
+            
+            //Koiki
+            Marker.Create(Koika1Pos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(Koika1Pos, 1f, "show:menu");
+            Checkpoint.Create(Koika1Bed, 1f, "show:menu");
             
             //Computers
             /*Marker.Create(EmsNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -846,6 +860,37 @@ namespace Client.Managers
             {
                 User.Teleport(ArcadiusDown);
             }
+            
+            //Koiki
+            /*if (Main.GetDistanceToSquared(Koika1Pos, playerPos) < DistanceCheck)
+            {
+                User.Freeze(PlayerId(), true);
+                await Delay(200);
+                User.Teleport(Koika1Bed);
+                User.HealNaKoike();
+                User.healing = true;
+                //User.PlayAnimation("missfbi1", "cpr_pumpchest_idle", 9);
+                if (User.healing == true)
+                {
+                    await Delay(2000);
+                    User.PlayAnimation("missfbi1", "cpr_pumpchest_idle");
+                    return;
+                }
+                
+            }
+            if (Main.GetDistanceToSquared(Koika1Bed, playerPos) < DistanceCheck)
+            {
+                User.Teleport(Koika1Pos);
+                User.healing = false;
+                User.Freeze(PlayerId(), false);
+                if(User.healing == true && GetEntityHealth(GetPlayerPed(-1)) > 199)
+                {
+                    User.healing = false;
+                    //User.Freeze(PlayerId(), false);
+                    Notification.Send("Вы здоровы <3");
+                    User.Teleport(Koika1Pos);
+                }
+            }*/
             
             /*EMS*/
             if (Main.GetDistanceToSquared(EmsOutPos, playerPos) < DistanceCheck)

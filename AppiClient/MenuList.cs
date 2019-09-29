@@ -3643,6 +3643,7 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        
         public static async void ShowAdminKickMenu()
         {
             HideMenu();
@@ -5738,7 +5739,7 @@ namespace Client
 
                     if (!User.IsDuty()) break;
                     
-                    /*menu.AddMenuItem(UiMenu, "Диспетчерская").Activated += (uimenu, item) =>
+                    menu.AddMenuItem(UiMenu, "Диспетчерская").Activated += (uimenu, item) =>
                     {
                         ShowDispatcherList();
                     };
@@ -5750,7 +5751,7 @@ namespace Client
                         if (text == "NULL") return;
                         Notification.SendPictureToFraction(text, $"EMS [{Managers.Weather.Hour:D2}:{Managers.Weather.Min:D2}]", $"{User.Data.rp_name}", "CHAR_CALL911", Notification.TypeChatbox, 16);
                         Chat.SendMeCommand("отправляет сообщение по служебному телефону");
-                    };*/
+                    };
                     
                     menu.AddMenuItem(UiMenu, "Эвакуировать ближайший ТС").Activated += (uimenu, item) =>
                     {

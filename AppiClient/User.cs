@@ -47,12 +47,14 @@ namespace Client
         public static bool IsAuth = false;
         public static bool IsBlockAnimation = false;
         public static bool IsRpAnim = false;
+        public static bool healing = false;
         
         private static string _currentScenario = "";
         
         public User()
         {
             Tick += CheckInfo;
+            Tick += HealNaKoike;
             EventHandlers.Add("ARP:PayDay", new Action(PayDay));
             EventHandlers.Add("ARP:AuthSuccess", new Action(AuthSuccess));
             EventHandlers.Add("ARP:SendPlayerSubTitle", new Action<string>(SendPlayerSubTitle));
@@ -1256,6 +1258,17 @@ namespace Client
                 SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) - 3);
                 Notification.SendWithTime("~y~У Вас замерзли ступни");
             }
+            
+        }
+
+        public static async Task HealNaKoike()
+        {
+            
+            if (healing == true)
+            {
+                await Delay(3000);
+                SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 2);
+            }
         }
         
         /*Wanted Level*/
@@ -2120,7 +2133,7 @@ namespace Client
             /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
             if (ped.IsAlive)
                 return;*/
-            if (GetEntityHealth(GetPlayerPed(-1)) < 0)
+            if (GetEntityHealth(GetPlayerPed(-1)) < 101)
 
             {
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
@@ -2142,7 +2155,7 @@ namespace Client
         
         public static void UseDef()
         {
-            if (GetEntityHealth(GetPlayerPed(-1)) < 0)
+            if (GetEntityHealth(GetPlayerPed(-1)) < 101)
             {
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 PlayScenario("forcestop");

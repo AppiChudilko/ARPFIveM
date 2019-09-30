@@ -45,7 +45,7 @@ namespace Client.Managers
             Tick += SetTickHidehud;
             Tick += SetTickCheckId;
             Tick += SetTimerFindNetwork;
-            Tick += OnTick;
+            //Tick += OnTick;
         }
 
         private static async Task Tick100Timer()
@@ -396,11 +396,11 @@ namespace Client.Managers
                 }
                 
                 User.HealthCheck();
-                
+                /*
                 if (GetEntityHealth(GetPlayerPed(-1)) > 130)
                 {
                     User.SetPlayerNonStaticClipset("move_heist_lester");
-                }
+                }*/
                 
             }
         }
@@ -454,7 +454,7 @@ namespace Client.Managers
             }
         }
 
-        public  async Task OnTick()
+        /*public  async Task OnTick()
         {
             if (GetEntityHealth(GetPlayerPed(-1)) < 130)
             {
@@ -476,7 +476,7 @@ namespace Client.Managers
             {
                 await Delay(300);
             }
-        }
+        }*/
 
         private static async Task SecAtmTimer()
         {

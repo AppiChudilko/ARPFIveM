@@ -12884,6 +12884,15 @@ namespace Client
                         if (text == "NULL") return;
                         Notification.SendPictureToAll(text, "Новости Sheriff's Dept.", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
                     };
+                    //zametka 1
+                    if (User.Data.rank <= 9)
+                    {
+                        menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
+                        {
+                            ShowFractionMemberInviteMenu(
+                                Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                        };
+                    }
 
                     if (User.IsLeader() || User.IsSubLeader())
                     {
@@ -12898,15 +12907,15 @@ namespace Client
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
                         };
-                        menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
-                        {
-                            ShowFractionMemberInviteMenu(
-                                Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
-                        };
 
                         menu.AddMenuItem(UiMenu, "Получить пароль").Activated += async (uimenu, item) =>
                         { 
                             Notification.Send($"~g~Текущий пароль: ~s~{await Client.Sync.Data.Get(-9999, "sapdPass")}");
+                        };
+                        menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
+                        {
+                            ShowFractionMemberInviteMenu(
+                                Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
                         };
                     }
                 }
@@ -14167,7 +14176,7 @@ namespace Client
                 Main.AddFractionGunLog(User.Data.rp_name, "Сухпаёк", User.Data.fraction_id);
             };
 
-            if (User.Data.rank < 3 || User.Data.rank > 6)
+            if (User.Data.rank >= 3 || User.Data.rank <= 6)
             {
                 menu.AddMenuItem(UiMenu, "Бронежилет").Activated += (uimenu, item) =>
                 {

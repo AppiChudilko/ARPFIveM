@@ -26,7 +26,7 @@ namespace Client.Managers
         public static string CurrentWeather = "CLEAR";
         
         private static readonly string[] DayNames = {"Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
-        
+
         public Weather()
         {
             EventHandlers.Add("ARP:SyncDateTime", new Action<int, int, int, int, int>(DateTime));
@@ -298,6 +298,7 @@ namespace Client.Managers
             NetworkOverrideClockTime(Hour, Min, Sec);
         }
         
+
         private static async Task PhoneSync()
         {
             await Delay(500);

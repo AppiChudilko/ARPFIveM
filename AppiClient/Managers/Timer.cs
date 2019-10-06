@@ -394,14 +394,6 @@ namespace Client.Managers
                         Client.Sync.Data.Reset(User.GetServerId(), hash.ToString());
                     }
                 }
-                
-                User.HealthCheck();
-                /*
-                if (GetEntityHealth(GetPlayerPed(-1)) > 130)
-                {
-                    User.SetPlayerNonStaticClipset("move_heist_lester");
-                }*/
-                
             }
         }
 
@@ -582,10 +574,10 @@ namespace Client.Managers
 
             User.Amount = User.Data.mp0_strength * 100 + 45100;
             
-            if (User.GetEatLevel() < 250)
+            if (GetEntityHealth(GetPlayerPed(-1)) < 130 && GetEntityHealth(GetPlayerPed(-1)) < 100)
             {
                 IsDisableClipset = true;
-                //User.SetPlayerNonStaticClipset("move_heist_lester");
+                User.SetPlayerNonStaticClipset("move_heist_lester");
             }
             else if (User.GetDrunkLevel() > 50)
             {
@@ -595,8 +587,12 @@ namespace Client.Managers
             }
             else if (User.GetDrunkLevel() > 100)
             {
+                PlayAmbientSpeech1(GetPlayerPed(-1), "Generic_Curse_High", "Speech_Params_Force_Shouted_Critical");
                 SetEntityHealth(GetPlayerPed(-1), 0);
                 Notification.SendWithTime("~r~Вы перепили и вырубились, скоро приедет скорая Вас откачивать");
+                DoScreenFadeOut(5000);
+                DoScreenFadeIn(5000);
+                
             }
             else if(User.GetDrunkLevel() >= 5)
             {

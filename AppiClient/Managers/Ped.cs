@@ -177,6 +177,9 @@ namespace Client.Managers
 
 	    public static async void LoadAllPeds()
 	    {
+		    //Welding shop
+		    await CreatePed( "s_m_m_dockwork_01", new Vector3(1210.057f, -3121.55f, 5.540324f), 50.51484f, false, "WORLD_HUMAN_STAND_IMPATIENT");
+		    
 		    //Apteka
 		    await CreatePed("a_f_y_business_02", new Vector3(318.4659f, -1080.464f, 19.68166f), 2.999455f, false, "WORLD_HUMAN_STAND_IMPATIENT");
 		    

@@ -141,6 +141,10 @@ namespace Client.Managers
                     DeleteWithMarker(checkpointId);
                     Jobs.Gardener.WorkProcess();
                     break;
+                case "job:GrSix:Work":
+                    DeleteWithMarker(checkpointId);
+                    Jobs.GroupSix.WorkProcess();
+                    break;
                 case "job:photo:work":
                     DeleteWithMarker(checkpointId);
                     Jobs.Photo.WorkProcess();

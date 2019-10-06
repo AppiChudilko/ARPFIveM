@@ -349,5 +349,36 @@ namespace Client.Managers
             SetPlayerWantedLevel(PlayerId(), 2, false);
             Notification.Send("~y~Вы ограбили магазин");
         }
+        
+        public static async void GrabGrSix()
+        {
+            var veh = Main.FindNearestVehicle();
+            var vehId = Managers.Vehicle.GetVehicleIdByNumber(GetVehicleNumberPlateText(veh.Handle));
+            var vehItem = await Managers.Vehicle.GetAllData(vehId);
+            int vehicle = NetToVeh(veh.NetworkId);
+            if (User.Data.job == "GrSix")
+            {
+                Main.SaveLog("GrSixGrabGrSix", $"USER: {User.GetServerId()} COORDS: {NetworkGetPlayerCoords(User.GetServerId())}");
+                Notification.SendWithTime("Инкассатор грабит инкассатора? Не стоит так делать, логи я созранил.");
+                return;
+            }
+            if (vehItem.Hash != 1747439474)
+            {
+                Notification.SendWithTime("~r~Грабить можно автомобили типа STOCKADE");
+                return;
+            }
+            /*if (Weather.Hour > 8 && Weather.Hour < 22)
+            {
+                Notification.SendWithTime("~r~Ограбить можно с 22:00 до 8:00");
+                return;
+            }
+            if (new PlayerList().Count() < 10)
+            {
+                Notification.SendWithTime("~r~Онлайн на сервере должен быть не менее 10 человек");
+                return;
+            }*/
+            TriggerServerEvent("ARP:GrSix:Grab", VehToNet(vehicle));
+            Dispatcher.SendEms("Код 0", "Всем патрулям, нападение на экипаж инкассаторского автомобиля");
+        }
     }
 }

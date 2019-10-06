@@ -957,6 +957,13 @@ namespace Client
             blip.Name = "Гараж рабочего транспорта";
             blip.IsShortRange = true;
             blip.Scale = 0.4f;
+            
+            blip = World.CreateBlip(Managers.Pickup.GroupSixKeyPos);
+            blip.Sprite = (BlipSprite) 277;
+            blip.Color = (BlipColor) 25;
+            blip.Name = "Gruppe Sechs";
+            blip.IsShortRange = true;
+            blip.Scale = 1f;
         }
 
         public static void LoadIpls()

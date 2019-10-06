@@ -129,9 +129,14 @@ namespace Server.Managers
             
             EventHandlers.Add("ARP:Promocode", new Action<Player, string>(Promocode));
             
+            //EventHandlers.Add("ARP:GrSix:Partner", new Action<Player, Player, int>(GrSix.PartnerSet));
+            EventHandlers.Add("ARP:GrSix:DropMoney", new Action<int, int>(GrSixDropMoney));
+            EventHandlers.Add("ARP:GrSix:Grab", new Action<Player, int>(GrabGrSix));
+
             Tick += DataBaseSync;
         }
-        
+
+        protected static int rand = 0;
         protected static void Promocode([FromSource] Player player, string code)
         {
             bool isValid = false;
@@ -310,6 +315,30 @@ namespace Server.Managers
                 TriggerClientEvent("ARP:UpdateAllData");
                 return;
             }
+        }
+        
+        public static void GrSixDropMoney(int veh, int money)
+        {
+            Server.Sync.Data.Set(veh, "GrSix:MoneyInCar", money);
+            Debug.WriteLine($"{Server.Sync.Data.Get(veh, "GrSix:MoneyInCar")}");
+        }
+
+        protected static void GrabGrSix([FromSource] Player player, int veh)
+        {
+            if (Server.Sync.Data.Has(veh, "HasGrab"))
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Транспорт уже ограбили");
+                return;
+            }
+            if (Server.Sync.Data.Get(veh, "GrSix:MoneyInCar") == 0)
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Нечего грабить, транспорт пуст");
+                return;
+            }
+            Server.Sync.Data.Set(veh, "HasGrab", true);
+            int cash = Server.Sync.Data.Get(veh, "GrSix:MoneyInCar") / 150;
+            Debug.WriteLine("2");
+            TriggerEvent("ARP:TriggerEventToPlayer", User.GetServerId(player), "ARP:GrSix:Grab", 1, cash);
         }
         
         protected static void Uninvite([FromSource] Player player, string name)
@@ -494,7 +523,9 @@ namespace Server.Managers
 
                 string guid = GetPlayerGuid(player.Handle);
                 string license = player.Identifiers["license"];
-                
+                string live = player.Identifiers["live"];
+                string xbl = player.Identifiers["xbl"];
+
                 if (!string.IsNullOrEmpty(guid))
                 {
                     if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE guid = '" + guid + "'").Rows.Cast<DataRow>().Any())
@@ -507,6 +538,24 @@ namespace Server.Managers
                 if (!string.IsNullOrEmpty(license))
                 {
                     if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE lic = '" + license + "'").Rows.Cast<DataRow>().Any())
+                    {
+                        deferrals.done("Вы находитесь в черном списке ;c"); 
+                        return;
+                    }
+                }
+                
+                if (!string.IsNullOrEmpty(live))
+                {
+                    if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE live = '" + live + "'").Rows.Cast<DataRow>().Any())
+                    {
+                        deferrals.done("Вы находитесь в черном списке ;c"); 
+                        return;
+                    }
+                }
+                
+                if (!string.IsNullOrEmpty(xbl))
+                {
+                    if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE xbl = '" + xbl + "'").Rows.Cast<DataRow>().Any())
                     {
                         deferrals.done("Вы находитесь в черном списке ;c"); 
                         return;
@@ -804,7 +853,7 @@ namespace Server.Managers
                 string sql = "INSERT INTO ban_list (ban_from, ban_to, count, datetime, format, reason) VALUES ('" + admin + "','" + plban + "','10','" + Main.GetTimeStamp() + "','y.','" + kickReason + " + BlackList')";
                 Appi.MySql.ExecuteQuery(sql);
                 
-                sql = "INSERT INTO black_list (steam, lic, guid, reason) VALUES ('" + player.Identifiers["steam"] + "','" + player.Identifiers["license"] + "','" + GetPlayerGuid(player.Handle) + "','" + kickReason + "')";
+                sql = "INSERT INTO black_list (steam, lic, live, xbl, guid, reason) VALUES ('" + player.Identifiers["steam"] + "','" + player.Identifiers["license"] + "','" + player.Identifiers["live"] + "','" + player.Identifiers["xbl"] + "','" + GetPlayerGuid(player.Handle) + "','" + kickReason + "')";
                 Appi.MySql.ExecuteQuery(sql);
                 
                 DropPlayer(player.Handle, $"[BLACK LIST] {kickReason}");

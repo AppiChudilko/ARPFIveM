@@ -460,6 +460,8 @@ namespace Client
                     return "Почтальон в GoPostal";
                 case "three":
                     return "Садовник";
+                case "GrSix":
+                    return "Инкассатор";
                 case "photo":
                     return "Фотограф";
                 case "taxi1":
@@ -658,6 +660,11 @@ namespace Client
         public static bool IsJobScienceGround()
         {
             return Data.job == "sground";
+        }
+
+        public static bool IsJobGroupSix()
+        {
+            return Data.job == "GrSix";
         }
 
         public static bool IsJobScienceWater()
@@ -1619,7 +1626,7 @@ namespace Client
 
         public static async void HealthCheck()
         {
-            if (GetEntityHealth(GetPlayerPed(-1)) > 130)
+            if (GetEntityHealth(GetPlayerPed(-1)) < 130)
             {
                 User.SetPlayerNonStaticClipset("move_heist_lester");
             }
@@ -2268,6 +2275,20 @@ namespace Client
             if (veh == null)
                 return;
             new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(veh, VehicleSeat.Any);
+        }
+
+        public static async void AdminInCar()
+        {
+            var veh = Main.FindNearestVehicle();
+            if (veh == null)
+                return;
+            new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(veh, VehicleSeat.Any);
+            
+            foreach (CitizenFX.Core.Ped p in Main.GetPedListOnRadius(Convert.ToInt32(1)))
+                p.Delete();
+            await Delay(300);
+            foreach (CitizenFX.Core.Vehicle v in Main.GetVehicleListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), Convert.ToInt32(1)))
+                v.Delete();
         }
         
         public static async void UnTieKnife()

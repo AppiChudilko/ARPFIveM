@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CitizenFX.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\Desktop\FiveM\CitizenFX.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\CitizenFX.Core.dll</HintPath>
     </Reference>
     <Reference Include="ClientData.net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>ClientData.net.dll</HintPath>

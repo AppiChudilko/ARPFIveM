@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CitizenFX.Core;
+using NativeUI.PauseMenu;
 using static CitizenFX.Core.Native.API;
 
 namespace Client.Managers
@@ -50,6 +52,8 @@ namespace Client.Managers
         
         public static readonly Vector3 LifeInvaderShopPos = new Vector3(-1083.074f, -248.3521f, 36.76329f);
         public static readonly Vector3 HackerSpaceShopPos = new Vector3(522.0684f, 167.0983f, 98.38704f);
+        
+        public static readonly Vector3 WeldingToolShop = new Vector3(1210.057f, -3121.55f, 5.540324f);
         
         public static readonly Vector3 HackerSpaceOutPos = new Vector3(1672.243f, -26.09709f, 172.7747f);
         public static readonly Vector3 HackerSpaceInPos = new Vector3(1671.604f, -23.82703f, 177.2864f);
@@ -119,6 +123,7 @@ namespace Client.Managers
         public static readonly Vector3 Mail2KeyPos = new Vector3(78.81596f, 112.1012f, 80.16817f);
         public static readonly Vector3 Ems1KeyPos = new Vector3(325.8369f, -573.5953f, 27.89865f);
         public static readonly Vector3 Ems2KeyPos = new Vector3(204.3715f, -1642.363f, 28.8032f);
+        public static readonly Vector3 GroupSixKeyPos = new Vector3(-41.86055f, -663.8578f, 32.48044f);
         
         /*EMS*/
         public static readonly Vector3 EmsGarderobPos = new Vector3(314.2783f, -603.3641f, 42.29278f);
@@ -407,10 +412,15 @@ namespace Client.Managers
             Checkpoint.Create(Mail1KeyPos, 1.4f, "show:menu");
             Marker.Create(Mail2KeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(Mail2KeyPos, 1.4f, "show:menu");
-            
+            Marker.Create(GroupSixKeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(GroupSixKeyPos, 1.4f, "show:menu");
+
             //Hackerspace
             Marker.Create(HackerSpaceShopPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(HackerSpaceShopPos, 1.4f, "show:menu");
+            
+            //Welding shop
+            Checkpoint.Create(WeldingToolShop, 2f, "show:menu");
             
             //Invader
             Marker.Create(LifeInvaderShopPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -1162,6 +1172,10 @@ namespace Client.Managers
             if (Main.GetDistanceToSquared(HackerSpaceShopPos, playerPos) < DistanceCheck)
                 MenuList.ShowHackerPhoneBuyMenu();
             
+            /*Welding Shop*/
+            if(Main.GetDistanceToSquared(WeldingToolShop, playerPos) < DistanceCheck)
+                MenuList.BuyGasWelder("Торговец", "Что желаешь купить?");
+            
             /*Invader*/
             if (Main.GetDistanceToSquared(LifeInvaderShopPos, playerPos) < DistanceCheck)
                 MenuList.ShowSetPhoneNumberMenu(92);
@@ -1447,6 +1461,9 @@ namespace Client.Managers
             
             if (User.IsJobMail() && Main.GetDistanceToSquared(Mail2KeyPos, playerPos) < DistanceCheck)
                 MenuList.ShowJobKeyMenu("Работа", "Ключи рабочего транспорта");
+            
+            if(User.IsJobGroupSix() && Main.GetDistanceToSquared(GroupSixKeyPos, playerPos) < DistanceCheck)
+               MenuList.ShowJobKeyMenu("Работа", "Ключи рабочего транспорта");
         }
     }
 }

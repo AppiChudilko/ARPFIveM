@@ -217,7 +217,7 @@ namespace Server.Managers
             User.UpdateAllData(player);
                 
             Appi.MySql.ExecuteQuery($"UPDATE items SET owner_id = '{hashNewNumber}' where owner_id = '{hashOldNumber}' and (owner_type = '2' or owner_type = '3' or owner_type = '4')");
-            
+            Main.SaveLog("ChangeNumberLSC", $"{Server.Sync.Data.Get(User.GetServerId(player), "rp_name")}" + " | vehId: " + vehId + " | newNumber: " + newNumber);
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Вы изменили номер транспорта");
             TriggerClientEvent("ARP:UpdateVehicleNumber", User.GetServerId(player), vehId, vehHandle, newNumber);
         }

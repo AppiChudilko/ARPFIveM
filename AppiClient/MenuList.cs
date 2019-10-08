@@ -12667,10 +12667,13 @@ namespace Client
                             Notification.SendWithTime("~r~У игрока нет розыска");
                             return;
                         }
-                        
+
+                        int premia = 100 * wantedLevel;
                         string reason = await Menu.GetUserInput("Причина");
                         TriggerServerEvent("ARP:SendServerToPlayerJail", reason, wantedLevel * 600, p.ServerId);
                         Notification.SendWithTime($"~y~Вы посадили {User.PlayerIdList[p.ServerId.ToString()]} в тюрьму");
+                        User.AddMoney(premia);//zametka
+                        Notification.SendWithTime("~g~Вы получили премию в размере: $" + premia);
                          
                         Main.SaveLog("JailPD", User.Data.rp_name + " jailed id " + User.PlayerIdList[p.ServerId.ToString()] + ", " + reason);
                     };
@@ -13035,7 +13038,7 @@ namespace Client
                         Notification.SendPictureToAll(text, "Новости Sheriff's Dept.", title, "WEB_LOSSANTOSPOLICEDEPT", Notification.TypeChatbox);
                     };
                     //zametka 1
-                    if (User.Data.rank <= 9)
+                    if (User.Data.rank > 8)
                     {
                         menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
                         {

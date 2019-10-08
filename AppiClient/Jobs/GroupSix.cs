@@ -321,15 +321,17 @@ namespace Client.Jobs
             else
                 Client.Sync.Data.SetLocally(User.GetServerId(), "GrabCash", money);
 
-            FreezeEntityPosition(vehicle, false);
+            
             SetVehicleDoorBroken(vehicle, 3, false);
             SetVehicleDoorBroken(vehicle, 2, false);
             
-            User.StopAnimation();
+            User.PlayScenario("forcestop");
 
             Notification.SendWithTime("~g~Вы вскрыли кузов и схватили мешок с наличкой");
             MoneyInCar = 0;
-            TriggerServerEvent("ARP:GrSix:DropMoney",VehToNet(vehicle), 0);
+            TriggerServerEvent("ARP:GrSix:ResetMoneyInCar", veh.NetworkId);
+            await Delay(90000);
+            veh.Delete();
         }
         
 
@@ -362,21 +364,21 @@ namespace Client.Jobs
                 { 
                     Notification.SendWithTime("~g~Вы сдали оружие и форму");
                     RemoveWeaponFromPed(GetPlayerPed(-1), (uint) WeaponHash.SMG);
-                        SetPedAmmo(GetPlayerPed(-1), (uint) WeaponHash.SMG, 0);
-                        RemoveWeaponFromPed(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2);
-                        SetPedAmmo(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2, 0);
-                        Sync.Data.SetLocally(User.GetServerId(), "GrSix:Equip", false);
+                    SetPedAmmo(GetPlayerPed(-1), (uint) WeaponHash.SMG, 0);
+                    RemoveWeaponFromPed(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2);
+                    SetPedAmmo(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2, 0);
+                    Sync.Data.SetLocally(User.GetServerId(), "GrSix:Equip", false);
                     
-                        Sync.Data.ResetLocally(User.GetServerId(), "hasMask");
-                        SetPedComponentVariation(GetPlayerPed(-1), 1, 0, 0, 2);
-                        SetPedComponentVariation(GetPlayerPed(-1), 7, 0, 0, 2);
-                        SetPedComponentVariation(GetPlayerPed(-1), 9, 0, 0, 2);
-                        ClearPedProp(GetPlayerPed(-1), 0);
-                        Characher.UpdateCloth(false);
-                        Characher.UpdateFace(false);
-                        Sync.Data.SetLocally(User.GetServerId(), "GrSix:Uniform", false);
+                    Sync.Data.ResetLocally(User.GetServerId(), "hasMask");
+                    SetPedComponentVariation(GetPlayerPed(-1), 1, 0, 0, 2);
+                    SetPedComponentVariation(GetPlayerPed(-1), 7, 0, 0, 2);
+                    SetPedComponentVariation(GetPlayerPed(-1), 9, 0, 0, 2);
+                    ClearPedProp(GetPlayerPed(-1), 0);
+                    Characher.UpdateCloth(false);
+                    Characher.UpdateFace(false);
+                    Sync.Data.SetLocally(User.GetServerId(), "GrSix:Uniform", false);
                     
-                        User.AddMoney(600);
+                    User.AddMoney(600);
                 }
             }
             else

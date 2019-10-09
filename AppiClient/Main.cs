@@ -419,7 +419,7 @@ namespace Client
             User.SetDrugAmfLevel(0);
             User.SetDrugCocaLevel(0);
             User.SetDrugDmtLevel(0);
-            User.SetDrugKsanLevel(0);
+            User.SetDrugKetLevel(0);
             User.SetDrugLsdLevel(0);
             User.SetDrugMargLevel(0);
             User.SetDrugMefLevel(0);

@@ -1467,7 +1467,6 @@ namespace Client
                     menu.AddMenuItem(UiMenu, "~g~Денег в машине", $"~g~В автомобиле : ${Jobs.GroupSix.MoneyInCar:#,#}").Activated += (sender, item) =>
                     {
                         HideMenu();
-                        Jobs.GroupSix.PutMoneyInCar();
                     };
                     menu.AddMenuItem(UiMenu, "Сдать ТС", $"~g~Вы заработали {Jobs.GroupSix.MoneyInCar / 130:#,#}").Activated +=
                         (sender, item) =>
@@ -14317,7 +14316,7 @@ namespace Client
                         {
                             if (User.Data.money < 4500)
                             {
-                                Notification.SendWithTime("~r~У вас недостаточно денег, чтобы внести залог за ТС");
+                                Notification.SendWithTime("~r~У вас недостаточно денег, чтобы внести залог");
                                 return;
                             }
 
@@ -17537,15 +17536,15 @@ namespace Client
             UiMenu = menu.Create("Магазин", "~b~Магазин масок", true, true);
             
             var list = new List<dynamic>();
-            for (var i = 0; i < 112; i++)
+            for (var i = 0; i < 105; i++)
                 list.Add(i);
 
             var list2 = new List<dynamic> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 
                                            22, 23, 24, 25, 26, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 41, 43,
-                                           44, 45, 46, 47, 48, 49, 50, 51, 54, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66,
-                                           67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
-                                           86, 87, 88, 90, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 107, 108, 111, 114,
-                                           115, 116, 117, 118, 119, 124, 127, 131, 133, 136, 137, 139, 140, 141, 142, 143};
+                                           44, 45, 47, 48, 49, 50, 51, 54, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67,
+                                           68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86,
+                                           87, 88, 90, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 107, 108, 111, 115,
+                                           116, 124, 127, 131, 133, 137, 139, 142, 143};
 
             var listItem = menu.AddMenuItemList(UiMenu, "Маски", list, "Цена: ~g~$200");
             
@@ -18510,10 +18509,8 @@ namespace Client
             UiMenu = menu.Create(" ", "~b~Тюнинг вашего транспорта", true, true);
             UiMenu.AddInstructionalButton(new InstructionalButton((Control) 22, "Переключить камеру"));
             menu.SetMenuBannerSprite(UiMenu, "shopui_title_ie_modgarage", "shopui_title_ie_modgarage");
-            
-            var wheellist = new List<dynamic>{"Спорт", "Массл", "Лоурайдер", "Кроссовер", "Внедорожник", "Специальные", "Мото", "Уникальные"};
-            
-			switch (lscId) {
+
+            switch (lscId) {
 				case 14:
 				case 54:
 				case 55:
@@ -18861,15 +18858,18 @@ namespace Client
                         };
                         break;
                     }
-                    case 78:
+                        /*case 78:
                     {
-                        var menuItem = menu.AddMenuItemList(UiMenu, "Тип колес", wheellist, "Выберите тип колес");
-                        HideMenu();
-                        SetVehicleWheelType(veh.NetworkId, i);
-                        Notification.Send("~g~Тип колес был обновлен");
-                        MenuList.ShowLscTunningMenu(lscId, slots, count, veh);
+                        var menuItem = menu.AddMenuItemList(UiMenu, "Тип колес", list, "Выберите тип колес");
+                        menuItem.OnListSelected += (uimenu, index) =>
+                        {
+                            HideMenu();
+                            SetVehicleWheelType(veh.NetworkId, i);
+                            Notification.Send("~g~Тип колес был обновлен");
+                            ShowLscTunningMenu(lscId, slots, count, veh);
+                        };
                         break;
-                    }
+                    }*/
                     case 23:
                     {
                         var menuItem = menu.AddMenuItemList(UiMenu, "Колёса", list, "Цена: ~g~$5500");

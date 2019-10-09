@@ -17,7 +17,8 @@ namespace Server.Managers
         private static double _tempNew = 27;
         private static int _weatherType = 0;
         private static bool _isSnow = false;
-
+        private static readonly Vector4 rand = new Vector4(0,0,0, 0);
+        
         private static string _weather = "";
         
         public Weather()
@@ -303,6 +304,8 @@ namespace Server.Managers
             TriggerClientEvent("ARP:SyncWeatherTemp", Math.Round(_tempNew, 1));
             TriggerClientEvent("ARP:SyncRealFullDateTime", $"{DateTime.Now:dd/MM} {DateTime.Now:HH:mm}");
         }
+
+        
         
         private static async Task Min5Timer()
         {

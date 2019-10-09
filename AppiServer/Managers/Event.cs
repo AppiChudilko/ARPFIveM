@@ -129,9 +129,16 @@ namespace Server.Managers
             
             EventHandlers.Add("ARP:Promocode", new Action<Player, string>(Promocode));
             
+            //EventHandlers.Add("ARP:GrSix:Partner", new Action<Player, Player, int>(GrSix.PartnerSet));
+            EventHandlers.Add("ARP:GrSix:DropMoney", new Action<int, int>(GrSixDropMoney));
+            EventHandlers.Add("ARP:GrSix:Grab", new Action<Player, int>(GrabGrSix));
+            EventHandlers.Add("ARP:GrSix:MoneyInCar", new Action<Player, int>(MoneyInCar));
+            EventHandlers.Add("ARP:GrSix:ResetMoneyInCar", new Action<int>(ResetMoneyInCar));
+
             Tick += DataBaseSync;
         }
-        
+
+        protected static int rand = 0;
         protected static void Promocode([FromSource] Player player, string code)
         {
             bool isValid = false;
@@ -212,7 +219,7 @@ namespace Server.Managers
             User.UpdateAllData(player);
                 
             Appi.MySql.ExecuteQuery($"UPDATE items SET owner_id = '{hashNewNumber}' where owner_id = '{hashOldNumber}' and (owner_type = '2' or owner_type = '3' or owner_type = '4')");
-            
+            Main.SaveLog("ChangeNumberLSC", $"{Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} | vehId: {vehId} | newNumber: {newNumber}");
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Вы изменили номер транспорта");
             TriggerClientEvent("ARP:UpdateVehicleNumber", User.GetServerId(player), vehId, vehHandle, newNumber);
         }
@@ -312,6 +319,38 @@ namespace Server.Managers
             }
         }
         
+        public static void GrSixDropMoney(int veh, int money)
+        {
+            Server.Sync.Data.Set(veh, "GrSix:MoneyInCar", money);
+        }
+
+        protected static void GrabGrSix([FromSource] Player player, int veh)
+        {
+            if (Server.Sync.Data.Has(veh, "HasGrab"))
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Транспорт уже ограбили");
+                return;
+            }
+            if (Server.Sync.Data.Get(veh, "GrSix:MoneyInCar") == 0)
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Нечего грабить, транспорт пуст");
+                return;
+            }
+            Server.Sync.Data.Set(veh, "HasGrab", true);
+            int cash = Server.Sync.Data.Get(veh, "GrSix:MoneyInCar") / 150;
+            TriggerEvent("ARP:TriggerEventToPlayer", User.GetServerId(player), "ARP:GrSix:Grab", 1, cash);
+        }
+
+        protected static void MoneyInCar([FromSource] Player player, int veh)
+        {
+            TriggerClientEvent(player, "ARP:SendPlayerNotification", $"~g~${Server.Sync.Data.Get(veh, "GrSix:MoneyInCar")}");
+        }
+
+        protected static void ResetMoneyInCar(int veh)
+        {
+            Server.Sync.Data.Reset(veh, "GrSix:MoneyInCar");
+            Server.Sync.Data.Reset(veh, "HasGrab");
+        }
         protected static void Uninvite([FromSource] Player player, string name)
         {
             Main.SaveLog("fractionLog", $"[UNINVITE] {Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} ({Server.Sync.Data.Get(User.GetServerId(player), "fraction_id")}) - {name}");
@@ -494,7 +533,9 @@ namespace Server.Managers
 
                 string guid = GetPlayerGuid(player.Handle);
                 string license = player.Identifiers["license"];
-                
+                string live = player.Identifiers["live"];
+                string xbl = player.Identifiers["xbl"];
+
                 if (!string.IsNullOrEmpty(guid))
                 {
                     if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE guid = '" + guid + "'").Rows.Cast<DataRow>().Any())
@@ -507,6 +548,24 @@ namespace Server.Managers
                 if (!string.IsNullOrEmpty(license))
                 {
                     if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE lic = '" + license + "'").Rows.Cast<DataRow>().Any())
+                    {
+                        deferrals.done("Вы находитесь в черном списке ;c"); 
+                        return;
+                    }
+                }
+                
+                if (!string.IsNullOrEmpty(live))
+                {
+                    if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE live = '" + live + "'").Rows.Cast<DataRow>().Any())
+                    {
+                        deferrals.done("Вы находитесь в черном списке ;c"); 
+                        return;
+                    }
+                }
+                
+                if (!string.IsNullOrEmpty(xbl))
+                {
+                    if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM black_list WHERE xbl = '" + xbl + "'").Rows.Cast<DataRow>().Any())
                     {
                         deferrals.done("Вы находитесь в черном списке ;c"); 
                         return;
@@ -804,7 +863,7 @@ namespace Server.Managers
                 string sql = "INSERT INTO ban_list (ban_from, ban_to, count, datetime, format, reason) VALUES ('" + admin + "','" + plban + "','10','" + Main.GetTimeStamp() + "','y.','" + kickReason + " + BlackList')";
                 Appi.MySql.ExecuteQuery(sql);
                 
-                sql = "INSERT INTO black_list (steam, lic, guid, reason) VALUES ('" + player.Identifiers["steam"] + "','" + player.Identifiers["license"] + "','" + GetPlayerGuid(player.Handle) + "','" + kickReason + "')";
+                sql = "INSERT INTO black_list (steam, lic, live, xbl, guid, reason) VALUES ('" + player.Identifiers["steam"] + "','" + player.Identifiers["license"] + "','" + player.Identifiers["live"] + "','" + player.Identifiers["xbl"] + "','" + GetPlayerGuid(player.Handle) + "','" + kickReason + "')";
                 Appi.MySql.ExecuteQuery(sql);
                 
                 DropPlayer(player.Handle, $"[BLACK LIST] {kickReason}");
@@ -1743,6 +1802,9 @@ namespace Server.Managers
                                 }
                                 else
                                 {
+                                    
+                                }
+                                {
                                     Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + Convert.ToInt32(price * 0.95) + "', car_id1 = '0' WHERE car_id1 = '" + vId + "' AND id = '" + itemId + "'");
                                     Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + Convert.ToInt32(price * 0.95) + "', car_id2 = '0' WHERE car_id2 = '" + vId + "' AND id = '" + itemId + "'");
                                     Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + Convert.ToInt32(price * 0.95) + "', car_id3 = '0' WHERE car_id3 = '" + vId + "' AND id = '" + itemId + "'");
@@ -1762,90 +1824,59 @@ namespace Server.Managers
                                 break;
                             case "BuyVehicle":
                             {
-                                if (player == default(Player)) continue;
+                                Appi.MySql.ExecuteQuery("DELETE FROM event_to_server WHERE id = '" + id + "'");
+                               
                                 int vId = (int) GetParam(param, "vId");
                                 int price = (int) GetParam(param, "price");
-                                
+                                int slot = (int) GetParam(param, "slot");
+                               
                                 int plServerId = User.GetServerId(player);
-                                if (vId == 0)
-                                {
-                                    User.SendPlayerTooltip(player, "~r~Произошла ошибка сервера, попробуйте выйти из игры и купить оффлайн (#0)");
+                               
+                                if (player == default(Player)) {
+                                    foreach(var p in new PlayerList())
+                                    {
+                                        var i = User.GetServerId(p);
+                                        if (Server.Sync.Data.Has(i, "id") && Server.Sync.Data.Get(i, "id") == itemId)
+                                        {
+                                            Server.Sync.Data.Set(i, "car_id" + slot, vId);
+                                            User.RemoveBankMoney(p, price);
+                                            foreach (DataRow carRow in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE id = " + vId).Rows)
+                                                Managers.Vehicle.AddUserVehicle(carRow);
+                                            UpdateSellCarInfo(p, (string) Server.Sync.Data.Get(i, "rp_name"), itemId, vId);
+                                            
+                                            break;
+                                        }
+                                    }
                                     break;
                                 }
-                                if (price == 0) 
+ 
+                                try
                                 {
-                                    User.SendPlayerTooltip(player, "~r~Произошла ошибка сервера, попробуйте выйти из игры и купить оффлайн (#1)");
+                                    if (User.GetBankMoney(player) < price)
+                                    {
+                                        Appi.MySql.ExecuteQuery("UPDATE cars SET user_name = '', id_user = '0' WHERE id = '" + vId + "'");
+                                        User.SendPlayerTooltip(player,"~r~У вас не достаточно денег на банковском счету");
+                                        return;
+                                    }
+                                   
+                                    Coffer.AddMoney(price);
+                                    User.UpdateAllData(player);
+                                    Server.Sync.Data.Set(User.GetServerId(player), "car_id" + slot, vId);
+                                    foreach (DataRow carRow in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE id = " + vId).Rows)
+                                        Managers.Vehicle.AddUserVehicle(carRow);
+                                    UpdateSellCarInfo(player, (string) Server.Sync.Data.Get(plServerId, "rp_name"), itemId, vId);
+                                   
+                                    User.SendPlayerTooltip(player, "~g~Поздравляем с покупкой транспорта");
+                                    
+                                    Save.UserAccount(player);
+                                    Main.SaveLog("BuyCar",$"ID: {vId}, BUY NAME: {(string) Server.Sync.Data.Get(plServerId, "rp_name")}, PRICE: {price}");
                                     break;
                                 }
-                                if (User.GetBankMoney(player) < price) 
+                                catch (Exception e)
                                 {
-                                    User.SendPlayerTooltip(player, "~r~У вас не достаточно денег на банковском счету");
+                                    Main.SaveLog("BuyVehicleEx", e.ToString());
                                     break;
                                 }
-                                
-                                foreach (DataRow carRow in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE id = " + vId).Rows)
-                                    Vehicle.AddUserVehicle(carRow);
-                                await Delay(2000);
-    
-                                bool hasSlot = false;
-                                
-                                if ((int) Server.Sync.Data.Get(plServerId, "car_id1") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id1", vId);
-                                    hasSlot = true;
-                                }
-                                else if ((int) Server.Sync.Data.Get(plServerId, "car_id2") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id2", vId);
-                                    hasSlot = true;
-                                }
-                                else if ((int) Server.Sync.Data.Get(plServerId, "car_id3") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id3", vId);
-                                    hasSlot = true;
-                                }
-                                else if ((int) Server.Sync.Data.Get(plServerId, "car_id4") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id4", vId);
-                                    hasSlot = true;
-                                }
-                                else if ((int) Server.Sync.Data.Get(plServerId, "car_id5") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id5", vId);
-                                    hasSlot = true;
-                                }
-                                else if ((int) Server.Sync.Data.Get(plServerId, "car_id6") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id6", vId);
-                                    hasSlot = true;
-                                }
-                                else if ((int) Server.Sync.Data.Get(plServerId, "car_id7") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id7", vId);
-                                    hasSlot = true;
-                                }
-                                else if ((int) Server.Sync.Data.Get(plServerId, "car_id8") == 0)
-                                {
-                                    Server.Sync.Data.Set(plServerId, "car_id8", vId);
-                                    hasSlot = true;
-                                }
-    
-                                if (!hasSlot)
-                                {
-                                    User.SendPlayerTooltip(player, "~r~У вас не достаточно слотов для транспорта");
-                                    break;
-                                }
-    
-                                UpdateSellCarInfo(player, (string) Server.Sync.Data.Get(plServerId, "rp_name"), itemId, vId);
-                                User.RemoveBankMoney(player, price);
-                                Coffer.AddMoney(price);
-                                User.UpdateAllData(player);
-                                
-                                User.SendPlayerTooltip(player, "~g~Поздравляем с покупкой транспорта");
-                                
-                                Save.UserAccount(player);
-                                Main.SaveLog("BuyCar", $"ID: {vId}, BUY NAME: {(string) Server.Sync.Data.Get(plServerId, "rp_name")}, PRICE: {price}");
-                                break;
                             }
                         }
                     }

@@ -3082,6 +3082,11 @@ namespace Client.Managers
 		        
 	        if (Main.ServerName == "MilkyWay" || Main.ServerName == "Venus") {
 		        
+		        //MW_Stock153
+		        await Managers.Ped.CreatePed("g_m_m_mexboss_02", new Vector3(1721.794f, 3727.863f, 33.81992f), 29.70196f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("g_m_y_mexgang_01", new Vector3(1729.283f, 3707.396f, 34.15892f), 10.70966f, false, "WORLD_HUMAN_SMOKING");
+		        await Managers.Ped.CreatePed("a_m_y_mexthug_01", new Vector3(1735.462f, 3707.192f, 39.38416f), -14.06618f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        
 		        //MW_House356
 		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-124.4855f, 905.0458f, 235.7119f), -124.0099f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-123.0971f, 896.2321f, 235.7343f), -45.14265f, false, "WORLD_HUMAN_GUARD_STAND");

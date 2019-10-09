@@ -813,6 +813,15 @@ namespace Client.Managers
         {
             switch (itemId)
             {
+                case 275:
+                {
+                    Grab.GrabGrSix();
+                    if(Client.Sync.Data.HasLocally(User.GetServerId(),"GrabCash"))
+                        DeleteItemServer(id);
+                    break;
+                }
+                    
+                
                 case 0:
                 {
                     var pPos = GetEntityCoords(GetPlayerPed(-1), true);

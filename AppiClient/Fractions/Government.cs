@@ -95,7 +95,7 @@ namespace Client.Fractions
                 return;
             }
 
-            if (!User.Data.b_lic)
+            if (!User.Data.b_lic && job != "GrSix")
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_78"));
                 return;
@@ -130,7 +130,11 @@ namespace Client.Fractions
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_99"));
                 return;
             }
-            
+
+            /*if (User.Data.age < 23 && !User.Data.c_lic && !User.Data.gun_lic && job == "GrSix")
+            {
+                Notification.SendWithTime("_lang_131");
+            }*/
             if (User.Data.age < 25 && job == "lawyer1" && !User.Data.law_lic && User.Data.reg_status < 3)
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_100"));
@@ -159,6 +163,8 @@ namespace Client.Fractions
         
         public static void ResetJob()
         {
+            if (User.Data.job == "GrSix")
+                Jobs.GroupSix.Dequip();
             User.Data.posob = false;
             Sync.Data.Set(User.GetServerId(), "posob", false);
 

@@ -593,6 +593,11 @@ namespace Client.Business
                 Notification.SendWithTime("Нельзя тюнинговать велосипеды, вертолеты, самолеты и лодки");
                 return;
             }
+            if (Vehicle.VehInfo.GetClassName(veh.Model.Hash) == "Commercials")
+            {
+                Notification.SendWithTime("Нельзя тюнинговать коммерчесский транспорт");
+                return;
+            }
             
             UI.ShowLoadDisplay();
 

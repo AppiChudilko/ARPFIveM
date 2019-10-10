@@ -87,6 +87,7 @@ namespace Client.Managers
         public static readonly Vector3 SheriffArsenalPos2 = new Vector3(1857.1979f, 3689.1872f, 33.26704f);
         public static readonly Vector3 SheriffClearPos = new Vector3(-448.6859f, 6012.703f, 30.71638f);
         public static readonly Vector3 SheriffArrestPos = new Vector3(-441.605f, 6012.786f, 26.985f);
+        public static readonly Vector3 ArrestPosPrison = new Vector3(1678.605f, 2593.786f, 44.56f);
         
         public static readonly Vector3 FibDutyPos = new Vector3(131.0169f, -729.158f, 257.1521f);
         public static readonly Vector3 FibArsenalPos = new Vector3(129.3821f, -730.57f, 257.1521f);
@@ -536,6 +537,9 @@ namespace Client.Managers
             
             Marker.Create(SapdArrestPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SapdArrestPos, 1.4f, "show:menu");
+            
+            Marker.Create(ArrestPosPrison, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(ArrestPosPrison, 1.4f, "show:menu");
             
             Marker.Create(SapdKeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SapdKeyPos, 1.4f, "show:menu");
@@ -1328,6 +1332,9 @@ namespace Client.Managers
                         MenuList.ShowSapdClearOrUnjailMenu();
                     
                     if (Main.GetDistanceToSquared(SapdArrestPos, playerPos) < DistanceCheck)
+                        MenuList.ShowSapdArrestMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 5f));
+                    
+                    if (Main.GetDistanceToSquared(ArrestPosPrison, playerPos) < DistanceCheck)
                         MenuList.ShowSapdArrestMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 5f));
                     
                     if (Main.GetDistanceToSquared(SapdKeyPos, playerPos) < DistanceCheck)

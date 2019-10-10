@@ -12921,6 +12921,7 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        
         public static void SapdNewsMenu()
         {
             if (User.IsSapd())

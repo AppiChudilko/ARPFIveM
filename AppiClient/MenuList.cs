@@ -8457,7 +8457,7 @@ namespace Client
                 };
             }
 
-            menu.AddMenuItem(UiMenu, "Анмации взаимодейтсвий").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Анимации взаимодейтсвий").Activated += (uimenu, item) =>
             {
                 ShowPlayerToPlayerAnimationMenu();
             };
@@ -19763,6 +19763,10 @@ namespace Client
                 if ((Game.IsControlJustPressed(0, (Control) 163) || Game.IsDisabledControlJustPressed(0, (Control) 163)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //9
                 {
                     ShowAnimationMenu();
+                }
+                if ((Game.IsControlJustPressed(0, (Control) 161) || Game.IsDisabledControlJustPressed(0, (Control) 161)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //9
+                {
+                    ShowAnimationActionMenu();
                 }
                 if (Game.IsControlJustPressed(0, (Control) 19) || Game.IsDisabledControlJustPressed(0, (Control) 19)) //LALT
                 {

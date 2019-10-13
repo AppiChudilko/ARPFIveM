@@ -3313,7 +3313,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "~r~Продать", $"Цена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
-                    Managers.Apartment.Sell(data.id);
+                    ShowAskSellApsMenu();
                 };
             }
             
@@ -14969,7 +14969,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "Продать дом", $"Продать дом государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
-                    House.SellHouse(h);   
+                    ShowAskSellHMenuMenu();
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать дом игроку", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {

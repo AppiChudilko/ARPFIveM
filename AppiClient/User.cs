@@ -2724,8 +2724,8 @@ namespace Client
                     Chat.SendDoCommand($"Сдал в арсенал \"{Inventory.GetItemNameById(n)}\"");
                     Main.AddFractionGunLog(User.Data.rp_name, $"DROP: {Inventory.GetItemNameById(n)}", User.Data.fraction_id);
                 }
-                RemoveWeapons();
             }
+            RemoveWeapons();
         }
         
         

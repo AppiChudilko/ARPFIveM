@@ -572,7 +572,6 @@ namespace Client.Business
                 {"DeadRome", "mpchristmas2017_overlays", "MP_Christmas2017_Tattoo_008_M", "MP_Christmas2017_Tattoo_008_F", "ZONE_TORSO", 2950},
                 {"IGnome", "mpchristmas2017_overlays", "MP_Christmas2017_Tattoo_009_M", "MP_Christmas2017_Tattoo_009_F", "ZONE_TORSO", 2650},
                 {"RWarrior", "mpchristmas2017_overlays", "MP_Christmas2017_Tattoo_010_M", "MP_Christmas2017_Tattoo_010_F", "ZONE_TORSO", 3000},
-                {"Skull", "mpchristmas2017_overlays", "MP_Christmas2017_Tattoo_011_M", "MP_Christmas2017_Tattoo_011_F", "ZONE_TORSO", 3350},
                 {"Catwoman", "mpchristmas2017_overlays", "MP_Christmas2017_Tattoo_012_M", "MP_Christmas2017_Tattoo_012_F", "ZONE_RIGHT_ARM", 1050},
                 {"Katana", "mpchristmas2017_overlays", "MP_Christmas2017_Tattoo_013_M", "MP_Christmas2017_Tattoo_013_F", "ZONE_LEFT_ARM", 3450},
                 {"Bracelet", "mpchristmas2017_overlays", "MP_Christmas2017_Tattoo_014_M", "MP_Christmas2017_Tattoo_014_F", "ZONE_RIGHT_ARM", 850},

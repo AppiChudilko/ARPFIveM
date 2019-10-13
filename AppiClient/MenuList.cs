@@ -14982,7 +14982,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "Продать дом", $"Продать дом государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
-                    ShowAskSellHMenuMenu();
+                    ShowAskSellHMenu();
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать дом игроку", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {

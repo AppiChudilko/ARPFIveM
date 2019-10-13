@@ -311,8 +311,12 @@ namespace Client.Managers
                 Notification.Send("~r~Вас заметила камера наблюдения");
                 User.AddWantedLevel(2, "Оргабление магазина");
             }
-                
-            Dispatcher.SendEms("Код 3", "Всем патрулям, ограбление магазина");
+            
+            var random = new Random();
+            if (random.Next(0,2) == 0 || random.Next(0,2) == 2)
+            {
+                Dispatcher.SendEms("Код 3", "Всем патрулям, ограбление магазина");
+            }
 
             await Delay(120000);
 
@@ -367,18 +371,32 @@ namespace Client.Managers
                 Notification.SendWithTime("~r~Грабить можно автомобили типа STOCKADE");
                 return;
             }
-            /*if (Weather.Hour > 8 && Weather.Hour < 22)
+
+            if (User.IsSapd() || User.IsSheriff() || User.IsFib() || User.IsEms())
             {
-                Notification.SendWithTime("~r~Ограбить можно с 22:00 до 8:00");
+                Notification.SendWithTime("Ну зачем, тебе что, работа не дорога?");
                 return;
             }
-            if (new PlayerList().Count() < 10)
+            var plData = await User.GetAllDataByServerId(User.GetServerId());
+            if (plData.fraction_id2 > 0 || User.IsBallas() || User.IsCartel() || User.IsMara())
             {
-                Notification.SendWithTime("~r~Онлайн на сервере должен быть не менее 10 человек");
-                return;
-            }*/
-            TriggerServerEvent("ARP:GrSix:Grab", VehToNet(vehicle));
-            Dispatcher.SendEms("Код 0", "Всем патрулям, нападение на экипаж инкассаторского автомобиля");
+                if (Weather.Hour > 8 && Weather.Hour < 22)
+                {
+                    Notification.SendWithTime("~r~Ограбить можно с 22:00 до 8:00");
+                    return;
+                }
+                if (new PlayerList().Count() < 10)
+                {
+                    Notification.SendWithTime("~r~Онлайн на сервере должен быть не менее 10 человек");
+                    return;
+                }
+                TriggerServerEvent("ARP:GrSix:Grab", VehToNet(vehicle));
+                Dispatcher.SendEms("Код 0", "Всем патрулям, нападение на экипаж инкассаторского автомобиля");
+            }
+            else
+            {
+                Notification.SendWithTime("~r~Нужно состоять в неофициальной организации");
+            }
         }
     }
 }

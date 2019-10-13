@@ -34,6 +34,7 @@ namespace Client.Managers
             EventHandlers.Add("ARP:SellPlayer", new Action(User.SellPlayer));
             EventHandlers.Add("ARP:EjectCar", new Action(User.EjectCar));
             EventHandlers.Add("ARP:TakeAllGuns", new Action<int>(User.TakeAllGuns));
+            EventHandlers.Add("ARP:TakeAllGunsSAPD", new Action<int>(User.TakeAllGunSAPD));
             EventHandlers.Add("ARP:UseAdrenalin", new Action(User.UseAdrenalin));
             EventHandlers.Add("ARP:UseDef", new Action(User.UseDef));
             EventHandlers.Add("ARP:UseFirstAidKit", new Action(User.UseFirstAidKit));
@@ -100,6 +101,7 @@ namespace Client.Managers
             
             //EventHandlers.Add("ARP:GrSix:DropCheckpoint", new Action<int>(Jobs.GroupSix.DropCheckpoint));
             EventHandlers.Add("ARP:GrSix:Grab", new Action<int>(Jobs.GroupSix.Grab));
+            EventHandlers.Add("ARP:GrSix:Pay", new Action<int, int>(Jobs.GroupSix.DeleteVeh));
             Tick += TickTimer;
         }
         
@@ -586,6 +588,7 @@ namespace Client.Managers
 
         public static void OnPlayerDeath(int killerType, float x, float y, float z)
         {
+            Jobs.GroupSix.MoneyInCar = 0;
             Main.SaveLog("Death", $"[DEATH] [{User.Data.rp_name}] [X:{x}, Y:{y}, Z:{z}] [TYPE: {killerType}]");
         }
 

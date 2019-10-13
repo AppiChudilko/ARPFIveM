@@ -816,8 +816,6 @@ namespace Client.Managers
                 case 275:
                 {
                     Grab.GrabGrSix();
-                    if(Client.Sync.Data.HasLocally(User.GetServerId(),"GrabCash"))
-                        DeleteItemServer(id);
                     break;
                 }
                     

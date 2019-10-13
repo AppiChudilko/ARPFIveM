@@ -14614,9 +14614,9 @@ namespace Client
                     Main.AddFractionGunLog(User.Data.rp_name, "Бронежилет", User.Data.fraction_id);
                 };
 
-                if (User.Data.rank == 3 || User.Data.rank == 6)
+                if (User.Data.rank == 3 || (User.Data.rank > 5 && User.Data.rank < 5))
                 {
-                    menu.AddMenuItem(UiMenu, "Набор охранника").Activated += (uimenu, item) =>
+                    menu.AddMenuItem(UiMenu, "Экипировка Агента").Activated += (uimenu, item) =>
                     {
                         HideMenu();
                         SetPedArmour(GetPlayerPed(-1), 100);
@@ -14625,7 +14625,7 @@ namespace Client
                         User.GiveWeapon((uint) WeaponHash.Flashlight, 1, false, false);
                         User.GiveWeapon((uint) WeaponHash.StunGun, 1, false, false);
                         
-                        Notification.SendWithTime("~b~Вы взяли набор охранника");
+                        Notification.SendWithTime("~b~Вы взяли экпировку");
                         Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
                     };
                     menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>

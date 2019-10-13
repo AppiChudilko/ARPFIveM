@@ -1684,20 +1684,19 @@ namespace Client
                         HideMenu();
                         Dispatcher.SendEms("Код 0", "Нападение на экипаж инкассаторского автомобиля");
                     };
-                    menu.AddMenuItem(UiMenu, "~g~Получить задание", "~y~Зарплата зависит от выручки").Activated += (sender, item) =>
+                    menu.AddMenuItem(UiMenu, "~g~Получить задание", "~y~Зарплата зависит от кол-ва точек и суммы").Activated += (sender, item) =>
                     {
                         HideMenu();
                         Jobs.GroupSix.Start();
                     };
-                    menu.AddMenuItem(UiMenu, "~g~Денег в машине", $"~g~В автомобиле : ${Jobs.GroupSix.MoneyInCar:#,#}").Activated += (sender, item) =>
+                    menu.AddMenuItem(UiMenu, "~g~Денег в машине").Activated += (sender, item) =>
                     {
-                        HideMenu();
+                        TriggerServerEvent("ARP:GrSix:MoneyInCarCheck", veh.NetworkId);
                     };
-                    menu.AddMenuItem(UiMenu, "Сдать ТС", $"~g~Вы заработали {Jobs.GroupSix.MoneyInCar / 130:#,#}").Activated +=
-                        (sender, item) =>
+                    menu.AddMenuItem(UiMenu, "Сдать ТС", "~y~Зарплата зависит от кол-ва точек").Activated += (sender, item) =>
                         {
                             HideMenu();
-                            Jobs.GroupSix.DeleteVeh();
+                            TriggerServerEvent("ARP:GrSix:Payment", veh.NetworkId);
                         };
                 }
                 /*if (vehItem.Hash == 1747439474 && User.Data.job != "GrSix")
@@ -4415,11 +4414,11 @@ namespace Client
 
             if (User.IsAdmin(5))
             {
-                menu.AddMenuItem(UiMenu, "Меню для тестов", "Не советую что-то использовать все в логах").Activated += (uimenu, item) =>
+                /*menu.AddMenuItem(UiMenu, "Меню для тестов", "Не советую что-то использовать все в логах").Activated += (uimenu, item) =>
                 {
                     HideMenu();
                     ShowTesterMenu();
-                };
+                };*/
                 menu.AddMenuItem(UiMenu, "Меню разработчика").Activated += (uimenu, item) =>
                 {
                     HideMenu();
@@ -8456,11 +8455,7 @@ namespace Client
                     }
                 };
             }
-
-            menu.AddMenuItem(UiMenu, "Анмации взаимодейтсвий").Activated += (uimenu, item) =>
-            {
-                ShowPlayerToPlayerAnimationMenu();
-            };
+            
             menu.AddMenuItem(UiMenu, "Анимации действий").Activated += (uimenu, item) =>
             {
                 ShowAnimationActionMenu();
@@ -8572,7 +8567,7 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
 
-        public static async void ShowPlayerToPlayerAnimationMenu()
+        /*public static async void ShowPlayerToPlayerAnimationMenu()
         {
             HideMenu();
             
@@ -8591,7 +8586,7 @@ namespace Client
                 Shared.TriggerEventToPlayer(User.GetServerId(), "ARP:UserPlayAnimationToPlayer", "mp_cp_welcome_tutgreet", "greet", 8);
                 User.PlayAnimation("mp_cp_welcome_tutgreet", "greet", 8);
             };
-        }
+        }*/
 
         public static void ShowAnimationActionMenu()
         {
@@ -12256,6 +12251,12 @@ namespace Client
                 Main.AddFractionGunLog(User.Data.rp_name, "Газовая граната", User.Data.fraction_id);
             };  */
             
+           menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
+           {
+               HideMenu();
+               TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
+           };
+           
             menu.AddMenuItem(UiMenu, "Парашют").Activated += (uimenu, item) =>
             {
                 HideMenu();
@@ -13808,6 +13809,12 @@ namespace Client
                 Main.AddFractionGunLog(User.Data.rp_name, "Красный конус", User.Data.fraction_id);
             };
             
+            menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
+            };
+            
             /*var list = (from v in Managers.Vehicle.VehicleInfoGlobalDataList where v.FractionId != 0 && v.FractionId == User.Data.fraction_id select v.Number).Cast<dynamic>().ToList();
             menu.AddMenuItemList(UiMenu, "Ключи", list, "Нажмите \"~g~Enter~s~\" чтобы взять ключи").OnListSelected += (uimenu, idx) =>
             {
@@ -14504,6 +14511,7 @@ namespace Client
                     HideMenu();
                     Jobs.GroupSix.Dequip();
                 };
+                menu.AddMenuItem(UiMenu, "Залог за ТС: $\"4.500\"");
             }
             
             if (User.Data.job == "trash")
@@ -14619,6 +14627,11 @@ namespace Client
                         
                         Notification.SendWithTime("~b~Вы взяли набор охранника");
                         Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
+                    };
+                    menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                        TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
                     };
                 }
             }
@@ -17752,15 +17765,15 @@ namespace Client
             UiMenu = menu.Create("Магазин", "~b~Магазин масок", true, true);
             
             var list = new List<dynamic>();
-            for (var i = 0; i < 105; i++)
+            for (var i = 0; i < 96; i++)
                 list.Add(i);
 
             var list2 = new List<dynamic> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 
                                            22, 23, 24, 25, 26, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 41, 43,
                                            44, 45, 47, 48, 49, 50, 51, 54, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67,
-                                           68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86,
-                                           87, 88, 90, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 107, 108, 111, 115,
-                                           116, 124, 127, 131, 133, 137, 139, 142, 143};
+                                           68, 69, 72, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86,
+                                           87, 88, 90, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 107, 108, 111,
+                                           116, 124, 127, 133, 143};
 
             var listItem = menu.AddMenuItemList(UiMenu, "Маски", list, "Цена: ~g~$200");
             
@@ -18415,18 +18428,27 @@ namespace Client
             var menu = new Menu();
             UiMenu = menu.Create(title, "~b~" + desc);
             
-            menu.AddMenuItem(UiMenu, "Газовоя горелка", "Цена: ~g~$1.200").Activated += async (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Газовоя горелка", "Цена: ~g~$6.000").Activated += async (uimenu, item) =>
             {
                 HideMenu();
-                if (User.Data.money < 1200)
+                if (Sync.Data.HasLocally(User.GetServerId(), "weldingtool"))
                 {
-                    Notification.SendWithTime("~r~Нужно иметь $1.200");
+                    Chat.SendChatMessage("Торговец", "Больше продать не могу, хватит с тебя. Не нужны мне конкуренты.");
+                    return;
+                }
+
+                if (User.Data.money < 6000)
+                {
+                    Chat.SendChatMessage("Торговец", "Не, не, не, давай 6000");
+                    Notification.SendWithTime("~r~Нужно иметь $6.000");
                     return;
                 }
                 
-                User.RemoveMoney(1200);
+                User.RemoveMoney(6000);
                 
                 Managers.Inventory.AddItemServer(275, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+
+                Sync.Data.SetLocally(User.GetServerId(), "weldingtool", true);
                 
                 Notification.SendWithTime("~g~Вы купили газовую горелку");
                 Chat.SendChatMessage("Торговец", "Не знаю зачем она тебе, но вообще, ме пофиг, главное, у меня бабки. Бывай");
@@ -19763,6 +19785,10 @@ namespace Client
                 if ((Game.IsControlJustPressed(0, (Control) 163) || Game.IsDisabledControlJustPressed(0, (Control) 163)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //9
                 {
                     ShowAnimationMenu();
+                }
+                if ((Game.IsControlJustPressed(0, (Control) 161) || Game.IsDisabledControlJustPressed(0, (Control) 161)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //9
+                {
+                    ShowAnimationActionMenu();
                 }
                 if (Game.IsControlJustPressed(0, (Control) 19) || Game.IsDisabledControlJustPressed(0, (Control) 19)) //LALT
                 {

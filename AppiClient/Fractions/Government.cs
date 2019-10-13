@@ -131,10 +131,11 @@ namespace Client.Fractions
                 return;
             }
 
-            /*if (User.Data.age < 23 && !User.Data.c_lic && !User.Data.gun_lic && job == "GrSix")
+            if (User.Data.age < 23 && !User.Data.c_lic && !User.Data.gun_lic && job == "GrSix")
             {
-                Notification.SendWithTime("_lang_131");
-            }*/
+                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_131"));
+                return;
+            }
             if (User.Data.age < 25 && job == "lawyer1" && !User.Data.law_lic && User.Data.reg_status < 3)
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_100"));

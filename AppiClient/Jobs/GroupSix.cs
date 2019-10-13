@@ -55,63 +55,60 @@ namespace Client.Jobs
         
         public static double[,] Pickups =
         {
-            { 253.4611,220.7204,106.2865 },
-            { 253.4611,220.7204,106.2865 },
-            { 251.749,221.4658,106.2865 },
-            { 248.3227,222.5736,106.2867 },
-            { 246.4875,223.2582,106.2867 },
-            { 243.1434,224.4678,106.2868 },
-            { 241.1435,225.0419,106.2868 },
-            { 148.5,-1039.971,29.37775 },
-            { 1175.054,2706.404,38.09407 },
-            { -1212.83,-330.3573,37.78702 },
-            { 314.3541,-278.5519,54.17077 },
-            { -2962.951,482.8024,15.7031 },
-            { -350.6871,-49.60739,49.04258 },
-            { -111.1722,6467.846,31.62671 },
-            { -113.3064,6469.969,31.62672 },
-            { 138.7087, -1705.711, 28.29162 },
-            { 1214.091,-472.9952,65.208 },
-            { -276.4055,6226.398,30.69552 },
-            { -1282.688,-1117.432,5.990113 },
-            { 1931.844,3730.305,31.84443 },
-            { -33.34319,-154.1892,56.07654 },
-            { -813.5332,-183.2378,36.5689 },
-            { 22.08832,-1106.986,29.79703 },
-            { 252.17,-50.08245,69.94106 },
-            { 842.2239,-1033.294,28.19486 },
-            { -661.947,-935.6796,21.82924 },
-            { -1305.899,-394.5485,36.69577 },
-            { 809.9118,-2157.209,28.61901 },
-            { 2567.651,294.4759,107.7349 },
-            { -3171.98,1087.908,19.83874 },
-            { -1117.679,2698.744,17.55415 },
-            { 1693.555,3759.9,33.70533 },
-            { -330.36,6083.885,30.45477 },
-            { -1148.878,-2000.123,12.18026 },
-            { -347.0815,-133.3432,38.00966 },
-            { 726.0679,-1071.613,27.31101 },
-            { -207.0201,-1331.493,33.89437 },
-            { 1187.764,2639.15,37.43521 },
-            { 101.0262,6618.267,31.43771 },
-            { -146.2072,-584.2731,166.0002 },
-            { 472.2666,-1310.529,28.22178 },
-            { 26.213,-1345.442,29.49702 },
-            { -1223.059,-906.7239,12.32635 },
-            { -1487.533,-379.3019,40.16339 },
-            { 1135.979,-982.2205,46.4158 },
-            { 1699.741,4924.002,42.06367 },
-            { 374.3559,327.7817,103.5664 },
-            { -3241.895,1001.701,12.83071 },
-            { -3039.184,586.3903,7.90893 },
-            { -2968.295,390.9566,15.04331 },
-            { 547.8511,2669.281,42.1565 },
-            { 1165.314,2709.109,38.15772 },
-            { 1960.845,3741.882,32.34375 },
-            { 1729.792,6414.979,35.03723 },
+            { 253.4611, 220.7204, 106.2865 },
+            { 251.749, 221.4658, 106.2865 },
+            { 248.3227, 222.5736, 106.2867 },
+            { 246.4875, 223.2582, 106.2867 },
+            { 243.1434, 224.4678, 106.2868 },
+            { 241.1435, 225.0419, 106.2868 },
+            { 148.5, -1039.971, 29.37775 },
+            { 1175.054, 2706.404, 38.09407 },
+            { -1212.83, -330.3573, 37.78702 },
+            { 314.3541, -278.5519, 54.17077 },
+            { -2962.951, 482.8024, 15.7031 },
+            { -350.6871, -49.60739, 49.04258 },
+            { -111.1722, 6467.846, 31.62671 },
+            { -113.3064, 6469.969, 31.62672 },
+            { 138.7087, -1705.711, 29.29162 },
+            { 1214.091, -472.9952, 66.208 },
+            { -276.4055, 6226.398, 31.69552 },
+            { -1282.688, -1117.432, 6.990113 },
+            { 1931.844, 3730.305, 32.84443 },
+            { -33.34319, -154.1892, 57.07654 },
+            { -813.5332, -183.2378, 37.5689 },
+            { 22.08832, -1106.986, 29.79703 },
+            { 252.17, -50.08245, 69.94106 },
+            { 842.2239, -1033.294, 28.19486 },
+            { -661.947, -935.6796, 21.82924 },
+            { -1305.899, -394.5485, 36.69577 },
+            { 809.9118, -2157.209, 29.61901 },
+            { 2567.651, 294.4759, 108.7349 },
+            { -3171.98, 1087.908, 20.83874 },
+            { -1117.679, 2698.744, 18.55415 },
+            { 1693.555, 3759.9, 34.70533 },
+            { -330.36, 6083.885, 31.45477 },
+            { -1148.878, -2000.123, 13.18026 },
+            { -347.0815, -133.3432, 39.00966 },
+            { 726.0679, -1071.613, 28.31101 },
+            { -207.0201, -1331.493, 34.89437 },
+            { 1187.764, 2639.15, 38.43521 },
+            { 101.0262, 6618.267, 32.43771 },
+            { -146.2072, -584.2731, 166.0002 },
+            { 472.2666, -1310.529, 28.22178 },
+            { 26.213, -1345.442, 29.49702 },
+            { -1223.059, -906.7239, 12.32635 },
+            { -1487.533, -379.3019, 40.16339 },
+            { 1135.979, -982.2205, 46.4158 },
+            { 1699.741, 4924.002, 42.06367 },
+            { 374.3559, 327.7817, 103.5664 },
+            { -3241.895, 1001.701, 12.83071 },
+            { -3039.184, 586.3903, 7.90893 },
+            { -2968.295, 390.9566, 15.04331 },
+            { 547.8511, 2669.281, 42.1565 },
+            { 1165.314, 2709.109, 38.15772 },
+            { 1960.845, 3741.882, 31.34375 },
+            { 1729.792, 6414.979, 34.03723 },
             { -657.087, -857.313, 23.490 },
-            { 1133.0963, -472.6430, 65.7651 },
-            { 318.2640, -1076.7376, 28.4785 },
         };
 
         /*public static async void Start()
@@ -173,15 +170,19 @@ namespace Client.Jobs
                 Notification.SendWithTime("~r~Задание уже получено");
                 return;
             }
-            var pos = new Vector3((float) Pickups[Temp, 0], (float) Pickups[Temp, 1], (float) Pickups[Temp, 2] - 1);
-            Temp += 1;
+            Random random = new Random();
+            var r = random.Next(0, 53);
+            var pos = new Vector3((float) Pickups[r, 0], (float) Pickups[r, 1], (float) Pickups[r, 2] - 1);
+            
+            //var pos = new Vector3((float) Pickups[Temp, 0], (float) Pickups[Temp, 1], (float) Pickups[Temp, 2] - 1);
+            //Temp += 1;
             Managers.Checkpoint.CreateWithMarker(pos, 1f, 1f, Marker.Red.R, Marker.Red.G, Marker.Red.B, Marker.Red.A, "job:GrSix:Work");
             Notification.SendPicture(Lang.GetTextToPlayer("_lang_129"), Lang.GetTextToPlayer("_lang_130"), "323-777-6666", "CHAR_ANDREAS", Notification.TypeChatbox);
             Price = (int) (Main.GetDistanceToSquared(pos, ppos))/4;
-            if (Price > 1000)
-                Price = 1000;
-            if (Price < 150)
-                Price = 150;
+            if (Price > 1200)
+                Price = 1200;
+            if (Price < 180)
+                Price = 180;
             Managers.Blip.Create(pos);
             User.SetWaypoint(pos.X, pos.Y);
             IsProcess = true;
@@ -234,6 +235,7 @@ namespace Client.Jobs
                 SetPedComponentVariation(GetPlayerPed(-1), 6, 25, 0, 2);
                 SetPedComponentVariation(GetPlayerPed(-1), 8, 154, 1, 2);
                 SetPedComponentVariation(GetPlayerPed(-1), 11, 46, 0, 2);
+                SetPedComponentVariation(GetPlayerPed(-1), 7, 0, 0, 2);
             }
             else
             {
@@ -243,6 +245,7 @@ namespace Client.Jobs
                 SetPedComponentVariation(GetPlayerPed(-1), 6, 25, 0, 2);
                 SetPedComponentVariation(GetPlayerPed(-1), 8, 124, 1, 2);
                 SetPedComponentVariation(GetPlayerPed(-1), 11, 53, 0, 2);
+                SetPedComponentVariation(GetPlayerPed(-1), 7, 0, 0, 2);
                 
             }
             Sync.Data.SetLocally(User.GetServerId(), "GrSix:Uniform", true);
@@ -265,11 +268,9 @@ namespace Client.Jobs
             Coffer.AddMoney(2250);
         }
 
-        public static void DeleteVeh()
+        public static void DeleteVeh(int money, int vehicle)
         {
-            int money = MoneyInCar / 130;
-            int vehicle = GetVehiclePedIsIn(PlayerPedId(), false);
-            var veh = new CitizenFX.Core.Vehicle(vehicle);
+            var veh = new CitizenFX.Core.Vehicle(NetToVeh(vehicle));
             var vehId = Managers.Vehicle.GetVehicleIdByNumber(GetVehicleNumberPlateText(veh.Handle));
             if(Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), GrSixMenuPos) > 50)
             {
@@ -277,24 +278,26 @@ namespace Client.Jobs
                 User.SetWaypoint(-42, -664);
                 return;
             }
-
             if (User.CanOpenVehicle(vehId, veh.Handle))
             {
                 Notification.SendWithTime("~g~Вы сдали автомобиль ");
                 Coffer.RemoveMoney(4500);
 
                 Notification.SendWithTime($"~q~Вы окончили маршрут день и заработали: ${money}");
-                User.AddMoney(4500 + Price);
-                MoneyInCar = 0;
+                
+                User.AddMoney(money + 4500);
+                
                 Main.FindNearestVehicle().Delete();
                 Characher.UpdateCloth(false);
+                TriggerServerEvent("ARP:GrSix:ResetMoneyInCar", veh.NetworkId);
+                MoneyInCar = 0;
+                
             }
             else
             {
                 Notification.SendWithTime("Не вы арендовали, не вам сдавать.");
                 return;
             }
-
         }
 
         public static async void Grab(int money)
@@ -356,7 +359,8 @@ namespace Client.Jobs
                     ClearPedProp(GetPlayerPed(-1), 0);
                     Characher.UpdateCloth(false);
                     Characher.UpdateFace(false);
-                    Sync.Data.SetLocally(User.GetServerId(), "GrSix:Uniform", false);
+                    Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Uniform");
+                    Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Equip");
                     
                         User.AddMoney(1000);
                 }
@@ -376,7 +380,8 @@ namespace Client.Jobs
                     ClearPedProp(GetPlayerPed(-1), 0);
                     Characher.UpdateCloth(false);
                     Characher.UpdateFace(false);
-                    Sync.Data.SetLocally(User.GetServerId(), "GrSix:Uniform", false);
+                    Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Uniform");
+                    Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Equip");
                     
                     User.AddMoney(600);
                 }
@@ -394,10 +399,11 @@ namespace Client.Jobs
 
         private async Task OnTick()
         {
-            int vehicle = GetVehiclePedIsIn(PlayerPedId(), false);
-            var veh = new CitizenFX.Core.Vehicle(vehicle);
+            
             if(User.Data.job == "GrSix")
             {
+                int vehicle = GetVehiclePedIsIn(PlayerPedId(), false);
+                var veh = new CitizenFX.Core.Vehicle(vehicle);
                 if (veh.Model.Hash == 1747439474 && IsPedInVehicle(GetPlayerPed(-1), vehicle, true) && Sync.Data.HasLocally(User.GetServerId(), "GrSix:MoneyBag"))
                 {
                     PutMoneyInCar();

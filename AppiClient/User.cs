@@ -2688,7 +2688,7 @@ namespace Client
                     }
                     Managers.Inventory.UnEquipItem(n1, 0, 9999, id);
 
-                    Chat.SendDoCommand($"было найдено \"{Inventory.GetItemNameById(n)}\"");
+                    Chat.SendDoCommand($"Было найдено \"{Inventory.GetItemNameById(n)}\"");
                 }
             }
 
@@ -2701,6 +2701,33 @@ namespace Client
             
             //RemoveAllPedWeapons(GetPlayerPed(-1), false);
         }
+        
+        public static async void TakeAllGunSAPD(int id)
+        {
+            for (int n = 54; n < 138; n++)
+            {
+                foreach(uint hash in Enum.GetValues(typeof(WeaponHash)))
+                {
+                    string name = Enum.GetName(typeof(WeaponHash), hash);
+                    if (!String.Equals(name, Client.Inventory.GetItemNameHashById(n), StringComparison.CurrentCultureIgnoreCase)) continue;
+                    if (!HasPedGotWeapon(GetPlayerPed(-1), hash, false)) continue;
+                    
+                    var n1 = n;
+                    int ammoItem = Managers.Inventory.AmmoTypeToAmmo(GetPedAmmoType(GetPlayerPed(-1), hash));
+                    if (ammoItem != -1)
+                    {
+                        Managers.Inventory.UnEquipItem(Managers.Inventory.AmmoTypeToAmmo(GetPedAmmoType(GetPlayerPed(-1), hash)), GetAmmoInPedWeapon(GetPlayerPed(-1), hash), 9999, id);
+                        await Delay(100);
+                        
+                    }
+
+                    Chat.SendDoCommand($"Сдал в арсенал \"{Inventory.GetItemNameById(n)}\"");
+                    Main.AddFractionGunLog(User.Data.rp_name, $"DROP: {Inventory.GetItemNameById(n)}", User.Data.fraction_id);
+                }
+                RemoveWeapons();
+            }
+        }
+        
         
         public static void RemoveWeapons()
         {

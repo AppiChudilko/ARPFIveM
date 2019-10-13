@@ -17,56 +17,56 @@ namespace Server.Managers
         {
             EventHandlers.Add("playerConnecting", new Action<Player, string, CallbackDelegate, ExpandoObject>(OnPlayerConnecting));
             EventHandlers.Add("playerDropped", new Action<Player, string, CallbackDelegate>(OnPlayerDropped));
-            
+
             EventHandlers.Add("ARP:KickPlayer", new Action<Player, int, string>(KickPlayer));
             EventHandlers.Add("ARP:KickPlayerServerId", new Action<Player, int, string>(KickPlayerServerId));
             EventHandlers.Add("ARP:BanPlayerServerId", new Action<Player, int, int, string>(BanPlayerServerId));
             EventHandlers.Add("ARP:BanPlayerByServer", new Action<Player>(BanPlayerByServer));
             EventHandlers.Add("ARP:BlackListPlayerServerId", new Action<Player, int, string>(BlackListPlayerServerId));
-            
+
             EventHandlers.Add("ARP:LoginPlayer", new Action<Player, string, string>(Login));
             EventHandlers.Add("ARP:RegPlayer", new Action<Player, string, string, string, string, string, bool>(Register));
             EventHandlers.Add("ARP:SendLog", new Action<string, string>(SendLog));
             EventHandlers.Add("ARP:SetVirtualWorld", new Action<Player, int>(SetVirtualWorld));
             EventHandlers.Add("ARP:PlayerFinishLoad", new Action<Player>(PlayerFinishLoad));
-            
+
             EventHandlers.Add("ARP:UpdateVehNetId", new Action<int, int>(UpdateVehNetId));
             EventHandlers.Add("ARP:UpdateVehInfo", new Action<int, float, float, float, float, float>(UpdateVehInfo));
             EventHandlers.Add("ARP:UpdateVehPark", new Action<int, float, float, float, float>(UpdateVehPark));
-            
+
             EventHandlers.Add("ARP:SetUserCashMoney", new Action<Player, int>(OnSetCashMoney));
             EventHandlers.Add("ARP:SetUserBankMoney", new Action<Player, int>(OnSetBankMoney));
             EventHandlers.Add("ARP:SetUserPayDayMoney", new Action<Player, int>(OnSetPayDayMoney));
-            
+
             EventHandlers.Add("ARP:SetCofferMoney", new Action<int>(Coffer.SetMoney));
             EventHandlers.Add("ARP:SetCofferBizzNalog", new Action<int>(Coffer.SetBizzNalog));
             EventHandlers.Add("ARP:SetCofferMoneyOld", new Action<int>(Coffer.SetMoneyOld));
             EventHandlers.Add("ARP:SetCofferNalog", new Action<int>(Coffer.SetNalog));
             EventHandlers.Add("ARP:SetCofferPosob", new Action<int>(Coffer.SetPosob));
-            
+
             EventHandlers.Add("ARP:SpawnServerVehicle", new Action<Player, int, int>(SpawnServerVehicle));
-            
+
             EventHandlers.Add("ARP:UpdateHousePin", new Action<int, int>(House.UpdateHousePin));
             EventHandlers.Add("ARP:UpdateHouseInfo", new Action<Player, string, int, int, int>(UpdateHouseInfo));
             EventHandlers.Add("ARP:UpdateCondoInfo", new Action<Player, string, int, int>(UpdateCondoInfo));
             EventHandlers.Add("ARP:UpdateStockInfo", new Action<Player, string, int, int>(UpdateStockInfo));
             EventHandlers.Add("ARP:UpdateApartmentInfo", new Action<Player, string, int, int>(UpdateApartmentInfo));
             EventHandlers.Add("ARP:UpdateSellCarInfo", new Action<Player, string, int, int>(UpdateSellCarInfo));
-            
+
             EventHandlers.Add("ARP:SaveUserAccount", new Action<Player>(SaveUserAccount));
             EventHandlers.Add("ARP:SaveVehicle", new Action<int>(SaveVehicle));
             EventHandlers.Add("ARP:AutoSpawnPlayer", new Action<Player>(AutoSpawnPlayer));
-            
+
             EventHandlers.Add("ARP:FromJson", new Action<Player, string>(FromJson));
             EventHandlers.Add("ARP:ToJson", new Action<Player, dynamic>(ToJson));
-            
+
             EventHandlers.Add("ARP:SendPlayerNotificationPictureToRadio", new Action<string, string, string, string>(SendPlayerNotificationPictureToRadio));
             EventHandlers.Add("ARP:SendPlayerNotificationPictureToFraction", new Action<string, string, string, string, int, int>(SendPlayerNotificationPictureToFraction));
             EventHandlers.Add("ARP:SendPlayerNotificationPictureToJob", new Action<string, string, string, string, int, string>(SendPlayerNotificationPictureToJob));
             EventHandlers.Add("ARP:SendPlayerNotificationPictureToDep", new Action<string, string, string, string, int>(SendPlayerNotificationPictureToDep));
             EventHandlers.Add("ARP:SendPlayerNotificationToDep", new Action<string>(SendPlayerNotificationToDep));
             EventHandlers.Add("ARP:SendPlayerNotificationToFraction", new Action<string, int>(SendPlayerNotificationToFraction));
-            
+
             EventHandlers.Add("ARP:SendServerToPlayerSubTitle", new Action<string, int>(SendPlayerSubTitle));
             EventHandlers.Add("ARP:SendServerToPlayerTooltip", new Action<string, int>(SendPlayerTooltip));
             EventHandlers.Add("ARP:SendPlayerShowPassByHacker", new Action<Player, int>(SendPlayerShowPassByHacker));
@@ -98,47 +98,51 @@ namespace Server.Managers
             EventHandlers.Add("ARP:OpenBusinnesListMenu", new Action<Player, int>(OpenBusinnesListMenu));
             EventHandlers.Add("ARP:OpenApartamentListMenu", new Action<Player, int, int>(OpenApartamentListMenu));
             EventHandlers.Add("ARP:SaveBusiness", new Action<int>(Save.Business));
-            
+
             EventHandlers.Add("ARP:UnDuty", new Action<Player>(UnDuty));
             //EventHandlers.Add("ARP:PartnerCheck", Action<Players>(PartnerCheck));
-            
+
             EventHandlers.Add("ARP:ChangeNumberPhone", new Action<Player, int, int>(ChangeNumberPhone));
             EventHandlers.Add("ARP:ChangeNumberCard", new Action<Player, int, int>(ChangeNumberCard));
             EventHandlers.Add("ARP:TransferMoneyBank", new Action<Player, int, int, int>(TransferMoneyBank));
-            
+
             EventHandlers.Add("ARP:SendRadiusMessage", new Action<Player, string, float, float, float>(SendRadiusMessage));
             EventHandlers.Add("ARP:GivePlayerRank", new Action<Player, string, int>(GivePlayerRank));
             EventHandlers.Add("ARP:GivePlayerRank2", new Action<Player, string, int>(GivePlayerRank2));
             EventHandlers.Add("ARP:Uninvite", new Action<Player, string>(Uninvite));
             EventHandlers.Add("ARP:Uninvite2", new Action<Player, string>(Uninvite2));
-            
+
             EventHandlers.Add("ARP:ResetLoto", new Action(Sync.ResetLoto));
             EventHandlers.Add("ARP:WinLotoLoto", new Action<string>(Sync.WinLotoLoto));
-            
+
             EventHandlers.Add("ARP:CheckSoloSession", new Action<Player, int>(CheckSoloSession));
             EventHandlers.Add("ARP:SendReferrer", new Action<Player>(SendReferrer));
-            
+
             EventHandlers.Add("ARP:AddAd", new Action<string, string, string, string>(AddAd));
             EventHandlers.Add("ARP:AddNewVehicle", new Action<Player, int, string, string, int, int, int, int, float, float, float, float, int, int>(AddNewVehicle));
             EventHandlers.Add("ARP:SetCarNumber", new Action<Player, int, int, int, string, int, int>(SetCarNumber));
             EventHandlers.Add("ARP:PayTax", new Action<Player, int, int, int>(Tax.PayTax));
-            
+
+            EventHandlers.Add("ARP:OnVip", new Action<Player>(OnVip));
+
             EventHandlers.Add("ARP:CreateUnofFraction", new Action<Player, string>(FractionUnoff.Create));
             EventHandlers.Add("ARP:RenameUnofFraction", new Action<Player, int, string>(FractionUnoff.Rename));
             EventHandlers.Add("ARP:DeleteUnofFraction", new Action<Player, int>(FractionUnoff.Delete));
-            
+
             EventHandlers.Add("ARP:Promocode", new Action<Player, string>(Promocode));
-            
+
             //EventHandlers.Add("ARP:GrSix:Partner", new Action<Player, Player, int>(GrSix.PartnerSet));
             EventHandlers.Add("ARP:GrSix:DropMoney", new Action<int, int>(GrSixDropMoney));
+            EventHandlers.Add("ARP:GrSix:MoneyInCarCheck", new Action<Player, int>(CheckMoneyGrSix));
             EventHandlers.Add("ARP:GrSix:Grab", new Action<Player, int>(GrabGrSix));
-            EventHandlers.Add("ARP:GrSix:MoneyInCar", new Action<Player, int>(MoneyInCar));
+            EventHandlers.Add("ARP:GrSix:Payment", new Action<Player, int>(Payment));
             EventHandlers.Add("ARP:GrSix:ResetMoneyInCar", new Action<int>(ResetMoneyInCar));
 
             Tick += DataBaseSync;
         }
 
         protected static int rand = 0;
+
         protected static void Promocode([FromSource] Player player, string code)
         {
             bool isValid = false;
@@ -155,7 +159,7 @@ namespace Server.Managers
                     isValid = true;
                     break;
             }
-            
+
             int userId = User.GetId(player);
             if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM promocode_using WHERE promocode_name = '" + code + "' AND user_id = '" + userId + "'").Rows.Count > 0)
             {
@@ -169,13 +173,13 @@ namespace Server.Managers
                 TriggerClientEvent(player, "ARP:PromocodeActivate", code);
                 return;
             }
-            
+
             if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM promocode_list WHERE code = '" + code + "'").Rows.Count == 0)
             {
                 TriggerClientEvent(player, "ARP:SendPlayerNotification", "~r~Промокод не найден");
                 return;
             }
-                
+
             foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM promocode_list WHERE code = '" + code + "'").Rows)
             {
                 User.AddCashMoney(player, (int) row["bonus"]);
@@ -183,10 +187,10 @@ namespace Server.Managers
                 TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Вы активировали промокод: $" + (int) row["bonus"]);
                 return;
             }
-            
+
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~r~Промокод не найден");
         }
-        
+
         protected static void CheckSoloSession([FromSource] Player player, int players)
         {
             var plList = new PlayerList();
@@ -197,27 +201,28 @@ namespace Server.Managers
 
         protected static void AddAd(string text, string rpName, string phone, string type)
         {
-            Appi.MySql.ExecuteQuery("INSERT INTO rp_invader_ad (datetime, name, phone, title, text) " +
-                                    $"VALUES ('{Weather.GetRpDateTime()}', '{rpName}', '{phone}', '{type}', '{text}')");
+            Appi.MySql.ExecuteQuery("INSERT INTO rp_invader_ad (datetime, name, phone, title, text) " + $"VALUES ('{Weather.GetRpDateTime()}', '{rpName}', '{phone}', '{type}', '{text}')");
         }
 
-        protected static void SetCarNumber([FromSource] Player player, int vehId, int lscId, int vehHandle, string newNumber, int hashNewNumber, int hashOldNumber)
+        protected static void SetCarNumber([FromSource] Player player, int vehId, int lscId, int vehHandle,
+            string newNumber, int hashNewNumber, int hashOldNumber)
         {
-            if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE number = '" + newNumber + "'").Rows.Count > 0)
+            if (Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE number = '" + newNumber + "'").Rows.Count >
+                0)
             {
                 TriggerClientEvent(player, "ARP:SendPlayerNotification", "~r~Номер ТС уже существует");
                 return;
             }
 
             Server.Sync.Data.Set(110000 + vehId, "Number", newNumber);
-            
+
             User.RemoveCashMoney(player, 40000);
             Business.AddMoney(lscId, 40000);
-            
+
             Save.UserVehicleById(vehId);
-            
+
             User.UpdateAllData(player);
-                
+
             Appi.MySql.ExecuteQuery($"UPDATE items SET owner_id = '{hashNewNumber}' where owner_id = '{hashOldNumber}' and (owner_type = '2' or owner_type = '3' or owner_type = '4')");
             Main.SaveLog("ChangeNumberLSC", $"{Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} | vehId: {vehId} | newNumber: {newNumber}");
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Вы изменили номер транспорта");
@@ -232,10 +237,13 @@ namespace Server.Managers
         protected static void FromJson([FromSource] Player player, string json)
         {
             Main.SaveLog("ServerLSC", player.Name + " | " + json);
-            TriggerClientEvent(player, "ARP:FromJsonServer", Main.FromJson(json).ToObject<Dictionary<string, object>>());
+            TriggerClientEvent(player, "ARP:FromJsonServer",
+                Main.FromJson(json).ToObject<Dictionary<string, object>>());
         }
 
-        protected static void AddNewVehicle([FromSource] Player player, int hash, string displayName, string className, int fullFuel, int fuelMin, int stockFull, int stock, float x, float y, float z, float rot, int price, int count)
+        protected static void AddNewVehicle([FromSource] Player player, int hash, string displayName, string className,
+            int fullFuel, int fuelMin, int stockFull, int stock, float x, float y, float z, float rot, int price,
+            int count)
         {
             if (!User.IsAdmin(User.GetServerId(player))) return;
 
@@ -243,23 +251,41 @@ namespace Server.Managers
 
             for (int i = 0; i < count; i++)
             {
-                
+
                 int color = rand.Next(156);
                 const string chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 var number = "";
                 for (int j = 0; j < 8; j++)
                     number += chars[rand.Next(0, chars.Length - 1)];
-                Appi.MySql.ExecuteQuery("INSERT INTO cars (hash, name, class_type, full_fuel, fuel, fuel_minute, color1, color2, number, stock, stock_full, price, x, y, z, rot) " +
-                                        $"VALUES ('{hash}', '{displayName}', '{className}', '{fullFuel}', '{fullFuel}', '{fuelMin}', '{color}', '{color}', '{number}', '{stock}', '{stockFull}', '{price}', '{x}', '{y}', '{z}', '{rot}')");
+                Appi.MySql.ExecuteQuery(
+                    "INSERT INTO cars (hash, name, class_type, full_fuel, fuel, fuel_minute, color1, color2, number, stock, stock_full, price, x, y, z, rot) " + 
+                    $"VALUES ('{hash}', '{displayName}', '{className}', '{fullFuel}', '{fullFuel}', '{fuelMin}', '{color}', '{color}', '{number}', '{stock}', '{stockFull}', " +
+                    $"'{price}', '{x}', '{y}', '{z}', '{rot}')");
+            }
+        }
+
+        protected static void OnVip([FromSource] Player player)
+        {
+            if (User.GetVipStatus(User.GetServerId(player)) == "Hard")
+            {
+                Appi.MySql.ExecuteQuery("UPDATE users SET money_donate = money_donate + '2' WHERE id = '" +
+                                        User.GetId(player) + "'");
+            }
+
+            if (User.GetVipStatus(User.GetServerId(player)) == "Light")
+            {
+                Appi.MySql.ExecuteQuery("UPDATE users SET money_donate = money_donate + '1' WHERE id = '" +
+                                        User.GetId(player) + "'");
             }
         }
 
         protected static void GivePlayerRank([FromSource] Player player, string name, int rank)
         {
             if (rank == 14) return;
-            
-            Main.SaveLog("fractionLog", $"[GIVERANK] {Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} ({Server.Sync.Data.Get(User.GetServerId(player), "fraction_id")}) - {name}");
-            
+
+            Main.SaveLog("fractionLog",
+                $"[GIVERANK] {Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} ({Server.Sync.Data.Get(User.GetServerId(player), "fraction_id")}) - {name}");
+
             foreach (var pl in new PlayerList())
             {
                 if (!User.IsLogin(User.GetServerId(pl))) continue;
@@ -276,17 +302,19 @@ namespace Server.Managers
                 User.SendPlayerSubTitle(player, "~r~Вы не лидер чтобы уволнять оффлайн");
                 return;
             }
-            
-            Appi.MySql.ExecuteQuery("UPDATE users SET rank = '" + rank + "' where rp_name = '" + name + "' AND rank < 14");
+
+            Appi.MySql.ExecuteQuery("UPDATE users SET rank = '" + rank + "' where rp_name = '" + name +
+                                    "' AND rank < 14");
             User.SendPlayerSubTitle(player, $"~g~Вы выдали ранг {name} - {rank}");
         }
 
         protected static void GivePlayerRank2([FromSource] Player player, string name, int rank)
         {
             if (rank == 11) return;
-            
-            Main.SaveLog("fractionLog2", $"[GIVERANK] {Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} ({Server.Sync.Data.Get(User.GetServerId(player), "fraction_id2")}) - {name}");
-            
+
+            Main.SaveLog("fractionLog2",
+                $"[GIVERANK] {Server.Sync.Data.Get(User.GetServerId(player), "rp_name")} ({Server.Sync.Data.Get(User.GetServerId(player), "fraction_id2")}) - {name}");
+
             foreach (var pl in new PlayerList())
             {
                 if (!User.IsLogin(User.GetServerId(pl))) continue;
@@ -303,8 +331,9 @@ namespace Server.Managers
                 User.SendPlayerSubTitle(player, "~r~Вы не лидер чтобы уволнять оффлайн");
                 return;
             }
-            
-            Appi.MySql.ExecuteQuery("UPDATE users SET rank2 = '" + rank + "' where rp_name = '" + name + "' AND rank2 < 11");
+
+            Appi.MySql.ExecuteQuery("UPDATE users SET rank2 = '" + rank + "' where rp_name = '" + name +
+                                    "' AND rank2 < 11");
             User.SendPlayerSubTitle(player, $"~g~Вы выдали ранг {name} - {rank}");
         }
 
@@ -318,12 +347,23 @@ namespace Server.Managers
                 return;
             }
         }
-        
-        public static void GrSixDropMoney(int veh, int money)
+
+        protected static void GrSixDropMoney(int veh, int money)
         {
             Server.Sync.Data.Set(veh, "GrSix:MoneyInCar", money);
         }
 
+        protected static void CheckMoneyGrSix([FromSource] Player player,  int veh)
+        {
+            if (Server.Sync.Data.Has(veh, "GrSix:MoneyInCar"))
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", $"В машине: $\"{Server.Sync.Data.Get(veh, "GrSix:MoneyInCar")}\"");
+            }
+            else
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "Вы еще ничего не собрали");
+            }
+        }
         protected static void GrabGrSix([FromSource] Player player, int veh)
         {
             if (Server.Sync.Data.Has(veh, "HasGrab"))
@@ -337,13 +377,22 @@ namespace Server.Managers
                 return;
             }
             Server.Sync.Data.Set(veh, "HasGrab", true);
-            int cash = Server.Sync.Data.Get(veh, "GrSix:MoneyInCar") / 150;
+            int cash = Server.Sync.Data.Get(veh, "GrSix:MoneyInCar") / 130;
             TriggerEvent("ARP:TriggerEventToPlayer", User.GetServerId(player), "ARP:GrSix:Grab", 1, cash);
         }
 
-        protected static void MoneyInCar([FromSource] Player player, int veh)
+        protected static void Payment([FromSource] Player player, int veh)
         {
-            TriggerClientEvent(player, "ARP:SendPlayerNotification", $"~g~${Server.Sync.Data.Get(veh, "GrSix:MoneyInCar")}");
+            if (Server.Sync.Data.Has(veh, "GrSix:MoneyInCar"))
+            {
+                int cash = Server.Sync.Data.Get(veh, "GrSix:MoneyInCar") / 130;
+                TriggerEvent("ARP:TriggerEventToPlayer", User.GetServerId(player), "ARP:GrSix:Pay", 2, cash, veh);
+            }
+            else
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "~y~Вы ничего не заработали");
+                TriggerEvent("ARP:TriggerEventToPlayer", User.GetServerId(player), "ARP:GrSix:Pay", 2, 0, veh);
+            }
         }
 
         protected static void ResetMoneyInCar(int veh)
@@ -1844,7 +1893,7 @@ namespace Server.Managers
                                                 Managers.Vehicle.AddUserVehicle(carRow);
                                             UpdateSellCarInfo(p, (string) Server.Sync.Data.Get(i, "rp_name"), itemId, vId);
                                             
-                                            break;
+                                            return;
                                         }
                                     }
                                     break;

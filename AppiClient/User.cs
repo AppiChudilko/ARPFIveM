@@ -1045,27 +1045,27 @@ namespace Client
             return (int) Sync.Data.GetLocally(GetServerId(), "drug_mef_level");
         }
 
-        //Ксанекс
-        public static void AddDrugKsanLevel(int level)
+        //Кетамин
+        public static void AddDrugKetLevel(int level)
         {
-            SetDrugKsanLevel(GetDrugKsanLevel() + level);
+            SetDrugKetLevel(GetDrugKetLevel() + level);
         }
 
-        public static void RemoveDrugKsanLevel(int level)
+        public static void RemoveDrugKetLevel(int level)
         {
-            if(GetDrugKsanLevel() - level < 0) { SetDrugKsanLevel(0); return; }
-            SetDrugKsanLevel(GetDrugKsanLevel() - level);
+            if(GetDrugKetLevel() - level < 0) { SetDrugKetLevel(0); return; }
+            SetDrugKetLevel(GetDrugKetLevel() - level);
         }
 
-        public static void SetDrugKsanLevel(int level)
+        public static void SetDrugKetLevel(int level)
         {
-            Sync.Data.SetLocally(GetServerId(), "drug_ksan_level", level);
-            Sync.Data.Set(GetServerId(), "drug_ksan_level", level);
+            Sync.Data.SetLocally(GetServerId(), "drug_ket_level", level);
+            Sync.Data.Set(GetServerId(), "drug_ket_level", level);
         }
 
-        public static int GetDrugKsanLevel()
+        public static int GetDrugKetLevel()
         {
-            return (int) Sync.Data.GetLocally(GetServerId(), "drug_ksan_level");
+            return (int) Sync.Data.GetLocally(GetServerId(), "drug_ket_level");
         }
 
         public static void AddDrugMargLevel(int level)
@@ -1092,12 +1092,12 @@ namespace Client
 
         public static bool IsDrugDrunk()
         {
-            return GetDrugAmfLevel() > 0 || GetDrugMefLevel() > 0 || GetDrugLsdLevel() > 0 || GetDrugKsanLevel() > 0 || GetDrugCocaLevel() > 0 || GetDrugDmtLevel() > 0;
+            return GetDrugAmfLevel() > 0 || GetDrugMefLevel() > 0 || GetDrugLsdLevel() > 0 || GetDrugKetLevel() > 0 || GetDrugCocaLevel() > 0 || GetDrugDmtLevel() > 0;
         }
 
         public static int GetDrugDrunkLevel()
         {
-            return GetDrugAmfLevel() + GetDrugMefLevel() + GetDrugLsdLevel() + GetDrugKsanLevel() + GetDrugCocaLevel() + GetDrugDmtLevel();
+            return GetDrugAmfLevel() + GetDrugMefLevel() + GetDrugLsdLevel() + GetDrugKetLevel() + GetDrugCocaLevel() + GetDrugDmtLevel();
         }
         
         /*Water Level*/
@@ -1656,7 +1656,7 @@ namespace Client
             SetDrugAmfLevel(0);
             SetDrugCocaLevel(0);
             SetDrugDmtLevel(0);
-            SetDrugKsanLevel(0);
+            SetDrugKetLevel(0);
             SetDrugLsdLevel(0);
             SetDrugMargLevel(0);
             SetDrugMefLevel(0);

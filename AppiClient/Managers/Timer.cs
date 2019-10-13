@@ -240,14 +240,14 @@ namespace Client.Managers
                 if (User.GetDrugDmtLevel() <= 0 && Main.GetScreenEffectIsActive("DMT_flight"))
                     StopScreenEffect("DMT_flight");
 
-                if (User.GetDrugKsanLevel() > 0)
+                if (User.GetDrugKetLevel() > 0)
                 {
                     if (!Main.GetScreenEffectIsActive("Rampage"))
                         StartScreenEffect("Rampage", 0, true);
 
-                    User.RemoveDrugKsanLevel(1);
+                    User.RemoveDrugKetLevel(1);
                 }
-                if (User.GetDrugKsanLevel() <= 0 && Main.GetScreenEffectIsActive("Rampage"))
+                if (User.GetDrugKetLevel() <= 0 && Main.GetScreenEffectIsActive("Rampage"))
                     StopScreenEffect("Rampage");
 
                 int count = 0;

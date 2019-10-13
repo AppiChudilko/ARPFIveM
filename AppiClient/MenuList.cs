@@ -312,6 +312,231 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        public static void ShowAskSellTrMenu(string id)
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Продажа", "~b~Согласны на продажу?", true, true);
+            
+        
+            var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
+            var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
+            
+            UiMenu.OnItemSelect += async (sender, item, index) =>
+            {
+
+
+                if (item == yesButton)
+                    
+                { 
+                    switch(id)
+                    {
+                        case "car_id1":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id1);
+                            HideMenu();
+                            break;
+                        }
+                        case "car_id2":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id2);
+                            HideMenu();
+                            break;
+                        }
+                        case "car_id3":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id3);
+                            HideMenu();
+                            break;
+                        }        
+                        case "car_id4":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id4);
+                            HideMenu();
+                            break;
+                        }
+                        case "car_id5":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id5);
+                            HideMenu();
+                            break;
+                        }
+                        case "car_id6":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id6);
+                            HideMenu();
+                            break;
+                        }
+                        case "car_id7":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id7);
+                            HideMenu();
+                            break;
+                        }
+                        case "car_id8":
+                        {
+                            Managers.Vehicle.SellCar(User.Data.car_id8);
+                            HideMenu();
+                            break;
+                   
+                    
+                }
+            }
+
+
+            }
+                if (item == noButton)
+                {
+                    HideMenu();
+                    
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        public static void ShowAskSellSMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+        
+            var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
+            var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
+            
+            UiMenu.OnItemSelect += async (sender, item, index) =>
+            {
+                if (item == yesButton)
+                {
+                    Stock.SellStock(Stock.GetStockFromId(User.Data.stock_id));  
+                    HideMenu();
+                    
+                    
+                }
+                if (item == noButton)
+                {
+                    HideMenu();
+                    
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        public static void ShowAskSellHMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+        
+            var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
+            var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
+            
+            UiMenu.OnItemSelect += async (sender, item, index) =>
+            {
+                if (item == yesButton)
+                {
+                    
+                    House.SellHouse(House.GetHouseFromId(User.Data.id_house));
+                    HideMenu();
+                    
+                    
+                }
+                if (item == noButton)
+                {
+                    HideMenu();
+                    
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        public static void ShowAskSellKMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+        
+            var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
+            var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
+            
+            UiMenu.OnItemSelect += async (sender, item, index) =>
+            {
+                if (item == yesButton)
+                {
+                    
+                    Condo.SellHouse(Condo.GetHouseFromId(User.Data.condo_id));   
+                    HideMenu();
+                    
+                    
+                }
+                if (item == noButton)
+                {
+                    HideMenu();
+                    
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        public static void ShowAskSellApsMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+        
+            var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
+            var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
+            
+            UiMenu.OnItemSelect += async (sender, item, index) =>
+            {
+                if (item == yesButton)
+                {
+                    Managers.Apartment.Sell(User.Data.id);
+                    HideMenu();
+                    
+                    
+                }
+                if (item == noButton)
+                {
+                    HideMenu();
+                    
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+		 public static void ShowAskSellBMenu()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+        
+            var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
+            var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
+            
+            UiMenu.OnItemSelect += async (sender, item, index) =>
+            {
+                if (item == yesButton)
+                {
+                    Business.Business.Sell(User.Data.business_id);
+                    HideMenu();
+                    
+                    
+                }
+                if (item == noButton)
+                {
+                    HideMenu();
+                    
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
         
         public static void ShowAskInviteMpMenu(float x, float y, float z)
         {
@@ -1466,7 +1691,7 @@ namespace Client
                     };
                     menu.AddMenuItem(UiMenu, "~g~Денег в машине").Activated += (sender, item) =>
                     {
-                        TriggerServerEvent("ARP:GrSix:MoneyInCarCheck");
+                        TriggerServerEvent("ARP:GrSix:MoneyInCarCheck", veh.NetworkId);
                     };
                     menu.AddMenuItem(UiMenu, "Сдать ТС", "~y~Зарплата зависит от кол-ва точек").Activated += (sender, item) =>
                         {
@@ -4748,7 +4973,7 @@ namespace Client
                 User.SetDrugAmfLevel(0);
                 User.SetDrugCocaLevel(0);
                 User.SetDrugDmtLevel(0);
-                User.SetDrugKsanLevel(0);
+                User.SetDrugKetLevel(0);
                 User.SetDrugLsdLevel(0);
                 User.SetDrugMargLevel(0);
                 User.SetDrugMefLevel(0);
@@ -8230,11 +8455,7 @@ namespace Client
                     }
                 };
             }
-
-            /*menu.AddMenuItem(UiMenu, "Анмации взаимодейтсвий").Activated += (uimenu, item) =>
-            {
-                ShowPlayerToPlayerAnimationMenu();
-            };*/
+            
             menu.AddMenuItem(UiMenu, "Анимации действий").Activated += (uimenu, item) =>
             {
                 ShowAnimationActionMenu();
@@ -12701,6 +12922,7 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        
         public static void SapdNewsMenu()
         {
             if (User.IsSapd())
@@ -14787,7 +15009,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "Продать склад", $"Продать склад государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
-                    Stock.SellStock(h);   
+                    ShowAskSellSMenu();
                 };
                 /*menu.AddMenuItem(UiMenu, "~y~Продать склад игроку", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {
@@ -14802,9 +15024,9 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #1", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id1); 
-                    
+                    var temp = "car_id1";
+                    ShowAskSellTrMenu(temp);
+
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #1 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -14818,8 +15040,8 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #2", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id2); 
+                    var temp = "car_id2";
+                    ShowAskSellTrMenu(temp);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #2 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -14833,8 +15055,8 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #3", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id3); 
+                    var temp = "car_id3";
+                    ShowAskSellTrMenu(temp);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #3 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -14848,8 +15070,8 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #4", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id4); 
+                    var temp = "car_id4";
+                    ShowAskSellTrMenu(temp);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #4 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -14863,8 +15085,8 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #5", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id5); 
+                    var temp = "car_id5";
+                    ShowAskSellTrMenu(temp);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #5 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -14878,8 +15100,8 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #6", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id6); 
+                    var temp = "car_id6";
+                    ShowAskSellTrMenu(temp);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #6 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -14893,8 +15115,8 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #7", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id7); 
+                    var temp = "car_id7";
+                    ShowAskSellTrMenu(temp);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #7 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -14908,8 +15130,9 @@ namespace Client
                 var nalog = vehicle.price * (100 - (Coffer.GetNalog() + 20)) / 100;
                 menu.AddMenuItem(UiMenu, "Продать ТС #8", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Цена: ~s~${nalog:#,#}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
-                    HideMenu();
-                    Managers.Vehicle.SellCar(User.Data.car_id8); 
+                    
+                    var temp = "car_id8";
+                    ShowAskSellTrMenu(temp);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать ТС #8 игроку", $"~b~Марка: ~s~{vehicle.DisplayName}\n~b~Номера: ~s~{vehicle.Number}").Activated += (uimenu, item) =>
                 {
@@ -15294,12 +15517,6 @@ namespace Client
                     ShowRentCarClassMenu("Cycles", shopId, price);
                 };
                 
-                menu.AddMenuItem(UiMenu, "Commercials").Activated += (uimenu, item) =>
-                {
-                    HideMenu();
-                    ShowRentCarClassMenu("Commercials", shopId, price);
-                };
-                
                 menu.AddMenuItem(UiMenu, "Compacts").Activated += (uimenu, item) =>
                 {
                     HideMenu();
@@ -15372,12 +15589,7 @@ namespace Client
                     ShowRentCarClassMenu("Utility", shopId, price);
                 };
                 
-                menu.AddMenuItem(UiMenu, "Vans").Activated += (uimenu, item) =>
-                {
-                    HideMenu();
-                    ShowRentCarClassMenu("Vans", shopId, price);
-                };
-            }
+                }
             else if (shopId == 114)
             {
                 menu.AddMenuItem(UiMenu, "Stanier Taxi", $"Цена: ~g~$150").Activated += (uimenu, item) =>
@@ -16228,7 +16440,7 @@ namespace Client
                 }
                 TriggerServerEvent("ARP:UpdateHousePin", User.Data.id_house, 9999);
                 User.RemoveCashMoney(10000);
-                Business.Business.AddMoney(shopId, 10000);
+                Business.Business.AddMoney(shopId, 3500);
                 Notification.SendWithTime("~g~Вы купили дверь с пинкодом для вашего дома");
             };
             
@@ -19573,6 +19785,10 @@ namespace Client
                 if ((Game.IsControlJustPressed(0, (Control) 163) || Game.IsDisabledControlJustPressed(0, (Control) 163)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //9
                 {
                     ShowAnimationMenu();
+                }
+                if ((Game.IsControlJustPressed(0, (Control) 161) || Game.IsDisabledControlJustPressed(0, (Control) 161)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //9
+                {
+                    ShowAnimationActionMenu();
                 }
                 if (Game.IsControlJustPressed(0, (Control) 19) || Game.IsDisabledControlJustPressed(0, (Control) 19)) //LALT
                 {

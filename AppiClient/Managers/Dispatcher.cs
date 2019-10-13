@@ -18,7 +18,7 @@ namespace Client.Managers
         public static void AcceptDispatch(string phone)
         {
             if (User.Data.phone_code + "-" + User.Data.phone == phone)
-                Notification.SendPicture("Ваш вызов был приянт, ожидайте", "Диспетчер", "911", "CHAR_CALL911", Notification.TypeChatbox);
+                Notification.SendPicture("Ваш вызов был принят, ожидайте", "Диспетчер", "911", "CHAR_CALL911", Notification.TypeChatbox);
         }
 
         public static async void AddDispatcherEms(string title, string desc, string street1, string street2, string time, float x, float y, float z, bool withCoord)

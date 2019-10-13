@@ -979,7 +979,7 @@ namespace Client.Managers
                 }
                 case 161:
                 {
-                    Chat.SendMeCommand("употребил ксанакс");
+                    Chat.SendMeCommand("употребил кетамин");
                     SetEntityHealth(GetPlayerPed(-1), 200);
                     DeleteItemServer(id);
                     
@@ -1595,7 +1595,7 @@ namespace Client.Managers
                     User.SetDrugAmfLevel(0);
                     User.SetDrugCocaLevel(0);
                     User.SetDrugDmtLevel(0);
-                    User.SetDrugKsanLevel(0);
+                    User.SetDrugKetLevel(0);
                     User.SetDrugLsdLevel(0);
                     User.SetDrugMargLevel(0);
                     User.SetDrugMefLevel(0);

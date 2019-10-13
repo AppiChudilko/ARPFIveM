@@ -486,7 +486,7 @@ namespace Client
             HideMenu();
             
             var menu = new Menu();
-            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+            UiMenu = menu.Create("Апартаменты", "~b~Согласны на продажу?", true, true);
         
             var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
             var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
@@ -514,7 +514,7 @@ namespace Client
             HideMenu();
             
             var menu = new Menu();
-            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+            UiMenu = menu.Create("Arcadius", "~b~Согласны на продажу?", true, true);
         
             var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
             var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
@@ -11851,7 +11851,7 @@ namespace Client
                         Notification.SendWithTime("~r~Для начала расформируйте организацию");
                         return;
                     }
-                    Business.Business.Sell(data.id);
+                    ShowAskSellBMenu();
                 };
                 
                 menu.AddMenuItem(UiMenu, "~y~Продать бизнес игроку", $"~b~{data.name}").Activated += (uimenu, item) =>

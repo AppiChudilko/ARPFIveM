@@ -486,7 +486,7 @@ namespace Client
             HideMenu();
             
             var menu = new Menu();
-            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+            UiMenu = menu.Create("Апартаменты", "~b~Согласны на продажу?", true, true);
         
             var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
             var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
@@ -514,7 +514,7 @@ namespace Client
             HideMenu();
             
             var menu = new Menu();
-            UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
+            UiMenu = menu.Create("Arcadius", "~b~Согласны на продажу?", true, true);
         
             var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
             var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
@@ -11851,7 +11851,7 @@ namespace Client
                         Notification.SendWithTime("~r~Для начала расформируйте организацию");
                         return;
                     }
-                    Business.Business.Sell(data.id);
+                    ShowAskSellBMenu();
                 };
                 
                 menu.AddMenuItem(UiMenu, "~y~Продать бизнес игроку", $"~b~{data.name}").Activated += (uimenu, item) =>
@@ -14604,7 +14604,7 @@ namespace Client
                 Main.AddFractionGunLog(User.Data.rp_name, "Сухпаёк", User.Data.fraction_id);
             };
 
-            if (User.Data.rank == 3 || User.Data.rank > 6)
+            if (User.Data.rank < 3 || User.Data.rank > 6)
             {
                 menu.AddMenuItem(UiMenu, "Бронежилет").Activated += (uimenu, item) =>
                 {
@@ -14616,7 +14616,7 @@ namespace Client
 
                 if (User.Data.rank == 3 || User.Data.rank == 6)
                 {
-                    menu.AddMenuItem(UiMenu, "Набор охранника").Activated += (uimenu, item) =>
+                    menu.AddMenuItem(UiMenu, "Набор агента").Activated += (uimenu, item) =>
                     {
                         HideMenu();
                         SetPedArmour(GetPlayerPed(-1), 100);
@@ -14625,14 +14625,10 @@ namespace Client
                         User.GiveWeapon((uint) WeaponHash.Flashlight, 1, false, false);
                         User.GiveWeapon((uint) WeaponHash.StunGun, 1, false, false);
                         
-                        Notification.SendWithTime("~b~Вы взяли набор охранника");
-                        Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
+                        Notification.SendWithTime("~b~Вы взяли набор агента");
+                        Main.AddFractionGunLog(User.Data.rp_name, "Набор агента", User.Data.fraction_id);
                     };
-                    menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
-                    {
-                        HideMenu();
-                        TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
-                    };
+                
                 }
             }
             

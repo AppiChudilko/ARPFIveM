@@ -934,7 +934,7 @@ namespace Server.Managers
                         color1 = 111;
                         color2 = 0;
                         styleNubmer = 4;
-                        number = "SRHF" + CountCars;
+                        number = "SHRF" + CountCars;
                         break;
                     }
                     case 8:

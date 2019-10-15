@@ -14628,6 +14628,14 @@ namespace Client
                         Notification.SendWithTime("~b~Вы взяли экпировку");
                         Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
                     };
+                    menu.AddMenuItem(UiMenu, "SIG MPX-SD").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                        User.GiveWeapon((uint) WeaponHash.CombatPDW, 450, false, false);
+                        SetWeaponObjectTintIndex((int) WeaponHash.CombatPDW, (int) WeaponTint.LSPD);
+                        Notification.SendWithTime("~b~Вы взяли SIG MPX-SD");
+                        Main.AddFractionGunLog(User.Data.rp_name, "SIG MPX-SD", User.Data.fraction_id);
+                    };
                     menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
                     {
                         HideMenu();

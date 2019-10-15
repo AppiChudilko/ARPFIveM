@@ -9,6 +9,7 @@ namespace Client.Managers
     {
         private static bool _spawnLock = false;
         public static readonly Vector3 HospSpawn = new Vector3(353.8642f, -580.8f, 42.28162f);
+        public static readonly Vector3 HospSpawnSandy = new Vector3(1838.8642f, 3673.312f, 33.27669f);
 
         public Spawn()
         {
@@ -37,42 +38,64 @@ namespace Client.Managers
                         
                 StartScreenEffect("DeathFailOut", 0, true);
                 NetworkSetTalkerProximity(1f);
-
+                
                 if (User.IsAdmin())
                     User.Respawn(HospSpawn, 90);
                 else
                 {
-                    var distance = Main.GetDistanceToSquared(GetEntityCoords(ped, true), new Vector3(342.6589f, -1397.471f, 32.50927f));
-                    int distanceMin = 3;
+                    var distancecity = Main.GetDistanceToSquared(GetEntityCoords(ped, true), new Vector3(342.6589f, -1397.471f, 32.50927f));
+                    var distancesandy = Main.GetDistanceToSquared(GetEntityCoords(ped, true), new Vector3(1838.8642f, 3673.312f, 33.27669f));
+                    int distancecityMin = 3;
+                    int distancesandyMin = 3;
                         
-                    if (distance >= 6000)
-                        distanceMin = 8;
-                    if (distance >= 4000 && distance < 6000)
-                        distanceMin = 7;
-                    else if (distance >= 2000 && distance < 4000)
-                        distanceMin = 6;
-                    else if (distance > 200 && distance < 2000)
-                        distanceMin = 5;
+                    if (distancecity >= 6000)
+                        distancecityMin = 8;
+                    if (distancecity >= 4000 && distancecity < 6000)
+                        distancecityMin = 7;
+                    else if (distancecity >= 2000 && distancecity < 4000)
+                        distancecityMin = 6;
+                    else if (distancecity > 200 && distancecity < 2000)
+                        distancecityMin = 5;
+                    
+                    if (distancesandy >= 6000)
+                        distancesandyMin = 8;
+                    if (distancesandy >= 4000 && distancesandy < 6000)
+                        distancesandyMin = 7;
+                    else if (distancesandy >= 2000 && distancesandy < 4000)
+                        distancesandyMin = 6;
+                    else if (distancesandy > 200 && distancesandy < 2000)
+                        distancesandyMin = 5;
                     
                     //if (Main.ServerName == "SunFlower")
                     //    distanceMin = 3;
-                        
-                    for (int i = distanceMin; i > 0; i--)
-                    {
-                        if (!User.IsDead()) continue;
-                        Notification.SendWithTime($"Осталось до респавна: {i} мин.");
-                        //SetPedToRagdoll(ped, 60000, 60000, 0, false, false, false);
-                        await Delay(1000 * 60);
-                    }
+
+                    for (int i = distancecityMin; i > 0; i--)
+                        {
+                            if (!User.IsDead()) continue;
+                            Notification.SendWithTime($"Осталось до респавна: {i} мин.");
+                            //SetPedToRagdoll(ped, 60000, 60000, 0, false, false, false);
+                            await Delay(1000 * 60);
+                        }
+            
                 }
                 StopAllScreenEffects();
                 
                 if (User.IsDead())
                 {
+                    var distancecity = Main.GetDistanceToSquared(GetEntityCoords(ped, true), new Vector3(342.6589f, -1397.471f, 32.50927f));
+                    var distancesandy = Main.GetDistanceToSquared(GetEntityCoords(ped, true), new Vector3(1838.8642f, 3673.312f, 33.27669f));
                     Notification.SendWithTime("Нужна помощь? Нажмите на..");
                     Notification.SendWithTime("~y~Y-Чтобы задать вопрос.");
                     Notification.SendWithTime("~r~U-Чтобы оставить жалобу.");
-                    User.Respawn(HospSpawn, 90);
+                    if (distancecity >= distancesandy)
+                    {
+                        User.Respawn(HospSpawnSandy, 90);
+                    }
+                    if (distancecity < distancesandy)
+                    {
+                        User.Respawn(HospSpawn, 90);
+                    }
+                    
                     if (User.Data.wanted_level > 0)
                         Jail.JailPlayerScene(User.Data.wanted_level * 600);
                 }

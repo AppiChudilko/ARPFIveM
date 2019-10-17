@@ -19932,6 +19932,21 @@ namespace Client
                 {
                     ShowInvSelectMenu();
                 }
+                if ((Game.IsControlJustPressed(0, (Control) 159) || Game.IsDisabledControlJustPressed(0, (Control) 159)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //E
+                {
+                    if (User.Data.phone > 0)
+                    {
+                        ShowPlayerPhoneMenu();//zametka 5
+                    }
+                }
+                if ((Game.IsControlJustPressed(0, (Control) 165) || Game.IsDisabledControlJustPressed(0, (Control) 165)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //E
+                {
+                    if (User.Data.is_buy_walkietalkie)
+                    {
+                        ShowPlayerWalkietalkieMenu();
+                    }
+                }
+                
 
                 if (IsPedInAnyVehicle(PlayerPedId(), true))
                 {

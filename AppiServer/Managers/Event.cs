@@ -1888,6 +1888,7 @@ namespace Server.Managers
                                         if (Server.Sync.Data.Has(i, "id") && Server.Sync.Data.Get(i, "id") == itemId)
                                         {
                                             Server.Sync.Data.Set(i, "car_id" + slot, vId);
+                                            TriggerClientEvent(p, "ARP:HideMenu");
                                             User.RemoveBankMoney(p, price);
                                             foreach (DataRow carRow in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE id = " + vId).Rows)
                                                 Managers.Vehicle.AddUserVehicle(carRow);

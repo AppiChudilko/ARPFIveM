@@ -102,6 +102,8 @@ namespace Client.Managers
             //EventHandlers.Add("ARP:GrSix:DropCheckpoint", new Action<int>(Jobs.GroupSix.DropCheckpoint));
             EventHandlers.Add("ARP:GrSix:Grab", new Action<int>(Jobs.GroupSix.Grab));
             EventHandlers.Add("ARP:GrSix:Pay", new Action<int, int>(Jobs.GroupSix.DeleteVeh));
+            
+            EventHandlers.Add("ARP:HideMenu", new Action(MenuList.HideMenu));
             Tick += TickTimer;
         }
         

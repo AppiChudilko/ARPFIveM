@@ -1880,7 +1880,6 @@ namespace Server.Managers
                                 int slot = (int) GetParam(param, "slot");
                                
                                 int plServerId = User.GetServerId(player);
-                               
                                 if (player == default(Player)) {
                                     foreach(var p in new PlayerList())
                                     {
@@ -1888,7 +1887,6 @@ namespace Server.Managers
                                         if (Server.Sync.Data.Has(i, "id") && Server.Sync.Data.Get(i, "id") == itemId)
                                         {
                                             Server.Sync.Data.Set(i, "car_id" + slot, vId);
-                                            User.RemoveBankMoney(p, price);
                                             foreach (DataRow carRow in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE id = " + vId).Rows)
                                                 Managers.Vehicle.AddUserVehicle(carRow);
                                             UpdateSellCarInfo(p, (string) Server.Sync.Data.Get(i, "rp_name"), itemId, vId);
@@ -1907,7 +1905,9 @@ namespace Server.Managers
                                         User.SendPlayerTooltip(player,"~r~У вас не достаточно денег на банковском счету");
                                         return;
                                     }
-                                   
+                                    
+                                    TriggerClientEvent(player, "ARP:HideMenu");
+                                    User.RemoveBankMoney(player, price);
                                     Coffer.AddMoney(price);
                                     User.UpdateAllData(player);
                                     Server.Sync.Data.Set(User.GetServerId(player), "car_id" + slot, vId);

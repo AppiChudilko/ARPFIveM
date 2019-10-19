@@ -99,7 +99,7 @@ namespace Client.Business
                         if (UI.GetCurrentSpeed() > 55)
                         {
                             Warning++;
-                            Notification.SendWithTime("~y~Не привышайте скорость");
+                            Notification.SendWithTime("~y~Не превышайте скорость");
                             Notification.SendWithTime("~y~Итоговая стоимость поездки будет ниже");
                             await Delay(5000);
                         }

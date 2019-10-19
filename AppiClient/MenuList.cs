@@ -14820,11 +14820,11 @@ namespace Client
                 HideMenu();
                 Fractions.Government.GetJob("trash");
             };
-            menu.AddMenuItem(UiMenu, "Развозчик металлолома").Activated += (uimenu, item) =>
+            /*menu.AddMenuItem(UiMenu, "Развозчик металлолома").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Fractions.Government.GetJob("scrap");
-            };
+            };*/
             menu.AddMenuItem(UiMenu, "Почтальон (PostOp)", "Компания: ~y~PostOp").Activated += (uimenu, item) =>
             {
                 HideMenu();

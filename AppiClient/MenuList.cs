@@ -2852,6 +2852,7 @@ namespace Client
             menu.AddMenuItem(UiMenu, "~y~Отмыть деньги").Activated += (uimenu, item) =>
             {
                 HideMenu();
+                SetPedComponentVariation(GetPlayerPed(-1), 5, 0, 0, 2);
                 int money = (int) Sync.Data.GetLocally(User.GetServerId(), "GrabCash") * User.Bonus;
                 Sync.Data.ResetLocally(User.GetServerId(), "GrabCash");
                 Notification.SendWithTime("~g~Награбленно: $" + money);

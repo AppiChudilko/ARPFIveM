@@ -2193,8 +2193,13 @@ namespace Client
             Freeze(PlayerId(), false);
         }
         
-        public static void UseFirstAidKit()
+        public static async void UseFirstAidKit()
         {
+            /*if (Client.Sync.Data.HasLocally(User.GetServerId(), "isHealTimeout"))
+            {
+                Notification.SendWithTime("~r~Таймаут 1 минута");
+                return;
+            /*}
             /*var ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
             if (ped.IsAlive)
                 return;*/
@@ -2213,6 +2218,9 @@ namespace Client
             {
                 SetEntityHealth(GetPlayerPed(-1), GetEntityHealth(GetPlayerPed(-1)) + 30);
             }
+            /*Sync.Data.SetLocally(User.GetServerId(), "isHealTimeout", true);
+            await Delay(60000);
+            Sync.Data.ResetLocally(User.GetServerId(), "isHealTimeout");*/
         }
 
         public static void UseTie()

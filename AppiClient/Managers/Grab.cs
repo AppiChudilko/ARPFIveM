@@ -306,6 +306,8 @@ namespace Client.Managers
 
             await Delay(5000);
             
+            SetPedComponentVariation(GetPlayerPed(-1), 5, 45, 0, 2);
+            
             if (!Client.Sync.Data.HasLocally(User.GetServerId(), "hasBuyMask"))
             {
                 Notification.Send("~r~Вас заметила камера наблюдения");

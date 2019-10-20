@@ -316,34 +316,28 @@ namespace Client.Managers
         {
             await Delay(1000 * 60 * 3);
 
-            if (User.Data.mp0_strength < 99 && User.Data.mp0_stamina < 99)
+            if(User.GetVipStatus() == "Light" || User.GetVipStatus() == "Hard")
             {
-                Debug.WriteLine("IF NORM");
-                if (IsPedInAnyVehicle(PlayerPedId(), true))
+                TriggerServerEvent("ARP:OnVip");
+            }
+
+            if (User.Data.mp0_strength < 99 && IsPedInAnyVehicle(PlayerPedId(), true))
+            {
+                var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
+                if (vehicle.Model.Hash == 1131912276 ||
+                    vehicle.Model.Hash == 448402357 ||
+                    vehicle.Model.Hash == -836512833 ||
+                    vehicle.Model.Hash == -186537451 ||
+                    vehicle.Model.Hash == 1127861609 ||
+                    vehicle.Model.Hash == -1233807380 ||
+                    vehicle.Model.Hash == -400295096)
                 {
-                    Debug.WriteLine("IF NORM");
-                    var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
-                    if (vehicle.Model.Hash == 1131912276 ||
-                        vehicle.Model.Hash == 448402357 ||
-                        vehicle.Model.Hash == -836512833 ||
-                        vehicle.Model.Hash == -186537451 ||
-                        vehicle.Model.Hash == 1127861609 ||
-                        vehicle.Model.Hash == -1233807380 ||
-                        vehicle.Model.Hash == -400295096)
-                    {
-                        Debug.WriteLine("IF NORM");
-                        Notification.SendWithTime("~b~Уровень силы был повышен");
-                        User.Data.mp0_strength++;
-                        Client.Sync.Data.Set(User.GetServerId(), "mp0_strength", User.Data.mp0_strength);
-                        Notification.SendWithTime("~b~Уровень выносливости был повышен");
-                        User.Data.mp0_stamina++;
-                        Client.Sync.Data.Set(User.GetServerId(), "mp0_stamina", User.Data.mp0_stamina);
-                    }
+                    User.Data.mp0_strength++;
+                    Client.Sync.Data.Set(User.GetServerId(), "mp0_strength", User.Data.mp0_strength);
                 }
             }
-            
-            
-            if (IsPedRunning(GetPlayerPed(-1)) && User.Data.mp0_stamina < 99)
+
+            if ((IsPedInAnyVehicle(PlayerPedId(), true) || IsPedRunning(GetPlayerPed(-1))) && User.Data.mp0_stamina < 99)
             {
                 User.Data.mp0_stamina++;
                 Client.Sync.Data.Set(User.GetServerId(), "mp0_stamina", User.Data.mp0_stamina);
@@ -440,12 +434,6 @@ namespace Client.Managers
         {
             await Delay(1000 * 60 * 30);
 
-            if(User.GetVipStatus() == "Light" || User.GetVipStatus() == "Hard")
-            {
-                TriggerServerEvent("ARP:OnVip");
-                Notification.SendPicture("Вам были зачислены АС!", "Кошелек", "Пополнение счета", "CHAR_ACTING_UP", Notification.TypeChatbox);
-            }
-            
             PedAi.SendCode(100, false, 15, UnitTypes.InvaderCiv);
         }
         

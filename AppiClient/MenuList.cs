@@ -7834,6 +7834,7 @@ namespace Client
             var list3 = new List<dynamic> {"Вкл", "Выкл"};
             menu.AddMenuItemList(UiMenu, "Показывать интерфейс", list3, "Нажмите ~g~Enter~s~ чтобы применить").OnListSelected += (uimenu, index) =>
             {
+                TriggerEvent("ARPHUD:Show", index == 0);
                 Screen.Hud.IsVisible = index == 0;
                 Screen.Hud.IsRadarVisible = index == 0;
             };

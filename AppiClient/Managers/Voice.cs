@@ -309,9 +309,15 @@ namespace Client.Managers
             if (User.IsLogin() && !User.IsDead())
             {
                 if (Game.IsControlJustPressed(0, (Control) 249))
+                {
+                    TriggerEvent("ARPHUD:UpdateData:microOn");
                     SetMicroEnable(true);
+                }
                 if (Game.IsControlJustReleased(0, (Control) 249))
+                {
+                    TriggerEvent("ARPHUD:UpdateData:microOff");
                     SetMicroEnable(false);
+                }
 
                 //TODO если связан и если в наручниках
                 if (!Menu.IsShowInput)
@@ -319,9 +325,15 @@ namespace Client.Managers
                     if (User.Data.walkietalkie_num != "0" && !string.IsNullOrEmpty(User.Data.walkietalkie_num) && User.Data.jail_time == 0)
                     {
                         if (Game.IsControlJustPressed(0, (Control) 137))
+                        {
+                            TriggerEvent("ARPHUD:UpdateData:microOn");
                             SetRadioEnable(true);
+                        }
                         if (Game.IsControlJustReleased(0, (Control) 137))
+                        {
+                            TriggerEvent("ARPHUD:UpdateData:microOff");
                             SetRadioEnable(false);
+                        }
                     }
                 }
             }
@@ -366,6 +378,7 @@ namespace Client.Managers
                 
                 if (GetVoiceState() == "closed" || GetVoiceState() == "loading")
                 {
+                    TriggerEvent("ARPHUD:UpdateData:enabledMicrophone", false);
                     Debug.WriteLine($"[ARP] UserVolume {User.Data.s_voice_vol} | {User.Data.s_voice_balance}");
                     var name = $"{Main.ServerName}_pl_{User.GetServerId()}";
                     Debug.WriteLine($"[ARP] Connecting to voice as {name}");

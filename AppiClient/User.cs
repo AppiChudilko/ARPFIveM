@@ -185,6 +185,7 @@ namespace Client
         public static void AuthSuccess()
         {
             TriggerEvent("chatCanOpen", true);
+            TriggerEvent("ARPHUD:Show", true);
             
             /*if (Main.ServerName == "Andromeda")
                 NetworkSetVoiceActive(false);*/

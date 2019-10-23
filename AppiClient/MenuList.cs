@@ -5842,6 +5842,11 @@ namespace Client
                     {
                         ShowSupportUnitList();
                     };
+                    menu.AddMenuItem(UiMenu, "Отправить авто на штраф строянку").Activated += (uimenu, item) =>
+                    {
+                        var veh = Main.FindNearestVehicle();
+                        AutoPenaltyMenu(veh);
+                    };
                     
                     menu.AddMenuItem(UiMenu, "Изъятие").Activated += (uimenu, item) =>
                     {
@@ -7037,6 +7042,46 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+       
+                            
+        public static async void AutoPenaltyMenu(CitizenFX.Core.Vehicle veh)
+                {
+                    HideMenu();
+        
+                    if (await Ctos.IsBlackout())
+                    {
+                        Notification.SendWithTime("~r~Связь во время блекаута не работает");
+                        return;
+                    }
+                    
+                    
+                    Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
+                    var v = Main.FindNearestVehicle();
+                    if (v == null)
+                    {
+                        Notification.SendWithTime("~r~Нужно быть рядом с машиной");
+                        return;
+                    }
+                    
+                    
+                    var menu = new Menu();
+                    UiMenu = menu.Create("Эвакуатор", "~b~Меню");
+                    
+                    menu.AddMenuItem(UiMenu, "Эвакуировать на штраф стоянку:", $"~b~Марка: ~s~{veh.DisplayName}\n~b~").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                    };
+                    
+                    var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+                    
+                    UiMenu.OnItemSelect += (sender, item, index) =>
+                    {
+                        if (item == closeButton)
+                            HideMenu();
+                    };
+                    
+                    MenuPool.Add(UiMenu);
+                }
         public static async void ShowHackerSearchList(int radius)
         {
             HideMenu();

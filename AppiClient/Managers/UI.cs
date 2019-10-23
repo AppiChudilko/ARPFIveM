@@ -29,6 +29,7 @@ namespace Client.Managers
         private static string _zone = "Подключение к сети GPS";
         private static string _street = "...";
         private static bool _bandage = false;
+        private static bool _bankCard = false;
         
         private static float _screenX = 0f;
         private static float _screenY = 0f;
@@ -183,13 +184,23 @@ namespace Client.Managers
                 {
                     _bandage = false;
                 }
+
+                if (User.Data.bank_prefix > 0)
+                {
+                    _bankCard = true;
+                }
+                else
+                {
+                    _bankCard = false;
+                }
+                    
             }
             TriggerEvent("ARPHUD:UpdateData:item_clock", _bandage ? "?" : UpdateDirectionText(), _bandage ? "Неизвестно" : GetPlayerZoneName(), _bandage ? "Неизвестно" : GetPlayerStreetName(),
                 $"{Weather.Day.ToString("D2")}/{Weather.Month.ToString("D2")}/{Weather.Year.ToString("D2")}",
                 $"{World.CurrentDayTime.Hours.ToString("D2")}:{World.CurrentDayTime.Minutes.ToString("D2")}",
                 $"{Weather.Temp}°");
             TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}",
-                $"${User.Data.money_bank.ToString("#,#")}");
+                _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты");
             if (User.Data.item_clock)
             {
                 TriggerEvent("ARPHUD:UpdateData:showWatch",  true);
@@ -245,7 +256,7 @@ namespace Client.Managers
         private static string _radarInfoFront = "В ожидании...";
         private static string _radarInfoBack = "В ожидании...";
         private static int _speed = 0;
-        private static int _fuel = 0;
+        private static string _fuel = "0";
 
         private static bool _hit1;
         private static Vector3 _endCoords1;
@@ -262,7 +273,7 @@ namespace Client.Managers
             return _speed;
         }
         
-        public static int GetCurrentFuel()
+        public static string GetCurrentFuel()
         {
             return _fuel;
         }
@@ -486,10 +497,15 @@ namespace Client.Managers
                     var vehId = Vehicle.GetVehicleIdByNumber(Vehicle.GetVehicleNumber(GetVehiclePedIsUsing(PlayerPedId())));
                     if (vehId != -1)
                     {
-                        _fuel = Convert.ToInt32(Vehicle.VehicleInfoGlobalDataList[vehId].Fuel);
-                    } else
+                        _fuel = Convert.ToInt32(Vehicle.VehicleInfoGlobalDataList[vehId].Fuel) + " Л";
+                    }
+                    else if (VehInfo.Get(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))).FullFuel  == 1)
                     {
-                        _fuel = VehInfo.Get(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))).FullFuel;
+                        _fuel = "ЭЛЕКТРО";
+                    }
+                    else
+                    {
+                        _fuel = VehInfo.Get(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))).FullFuel + " Л";
                     }
                     /*DrawRectangle(319, 166, 180, 1, 255, 255, 255, 255, 2);
                     DrawText($"{indicator}*", 319, 205, 0.9f, 255, 255, 255, 255, 4, 0, false, true, 0, 2);

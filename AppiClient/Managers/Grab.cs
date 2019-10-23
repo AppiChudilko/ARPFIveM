@@ -327,7 +327,7 @@ namespace Client.Managers
                 
             User.IsBlockAnimation = false;
             User.Freeze(PlayerId(), false);
-            User.StopAnimation();
+            User.PlayScenario("forcestop");
 
             if (Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), (Vector3) Client.Sync.Data.GetLocally(User.GetServerId(), "GrabPos")) > 10f)
             {

@@ -268,14 +268,13 @@ namespace Server.Managers
         {
             if (User.GetVipStatus(User.GetServerId(player)) == "Hard")
             {
-                Appi.MySql.ExecuteQuery("UPDATE users SET money_donate = money_donate + '2' WHERE id = '" +
-                                        User.GetId(player) + "'");
+                TriggerClientEvent(player, "ARP:SendPlayerNotificationPicture", $"Вам были начислены: 2 AC!", "Онлайн кошелек", "Начисление", "CHAR_ACTING_UP", 2);
+                Appi.MySql.ExecuteQuery("UPDATE users SET money_donate = money_donate + '2' WHERE id = '" + User.GetId(player) + "'");
             }
-
             if (User.GetVipStatus(User.GetServerId(player)) == "Light")
             {
-                Appi.MySql.ExecuteQuery("UPDATE users SET money_donate = money_donate + '1' WHERE id = '" +
-                                        User.GetId(player) + "'");
+                TriggerClientEvent(player, "ARP:SendPlayerNotificationPicture", $"Вам был начислен: ~g~1 AC!", "Онлайн кошелек", "Начисление", "CHAR_ACTING_UP", 2);
+                Appi.MySql.ExecuteQuery("UPDATE users SET money_donate = money_donate + '1' WHERE id = '" + User.GetId(player) + "'");
             }
         }
 
@@ -697,9 +696,7 @@ namespace Server.Managers
             string lastName = "";
             if (!string.IsNullOrEmpty(license))
             {
-                foreach (DataRow row in Appi.MySql
-                    .ExecuteQueryWithResult("SELECT * FROM log_auth WHERE lic = '" + license +
-                                            "' ORDER BY id DESC LIMIT 1").Rows)
+                foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM log_auth WHERE lic = '" + license + "' ORDER BY id DESC LIMIT 1").Rows)
                 {
                     lastName = (string) row["nick"];
                     Debug.WriteLine("LAST NICK " + lastName);
@@ -1796,6 +1793,7 @@ namespace Server.Managers
                                 string uName = (string) GetParam(param, "uName");
                                 int uId = (int) GetParam(param, "uId");
                                 int vId = (int) GetParam(param, "vId");
+                                
                                 int price = (int) GetParam(param, "price");
                                 
                                 if (uId == 0)
@@ -1806,53 +1804,25 @@ namespace Server.Managers
                                     break;
                                 
                                 UpdateSellCarInfo(player, uName, uId, vId);
+                                
+                                UpdateSellCarInfo(player, uName, uId, vId);
                                 Main.SaveLog("BuyMotorCar", $"ID: {vId}, SELL USER: {itemId}, BUY USER: {uId}, PRICE: {price}");
     
                                 if (player != default(Player))
                                 {
                                     int plServerId = User.GetServerId(player);
-    
-                                    if ((int) Server.Sync.Data.Get(plServerId, "car_id1") == vId)
+                                    
+                                    for (var i = 1; i < 9; i++)
                                     {
-                                        Server.Sync.Data.Set(plServerId, "car_id1", 0);
-                                    }
-                                    else if ((int) Server.Sync.Data.Get(plServerId, "car_id2") == vId)
-                                    {
-                                        Server.Sync.Data.Set(plServerId, "car_id2", 0);
-                                    }
-                                    else if ((int) Server.Sync.Data.Get(plServerId, "car_id3") == vId)
-                                    {
-                                        Server.Sync.Data.Set(plServerId, "car_id3", 0);
-                                    }
-                                    else if ((int) Server.Sync.Data.Get(plServerId, "car_id4") == vId)
-                                    {
-                                        Server.Sync.Data.Set(plServerId, "car_id4", 0);
-                                    }
-                                    else if ((int) Server.Sync.Data.Get(plServerId, "car_id5") == vId)
-                                    {
-                                        Server.Sync.Data.Set(plServerId, "car_id5", 0);
-                                    }
-                                    else if ((int) Server.Sync.Data.Get(plServerId, "car_id6") == vId)
-                                    {
-                                        Server.Sync.Data.Set(plServerId, "car_id6", 0);
-                                    }
-                                    else if ((int) Server.Sync.Data.Get(plServerId, "car_id7") == vId)
-                                    {
-                                        Server.Sync.Data.Set(plServerId, "car_id7", 0);
-                                    }
-                                    else if ((int) Server.Sync.Data.Get(plServerId, "car_id8") == vId)
-                                    {
-                                        Server.Sync.Data.Set(plServerId, "car_id8", 0);
+                                        if ((int) Server.Sync.Data.Get(plServerId, "car_id" + i) == vId)
+                                            Server.Sync.Data.Set(plServerId, "car_id" + i, 0);
                                     }
                                     User.AddBankMoney(player, Convert.ToInt32(price * 0.95));
                                     User.UpdateAllData(player);
                                     Save.UserAccount(player);
-                                    User.SendPlayerTooltip(player, $"~b~Вы продали свой автомобиль по цене: {price:#,#}");
+                                    TriggerClientEvent(player, "ARP:SendPlayerNotificationPicture", $"Вы продали своё ТС по цене: ~g~${price:#,#}", "Premium Deluxe Motorsport", "Уведомление", "CHAR_SIMEON", 2);
                                 }
                                 else
-                                {
-                                    
-                                }
                                 {
                                     Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + Convert.ToInt32(price * 0.95) + "', car_id1 = '0' WHERE car_id1 = '" + vId + "' AND id = '" + itemId + "'");
                                     Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + Convert.ToInt32(price * 0.95) + "', car_id2 = '0' WHERE car_id2 = '" + vId + "' AND id = '" + itemId + "'");
@@ -1863,7 +1833,8 @@ namespace Server.Managers
                                     Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + Convert.ToInt32(price * 0.95) + "', car_id7 = '0' WHERE car_id7 = '" + vId + "' AND id = '" + itemId + "'");
                                     Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + Convert.ToInt32(price * 0.95) + "', car_id8 = '0' WHERE car_id8 = '" + vId + "' AND id = '" + itemId + "'");
                                 }
-                                
+
+                                Appi.MySql.ExecuteQuery("DELETE FROM event_to_server WHERE id = '" + id + "'");
                                 Business.AddMoney(86, Convert.ToInt32(price * 0.05));
                                 break;
                             }
@@ -1874,13 +1845,13 @@ namespace Server.Managers
                             case "BuyVehicle":
                             {
                                 Appi.MySql.ExecuteQuery("DELETE FROM event_to_server WHERE id = '" + id + "'");
-                               
                                 int vId = (int) GetParam(param, "vId");
                                 int price = (int) GetParam(param, "price");
                                 int slot = (int) GetParam(param, "slot");
                                
                                 int plServerId = User.GetServerId(player);
-                                if (player == default(Player)) {
+                                if (player == default(Player)) 
+                                {
                                     foreach(var p in new PlayerList())
                                     {
                                         var i = User.GetServerId(p);
@@ -1890,13 +1861,12 @@ namespace Server.Managers
                                             foreach (DataRow carRow in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE id = " + vId).Rows)
                                                 Managers.Vehicle.AddUserVehicle(carRow);
                                             UpdateSellCarInfo(p, (string) Server.Sync.Data.Get(i, "rp_name"), itemId, vId);
-                                            
+
                                             return;
                                         }
                                     }
                                     break;
                                 }
- 
                                 try
                                 {
                                     if (User.GetBankMoney(player) < price)
@@ -1919,6 +1889,7 @@ namespace Server.Managers
                                     
                                     Save.UserAccount(player);
                                     Main.SaveLog("BuyCar",$"ID: {vId}, BUY NAME: {(string) Server.Sync.Data.Get(plServerId, "rp_name")}, PRICE: {price}");
+
                                     break;
                                 }
                                 catch (Exception e)

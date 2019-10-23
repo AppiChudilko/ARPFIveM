@@ -316,11 +316,6 @@ namespace Client.Managers
         {
             await Delay(1000 * 60 * 3);
 
-            if(User.GetVipStatus() == "Light" || User.GetVipStatus() == "Hard")
-            {
-                TriggerServerEvent("ARP:OnVip");
-            }
-
             if (User.Data.mp0_strength < 99 && IsPedInAnyVehicle(PlayerPedId(), true))
             {
                 var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
@@ -336,11 +331,21 @@ namespace Client.Managers
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_strength", User.Data.mp0_strength);
                 }
             }
-
+            
             if ((IsPedInAnyVehicle(PlayerPedId(), true) || IsPedRunning(GetPlayerPed(-1))) && User.Data.mp0_stamina < 99)
             {
-                User.Data.mp0_stamina++;
-                Client.Sync.Data.Set(User.GetServerId(), "mp0_stamina", User.Data.mp0_stamina);
+                var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
+                if (vehicle.Model.Hash == 1131912276 ||
+                    vehicle.Model.Hash == 448402357 ||
+                    vehicle.Model.Hash == -836512833 ||
+                    vehicle.Model.Hash == -186537451 ||
+                    vehicle.Model.Hash == 1127861609 ||
+                    vehicle.Model.Hash == -1233807380 ||
+                    vehicle.Model.Hash == -400295096)        
+                {
+                    User.Data.mp0_stamina++;
+                    Client.Sync.Data.Set(User.GetServerId(), "mp0_stamina", User.Data.mp0_stamina);
+                }
             }
             
             if (IsPedSwimming(GetPlayerPed(-1)) && User.Data.mp0_lung_capacity < 99)
@@ -433,6 +438,11 @@ namespace Client.Managers
         private static async Task Min30Timer()
         {
             await Delay(1000 * 60 * 30);
+
+            if(User.GetVipStatus() == "Light" || User.GetVipStatus() == "Hard")
+            {
+                TriggerServerEvent("ARP:OnVip");
+            }
 
             PedAi.SendCode(100, false, 15, UnitTypes.InvaderCiv);
         }

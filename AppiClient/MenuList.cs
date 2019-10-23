@@ -1451,7 +1451,8 @@ namespace Client
                 case "scpd7 elegy2":
                 case "scpd10 felon":
                 case "scpd11 f620":
-                    canEnabledRadar = true;
+                case "Intercept2":
+                        canEnabledRadar = true;
                     break;
                 case "unk":
                     if (User.IsAdmin())
@@ -5136,29 +5137,7 @@ namespace Client
                 
                 SetPedMovementClipset(GetPlayerPed(-1), clipSet, 0);
             };
-            
-            menu.AddMenuItem(UiMenu, "Взять педа").Activated += (uimenu, item) =>
-            {
-                HideMenu();
 
-                CitizenFX.Core.Ped ped = Main.FindNearestPed();
-
-                if (ped == null)
-                    return;
-                
-                SetEntityAsMissionEntity(ped.Handle, true, true);
-                
-                ClearPedTasks(ped.Handle);
-                ClearPedTasksImmediately(ped.Handle);
-                ClearPedSecondaryTask(ped.Handle);
-                
-                AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 28422, -0.0300f, 0.0000f, -0.1100f, 0.0000f, 0.0000f, 86.0000f, false, true, false, true, 2, true);
-                //AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 0, 0, 0, 0, 0, 0, 0, false, false, false, true, 0, true);
-                
-                User.PlayAnimation("anim@heists@box_carry@", "idle");
-                User.PlayPedAnimation(ped, "anim@veh@lowrider@low@front_ps@arm@base", "sit", 9);
-            };
-            
             menu.AddMenuItem(UiMenu, "Взять педа 1").Activated += (uimenu, item) =>
             {
                 HideMenu();
@@ -5246,6 +5225,64 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
 
+        public static async void TakePed1(List<Player> pedList)
+            {
+                
+                HideMenu();
+            
+                var menu = new Menu();
+                UiMenu = menu.Create("Взять на руки", "~b~Взять игрока на руки");
+                
+                foreach (Player p in pedList)
+                {
+                    try
+                    {
+                        if (p.ServerId == GetPlayerServerId(PlayerId())) continue;    
+                        if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                        menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu, item) =>
+                        {
+                            HideMenu();
+                            CitizenFX.Core.Ped ped = new CitizenFX.Core.Ped(GetPlayerPed((p.ServerId)));;
+
+                            if (ped == null)
+                            {
+                                Debug.WriteLine("Ped == NULL");
+                                return;
+                            }
+
+                            SetEntityAsMissionEntity(ped.Handle, true, true);
+                
+                            ClearPedTasks(ped.Handle);
+                            ClearPedTasksImmediately(ped.Handle);
+                            ClearPedSecondaryTask(ped.Handle);
+
+                            AttachEntityToEntity(GetPlayerPed(-1), ped.Handle, 9816, 0.005f, 0.25f, 0.01f, 0.9f, 0.30f, 192.0f, false, false, false, false, 2, false);
+                            //AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 28422, -0.0300f, 0.0000f, -0.1100f, 0.0000f, 0.0000f, 86.0000f, false, true, false, true, 2, true);
+                            //AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 0, 0, 0, 0, 0, 0, 0, false, false, false, true, 0, true);
+
+                            User.PlayAnimation("anim@heists@box_carry@", "idle");
+                            User.PlayPedAnimation(ped, "anim@veh@lowrider@low@front_ps@arm@base", "sit", 9);
+
+                        };
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        throw;
+                    }
+                }
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+            
+                MenuPool.Add(UiMenu);
+            }
+        
         public static async void AdminGiveMoney()
         {
             var money = Convert.ToInt32(await Menu.GetUserInput("Не более $500.000! Если больше - будет бан!", "", 6));
@@ -9740,6 +9777,20 @@ namespace Client
                 
                 Chat.SendMeCommand("обыскал человека напротив и изъял оружие");
             };
+            
+            /*menu.AddMenuItem(UiMenu, "Взять на руки").Activated += async (uimenu, item) =>
+            {
+                HideMenu();
+                var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
+                if (!await Sync.Data.Has(player.ServerId, "isTie") && !await Sync.Data.Has(player.ServerId, "isCuff"))
+                {
+                    Notification.SendWithTime("~r~Игрок не связан или на игроке нет наручников");
+                    return;
+                }
+                TakePed1(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                
+                
+            };*/
             
             var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");

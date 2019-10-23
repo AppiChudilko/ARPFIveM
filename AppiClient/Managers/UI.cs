@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Dynamic;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.UI;
 using Client.Vehicle;
 using NativeUI;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using static CitizenFX.Core.Native.API;
 
 namespace Client.Managers

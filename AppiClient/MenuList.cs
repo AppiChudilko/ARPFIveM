@@ -11904,7 +11904,7 @@ namespace Client
                         Notification.SendWithTime("~r~Для начала расформируйте организацию");
                         return;
                     }
-                    Business.Business.Sell(data.id);
+                    ShowAskSellBMenu();
                 };
                 
                 menu.AddMenuItem(UiMenu, "~y~Продать бизнес игроку", $"~b~{data.name}").Activated += (uimenu, item) =>
@@ -15080,7 +15080,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "Продать квартиру", $"Продать квартиру государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
-                    Condo.SellHouse(h);   
+                    ShowAskSellKMenu();  
                 };
             }
             

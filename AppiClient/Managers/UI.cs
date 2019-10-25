@@ -195,8 +195,8 @@ namespace Client.Managers
                 $"{Weather.Day.ToString("D2")}/{Weather.Month.ToString("D2")}/{Weather.Year.ToString("D2")}",
                 $"{World.CurrentDayTime.Hours.ToString("D2")}:{World.CurrentDayTime.Minutes.ToString("D2")}",
                 $"{Weather.Temp}°");
-            TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}",
-                _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты");
+            TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}"
+                /*, _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты"*/);
             if (User.Data.item_clock)
             {
                 TriggerEvent("ARPHUD:UpdateData:showWatch",  true);
@@ -213,6 +213,9 @@ namespace Client.Managers
             {
                 TriggerEvent("ARPHUD:UpdateData:showSpeed",  false);
             }
+            var _eatLevel = Convert.ToInt32(User.GetEatLevel()/10);
+            var _waterLevel = Convert.ToInt32(User.GetWaterLevel());
+            TriggerEvent("ARPHUD:UpdateData:food", _eatLevel > 100 ? "100%" : _eatLevel + "%", _waterLevel > 100 ? "100%" : _waterLevel + "%");
             await Delay(1000);
         }
 
@@ -367,7 +370,7 @@ namespace Client.Managers
                 else if (User.Data.water_level <= 0)
                     network.ForegroundColor = UnknownColors.DarkRed;*/
 
-                BarTimerBar eat = new BarTimerBar("Сытость");
+                /*BarTimerBar eat = new BarTimerBar("Сытость");
                 eat.BackgroundColor = UnknownColors.Black;
                 eat.Percentage = User.Data.eat_level / 1000f;
                 eat.Height = 5;
@@ -407,7 +410,7 @@ namespace Client.Managers
                 else if (User.Data.water_level > 0)
                     drink.ForegroundColor = ColorRed;
                 else if (User.Data.water_level <= 0)
-                    drink.ForegroundColor = ColorRed900;
+                    drink.ForegroundColor = ColorRed900;*/
                 
                 /*
                 BarTimerBar fuel = new BarTimerBar("Топливо");
@@ -439,10 +442,10 @@ namespace Client.Managers
                     fuel.Percentage = fuelIndicator / 100f;
                 }
                 */
-
+/*
                 TimerBarPool = new TimerBarPool();
                 TimerBarPool.Add(drink);
-                TimerBarPool.Add(eat);
+                TimerBarPool.Add(eat);*/
                 /*if (User.Data.phone_code > 0)
                     TimerBarPool.Add(network);*/
                 /*TimerBarPool.Add(fuel);

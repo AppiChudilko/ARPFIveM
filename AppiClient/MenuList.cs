@@ -5842,11 +5842,11 @@ namespace Client
                     {
                         ShowSupportUnitList();
                     };
-                    menu.AddMenuItem(UiMenu, "Отправить авто на штраф строянку").Activated += (uimenu, item) =>
+                    /*menu.AddMenuItem(UiMenu, "Отправить авто на штраф строянку").Activated += (uimenu, item) =>
                     {
                         var veh = Main.FindNearestVehicle();
                         AutoPenaltyMenu(veh);
-                    };
+                    };*/
                     
                     menu.AddMenuItem(UiMenu, "Изъятие").Activated += (uimenu, item) =>
                     {

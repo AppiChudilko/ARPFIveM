@@ -452,8 +452,7 @@ namespace Client.Managers
                 TimerBarPool.Add(new TextTimerBar("Скорость", $"{GetCurrentSpeed()} MP/H"));*/
                 //TimerBarPool.Add(new TextTimerBar("Громкость", User.VoiceString));
                 
-                if (Voice.IsRadioEnable())
-                    TimerBarPool.Add(new TextTimerBar("", "~b~Вы говорите в рацию"));
+                TimerBarPool =  new TimerBarPool();
                 if (Business.Taxi.IsFindNpc)
                     TimerBarPool.Add(new TextTimerBar("", "~b~Идёт поиск клиентов"));
             }

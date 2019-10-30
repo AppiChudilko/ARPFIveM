@@ -48,6 +48,8 @@ namespace Server.Managers
 
             EventHandlers.Add("ARP:UpdateHousePin", new Action<int, int>(House.UpdateHousePin));
             EventHandlers.Add("ARP:UpdateHouseInfo", new Action<Player, string, int, int, int>(UpdateHouseInfo));
+            EventHandlers.Add("ARP:UpdateHouseInfoHookup", new Action<Player, int, int, string>(UpdateHouseInfoHookup));
+            EventHandlers.Add("ARP:UpdateHouseInfoAntiHookup", new Action<Player, int, int>(UpdateHouseInfoAntiHookup));
             EventHandlers.Add("ARP:UpdateCondoInfo", new Action<Player, string, int, int>(UpdateCondoInfo));
             EventHandlers.Add("ARP:UpdateStockInfo", new Action<Player, string, int, int>(UpdateStockInfo));
             EventHandlers.Add("ARP:UpdateApartmentInfo", new Action<Player, string, int, int>(UpdateApartmentInfo));
@@ -745,6 +747,15 @@ namespace Server.Managers
             House.SaveHouse(houseId, isBuy, userName, playerId);
         }
         
+        protected static void UpdateHouseInfoHookup([FromSource]Player player, int houseId, int playerId, string pidn)
+        {
+            House.SaveHouseHookup(houseId, playerId, pidn);
+        }
+        
+        protected static void UpdateHouseInfoAntiHookup([FromSource]Player player, int houseId, int playerId)
+        {
+            House.SaveHouseAntiHookup(houseId, playerId);
+        }
         protected static void UpdateCondoInfo([FromSource]Player player, string userName, int playerId, int houseId)
         {
             Condo.SaveHouse(houseId, userName, playerId);

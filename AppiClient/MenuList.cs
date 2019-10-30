@@ -2236,6 +2236,29 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        public static void HookupHouseToUserShowMenu(int serverId, int hId, string name, string pidn)
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Дом", "~b~Название: ~s~" + name);
+      
+            menu.AddMenuItem(UiMenu, "~g~Поселиться").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                House.AcceptHookup(serverId, hId, pidn);
+            };
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Не подселяться");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
         public static async void ShowHouseOutMenu(HouseInfoGlobalData h)
         {
             HideMenu();
@@ -9420,6 +9443,52 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        
+        public static void ShowPlayerHookupHouseMenu(List<Player> pedList, int hId, string name)
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Подселить", "~b~" + name);
+            
+            foreach (Player p in pedList)
+            {
+                try
+                {
+                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu, index) =>
+                    {
+                        HideMenu();
+                        
+                        Managers.House.HookupToUser(p.ServerId, hId, name);
+                    };
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    throw;
+                }
+            }
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
+        public static void ShowPlayerAntiHookupHouseMenu(List<Player> pedList, int hId, string name)
+        {
+            HideMenu();
+            
+            //Managers.House.HookupToUser(p.ServerId, hId, name);
+            TriggerServerEvent("ARP:UpdateHouseInfoAntiHookup", hId, User.Data.id);
+        }
 
         public static void ShowPlayerSellStockMenu(List<Player> pedList, int hId, string name)
         {
@@ -15110,11 +15179,23 @@ namespace Client
                 {
                     HideMenu();
                     ShowAskSellHMenu();
+                    ShowPlayerAntiHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать дом игроку", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
                     ShowPlayerSellHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
+                };
+                menu.AddMenuItem(UiMenu, "~g~Подселить игрока к себе", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
+                {
+                    HideMenu();
+                    ShowPlayerHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
+                };
+                menu.AddMenuItem(UiMenu, "~r~Выселить всех из дома", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
+                {
+                    HideMenu();
+                    ShowPlayerAntiHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
+                    Notification.SendWithTime("~r~Теперь с вами никто больше не живет :(");
                 };
             }
             

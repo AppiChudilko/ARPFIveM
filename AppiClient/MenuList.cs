@@ -6554,7 +6554,7 @@ namespace Client
                 };
             }
 
-            if (User.Data.rank == 10 || User.Data.rank == 11 || User.Data.rank == 13 || User.Data.rank == 14)
+            if (User.IsLeader() || User.IsSubLeader())
             {
 
             menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
@@ -13343,7 +13343,7 @@ namespace Client
                 UiMenu = menu.Create("Лицензии", "~b~Меню");
 
                
-                    if (User.Data.rank > 6 || User.Data.rank == 10 || User.Data.rank == 11 || User.Data.rank == 13 || User.Data.rank == 14)
+                    if (User.Data.rank == 10 || User.Data.rank == 11 || User.Data.rank == 13 || User.Data.rank == 14)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
                         {
@@ -13392,7 +13392,7 @@ namespace Client
                 var menu = new Menu();
                 UiMenu = menu.Create("Компьютер", "~b~Меню");
 
-                if (User.Data.rank >= 8)
+                if (User.Data.rank == 8 || User.Data.rank >=10)
                 {
                     menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
                     {
@@ -13417,11 +13417,16 @@ namespace Client
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
                         };
+                        
+                    }
+                    if ( User.Data.rank == 10 || User.Data.rank == 11 || User.Data.rank == 13 || User.Data.rank == 14 )
+                    {
                         menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
-                        {
-                            ShowFractionMemberInviteMenu(
-                                Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
-                        };
+                    {
+                        ShowFractionMemberInviteMenu(
+                            Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                    };
+                        
                     }
 
                     if (User.Data.rank == 14)
@@ -14885,75 +14890,58 @@ namespace Client
         }
         
         public static void ShowMeriaGarderobMenu()
+{
+    HideMenu();
+
+    var menu = new Menu();
+    UiMenu = menu.Create("Гардероб", "~b~Гардероб правительства");
+
+    menu.AddMenuItem(UiMenu, "Сухпаёк").Activated += (uimenu, item) =>
+    {
+        HideMenu();
+        Managers.Inventory.AddItemServer(32, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+        Managers.Inventory.UpdateAmount(User.Data.id, InventoryTypes.Player);
+        Notification.SendWithTime("~b~Вы взяли сухпаёк");
+        Main.AddFractionGunLog(User.Data.rp_name, "Сухпаёк", User.Data.fraction_id);
+    };
+
+    if (User.Data.rank >= 1)
+    {
+        menu.AddMenuItem(UiMenu, "Бронежилет").Activated += (uimenu, item) =>
         {
             HideMenu();
-            
-            var menu = new Menu();
-            UiMenu = menu.Create("Гардероб", "~b~Гардероб правительства");
-            
-            menu.AddMenuItem(UiMenu, "Сухпаёк").Activated += (uimenu, item) =>
+            SetPedArmour(GetPlayerPed(-1), 100);
+            Notification.SendWithTime("~b~Вы взяли бронежилет");
+            Main.AddFractionGunLog(User.Data.rp_name, "Бронежилет", User.Data.fraction_id);
+        };
+
+        if (User.Data.rank == 3 || User.Data.rank == 5 || User.Data.rank == 8)
+        {
+            menu.AddMenuItem(UiMenu, "Экипировка Агента").Activated += (uimenu, item) =>
             {
                 HideMenu();
-                Managers.Inventory.AddItemServer(32, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
-                Managers.Inventory.UpdateAmount(User.Data.id, InventoryTypes.Player);
-                Notification.SendWithTime("~b~Вы взяли сухпаёк");
-                Main.AddFractionGunLog(User.Data.rp_name, "Сухпаёк", User.Data.fraction_id);
+                SetPedArmour(GetPlayerPed(-1), 100);
+
+                User.GiveWeapon((uint)WeaponHash.CombatPDW, 210, false, false);
+                User.GiveWeapon((uint)WeaponHash.PistolMk2, 82, false, false);
+                User.GiveWeapon((uint)WeaponHash.Flashlight, 1, false, false);
+                User.GiveWeapon((uint)WeaponHash.StunGun, 1, false, false);
+                User.GiveWeapon((uint)WeaponHash.Nightstick, 1, false, false);
+                Managers.Inventory.TakeNewItem(40);
+                Managers.Inventory.TakeNewItem(40);
+
+
+                Notification.SendWithTime("~b~Вы взяли экпировку");
+                Main.AddFractionGunLog(User.Data.rp_name, "Экипировка Агента", User.Data.fraction_id);
             };
-
-            if (User.Data.rank >= 1)
+            menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
             {
-                menu.AddMenuItem(UiMenu, "Бронежилет").Activated += (uimenu, item) =>
-                {
-                    HideMenu();
-                    SetPedArmour(GetPlayerPed(-1), 100);
-                    Notification.SendWithTime("~b~Вы взяли бронежилет");
-                    Main.AddFractionGunLog(User.Data.rp_name, "Бронежилет", User.Data.fraction_id);
-                };
-
-                if (User.Data.rank == 3 || User.Data.rank == 5 || User.Data.rank == 8)
-                {
-                    menu.AddMenuItem(UiMenu, "Экипировка Агента").Activated += (uimenu, item) =>
-                    {
-                        HideMenu();
-                        SetPedArmour(GetPlayerPed(-1), 100);
-                        
-                        User.GiveWeapon((uint) WeaponHash.CombatPDW, 210, false, false);
-                        User.GiveWeapon((uint) WeaponHash.PistolMk2, 82, false, false);
-                        User.GiveWeapon((uint) WeaponHash.Flashlight, 1, false, false);
-                        User.GiveWeapon((uint) WeaponHash.StunGun, 1, false, false);
-                        User.GiveWeapon((uint) WeaponHash.Nightstick, 1, false, false);
-                        Managers.Inventory.TakeNewItem(40);
-                        Managers.Inventory.TakeNewItem(40);
-                        
-
-                        Notification.SendWithTime("~b~Вы взяли экпировку");
-                        Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
-                    };
-                    menu.AddMenuItem(UiMenu, "SIG MPX-SD").Activated += (uimenu, item) =>
-                    {
-                        HideMenu();
-                        User.GiveWeapon((uint) WeaponHash.CombatPDW, 450, false, false);
-                        SetWeaponObjectTintIndex((int) WeaponHash.CombatPDW, (int) WeaponTint.LSPD);
-                        Notification.SendWithTime("~b~Вы взяли SIG MPX-SD");
-                        Main.AddFractionGunLog(User.Data.rp_name, "SIG MPX-SD", User.Data.fraction_id);
-                    };
-                    menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
-                    {
-                        HideMenu();
-                        TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
-                    };
-                }
-
-Notification.SendWithTime("~b~Вы взяли экпировку");
-                        Main.AddFractionGunLog(User.Data.rp_name, "Экипировка Агента", User.Data.fraction_id);
-                    };
-                    menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
-                    {
-                        HideMenu();
-                        TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
-                    };
-                }
-                }
+                HideMenu();
+                TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
+            };
+        }
+}
+                
             
             /*var list = (from v in Managers.Vehicle.VehicleInfoGlobalDataList where v.FractionId != 0 && v.FractionId == User.Data.fraction_id select v.Number).Cast<dynamic>().ToList();
             menu.AddMenuItemList(UiMenu, "Ключи", list, "Нажмите \"~g~Enter~s~\" чтобы взять ключи").OnListSelected += (uimenu, idx) =>
@@ -15330,9 +15318,7 @@ Notification.SendWithTime("~b~Вы взяли экпировку");
                 {
                     HideMenu();
 
-                    ShowAskSellKMenu();   
-
-                    ShowAskSellKMenu();  
+                    ShowAskSellKMenu();
 
                 };
             }

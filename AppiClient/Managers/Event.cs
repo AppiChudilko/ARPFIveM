@@ -43,6 +43,7 @@ namespace Client.Managers
             EventHandlers.Add("ARP:SellVehicleToUserShowMenu", new Action<int, int, string, string, int>(MenuList.ShowSellVehicleToUserMenu));
             EventHandlers.Add("ARP:SellBusinessToUserShowMenu", new Action<int, int, string, int>(MenuList.SellBusinessToUserShowMenu));
             EventHandlers.Add("ARP:SellHouseToUserShowMenu", new Action<int, int, string, int>(MenuList.SellHouseToUserShowMenu));
+            EventHandlers.Add("ARP:HookupHouseToUserShowMenu", new Action<int, int, string, string>(MenuList.HookupHouseToUserShowMenu));
             EventHandlers.Add("ARP:AcceptSellToUser", new Action<int, int, int>(Vehicle.AcceptSellToUser));
             EventHandlers.Add("ARP:AcceptBuyBusinessToUser", new Action<int>(Business.Business.AcceptBuyBusinessToUser));
             EventHandlers.Add("ARP:AcceptBuyHouseToUser", new Action<int>(House.AcceptBuyHouseToUser));
@@ -102,6 +103,8 @@ namespace Client.Managers
             //EventHandlers.Add("ARP:GrSix:DropCheckpoint", new Action<int>(Jobs.GroupSix.DropCheckpoint));
             EventHandlers.Add("ARP:GrSix:Grab", new Action<int>(Jobs.GroupSix.Grab));
             EventHandlers.Add("ARP:GrSix:Pay", new Action<int, int>(Jobs.GroupSix.DeleteVeh));
+            
+            EventHandlers.Add("ARP:HideMenu", new Action(MenuList.HideMenu));
             Tick += TickTimer;
         }
         

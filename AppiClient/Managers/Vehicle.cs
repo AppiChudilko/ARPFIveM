@@ -490,6 +490,11 @@ namespace Client.Managers
             v.Health = 1000;
         }
         
+        private static void AutoPenalty(int netId)
+        {
+            
+        }
+        
         public static void DisableSirenSound(CitizenFX.Core.Vehicle vehicle, bool disable)
         {
             DisableVehicleImpactExplosionActivation(vehicle.Handle, disable);

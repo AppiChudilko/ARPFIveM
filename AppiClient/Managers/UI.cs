@@ -24,6 +24,8 @@ namespace Client.Managers
 
         private static string _zone = "Подключение к сети GPS";
         private static string _street = "...";
+        private static bool _bandage = false;
+        private static bool _bankCard = false;
         
         private static float _screenX = 0f;
         private static float _screenY = 0f;
@@ -48,6 +50,8 @@ namespace Client.Managers
             Tick += SapdRadar;
             Tick += TimeBandageSync;
             Tick += UpdateZone;
+            Tick += UpdateItemHud;
+            Tick += UpdateItemHudVehicle;
             
             Debug.WriteLine($"Height: {Res.Height}");
             Debug.WriteLine($"Width: {Res.Width}");
@@ -125,19 +129,33 @@ namespace Client.Managers
             var dgr = GetEntityHeading(GetPlayerPed(-1));
             
             if (dgr >= 22.5 && dgr < 67.5)
+            {
                 return "NW";
+            }
             if (dgr >= 67.5 && dgr < 112.5)
+            {
                 return "W";
+            }
             if (dgr >= 112.5 && dgr < 157.5)
+            {
                 return "SW";
+            }
             if (dgr >= 157.5 && dgr < 202.5)
+            {
                 return "S";
+            }
             if (dgr >= 202.53 && dgr < 247.5)
+            {
                 return "SE";
+            }
             if (dgr >= 247.5 && dgr < 292.5)
+            {
                 return "E";
+            }
             if (dgr >= 292.5 && dgr < 337.5)
+            {
                 return "NE";
+            }
             
             return "N";
         }
@@ -148,6 +166,65 @@ namespace Client.Managers
             _street = World.GetStreetName(playerPos);
             _zone = World.GetZoneLocalizedName(playerPos);
             //_zone = World.GetZoneDisplayName(playerPos); //OCEANA
+        }
+        
+        private static async Task UpdateItemHud()
+        {
+            if (User.IsLogin())
+            {
+                if (Client.Sync.Data.HasLocally(User.GetServerId(), "isTieBandage"))
+                {
+                    _bandage = true;
+                }
+                else
+                {
+                    _bandage = false;
+                }
+
+                if (User.Data.bank_prefix > 0)
+                {
+                    _bankCard = true;
+                }
+                else
+                {
+                    _bankCard = false;
+                }
+                    
+            }
+            TriggerEvent("ARPHUD:UpdateData:item_clock", _bandage ? "?" : UpdateDirectionText(), _bandage ? "Неизвестно" : GetPlayerZoneName(), _bandage ? "Неизвестно" : GetPlayerStreetName(),
+                $"{Weather.Day.ToString("D2")}/{Weather.Month.ToString("D2")}/{Weather.Year.ToString("D2")}",
+                $"{World.CurrentDayTime.Hours.ToString("D2")}:{World.CurrentDayTime.Minutes.ToString("D2")}",
+                $"{Weather.Temp}°");
+            TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}"
+                /*, _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты"*/);
+            if (User.Data.item_clock)
+            {
+                TriggerEvent("ARPHUD:UpdateData:showWatch",  true);
+            }
+            else
+            {
+                TriggerEvent("ARPHUD:UpdateData:showWatch",  false);
+            }
+            if (IsPedInAnyVehicle(GetPlayerPed(-1), true))
+            {
+                TriggerEvent("ARPHUD:UpdateData:showSpeed",  true);
+            }
+            else
+            {
+                TriggerEvent("ARPHUD:UpdateData:showSpeed",  false);
+            }
+            var _eatLevel = Convert.ToInt32(User.GetEatLevel()/10);
+            var _waterLevel = Convert.ToInt32(User.GetWaterLevel());
+            TriggerEvent("ARPHUD:UpdateData:food", _eatLevel > 100 ? "100%" : _eatLevel + "%", _waterLevel > 100 ? "100%" : _waterLevel + "%");
+            await Delay(1000);
+        }
+
+        private static async Task UpdateItemHudVehicle()
+        {
+            if (IsPedInAnyVehicle(PlayerPedId(), true))
+            {
+                TriggerEvent("ARPHUD:UpdateData:vehicle", GetCurrentSpeed(), GetCurrentFuel());
+            }
         }
 
         public static bool IsPlayerInOcean()
@@ -170,9 +247,6 @@ namespace Client.Managers
             if (User.IsLogin())
                 UpdateZoneName();
             
-            if (Main.ServerName == "SunFlower")
-                _rpg = "RolePlayGame";
-            
             await Delay(2000);
         }
 
@@ -181,6 +255,7 @@ namespace Client.Managers
         private static string _radarInfoFront = "В ожидании...";
         private static string _radarInfoBack = "В ожидании...";
         private static int _speed = 0;
+        private static string _fuel = "0";
 
         private static bool _hit1;
         private static Vector3 _endCoords1;
@@ -195,6 +270,11 @@ namespace Client.Managers
         public static int GetCurrentSpeed()
         {
             return _speed;
+        }
+        
+        public static string GetCurrentFuel()
+        {
+            return _fuel;
         }
 
         private static async Task SapdRadar()
@@ -225,16 +305,16 @@ namespace Client.Managers
                     }
                     
                     var tag = User.Data.tag != "" && User.IsGos() ? User.Data.tag.ToUpper() + " | " : "";
-                    DrawRectangle(385, 222, 350, 200, 0, 0, 0, 150, 2, 2);
-                    DrawText($"{tag}№{User.Data.id}", 377, 218, 0.6f, 255, 255, 255, 255, 4, 0, false, false, 0, 2, 2);
-                    DrawRectangle(385, 222, 350, 50, 3, 169, 244, 150, 2, 2);
-                    DrawText($"{VehInfo.GetDisplayName(v.Model.Hash).ToUpper()} | {Vehicle.GetVehicleNumber(veh)} | СИРЕНА: {(IsVehicleSirenOn(veh) ? "ВКЛ" : "ВЫКЛ")} | {_speed} MP/H", 377, 172, 0.4f, 3, 155, 229, 255, 4, 0, false, false, 0, 2, 2);
-                    DrawRectangle(385, 172, 350, 30, 2, 119, 189, 150, 2, 2);
-                    DrawText("ПЕРЕДНИЙ РАДАР", 377, 139, 0.3f, 255, 255, 255, 150, 4, 0, false, false, 0, 2, 2);
-                    DrawText("ЗАДНИЙ РАДАР", 376, 80, 0.3f, 255, 255, 255, 150, 4, 0, false, false, 0, 2, 2);
-                    DrawText(_radarInfoFront, 376, 122, 0.5f, 255, 255, 255, 255, 4, 0, false, false, 0, 2, 2);
-                    DrawText(_radarInfoBack, 375, 63, 0.5f, 255, 255, 255, 255, 4, 0, false, false, 0, 2, 2);
-                    DrawRectangle(375, 85, 330, 1, 255, 255, 255, 255, 2, 2);
+                    DrawRectangle(371, 317, 350, 200, 0, 0, 0, 150, 2, 2);
+                    DrawText($"{tag}№{User.Data.id}", 363, 313, 0.6f, 255, 255, 255, 255, 4, 0, false, false, 0, 2, 2);
+                    DrawRectangle(371, 317, 350, 50, 3, 169, 244, 150, 2, 2);
+                    DrawText($"{VehInfo.GetDisplayName(v.Model.Hash).ToUpper()} | {Vehicle.GetVehicleNumber(veh)} | СИРЕНА: {(IsVehicleSirenOn(veh) ? "ВКЛ" : "ВЫКЛ")} | {_speed} MP/H", 363, 267, 0.4f, 3, 155, 229, 255, 4, 0, false, false, 0, 2, 2);
+                    DrawRectangle(371, 267, 350, 30, 2, 119, 189, 150, 2, 2);
+                    DrawText("ПЕРЕДНИЙ РАДАР", 363, 234, 0.3f, 255, 255, 255, 150, 4, 0, false, false, 0, 2, 2);
+                    DrawText("ЗАДНИЙ РАДАР", 362, 175, 0.3f, 255, 255, 255, 150, 4, 0, false, false, 0, 2, 2);
+                    DrawText(_radarInfoFront, 362, 217, 0.5f, 255, 255, 255, 255, 4, 0, false, false, 0, 2, 2);
+                    DrawText(_radarInfoBack, 361, 158, 0.5f, 255, 255, 255, 255, 4, 0, false, false, 0, 2, 2);
+                    DrawRectangle(361, 180, 330, 1, 255, 255, 255, 255, 2, 2);
                 }
 
                 if (!IsPedInAnyVehicle(GetPlayerPed(-1), true) && IsShowRadar)
@@ -253,7 +333,7 @@ namespace Client.Managers
             {
                 BarTimerBar network = new BarTimerBar("Сеть");
                 network.BackgroundColor = UnknownColors.Black;
-                network.Height = 10;
+                network.Height = 5;
 
                 if (await Ctos.IsBlackout())
                 {
@@ -290,10 +370,10 @@ namespace Client.Managers
                 else if (User.Data.water_level <= 0)
                     network.ForegroundColor = UnknownColors.DarkRed;*/
 
-                BarTimerBar eat = new BarTimerBar("Сытость");
+                /*BarTimerBar eat = new BarTimerBar("Сытость");
                 eat.BackgroundColor = UnknownColors.Black;
                 eat.Percentage = User.Data.eat_level / 1000f;
-                eat.Height = 10;
+                eat.Height = 5;
 
                 if (eat.Percentage >= 1)
                     eat.Percentage = 1;
@@ -314,7 +394,7 @@ namespace Client.Managers
                 BarTimerBar drink = new BarTimerBar("Жажда");
                 drink.BackgroundColor = UnknownColors.Black;
                 drink.Percentage = User.Data.water_level / 100f;
-                drink.Height = 10;
+                drink.Height = 5;
 
                 if (drink.Percentage >= 1)
                     drink.Percentage = 1;
@@ -330,8 +410,9 @@ namespace Client.Managers
                 else if (User.Data.water_level > 0)
                     drink.ForegroundColor = ColorRed;
                 else if (User.Data.water_level <= 0)
-                    drink.ForegroundColor = ColorRed900;
+                    drink.ForegroundColor = ColorRed900;*/
                 
+                /*
                 BarTimerBar fuel = new BarTimerBar("Топливо");
                 fuel.BackgroundColor = UnknownColors.Black;
                 fuel.ForegroundColor = ColorWhite;
@@ -360,21 +441,18 @@ namespace Client.Managers
                     
                     fuel.Percentage = fuelIndicator / 100f;
                 }
-
+                */
+/*
                 TimerBarPool = new TimerBarPool();
                 TimerBarPool.Add(drink);
-                TimerBarPool.Add(eat);
+                TimerBarPool.Add(eat);*/
                 /*if (User.Data.phone_code > 0)
                     TimerBarPool.Add(network);*/
-                if (IsPedInAnyVehicle(PlayerPedId(), true))
-                {
-                    TimerBarPool.Add(fuel);
-                    TimerBarPool.Add(new TextTimerBar("Скорость", $"{GetCurrentSpeed()} MP/H"));
-                }
-                TimerBarPool.Add(new TextTimerBar("Громкость", User.VoiceString));
+                /*TimerBarPool.Add(fuel);
+                TimerBarPool.Add(new TextTimerBar("Скорость", $"{GetCurrentSpeed()} MP/H"));*/
+                //TimerBarPool.Add(new TextTimerBar("Громкость", User.VoiceString));
                 
-                if (Voice.IsRadioEnable())
-                    TimerBarPool.Add(new TextTimerBar("", "~b~Вы говорите в рацию"));
+                TimerBarPool =  new TimerBarPool();
                 if (Business.Taxi.IsFindNpc)
                     TimerBarPool.Add(new TextTimerBar("", "~b~Идёт поиск клиентов"));
             }
@@ -414,34 +492,46 @@ namespace Client.Managers
 
                     _speed = (int) Math.Round(speed * 2.23693629, 0);
                     
+                    var vehId = Vehicle.GetVehicleIdByNumber(Vehicle.GetVehicleNumber(GetVehiclePedIsUsing(PlayerPedId())));
+                    if (vehId != -1)
+                    {
+                        _fuel = Convert.ToInt32(Vehicle.VehicleInfoGlobalDataList[vehId].Fuel) + " Л";
+                    }
+                    else if (VehInfo.Get(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))).FullFuel  == 1)
+                    {
+                        _fuel = "ЭЛЕКТРО";
+                    }
+                    else
+                    {
+                        _fuel = VehInfo.Get(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))).FullFuel + " Л";
+                    }
                     /*DrawRectangle(319, 166, 180, 1, 255, 255, 255, 255, 2);
                     DrawText($"{indicator}*", 319, 205, 0.9f, 255, 255, 255, 255, 4, 0, false, true, 0, 2);
                     DrawText($"I {_speed} MP/H", 339, 208, 0.6f, 255, 255, 255, 255, 4, 0, false, true, 0, 2);*/
                 }
                 
-                DrawText("Appi ~y~" + _rpg, 0, 10, 0.5f, 255, 255, 255, 255, 1, 1, true, true, 0, 0, 1);
+                //DrawText("Appi ~y~" + _rpg, 0, 10, 0.5f, 255, 255, 255, 255, 1, 1, true, true, 0, 0, 1);
 
                 var rightOffset = 0;
                 if (Main.MaxPlayers > 32)
                     rightOffset = 150;
                 
                 if (User.Data.jail_time > 0)
-                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 150, 0, 2, false, false, 0, 0, 2);
+                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else if (NoClip.NoClipEnabled)
-                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 150, 0, 2, false, false, 0, 0, 2);
+                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else
-                    DrawText(Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 150 + rightOffset, 0, 2, false, false, 0, 0, 2);
-
+                    DrawText(Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180 + rightOffset, 0, 2, false, false, 0, 0, 2);
+                /*
                 if (User.Data.money < 0)
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 244, 67, 54, 255, 7, 2, false, true, 0, 0, 2);
                 else if (User.Data.money == 0)
                     DrawText("$0", 15, 50, 0.6f, 244, 67, 54, 255, 7, 2, false, true, 0, 0, 2);
                 else
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 115, 186, 131, 255, 7, 2, false, true, 0, 0, 2);
-                
                 if (User.Data.item_clock)
                 {
-                    DrawText(UpdateDirectionText(), 347, 72, 1, 255, 255, 255, 255, 4, 1, false, true, 0, 2);
+                    //DrawText(UpdateDirectionText(), 347, 72, 1, 255, 255, 255, 255, 4, 1, false, true, 0, 2);
                     DrawText("|", 374, 72, 1, 255, 255, 255, 255, 4, 0, false, true, 0, 2);
                     DrawText(_zone, 391, 65, 0.4f, 241, 196, 15, 255, 4, 0, false, true, 0, 2);
                     DrawText(_street, 390, 42, 0.4f, 255, 255, 255, 255, 4, 0, false, true, 0, 2);
@@ -451,11 +541,10 @@ namespace Client.Managers
                     DrawText(World.CurrentDayTime.Hours.ToString("D2") + ":" + World.CurrentDayTime.Minutes.ToString("D2") + " | " + Weather.Day.ToString("D2") + "/" + Weather.Month.ToString("D2") + "/" + Weather.Year.ToString("D2"), 319, 142, 0.6f, 255, 255, 255, 255, 4, 0, false, true, 0, 2);
                     DrawText(Weather.DayName, 319, 165, 0.4f, 241, 196, 15, 255, 4, 0, false, true, 0, 2);
                     
-                    /*40*/
                     //DrawText("Сытость: ~g~" + User.Data.eat_level / 1000 + "%", 10, 545, 0.40f, 255, 255, 255, 255, 4, 0, true, true, 0);
                     //DrawText("Жажда: ~g~" + User.Data.water_level / 100 + "%", 10, 575, 0.40f, 255, 255, 255, 255, 4, 0, true, true, 0);    
                 }
-                
+                */
                 TimerBarPool.Draw();
                 
                 //DrawText("Громкость: ~g~" + User.VoiceString, 10, 605, 0.40f, 255, 255, 255, 255, 4, 0, true, true, 0);

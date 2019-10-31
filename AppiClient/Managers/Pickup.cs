@@ -36,8 +36,8 @@ namespace Client.Managers
         public static Vector3 ArcadiusDown = new Vector3(-146.2469f, -604.0237f, 166.0001f);
         
         //===========Больничные Койки============
-        public static Vector3 Koika1Pos = new Vector3(351.387f, -590.12f, 42.31f);
-        public static Vector3 Koika1Bed = new Vector3(350.72f, -591.82f, 42.98f);
+        //public static Vector3 Koika1Pos = new Vector3(357.2887f, -583.5088f, 42.281f);
+        //public static Vector3 Koika1Bed = new Vector3(356.7f, -584.99f, 43.2f);
 
         
         
@@ -351,9 +351,9 @@ namespace Client.Managers
             Checkpoint.Create(EmsHealPos, 1.4f, "show:menu");
             
             //Koiki
-            Marker.Create(Koika1Pos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
-            Checkpoint.Create(Koika1Pos, 1f, "show:menu");
-            Checkpoint.Create(Koika1Bed, 1f, "show:menu");
+            //Marker.Create(Koika1Pos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            //Checkpoint.Create(Koika1Pos, 1f, "show:menu");
+            //Checkpoint.Create(Koika1Bed, 1f, "show:menu");
             
             //Computers
             /*Marker.Create(EmsNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -878,29 +878,33 @@ namespace Client.Managers
             //Koiki
             /*if (Main.GetDistanceToSquared(Koika1Pos, playerPos) < DistanceCheck)
             {
-                User.Freeze(PlayerId(), true);
+                User.PlayAnimation("missfbi1", "cpr_pumpchest_idle");
+                SetEntityCoordsNoOffset(GetPlayerPed(-1), 356.7f, -584.99f, 43.2f, false, false, false);
+                //User.Freeze(PlayerId(), true);
+                FreezeEntityPosition(GetPlayerPed(-1), true);
                 await Delay(200);
-                User.Teleport(Koika1Bed);
+                //User.Teleport(Koika1Bed);
                 User.HealNaKoike();
                 User.healing = true;
                 //User.PlayAnimation("missfbi1", "cpr_pumpchest_idle", 9);
                 if (User.healing == true)
                 {
                     await Delay(2000);
-                    User.PlayAnimation("missfbi1", "cpr_pumpchest_idle");
+                    //User.PlayAnimation("missfbi1", "cpr_pumpchest_idle");
                     return;
                 }
                 
             }
             if (Main.GetDistanceToSquared(Koika1Bed, playerPos) < DistanceCheck)
             {
+                FreezeEntityPosition(GetPlayerPed(-1), false);
                 User.Teleport(Koika1Pos);
                 User.healing = false;
                 User.Freeze(PlayerId(), false);
                 if(User.healing == true && GetEntityHealth(GetPlayerPed(-1)) > 199)
                 {
                     User.healing = false;
-                    //User.Freeze(PlayerId(), false);
+                    User.Freeze(PlayerId(), false);
                     Notification.Send("Вы здоровы <3");
                     User.Teleport(Koika1Pos);
                 }

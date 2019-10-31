@@ -21,9 +21,9 @@ namespace Client.Managers
         {
             SizeF res = UIMenu.GetScreenResolutionMaintainRatio();
             PointF safe = UIMenu.GetSafezoneBounds();
-            new UIResText(Label, new PointF((int)res.Width - safe.X - 180, (int)res.Height - safe.Y - (35 + (4 * interval))), 0.3f, UnknownColors.White, Font.ChaletLondon, UIResText.Alignment.Right).Draw();
+            new UIResText(Label, new PointF((int)res.Width - safe.X - 173, (int)res.Height - safe.Y - (93 + (4 * interval))), 0.3f, UnknownColors.White, Font.ChaletLondon, UIResText.Alignment.Right).Draw();
 
-            new NativeUI.Sprite("timerbars", "all_black_bg", new PointF((int)res.Width - safe.X - 298, (int)res.Height - safe.Y - (40 + (4 * interval))), new SizeF(300, 37), 0f, Color.FromArgb(180, 255, 255, 255)).Draw();
+            new NativeUI.Sprite("timerbars", "all_black_bg", new PointF((int)res.Width - safe.X - 291, (int)res.Height - safe.Y - (98 + (4 * interval))), new SizeF(300, 37), 0f, Color.FromArgb(180, 255, 255, 255)).Draw();
 
             Screen.Hud.HideComponentThisFrame(HudComponent.AreaName);
             Screen.Hud.HideComponentThisFrame(HudComponent.StreetName);
@@ -39,7 +39,7 @@ namespace Client.Managers
         public TextTimerBar(string label, string text) : base(label)
         {
             Text = text;
-            FontSize = 0.4f;
+            FontSize = 0.3f;
         }
 
         public override void Draw(int interval)
@@ -48,7 +48,7 @@ namespace Client.Managers
             PointF safe = UIMenu.GetSafezoneBounds();
 
             base.Draw(interval);
-            new UIResText(Text, new PointF((int)res.Width - safe.X - 20, (int)res.Height - safe.Y - (38 + (4 * interval))), FontSize, UnknownColors.White, Font.ChaletLondon, UIResText.Alignment.Right).Draw();
+            new UIResText(Text, new PointF((int)res.Width - safe.X - 13, (int)res.Height - safe.Y - (93 + (4 * interval))), FontSize, UnknownColors.White, Font.ChaletLondon, UIResText.Alignment.Right).Draw();
         }
     }
 
@@ -77,7 +77,7 @@ namespace Client.Managers
 
             base.Draw(interval);
 
-            var start = new PointF((int)res.Width - safe.X - 160, (int) res.Height - safe.Y - (25 + (4 * interval)));
+            var start = new PointF((int)res.Width - safe.X - 153, (int) res.Height - safe.Y - (83 + (4 * interval)));
 
             new UIResRectangle(start, new SizeF(150, Height), BackgroundColor).Draw();
             new UIResRectangle(start, new SizeF((int)(150 * Percentage), Height), ForegroundColor).Draw();

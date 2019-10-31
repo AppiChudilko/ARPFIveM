@@ -1451,7 +1451,8 @@ namespace Client
                 case "scpd7 elegy2":
                 case "scpd10 felon":
                 case "scpd11 f620":
-                    canEnabledRadar = true;
+                case "Intercept2":
+                        canEnabledRadar = true;
                     break;
                 case "unk":
                     if (User.IsAdmin())
@@ -2235,6 +2236,29 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+        public static void HookupHouseToUserShowMenu(int serverId, int hId, string name, string pidn)
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Дом", "~b~Название: ~s~" + name);
+      
+            menu.AddMenuItem(UiMenu, "~g~Поселиться").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                House.AcceptHookup(serverId, hId, pidn);
+            };
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Не подселяться");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
         public static async void ShowHouseOutMenu(HouseInfoGlobalData h)
         {
             HideMenu();
@@ -2852,6 +2876,7 @@ namespace Client
             menu.AddMenuItem(UiMenu, "~y~Отмыть деньги").Activated += (uimenu, item) =>
             {
                 HideMenu();
+                SetPedComponentVariation(GetPlayerPed(-1), 5, 0, 0, 2);
                 int money = (int) Sync.Data.GetLocally(User.GetServerId(), "GrabCash") * User.Bonus;
                 Sync.Data.ResetLocally(User.GetServerId(), "GrabCash");
                 Notification.SendWithTime("~g~Награбленно: $" + money);
@@ -5135,29 +5160,7 @@ namespace Client
                 
                 SetPedMovementClipset(GetPlayerPed(-1), clipSet, 0);
             };
-            
-            menu.AddMenuItem(UiMenu, "Взять педа").Activated += (uimenu, item) =>
-            {
-                HideMenu();
 
-                CitizenFX.Core.Ped ped = Main.FindNearestPed();
-
-                if (ped == null)
-                    return;
-                
-                SetEntityAsMissionEntity(ped.Handle, true, true);
-                
-                ClearPedTasks(ped.Handle);
-                ClearPedTasksImmediately(ped.Handle);
-                ClearPedSecondaryTask(ped.Handle);
-                
-                AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 28422, -0.0300f, 0.0000f, -0.1100f, 0.0000f, 0.0000f, 86.0000f, false, true, false, true, 2, true);
-                //AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 0, 0, 0, 0, 0, 0, 0, false, false, false, true, 0, true);
-                
-                User.PlayAnimation("anim@heists@box_carry@", "idle");
-                User.PlayPedAnimation(ped, "anim@veh@lowrider@low@front_ps@arm@base", "sit", 9);
-            };
-            
             menu.AddMenuItem(UiMenu, "Взять педа 1").Activated += (uimenu, item) =>
             {
                 HideMenu();
@@ -5245,6 +5248,64 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
 
+        public static async void TakePed1(List<Player> pedList)
+            {
+                
+                HideMenu();
+            
+                var menu = new Menu();
+                UiMenu = menu.Create("Взять на руки", "~b~Взять игрока на руки");
+                
+                foreach (Player p in pedList)
+                {
+                    try
+                    {
+                        if (p.ServerId == GetPlayerServerId(PlayerId())) continue;    
+                        if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                        menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu, item) =>
+                        {
+                            HideMenu();
+                            CitizenFX.Core.Ped ped = new CitizenFX.Core.Ped(GetPlayerPed((p.ServerId)));;
+
+                            if (ped == null)
+                            {
+                                Debug.WriteLine("Ped == NULL");
+                                return;
+                            }
+
+                            SetEntityAsMissionEntity(ped.Handle, true, true);
+                
+                            ClearPedTasks(ped.Handle);
+                            ClearPedTasksImmediately(ped.Handle);
+                            ClearPedSecondaryTask(ped.Handle);
+
+                            AttachEntityToEntity(GetPlayerPed(-1), ped.Handle, 9816, 0.005f, 0.25f, 0.01f, 0.9f, 0.30f, 192.0f, false, false, false, false, 2, false);
+                            //AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 28422, -0.0300f, 0.0000f, -0.1100f, 0.0000f, 0.0000f, 86.0000f, false, true, false, true, 2, true);
+                            //AttachEntityToEntity(ped.Handle, GetPlayerPed(-1), 0, 0, 0, 0, 0, 0, 0, false, false, false, true, 0, true);
+
+                            User.PlayAnimation("anim@heists@box_carry@", "idle");
+                            User.PlayPedAnimation(ped, "anim@veh@lowrider@low@front_ps@arm@base", "sit", 9);
+
+                        };
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        throw;
+                    }
+                }
+
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                {
+                    if (item == closeButton)
+                        HideMenu();
+                };
+            
+                MenuPool.Add(UiMenu);
+            }
+        
         public static async void AdminGiveMoney()
         {
             var money = Convert.ToInt32(await Menu.GetUserInput("Не более $500.000! Если больше - будет бан!", "", 6));
@@ -5814,6 +5875,11 @@ namespace Client
                     {
                         ShowSupportUnitList();
                     };
+                    /*menu.AddMenuItem(UiMenu, "Отправить авто на штраф строянку").Activated += (uimenu, item) =>
+                    {
+                        var veh = Main.FindNearestVehicle();
+                        AutoPenaltyMenu(veh);
+                    };*/
                     
                     menu.AddMenuItem(UiMenu, "Изъятие").Activated += (uimenu, item) =>
                     {
@@ -7016,6 +7082,46 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+       
+                            
+        public static async void AutoPenaltyMenu(CitizenFX.Core.Vehicle veh)
+                {
+                    HideMenu();
+        
+                    if (await Ctos.IsBlackout())
+                    {
+                        Notification.SendWithTime("~r~Связь во время блекаута не работает");
+                        return;
+                    }
+                    
+                    
+                    Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
+                    var v = Main.FindNearestVehicle();
+                    if (v == null)
+                    {
+                        Notification.SendWithTime("~r~Нужно быть рядом с машиной");
+                        return;
+                    }
+                    
+                    
+                    var menu = new Menu();
+                    UiMenu = menu.Create("Эвакуатор", "~b~Меню");
+                    
+                    menu.AddMenuItem(UiMenu, "Эвакуировать на штраф стоянку:", $"~b~Марка: ~s~{veh.DisplayName}\n~b~").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                    };
+                    
+                    var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+                    
+                    UiMenu.OnItemSelect += (sender, item, index) =>
+                    {
+                        if (item == closeButton)
+                            HideMenu();
+                    };
+                    
+                    MenuPool.Add(UiMenu);
+                }
         public static async void ShowHackerSearchList(int radius)
         {
             HideMenu();
@@ -7850,6 +7956,7 @@ namespace Client
             var list3 = new List<dynamic> {"Вкл", "Выкл"};
             menu.AddMenuItemList(UiMenu, "Показывать интерфейс", list3, "Нажмите ~g~Enter~s~ чтобы применить").OnListSelected += (uimenu, index) =>
             {
+                TriggerEvent("ARPHUD:Show", index == 0);
                 Screen.Hud.IsVisible = index == 0;
                 Screen.Hud.IsRadarVisible = index == 0;
             };
@@ -9353,6 +9460,52 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        
+        public static void ShowPlayerHookupHouseMenu(List<Player> pedList, int hId, string name)
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Подселить", "~b~" + name);
+            
+            foreach (Player p in pedList)
+            {
+                try
+                {
+                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += async (uimenu, index) =>
+                    {
+                        HideMenu();
+                        
+                        Managers.House.HookupToUser(p.ServerId, hId, name);
+                    };
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    throw;
+                }
+            }
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        
+        public static void ShowPlayerAntiHookupHouseMenu(List<Player> pedList, int hId, string name)
+        {
+            HideMenu();
+            
+            //Managers.House.HookupToUser(p.ServerId, hId, name);
+            TriggerServerEvent("ARP:UpdateHouseInfoAntiHookup", hId, User.Data.id);
+        }
 
         public static void ShowPlayerSellStockMenu(List<Player> pedList, int hId, string name)
         {
@@ -9756,6 +9909,20 @@ namespace Client
                 
                 Chat.SendMeCommand("обыскал человека напротив и изъял оружие");
             };
+            
+            /*menu.AddMenuItem(UiMenu, "Взять на руки").Activated += async (uimenu, item) =>
+            {
+                HideMenu();
+                var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
+                if (!await Sync.Data.Has(player.ServerId, "isTie") && !await Sync.Data.Has(player.ServerId, "isCuff"))
+                {
+                    Notification.SendWithTime("~r~Игрок не связан или на игроке нет наручников");
+                    return;
+                }
+                TakePed1(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                
+                
+            };*/
             
             var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
@@ -14760,6 +14927,24 @@ namespace Client
                         
 
                         Notification.SendWithTime("~b~Вы взяли экпировку");
+                        Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
+                    };
+                    menu.AddMenuItem(UiMenu, "SIG MPX-SD").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                        User.GiveWeapon((uint) WeaponHash.CombatPDW, 450, false, false);
+                        SetWeaponObjectTintIndex((int) WeaponHash.CombatPDW, (int) WeaponTint.LSPD);
+                        Notification.SendWithTime("~b~Вы взяли SIG MPX-SD");
+                        Main.AddFractionGunLog(User.Data.rp_name, "SIG MPX-SD", User.Data.fraction_id);
+                    };
+                    menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                        TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
+                    };
+                }
+
+Notification.SendWithTime("~b~Вы взяли экпировку");
                         Main.AddFractionGunLog(User.Data.rp_name, "Экипировка Агента", User.Data.fraction_id);
                     };
                     menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
@@ -14924,11 +15109,11 @@ namespace Client
                 HideMenu();
                 Fractions.Government.GetJob("trash");
             };
-            menu.AddMenuItem(UiMenu, "Развозчик металлолома").Activated += (uimenu, item) =>
+            /*menu.AddMenuItem(UiMenu, "Развозчик металлолома").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Fractions.Government.GetJob("scrap");
-            };
+            };*/
             menu.AddMenuItem(UiMenu, "Почтальон (PostOp)", "Компания: ~y~PostOp").Activated += (uimenu, item) =>
             {
                 HideMenu();
@@ -15117,11 +15302,23 @@ namespace Client
                 {
                     HideMenu();
                     ShowAskSellHMenu();
+                    ShowPlayerAntiHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать дом игроку", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
                     ShowPlayerSellHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
+                };
+                menu.AddMenuItem(UiMenu, "~g~Подселить игрока к себе", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
+                {
+                    HideMenu();
+                    ShowPlayerHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
+                };
+                menu.AddMenuItem(UiMenu, "~r~Выселить всех из дома", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
+                {
+                    HideMenu();
+                    ShowPlayerAntiHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
+                    Notification.SendWithTime("~r~Теперь с вами никто больше не живет :(");
                 };
             }
             
@@ -15132,7 +15329,11 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "Продать квартиру", $"Продать квартиру государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
+
                     ShowAskSellKMenu();   
+
+                    ShowAskSellKMenu();  
+
                 };
             }
             
@@ -20039,6 +20240,21 @@ namespace Client
                 {
                     ShowInvSelectMenu();
                 }
+                if ((Game.IsControlJustPressed(0, (Control) 159) || Game.IsDisabledControlJustPressed(0, (Control) 159)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //E
+                {
+                    if (User.Data.phone > 0)
+                    {
+                        ShowPlayerPhoneMenu();//zametka 5
+                    }
+                }
+                if ((Game.IsControlJustPressed(0, (Control) 165) || Game.IsDisabledControlJustPressed(0, (Control) 165)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //E
+                {
+                    if (User.Data.is_buy_walkietalkie)
+                    {
+                        ShowPlayerWalkietalkieMenu();
+                    }
+                }
+                
 
                 if (IsPedInAnyVehicle(PlayerPedId(), true))
                 {

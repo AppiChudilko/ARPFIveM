@@ -23,7 +23,7 @@ namespace Client.Managers
 
         public static async void AddDispatcherEms(string title, string desc, string street1, string street2, string time, float x, float y, float z, bool withCoord)
         {
-            if (!User.IsSapd() && !User.IsEms() && !User.IsFib() && !User.IsSheriff()) return;
+            if (!User.IsSapd() && !User.IsEms() && !User.IsFib() && !User.IsSheriff() && !User.IsDuty()) return;
             
             EmsItem item = new EmsItem
             {

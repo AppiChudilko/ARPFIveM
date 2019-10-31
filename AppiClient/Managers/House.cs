@@ -235,6 +235,19 @@ namespace Client.Managers
 
             HouseBlipList[HouseGlobalDataList[index].id.ToString()].Color = HouseGlobalDataList[index].is_buy ? (BlipColor) 59 : (BlipColor) 69;
         }
+        
+        public static void UpdateHouseInfoHookup(int id, int userId)
+        {
+            if (HouseGlobalDataList.Count < 1) return;
+            
+            var index = HouseGlobalDataList.IndexOf(GetHouseFromId(id));
+
+            //HouseGlobalDataList[index].is_buy = isBuy == 1;
+            //HouseGlobalDataList[index].name_user = userName;
+            HouseGlobalDataList[index].pid2 = userId;
+
+            //HouseBlipList[HouseGlobalDataList[index].id.ToString()].Color = HouseGlobalDataList[index].is_buy ? (BlipColor) 59 : (BlipColor) 69;
+        }
 
         public static async Task<HouseInfoGlobalData> GetAllData(int id)
         {
@@ -254,8 +267,8 @@ namespace Client.Managers
             var hData = await GetAllData(hId);
             if (hData.id_user != User.Data.id)
             {
-                Notification.SendWithTime("~r~Сожителям запрещено продавать дом");
-                return;
+                //Notification.SendWithTime("~r~Сожителям запрещено продавать дом");
+                //return;
             }
             
             if ((int) await Client.Sync.Data.Get(serverId, "id_house") > 0)
@@ -265,7 +278,161 @@ namespace Client.Managers
             }
             
             Shared.TriggerEventToPlayer(serverId, "ARP:SellHouseToUserShowMenu", User.GetServerId(), hId, name, price);
+            TriggerServerEvent("ARP:UpdateHouseInfoAntiHookup", hId, User.Data.id);
             Notification.SendWithTime("~g~Вы предложили игроку купить дом");
+        }
+        
+        public static async void HookupToUser(int serverId, int hId, string name)
+        {
+            string pidn;
+            var hData = await GetAllData(hId);
+            if (hData.id_user != User.Data.id)
+            {
+                //Notification.SendWithTime("~r~Сожителям запрещено продавать дом");
+                //return;
+            }
+            
+            if ((int) await Client.Sync.Data.Get(serverId, "id_house") > 0)
+            {
+                Notification.SendWithTime("~r~У игрока уже есть дом");
+                return;
+            }
+            
+
+            if (hData.pid2 == 0)
+            {
+                if (hData.price > 30000)
+                {
+                    pidn = "pid2";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 30.000$");
+                }
+                return;
+            }
+            if (hData.pid3 == 0)
+            {
+                if (hData.price > 100000)
+                {
+                    pidn = "pid3";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 100.000$");
+                }
+                return;
+            }
+            if (hData.pid4 == 0)
+            {
+                if (hData.price > 100000)
+                {
+                    pidn = "pid4";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 100.000$");
+                }
+                return;
+            }
+            if (hData.pid5 == 0)
+            {
+                if (hData.price > 250000)
+                {
+                    pidn = "pid5";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 250.000$");
+                }
+                return;
+            }
+            if (hData.pid6 == 0)
+            {
+                if (hData.price > 250000)
+                {
+                    pidn = "pid6";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 250.000$");
+                }
+                return;
+            }
+            if (hData.pid7 == 0)
+            {
+                if (hData.price > 1000000)
+                {
+                    pidn = "pid7";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 1.000.000$");
+                }
+                return;
+            }
+            if (hData.pid8 == 0)
+            {
+                if (hData.price > 1000000)
+                {
+                    pidn = "pid8";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 1.000.000$");
+                }
+                return;
+            }
+            if (hData.pid9 == 0)
+            {
+                if (hData.price > 5000000)
+                {
+                    pidn = "pid9";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 5.000.000$");
+                }
+                return;
+            }
+            if (hData.pid10 == 0)
+            {
+                if (hData.price > 5000000)
+                {
+                    pidn = "pid10";
+                    Shared.TriggerEventToPlayer(serverId, "ARP:HookupHouseToUserShowMenu", User.GetServerId(), hId, name, pidn);
+                    Notification.SendWithTime("~g~Вы предложили игроку подселиться в дом");
+                    return;
+                }
+                else
+                {
+                    Notification.SendWithTime("~r~Дом должен стоить не меньше 5.000.000$");
+                }
+                return;
+            }
         }
 
         public static async void AcceptBuy(int serverId, int hId, int price)
@@ -293,6 +460,28 @@ namespace Client.Managers
             User.SaveAccount();
                 
             Notification.SendWithTime("~g~Вы купили дом");
+        }
+        
+        public static async void AcceptHookup(int serverId, int hId, string pidn)
+        {
+            var hData = await GetAllData(hId);
+            
+            if ((int) await Client.Sync.Data.Get(100000 + hId, "id_user") == 0)
+            {
+                Notification.SendWithTime("~g~Ошибка 404");
+                return;
+            }
+            
+            //Client.Sync.Data.Set(User.GetServerId(), "id_house", hId);
+            //User.Data.id_house = hId;
+
+            //await User.GetAllData();
+            
+            TriggerServerEvent("ARP:UpdateHouseInfoHookup", hId, User.Data.id, pidn);
+            
+            User.SaveAccount();
+                
+            Notification.SendWithTime("~g~Вы подселились в дом");
         }
 
         public static async void AcceptBuyHouseToUser(int price)
@@ -396,8 +585,8 @@ namespace Client.Managers
             
             if (hData.id_user != User.Data.id)
             {
-                Notification.SendWithTime("~r~Сожителям запрещено продавать дом");
-                return;
+                //Notification.SendWithTime("~r~Сожителям запрещено продавать дом");
+                //return;
             }
             
             if (User.Data.id_house == 0)
@@ -459,4 +648,13 @@ public class HouseInfoGlobalData
     public float int_x { get; set; }
     public float int_y { get; set; }
     public float int_z { get; set; }
+    public int pid2 { get; set; }
+    public int pid3 { get; set; }
+    public int pid4 { get; set; }
+    public int pid5 { get; set; }
+    public int pid6 { get; set; }
+    public int pid7 { get; set; }
+    public int pid8 { get; set; }
+    public int pid9 { get; set; }
+    public int pid10 { get; set; }
 }

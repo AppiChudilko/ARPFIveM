@@ -306,6 +306,8 @@ namespace Client.Managers
 
             await Delay(5000);
             
+            SetPedComponentVariation(GetPlayerPed(-1), 5, 45, 0, 2);
+            
             if (!Client.Sync.Data.HasLocally(User.GetServerId(), "hasBuyMask"))
             {
                 Notification.Send("~r~Вас заметила камера наблюдения");
@@ -325,7 +327,7 @@ namespace Client.Managers
                 
             User.IsBlockAnimation = false;
             User.Freeze(PlayerId(), false);
-            User.StopAnimation();
+            User.PlayScenario("forcestop");
 
             if (Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), (Vector3) Client.Sync.Data.GetLocally(User.GetServerId(), "GrabPos")) > 10f)
             {

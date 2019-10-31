@@ -495,7 +495,7 @@ namespace Client
             {
                 if (item == yesButton)
                 {
-                    Managers.Apartment.Sell(User.Data.id);
+                    Managers.Apartment.Sell(User.Data.apartment_id);
                     HideMenu();
                     
                     
@@ -5578,7 +5578,7 @@ namespace Client
                         Chat.SendMeCommand("говорит \"запрашиваю эвакуатор\" в рацию");
                     };
                     
-                    /*if (User.Data.rank > 6)
+                    /*if (User.Data.rank == 10 || User.Data.rank == 11 || User.Data.rank == 13 || User.Data.rank == 14)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
                         {
@@ -5683,8 +5683,24 @@ namespace Client
                     {
                         ShowTenCodeDepList();
                     };
+                    if (User.Data.rank == 9 || User.Data.rank == 12)
+                    {
+                          
+                         menu.AddMenuItem(UiMenu, "Изъятие").Activated += (uimenu, item) =>
+                    { 
+                   var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f);
+                  if (player == null)
+                    {
+                    Notification.SendWithTime("~r~Рядом с вами никого нет");
+                    return;
+                    }
+
+                    ShowGovTakeList(player.ServerId);
+                     };
+                    }
                     
-                    if (User.IsLeader() || User.IsSubLeader())
+                    
+                    if (User.Data.rank >= 8)
                     {
                         /*
                         menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
@@ -5694,13 +5710,7 @@ namespace Client
                             var text = await Menu.GetUserInput("Текст...", null, 50);
                             if (text == "NULL") return;
                             Notification.SendPictureToAll(text, "Новости правительства", title, "CHAR_BANK_MAZE", Notification.TypeChatbox);
-                        };
-                        
-                        menu.AddMenuItem(UiMenu, "~y~Лог на транспорт").Activated += (uimenu, item) =>
-                        {
-                            HideMenu();
-                            TriggerServerEvent("ARP:SendPlayerVehicleLog");
-                        };*/
+                         };*/
                     }
                     break;
                 case 2:
@@ -6476,10 +6486,17 @@ namespace Client
                     HideMenu();
                     TriggerServerEvent("ARP:SendPlayerGunLog");
                 };
-                menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
-                {
-                    ShowFractionMemberInviteMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
-                };
+            }
+
+            if (User.Data.rank == 10 || User.Data.rank == 11 || User.Data.rank == 13 || User.Data.rank == 14)
+            {
+
+            menu.AddMenuItem(UiMenu, "~g~Принять в организацию").Activated += (uimenu, item) =>
+                    {
+                        ShowFractionMemberInviteMenu(
+                            Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                    };
+                
             }
             
             menu.AddMenuItem(UiMenu, "Установить тег").Activated += async (uimenu, item) =>
@@ -12451,6 +12468,118 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        public static void ShowGovTakeList(int serverId)
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Изъятие", $"~b~Изъятие у игрока с ID: {User.PlayerIdList[serverId.ToString()]}");
+            
+            menu.AddMenuItem(UiMenu, "Изъять лицензию категории А").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "a_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            
+            menu.AddMenuItem(UiMenu, "Изъять лицензию категории B").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "b_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            
+            menu.AddMenuItem(UiMenu, "Изъять лицензию категории C").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "c_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на авиатранспорт").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "air_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на водный транспорт").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "ship_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на оружие").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "gun_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            menu.AddMenuItem(UiMenu, "Изъять лицензию Таксиста").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "taxi_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            menu.AddMenuItem(UiMenu, "Изъять лицензию Адвоката").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "law_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на Бизнес").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "biz_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на Охоту").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "animal_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+			menu.AddMenuItem(UiMenu, "Изъять лицензию на Рыбалку").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "fish_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
         
         public static void ShowSapdTakeList(int serverId)
         {
@@ -13047,7 +13176,7 @@ namespace Client
                 UiMenu = menu.Create("Лицензии", "~b~Меню");
 
                
-                    if (User.Data.rank > 6)
+                    if (User.Data.rank > 6 || User.Data.rank == 10 || User.Data.rank == 11 || User.Data.rank == 13 || User.Data.rank == 14)
                     {
                         menu.AddMenuItem(UiMenu, "Выдать лицензию адвоката").Activated += (uimenu, item) =>
                         {
@@ -13096,7 +13225,7 @@ namespace Client
                 var menu = new Menu();
                 UiMenu = menu.Create("Компьютер", "~b~Меню");
 
-                if (User.IsLeader() || User.IsSubLeader())
+                if (User.Data.rank >= 8)
                 {
                     menu.AddMenuItem(UiMenu, "~y~Написать новость").Activated += async (uimenu, item) =>
                     {
@@ -13108,7 +13237,7 @@ namespace Client
                             Notification.TypeChatbox);
                     };
 
-                    if (User.IsLeader() || User.IsSubLeader())
+                    if (User.Data.rank == 13 || User.Data.rank == 14)
                     {
                         menu.AddMenuItem(UiMenu, "~y~Лог").Activated += (uimenu, item) =>
                         {
@@ -13128,7 +13257,7 @@ namespace Client
                         };
                     }
 
-                    if (User.Data.rank > 8)
+                    if (User.Data.rank == 14)
                     {
                         menu.AddMenuItem(UiMenu, "Пособие", $"Ставка: ~g~${Coffer.GetPosob()}").Activated +=
                             async (uimenu, item) =>
@@ -14604,7 +14733,7 @@ namespace Client
                 Main.AddFractionGunLog(User.Data.rp_name, "Сухпаёк", User.Data.fraction_id);
             };
 
-            if (User.Data.rank > 6)
+            if (User.Data.rank >= 1)
             {
                 menu.AddMenuItem(UiMenu, "Бронежилет").Activated += (uimenu, item) =>
                 {
@@ -14614,40 +14743,24 @@ namespace Client
                     Main.AddFractionGunLog(User.Data.rp_name, "Бронежилет", User.Data.fraction_id);
                 };
 
-                if (User.Data.rank == 3)
+                if (User.Data.rank == 3 || User.Data.rank == 5 || User.Data.rank == 8)
                 {
                     menu.AddMenuItem(UiMenu, "Экипировка Агента").Activated += (uimenu, item) =>
                     {
                         HideMenu();
                         SetPedArmour(GetPlayerPed(-1), 100);
                         
-                        User.GiveWeapon((uint) WeaponHash.Pistol, 50, false, false);
+                        User.GiveWeapon((uint) WeaponHash.CombatPDW, 210, false, false);
+                        User.GiveWeapon((uint) WeaponHash.PistolMk2, 82, false, false);
                         User.GiveWeapon((uint) WeaponHash.Flashlight, 1, false, false);
                         User.GiveWeapon((uint) WeaponHash.StunGun, 1, false, false);
+                        User.GiveWeapon((uint) WeaponHash.Nightstick, 1, false, false);
+                        Managers.Inventory.TakeNewItem(40);
+                        Managers.Inventory.TakeNewItem(40);
                         
-                        Notification.SendWithTime("~b~Вы взяли экпировку");
-                        Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
-                    };
-                    menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
-                    {
-                        HideMenu();
-                        TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
-                    };
-                }
 
-                if (User.Data.rank == 6)
-                {
-                    menu.AddMenuItem(UiMenu, "Экипировка Агента").Activated += (uimenu, item) =>
-                    {
-                        HideMenu();
-                        SetPedArmour(GetPlayerPed(-1), 100);
-                        
-                        User.GiveWeapon((uint) WeaponHash.Pistol, 50, false, false);
-                        User.GiveWeapon((uint) WeaponHash.Flashlight, 1, false, false);
-                        User.GiveWeapon((uint) WeaponHash.StunGun, 1, false, false);
-                        
                         Notification.SendWithTime("~b~Вы взяли экпировку");
-                        Main.AddFractionGunLog(User.Data.rp_name, "Набор охранника", User.Data.fraction_id);
+                        Main.AddFractionGunLog(User.Data.rp_name, "Экипировка Агента", User.Data.fraction_id);
                     };
                     menu.AddMenuItem(UiMenu, "Сдать оружие").Activated += (uimenu, item) =>
                     {
@@ -14655,7 +14768,7 @@ namespace Client
                         TriggerEvent("ARP:TakeAllGunsSAPD", User.GetServerId());
                     };
                 }
-            }
+                }
             
             /*var list = (from v in Managers.Vehicle.VehicleInfoGlobalDataList where v.FractionId != 0 && v.FractionId == User.Data.fraction_id select v.Number).Cast<dynamic>().ToList();
             menu.AddMenuItemList(UiMenu, "Ключи", list, "Нажмите \"~g~Enter~s~\" чтобы взять ключи").OnListSelected += (uimenu, idx) =>
@@ -15019,7 +15132,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "Продать квартиру", $"Продать квартиру государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
-                    Condo.SellHouse(h);   
+                    ShowAskSellKMenu();   
                 };
             }
             
@@ -16872,6 +16985,9 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
+
+
+        
         public static void ShowTattooShopMenu(string title1, string title2, int shopId)
         {
             HideMenu();
@@ -17289,8 +17405,7 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
-        
-        public static void ShowBarberShopMenu(int shopId = 0)
+  public static void ShowBarberShopMenu(int shopId = 0)
         {
             HideMenu();
             

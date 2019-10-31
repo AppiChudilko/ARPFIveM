@@ -511,7 +511,7 @@ namespace Client
             switch (Data.fraction_id)
             {
                 case 1:
-                    return Data.rank >= 9;
+                    return Data.rank == 13;
                 case 2:
                     return Data.rank >= 12;
                 case 3:

@@ -19993,7 +19993,7 @@ namespace Client
             {
                 if ((Game.IsControlJustPressed(0, (Control) 244) || Game.IsDisabledControlJustPressed(0, (Control) 244)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //M
                     ShowMainMenu();
-                if ((Game.IsControlJustPressed(0, (Control) 246) && Game.IsDisabledControlJustPressed(0, (Control) 303)) && User.IsDead()) //Y
+                if ((Game.IsControlJustPressed(0, (Control) 246)) && User.IsDead()) //Y
                 {
                     var msg = await Menu.GetUserInput("Напишите вопрос", null, 200);
                     if (msg == "NULL") return;
@@ -20003,7 +20003,7 @@ namespace Client
                     Notification.SendWithTime("~g~Вопрос отправлен");
                     Notification.SendWithTime("~g~Если хелперы в сети, они вам ответят");
                 }
-                if ((Game.IsControlJustPressed(0, (Control) 246) && Game.IsDisabledControlJustPressed(0, (Control) 246)) && User.IsDead()) //U
+                if ((Game.IsControlJustPressed(0, (Control) 246)) && User.IsDead()) //U
                 {
                     var msg = await Menu.GetUserInput("Напишите жалобу", null, 200);
                     if (msg == "NULL") return;

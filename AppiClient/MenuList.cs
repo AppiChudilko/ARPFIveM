@@ -9282,10 +9282,10 @@ namespace Client
             menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"А\":~s~").SetRightLabel(User.Data.a_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"B\":~s~").SetRightLabel(User.Data.b_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"C\":~s~").SetRightLabel(User.Data.c_lic ? "Есть" : "Нет");
+            menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"D\":~s~").SetRightLabel(User.Data.taxi_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на авиатранспорт:~s~").SetRightLabel(User.Data.air_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на водный транспорт:~s~").SetRightLabel(User.Data.ship_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на оружие:~s~").SetRightLabel(User.Data.gun_lic ? "Есть" : "Нет");
-            menu.AddMenuItem(UiMenu, "~b~Лицензия на таксиста:~s~").SetRightLabel(User.Data.taxi_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на адвоката:~s~").SetRightLabel(User.Data.law_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на бизнес:~s~").SetRightLabel(User.Data.biz_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Разрешение на охоту:~s~").SetRightLabel(User.Data.animal_lic ? "Есть" : "Нет");
@@ -12099,6 +12099,11 @@ namespace Client
                 HideMenu();
                 Business.Lic.BuyLic(2);
             };
+            menu.AddMenuItem(UiMenu, "Категория D", "Цена: ~g~$1000").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Fractions.Government.BuyTaxiLic();
+            };
 
             menu.AddMenuItem(UiMenu, "Авиатранспорт", "Цена: ~g~$1200").Activated += (uimenu, item) =>
             {
@@ -12695,7 +12700,7 @@ namespace Client
                 Notification.SendWithTime($"~y~Вы изъяли лицензию");
                 Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
             };
-            menu.AddMenuItem(UiMenu, "Изъять лицензию Таксиста").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Изъять права категории D").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Sync.Data.Set(serverId, "taxi_lic", false);
@@ -14969,11 +14974,11 @@ namespace Client
             var menu = new Menu();
             UiMenu = menu.Create("Секретарь", "~b~Секретарь правительства");
 
-            menu.AddMenuItem(UiMenu, "Лицензия таксиста", "Цена: ~g~$50").Activated += (uimenu, item) =>
+            /*menu.AddMenuItem(UiMenu, "Лицензия таксиста", "Цена: ~g~$50").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Fractions.Government.BuyTaxiLic();
-            };
+            };*/
 
             menu.AddMenuItem(UiMenu, "Оформить регистрацию", "Оформление регистрации на 6 месяцев").Activated += (uimenu, item) =>
             {

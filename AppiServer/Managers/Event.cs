@@ -1000,10 +1000,10 @@ namespace Server.Managers
                     data.Add("Права категории А", (bool) row["a_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории B", (bool) row["b_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
+                    data.Add("Права категории D", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Авиа лицензия", (bool) row["air_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
-                    data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия адвоката", (bool) row["law_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия бизнес", (bool) row["biz_lic"] ? "есть" : "~r~нет");
                     data.Add("Разрешение на охоту", (bool) row["animal_lic"] ? "есть" : "~r~нет");
@@ -1045,10 +1045,10 @@ namespace Server.Managers
                     data.Add("Права категории А", (bool) row["a_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории B", (bool) row["b_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
+                    data.Add("Права категории D", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Авиа лицензия", (bool) row["air_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
-                    data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия адвоката", (bool) row["law_lic"] ? "есть" : "~r~нет");
                     data.Add("Мед. страховка", (bool) row["med_lic"] ? "есть" : "~r~нет");
                     data.Add("Рецепт марихуаны", (bool) row["allow_marg"] ? "есть" : "~r~нет");
@@ -1503,10 +1503,10 @@ namespace Server.Managers
                 data.Add("Права категории А", (bool) Server.Sync.Data.Get(plId, "a_lic") ? "есть" : "~r~нет");
                 data.Add("Права категории B", (bool) Server.Sync.Data.Get(plId, "b_lic") ? "есть" : "~r~нет");
                 data.Add("Права категории C", (bool) Server.Sync.Data.Get(plId, "c_lic") ? "есть" : "~r~нет");
+                data.Add("Права категории D", (bool) Server.Sync.Data.Get(plId, "taxi_lic") ? "есть" : "~r~нет");
                 data.Add("Авиа лицензия", (bool) Server.Sync.Data.Get(plId, "air_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на водный транспорт", (bool) Server.Sync.Data.Get(plId, "ship_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на оружие", (bool) Server.Sync.Data.Get(plId, "gun_lic") ? "есть" : "~r~нет");
-                data.Add("Лицензия таксиста", (bool) Server.Sync.Data.Get(plId, "taxi_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия адвоката", (bool) Server.Sync.Data.Get(plId, "law_lic") ? "есть" : "~r~нет");
                 data.Add("Мед. страховка", (bool) Server.Sync.Data.Get(plId, "med_lic") ? "есть" : "~r~нет");
                 data.Add("Рецепт марихуаны", (bool) Server.Sync.Data.Get(plId, "allow_marg") ? "есть" : "~r~нет");

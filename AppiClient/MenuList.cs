@@ -122,7 +122,7 @@ namespace Client
             var passwordItem = menu.AddMenuItem(UiMenu, "Пароль", password != "" ? "~b~Ваш пароль введён" : "Введите ваш пароль на сервере");
             var emailItem = menu.AddMenuItem(UiMenu, "Email", email != "" ? $"~b~Ваш Email:~s~ {email}" : "Введите ваш email");
             var refererItem = menu.AddMenuItem(UiMenu, "Ник пригласившего (Через пробел)", referer != "" ? $"~b~Пригласивший:~s~ {referer}" : $"~b~Пригласивший:~s~ ~r~нет");
-            var acceptRulesItem = menu.AddCheckBoxItem(UiMenu, "Согласен с правилами сервера", acceptRules, "https://appi-rp.com/newbie");
+            var acceptRulesItem = menu.AddCheckBoxItem(UiMenu, "Согласен с правилами сервера", acceptRules, "https://alamo-rp.com/newbie");
             var regButton = menu.AddMenuItem(UiMenu, "~g~Регистрация");
             var authButton = menu.AddMenuItem(UiMenu, "~y~Авторизация", "Перейти к авторизации");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть и выйти");
@@ -7869,7 +7869,7 @@ namespace Client
             {
                 Chat.SendChatInfoMessage("СПРАВКА | Доп. Информация",
                     "<br>- Различные FAQ для новичков у нас есть на форуме" +
-                    "<br>- Так же у нас есть Discord (Можно его найти на сайте <i>appi-rp.com</i>" +
+                    "<br>- Так же у нас есть Discord (Можно его найти на сайте <i>alamo-rp.com</i>" +
                     "<br>- У нас в дискорде весьма уютно и всегда можно пообщаться с администрацией");
             };
             

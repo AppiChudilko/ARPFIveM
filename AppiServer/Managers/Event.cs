@@ -649,7 +649,7 @@ namespace Server.Managers
                 User.SetVirtualWorld(player, rand.Next(1, 10000));
                 Main.SaveLog("Connect", $"[{GetPlayerEndpoint(player.Handle)}] [Connect] {player.Name} | {User.GetServerId(player)} | {license} | {guid}");
                 
-                deferrals.update("Привет! Добро пожаловать на Appi RolePlay :3");
+                deferrals.update("Привет! Добро пожаловать на Alamo RolePlay :3");
                 await Delay(2500);
                 deferrals.update("Желаем тебе приятной игры c:");
                 await Delay(2500);
@@ -891,7 +891,7 @@ namespace Server.Managers
             string sql = "INSERT INTO ban_list (ban_from, ban_to, count, datetime, format, reason) VALUES ('Server','" + plban + "','10','" + Main.GetTimeStamp() + "','y.','До выяснения (Обратитесь к Appi)')";
             Appi.MySql.ExecuteQuery(sql);
             
-            DropPlayer(pl.Handle, $"[BAN] Check banlist: appi-rp.com");
+            DropPlayer(pl.Handle, $"[BAN] Check banlist: alamo-rp.com");
             Main.SaveLog("ban", $"Server ban {plban} | до выяснения 10y." );
         }
         

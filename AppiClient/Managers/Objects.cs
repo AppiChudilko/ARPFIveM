@@ -3099,6 +3099,18 @@ namespace Client.Managers
 		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-175.836f, 890.5402f, 233.4651f), 140.9996f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-170.809f, 927.7059f, 235.6557f), 47.99975f, false, "WORLD_HUMAN_COP_IDLES");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-182.7127f, 915.5424f, 233.4599f), 93.99957f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        
+		        //MW_House253
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1794.243f, 471.722f, 133.7604f), 52.99978f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-1799.165f, 452.935f, 128.3081f), 30.99998f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1788.155f, 438.1277f, 128.3076f), -76.99981f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1766.8f, 424.6074f, 127.2955f), 169.9994f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1798.681f, 407.7701f, 128.3076f), -158.9995f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-1862.413f, 351.4297f, 88.97451f), 123.9997f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1834.243f, 435.4392f, 126.1088f), -166.9997f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1849.35f, 450.8371f, 125.7626f), 72.99983f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1837.05f, 450.0325f, 126.5147f), -103.9995f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1818.997f, 412.0063f, 128.3069f), -166.9991f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
 
 		        // MW_Benny
                 CreateObject(168901740, new Vector3(-204.23f, -1311.479f, 37.12f), new Vector3(0f, 0f, -13.99984f), false, false);
@@ -6010,6 +6022,18 @@ namespace Client.Managers
 		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1501.899f, 132.6167f, 55.65304f), 49.99991f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1458.374f, 203.7709f, 56.67218f), -163.9994f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
 		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1471.246f, 140.6674f, 53.56752f), -2.999992f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        
+		        //A_House253
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1794.243f, 471.722f, 133.7604f), 52.99978f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-1799.165f, 452.935f, 128.3081f), 30.99998f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1788.155f, 438.1277f, 128.3076f), -76.99981f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1766.8f, 424.6074f, 127.2955f), 169.9994f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1798.681f, 407.7701f, 128.3076f), -158.9995f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_01", new Vector3(-1862.413f, 351.4297f, 88.97451f), 123.9997f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1834.243f, 435.4392f, 126.1088f), -166.9997f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1849.35f, 450.8371f, 125.7626f), 72.99983f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1837.05f, 450.0325f, 126.5147f), -103.9995f, false, "WORLD_HUMAN_GUARD_STAND");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1818.997f, 412.0063f, 128.3069f), -166.9991f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
 
 
 		        //A_ArcadiusMotors

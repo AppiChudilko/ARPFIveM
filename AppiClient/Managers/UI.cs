@@ -197,22 +197,8 @@ namespace Client.Managers
                 $"{Weather.Temp}°");
             TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}"
                 /*, _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты"*/);
-            if (User.Data.item_clock)
-            {
-                TriggerEvent("ARPHUD:UpdateData:showWatch",  true);
-            }
-            else
-            {
-                TriggerEvent("ARPHUD:UpdateData:showWatch",  false);
-            }
-            if (IsPedInAnyVehicle(GetPlayerPed(-1), true))
-            {
-                TriggerEvent("ARPHUD:UpdateData:showSpeed",  true);
-            }
-            else
-            {
-                TriggerEvent("ARPHUD:UpdateData:showSpeed",  false);
-            }
+            TriggerEvent("ARPHUD:UpdateData:showWatch",  User.Data.item_clock);
+            TriggerEvent("ARPHUD:UpdateData:showSpeed",  IsPedInAnyVehicle(GetPlayerPed(-1), true));
             var _eatLevel = Convert.ToInt32(User.GetEatLevel()/10);
             var _waterLevel = Convert.ToInt32(User.GetWaterLevel());
             TriggerEvent("ARPHUD:UpdateData:food", _eatLevel > 100 ? "100%" : _eatLevel + "%", _waterLevel > 100 ? "100%" : _waterLevel + "%");

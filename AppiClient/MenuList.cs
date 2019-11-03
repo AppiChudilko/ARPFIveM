@@ -8930,6 +8930,11 @@ namespace Client
                     ShowPlayerPhoneMenu(); 
                 };
             }
+            menu.AddMenuItem(UiMenu, "MP3").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                ShowPlayerMP3Menu(); 
+            };
             if (User.Data.is_buy_walkietalkie && Main.ServerName != "Earth")
             {
                 menu.AddMenuItem(UiMenu, "Рация").Activated += (uimenu, item) =>
@@ -10783,6 +10788,35 @@ namespace Client
             
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
             
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+
+        public static async void ShowPlayerMP3Menu()
+        {
+            HideMenu();
+            var menu = new Menu();
+            UiMenu = menu.Create("MP3", "~b~Меню вашего MP3");
+            
+            menu.AddMenuItem(UiMenu, "Показать/Скрыть").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                TriggerEvent("ARPMP3Player:Show");
+            };
+            
+            menu.AddMenuItem(UiMenu, "Показать курсор").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Notification.SendWithTime($"~g~Нажмите ESC, что бы скрыть курсор.");
+                TriggerEvent("ARPMP3Player:Cursor");
+            };
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
             UiMenu.OnItemSelect += (sender, item, index) =>
             {
                 if (item == closeButton)

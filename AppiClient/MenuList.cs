@@ -10805,7 +10805,6 @@ namespace Client
             
             menu.AddMenuItem(UiMenu, "Показать/Скрыть").Activated += (uimenu, item) =>
             {
-                HideMenu();
                 TriggerEvent("ARPMP3Player:Show");
             };
             

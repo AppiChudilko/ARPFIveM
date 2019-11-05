@@ -15328,7 +15328,6 @@ namespace Client
                 {
                     HideMenu();
                     ShowAskSellHMenu();
-                    ShowPlayerAntiHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать дом игроку", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {

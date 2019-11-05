@@ -427,12 +427,9 @@ namespace Client.Managers
         private static async Task Min10Timer()
         {
             await Delay(1000 * 60 * 10);
-            
+
             if (Client.Sync.Data.HasLocally(User.GetServerId(), "hightSapd"))
                 PedAi.SendCode(99, false);
-            
-            if (Weather.CurrentWeather == "XMAS")
-                PedAi.SendCode(100, false, 10, UnitTypes.WinterCiv);
         }
         
         private static async Task Min30Timer()
@@ -444,7 +441,9 @@ namespace Client.Managers
                 TriggerServerEvent("ARP:OnVip");
             }
 
-            PedAi.SendCode(100, false, 15, UnitTypes.InvaderCiv);
+            //PedAi.SendCode(100, false, 15, UnitTypes.InvaderCiv);
+            if (Weather.CurrentWeather == "XMAS")
+                PedAi.SendCode(100, false, 10, UnitTypes.WinterCiv);
         }
         
         private static async Task Min60Timer()
@@ -888,8 +887,13 @@ namespace Client.Managers
         
         private static async Task SetTick()
         {
-            SetParkedVehicleDensityMultiplierThisFrame(0.5f);
-            SetVehicleDensityMultiplierThisFrame(User.GetPlayerVirtualWorld() > 0 ? 0f : 0.5f);
+            SetPedDensityMultiplierThisFrame(0.4f);
+            //SetVehicleDensityMultiplierThisFrame(0.4f);
+            SetParkedVehicleDensityMultiplierThisFrame(0.4f);
+            SetRandomVehicleDensityMultiplierThisFrame(0.4f);
+            SetScenarioPedDensityMultiplierThisFrame(0.4f, 0.4f);
+            //SetSomeVehicleDensityMultiplierThisFrame(0.4f);
+            SetVehicleDensityMultiplierThisFrame(User.GetPlayerVirtualWorld() > 0 ? 0f : 0.4f);
         
             SetPlayerHealthRechargeMultiplier(PlayerId(), 0);
             

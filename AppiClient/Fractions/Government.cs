@@ -95,7 +95,7 @@ namespace Client.Fractions
                 return;
             }
 
-            if (!User.Data.taxi_lic && job != "GrSix")
+            if (!User.Data.b_lic && job != "GrSix")
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_78"));
                 return;
@@ -104,6 +104,12 @@ namespace Client.Fractions
             if (User.Data.age == 18 && User.GetMonth() < 6 && (job == "bus1" || job == "bus2" || job == "bus3" || job == "meh"))
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_95"));
+                return;
+            }
+            
+            if (!User.Data.taxi_lic && (job == "bus1" || job == "bus2" || job == "bus3"))
+            {
+                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_79"));
                 return;
             }
 

@@ -14840,7 +14840,7 @@ namespace Client
                     HideMenu();
                     Jobs.GroupSix.UniformSet();
                 };
-                menu.AddMenuItem(UiMenu, "~g~Взять экиппировку", "Стоимость $2.000").Activated += (uimenu, item) =>
+                menu.AddMenuItem(UiMenu, "~g~Взять экипировку", "Стоимость $2.000").Activated += (uimenu, item) =>
                 {
                     HideMenu();
                     Jobs.GroupSix.Equip();

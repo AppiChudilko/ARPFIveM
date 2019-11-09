@@ -503,11 +503,11 @@ namespace Client.Managers
                     rightOffset = 150;
                 
                 if (User.Data.jail_time > 0)
-                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
+                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else if (NoClip.NoClipEnabled)
-                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
+                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else
-                    DrawText(Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180 + rightOffset, 0, 2, false, false, 0, 0, 2);
+                    DrawText(Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180 + rightOffset, 0, 2, false, false, 0, 0, 2);
                 /*
                 if (User.Data.money < 0)
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 244, 67, 54, 255, 7, 2, false, true, 0, 0, 2);

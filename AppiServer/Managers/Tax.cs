@@ -7,13 +7,16 @@ namespace Server.Managers
 {
     public class Tax : BaseScript
     {
-        private const double CurrentTax = 0.0001;
+        private static int Bonus = 1;
+        private const double CurrentTax = 0.0002;
         private const int TaxMin = 10;
         private const int TaxDays = 21 * 7;
         private const int TaxDays2 = 21;
 
         public Tax()
         {
+            if (Main.ServerName == "Andromeda")
+                Bonus = 2;
             Tick += TimeSync;
 
             UpdateTax();
@@ -69,7 +72,7 @@ namespace Server.Managers
             //=============================
             //============Склады=============
             //=============================
-            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM stocks WHERE money_tax <= (round(price * '0.0001' + '10', 0) * '" + TaxDays2 + "') * '-1' AND user_id > '0'").Rows)
+            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM stocks WHERE money_tax <= (round(price * CurrentTax * Bonus + '10', 0) * '" + TaxDays2 + "') * '-1' AND user_id > '0'").Rows)
             {
                 int price = Convert.ToInt32((int) row["price"] / 2);
                 if ((int) row["money_tax"] < -100000)
@@ -104,7 +107,7 @@ namespace Server.Managers
             //=============================
             //============Дома=============
             //=============================
-            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE money_tax <= (round(price * '0.0001' + '10', 0) * '" + TaxDays2 + "') * '-1' AND id_user > '0'").Rows)
+            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE money_tax <= (round(price * CurrentTax * Bonus + '10', 0) * '" + TaxDays2 + "') * '-1' AND id_user > '0'").Rows)
             {
                 int price = Convert.ToInt32((int) row["price"] / 2);
                 if ((int) row["money_tax"] < -100000)
@@ -139,7 +142,7 @@ namespace Server.Managers
             //=============================
             //============Квартиры=============
             //=============================
-            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM condo WHERE money_tax <= (round(price * '0.0001' + '10', 0) * '" + TaxDays2 + "') * '-1' AND id_user > '0'").Rows)
+            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM condo WHERE money_tax <= (round(price * CurrentTax * Bonus + '10', 0) * '" + TaxDays2 + "') * '-1' AND id_user > '0'").Rows)
             {
                 int price = Convert.ToInt32((int) row["price"] / 2);
                 if ((int) row["money_tax"] < -100000)
@@ -174,7 +177,7 @@ namespace Server.Managers
             //=============================
             //=========Бизнесы=============
             //=============================
-            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM business WHERE money_tax <= (round(price * '0.0001' + '10', 0) * '" + TaxDays2 + "') * '-1' AND user_id > '0'").Rows)
+            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM business WHERE money_tax <= (round(price * CurrentTax * Bonus + '10', 0) * '" + TaxDays2 + "') * '-1' AND user_id > '0'").Rows)
             {
                 int price = Convert.ToInt32((int) row["price"] / 2);
                 if ((int) row["money_tax"] < -100000)
@@ -214,7 +217,7 @@ namespace Server.Managers
             //=============================
             //============Авто=============
             //=============================
-            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE money_tax <= (round(price * '0.0001' + '10', 0) * '" + TaxDays2 + "') * '-1' AND id_user > '0'").Rows)
+            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM cars WHERE money_tax <= (round(price * CurrentTax * Bonus + '10', 0) * '" + TaxDays2 + "') * '-1' AND id_user > '0'").Rows)
             {
                 int price = Convert.ToInt32((int) row["price"] / 2);
                 if ((int) row["money_tax"] < -100000)
@@ -270,7 +273,7 @@ namespace Server.Managers
             //=============================
             //==========Апарты=============
             //=============================
-            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM apartment WHERE money_tax <= (round(price * '0.0001' + '10', 0) * '" + TaxDays2 + "') * '-1' AND user_id > '0'").Rows)
+            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM apartment WHERE money_tax <= (round(price * CurrentTax * Bonus + '10', 0) * '" + TaxDays2 + "') * '-1' AND user_id > '0'").Rows)
             {
                 int price = Convert.ToInt32((int) row["price"] / 2);
                 if ((int) row["money_tax"] < -100000)
@@ -306,12 +309,12 @@ namespace Server.Managers
 
         public static void RemoveTax()
         {
-            Appi.MySql.ExecuteQuery("UPDATE houses SET money_tax = money_tax - (round((price * '" + CurrentTax + "' + '" + TaxMin +  "') / '7', 0)) WHERE id_user > 0");
-            Appi.MySql.ExecuteQuery("UPDATE condo SET money_tax = money_tax - (round((price * '" + CurrentTax + "' + '" + TaxMin +  "') / '7', 0)) WHERE id_user > 0");
-            Appi.MySql.ExecuteQuery("UPDATE apartment SET money_tax = money_tax - (round((price * '" + CurrentTax + "' + '" + TaxMin +  "') / '7', 0)) WHERE user_id > 0");
-            Appi.MySql.ExecuteQuery("UPDATE business SET money_tax = money_tax - (round((price * '" + CurrentTax + "' + '" + TaxMin +  "') / '7', 0)) WHERE user_id > 0");
-            Appi.MySql.ExecuteQuery("UPDATE stocks SET money_tax = money_tax - (round((price * '" + CurrentTax + "' + '" + TaxMin +  "') / '7', 0)) WHERE user_id > 0");
-            Appi.MySql.ExecuteQuery("UPDATE cars SET money_tax = money_tax - (round((price * '" + CurrentTax + "' + '" + TaxMin +  "') / '7', 0)) WHERE id_user > 0");
+            Appi.MySql.ExecuteQuery("UPDATE houses SET money_tax = money_tax - (round((price * '" + CurrentTax * Bonus + "' + '" + TaxMin +  "') / '7', 0)) WHERE id_user > 0");
+            Appi.MySql.ExecuteQuery("UPDATE condo SET money_tax = money_tax - (round((price * '" + CurrentTax * Bonus + "' + '" + TaxMin +  "') / '7', 0)) WHERE id_user > 0");
+            Appi.MySql.ExecuteQuery("UPDATE apartment SET money_tax = money_tax - (round((price * '" + CurrentTax * Bonus + "' + '" + TaxMin +  "') / '7', 0)) WHERE user_id > 0");
+            Appi.MySql.ExecuteQuery("UPDATE business SET money_tax = money_tax - (round((price * '" + CurrentTax * Bonus + "' + '" + TaxMin +  "') / '7', 0)) WHERE user_id > 0");
+            Appi.MySql.ExecuteQuery("UPDATE stocks SET money_tax = money_tax - (round((price * '" + CurrentTax * Bonus + "' + '" + TaxMin +  "') / '7', 0)) WHERE user_id > 0");
+            Appi.MySql.ExecuteQuery("UPDATE cars SET money_tax = money_tax - (round((price * '" + CurrentTax * Bonus + "' + '" + TaxMin +  "') / '7', 0)) WHERE id_user > 0");
             
             TriggerClientEvent("ARP:SendPlayerNotification", "~y~Не забудьте оплатить налог за ваше имущество");
             

@@ -2627,11 +2627,11 @@ namespace Client
             if (Data.posob)
             {
                 fullMoney = fullMoney + Coffer.GetPosob();
-                Notification.Send("~b~Пособие: ~w~$" + Coffer.GetPosob());
+                Notification.Send("~b~Пособие: ~w~$" + Coffer.GetPosob() * Bonus);
             }
             
             if (Data.is_old_money)
-                Notification.Send("~b~Пенсия: ~w~$" + Coffer.GetMoneyOld());
+                Notification.Send("~b~Пенсия: ~w~$" + Coffer.GetMoneyOld() * Bonus);
             
             int moneyH = 0;
             
@@ -2662,9 +2662,9 @@ namespace Client
 
             if (moneyH > 0)
             {
-                fullMoney = fullMoney + moneyH;
+                fullMoney = fullMoney + moneyH * Bonus;
                 //AddBankMoney(moneyH);
-                Notification.Send("~b~Бонус к зарплате: ~w~$" + moneyH);
+                Notification.Send("~b~Бонус к зарплате: ~w~$" + moneyH * Bonus);
             }
             
             if (Data.bank_prefix == 0)

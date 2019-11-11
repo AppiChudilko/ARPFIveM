@@ -15674,9 +15674,9 @@ namespace Client
             if (type == 0)
             {
                 HouseInfoGlobalData item = House.GetHouseFromId(id);
-                taxDay = Convert.ToInt32((item.price * 0.0001 + 10) / 7);
+                taxDay = Convert.ToInt32((item.price * 0.0002 * User.Bonus + 10) / 7);
                 tax = (int) await Sync.Data.Get(100000 + item.id, "money_tax");
-                taxLimit = Convert.ToInt32(item.price * 0.0001 + 10) * 21;
+                taxLimit = Convert.ToInt32(item.price * 0.0002 * User.Bonus + 10) * 21;
                 score = (int) await Sync.Data.Get(100000 + item.id, "score_tax");
 
                 name = item.address + " №" + item.id;
@@ -15684,9 +15684,9 @@ namespace Client
             else if (type == 1)
             {
                 var item = Managers.Vehicle.GetVehicleById(id);
-                taxDay = Convert.ToInt32((item.price * 0.0001 + 10) / 7);
+                taxDay = Convert.ToInt32((item.price * 0.0002 * User.Bonus + 10) / 7);
                 tax = (int) await Sync.Data.Get(110000 + item.id, "money_tax");
-                taxLimit = Convert.ToInt32(item.price * 0.0001 + 10) * 21;
+                taxLimit = Convert.ToInt32(item.price * 0.0002 * User.Bonus + 10) * 21;
                 score = (int) await Sync.Data.Get(110000 + item.id, "score_tax");
                 
                 name = item.DisplayName + " (" + item.Number + ")";
@@ -15694,9 +15694,9 @@ namespace Client
             else if (type == 2)
             {
                 var item = await Business.Business.GetAllData(id);
-                taxDay = Convert.ToInt32((item.price * 0.0001 + 10) / 7);
+                taxDay = Convert.ToInt32((item.price * 0.0002 * User.Bonus + 10) / 7);
                 tax = (int) await Sync.Data.Get(-20000 + item.id, "money_tax");
-                taxLimit = Convert.ToInt32(item.price * 0.0001 + 10) * 21;
+                taxLimit = Convert.ToInt32(item.price * 0.0002 * User.Bonus + 10) * 21;
                 score = (int) await Sync.Data.Get(-20000 + item.id, "score_tax");
                 
                 name = item.name;
@@ -15704,9 +15704,9 @@ namespace Client
             else if (type == 3)
             {
                 var item = await Apartment.GetAllData(id);
-                taxDay = Convert.ToInt32((item.price * 0.0001 + 10) / 7);
+                taxDay = Convert.ToInt32((item.price * 0.0002 * User.Bonus + 10) / 7);
                 tax = (int) await Sync.Data.Get(-100000 + item.id, "money_tax");
-                taxLimit = Convert.ToInt32(item.price * 0.0001 + 10) * 21;
+                taxLimit = Convert.ToInt32(item.price * 0.0002 * User.Bonus + 10) * 21;
                 score = (int) await Sync.Data.Get(-100000 + item.id, "score_tax");
                 
                 name = "Апартаменты №" + item.id;
@@ -15714,9 +15714,9 @@ namespace Client
             else if (type == 4)
             {
                 StockInfoGlobalData item = Stock.GetStockFromId(id);
-                taxDay = Convert.ToInt32((item.price * 0.0001 + 10) / 7);
+                taxDay = Convert.ToInt32((item.price * 0.0002 * User.Bonus + 10) / 7);
                 tax = (int) await Sync.Data.Get(200000 + item.id, "money_tax");
-                taxLimit = Convert.ToInt32(item.price * 0.0001 + 10) * 21;
+                taxLimit = Convert.ToInt32(item.price * 0.0002 * User.Bonus + 10) * 21;
                 score = (int) await Sync.Data.Get(200000 + item.id, "score_tax");
                 
                 name = "Склад №" + item.id;
@@ -15724,9 +15724,9 @@ namespace Client
             else if (type == 5)
             {
                 CondoInfoGlobalData item = Condo.GetHouseFromId(id);
-                taxDay = Convert.ToInt32((item.price * 0.0001 + 10) / 7);
+                taxDay = Convert.ToInt32((item.price * 0.0002 * User.Bonus + 10) / 7);
                 tax = (int) await Sync.Data.Get(300000 + item.id, "money_tax");
-                taxLimit = Convert.ToInt32(item.price * 0.0001 + 10) * 21;
+                taxLimit = Convert.ToInt32(item.price * 0.0002 * User.Bonus + 10) * 21;
                 score = (int) await Sync.Data.Get(300000 + item.id, "score_tax");
 
                 name = item.address + " №" + item.id;

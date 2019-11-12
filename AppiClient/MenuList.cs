@@ -1979,7 +1979,7 @@ namespace Client
             {
                 if (item == closeButton)
                     HideMenu();
-                if (item == vehLockButton)
+                if (item == vehLockButton || Game.IsControlPressed(0, (Control) 182))
                 {
                     HideMenu();
                     var vehId = Managers.Vehicle.GetVehicleIdByNumber(GetVehicleNumberPlateText(veh.Handle));
@@ -1992,6 +1992,16 @@ namespace Client
             };
             
             MenuPool.Add(UiMenu);
+        }
+        
+        public static void ShowVehicleOutMenu3(CitizenFX.Core.Vehicle veh)
+        {
+            HideMenu();
+            var vehId = Managers.Vehicle.GetVehicleIdByNumber(GetVehicleNumberPlateText(veh.Handle));
+            if (User.CanOpenVehicle(vehId, veh.Handle))
+                Managers.Vehicle.LockStatus(veh);
+            else
+                Notification.SendWithTime("~r~У Вас нет ключей");
         }
         
         public static void ShowVehicleOut2Menu()
@@ -20107,6 +20117,22 @@ namespace Client
                             ShowVehicleOutMenu(veh);
                         else
                             ShowVehicleOut2Menu();
+                    }
+                }
+                
+                if (Game.IsControlJustPressed(0, (Control) 182)) //L
+                {
+                    if (IsPedInAnyVehicle(PlayerPedId(), true))
+                    {
+                        var veh = GetVehiclePedIsUsing(PlayerPedId());
+                        if (GetPedInVehicleSeat(veh, -1) == PlayerPedId())
+                            ShowVehicleOutMenu3(new CitizenFX.Core.Vehicle(veh));
+                    }
+                    else
+                    {
+                        var veh = Main.FindNearestVehicle();
+                        if (veh != null)
+                            ShowVehicleOutMenu3(veh);
                     }
                 }
                 

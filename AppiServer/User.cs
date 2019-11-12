@@ -285,7 +285,7 @@ namespace Server
                 money = money * 3;
             if (Main.ServerName == "Earth")
                 money = money + 700;
-                
+
             password = Main.Sha256(password);
             string skin = "{\"SEX\":0,\"GTAO_SHAPE_FIRST_ID\":0,\"GTAO_SHAPE_SECOND_ID\":0,\"GTAO_SKIN_FIRST_ID\":0,\"GTAO_HAIR\":1,\"GTAO_HAIR_COLOR\":0,\"GTAO_EYE_COLOR\":0,\"GTAO_EYEBROWS\":0,\"GTAO_EYEBROWS_COLOR\":0}";
             string sql = "INSERT INTO users (name, rp_name, password, rp_biography, money, parachute, parachute_color, body_color, leg_color, foot_color, body, leg, foot, skin, date_reg, ip_reg, email, referer) VALUES ('" + GetPlayerGuid(player.Handle) +

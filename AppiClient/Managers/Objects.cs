@@ -3227,6 +3227,102 @@ namespace Client.Managers
                 CreateObject(1457658556, new Vector3(1395.14f, -560.88f, 76.33f), new Vector3(0f, 0f, -156.8998f), false, false);
                 CreateObject(1457658556, new Vector3(1401.04f, -558.34f, 76.33f), new Vector3(0f, 0f, -156.8998f), false, false);
                 CreateObject(1457658556, new Vector3(1410.03f, -565.2034f, 76.06369f), new Vector3(0f, 0f, -156.8998f), false, false);
+                
+                //XM_MW_House1000
+                CreateObject(-2002823169, new Vector3(-2585.43f, 1904.93f, 167.13f), new Vector3(1.374497E-06f, -1.475002f, 5.800069f), false, false);
+                CreateObject(-2002823169, new Vector3(-2584.87f, 1899.53f, 167.13f), new Vector3(1.361153E-06f, -1.475002f, 5.800069f), false, false);
+                CreateObject(-2002823169, new Vector3(-2573.83f, 1884.67f, 167.13f), new Vector3(6.405424E-06f, -1.475002f, 40.82492f), false, false);
+                CreateObject(-2002823169, new Vector3(-2577.23f, 1888.586f, 167.13f), new Vector3(6.512181E-06f, -1.475001f, 40.82491f), false, false);
+                CreateObject(-2002823169, new Vector3(-2580.61f, 1892.5f, 167.13f), new Vector3(6.512181E-06f, -1.475001f, 40.82491f), false, false);
+                CreateObject(-2002823169, new Vector3(-2578.38f, 1882.461f, 167.13f), new Vector3(4.483797E-06f, -1.475002f, -49.17511f), false, false);
+                CreateObject(-2002823169, new Vector3(-2582.46f, 1878.92f, 167.13f), new Vector3(4.37704E-06f, -1.475002f, -49.17511f), false, false);
+                CreateObject(-2002823169, new Vector3(-2586.53f, 1875.39f, 167.13f), new Vector3(4.37704E-06f, -1.475002f, -49.17511f), false, false);
+                CreateObject(-2002823169, new Vector3(-2590.62f, 1871.85f, 167.13f), new Vector3(4.37704E-06f, -1.475002f, -49.17511f), false, false);
+                CreateObject(-2002823169, new Vector3(-2589.84f, 1871.086f, 167.13f), new Vector3(8.220294E-06f, -1.475001f, 41.49973f), false, false);
+                CreateObject(-2002823169, new Vector3(-2596.32f, 1878.586f, 167.13f), new Vector3(8.220294E-06f, -1.475001f, 41.49973f), false, false);
+                CreateObject(-2002823169, new Vector3(-2593.08f, 1874.836f, 167.13f), new Vector3(8.220294E-06f, -1.475001f, 41.49973f), false, false);
+                CreateObject(-2002823169, new Vector3(-2597.05f, 1884.868f, 167.13f), new Vector3(1.07024E-05f, -1.475001f, 6.724657f), false, false);
+                CreateObject(-2002823169, new Vector3(-2597.61f, 1890.284f, 167.13f), new Vector3(1.071574E-05f, -1.475001f, 6.724656f), false, false);
+                CreateObject(-2002823169, new Vector3(-2598.18f, 1895.654f, 167.13f), new Vector3(1.072909E-05f, -1.475001f, 6.724655f), false, false);
+                CreateObject(-2002823169, new Vector3(-2598.72f, 1901.01f, 167.13f), new Vector3(1.076912E-05f, -1.475001f, 6.724653f), false, false);
+                CreateObject(-2002823169, new Vector3(-2599.28f, 1906.328f, 167.13f), new Vector3(1.076912E-05f, -1.475001f, 6.724652f), false, false);
+                CreateObject(-2002823169, new Vector3(-2599.77f, 1911.163f, 167.13f), new Vector3(1.078246E-05f, -1.475f, 6.724651f), false, false);
+                CreateObject(-2002823169, new Vector3(-2599.22f, 1909.86f, 162.88f), new Vector3(1.078246E-05f, -1.475f, 6.72465f), false, false);
+                CreateObject(-2002823169, new Vector3(-2598.796f, 1905.798f, 162.88f), new Vector3(1.079581E-05f, -1.475f, 6.724649f), false, false);
+                CreateObject(-2002823169, new Vector3(-2598.226f, 1900.025f, 162.88f), new Vector3(1.080915E-05f, -1.475f, 6.724648f), false, false);
+                CreateObject(-2002823169, new Vector3(-2597.774f, 1895.462f, 162.88f), new Vector3(1.083584E-05f, -1.475f, 6.724648f), false, false);
+                CreateObject(-2002823169, new Vector3(-2605.108f, 1887.539f, 162.88f), new Vector3(1.084919E-05f, -1.474999f, 6.724646f), false, false);
+                CreateObject(-2002823169, new Vector3(-2604.63f, 1883.126f, 162.88f), new Vector3(1.084919E-05f, -1.474999f, 6.724645f), false, false);
+                CreateObject(-2002823169, new Vector3(-2603.354f, 1916.393f, 168.9299f), new Vector3(1.078246E-05f, -1.475f, 6.72465f), false, false);
+                CreateObject(-2002823169, new Vector3(-2603.74f, 1920.375f, 168.9299f), new Vector3(1.079581E-05f, -1.475f, 6.724649f), false, false);
+                CreateObject(-2002823169, new Vector3(-2590.65f, 1910.086f, 167.1299f), new Vector3(1.096929E-05f, -1.475002f, 5.899639f), false, false);
+                CreateObject(-2002823169, new Vector3(-2591.21f, 1915.464f, 167.1299f), new Vector3(1.092926E-05f, -1.475002f, 5.89964f), false, false);
+                CreateObject(-2002823169, new Vector3(-2591.77f, 1920.838f, 167.1299f), new Vector3(1.092926E-05f, -1.475002f, 5.899641f), false, false);
+                CreateObject(-2002823169, new Vector3(-2593.548f, 1927.866f, 166.66f), new Vector3(1.001789E-05f, -5.008956E-06f, 6.074984f), false, false);
+                CreateObject(-2002823169, new Vector3(-2596.594f, 1927.547f, 166.66f), new Vector3(1.001789E-05f, -5.008956E-06f, 6.074984f), false, false);
+                CreateObject(-2002823169, new Vector3(-2599.573f, 1927.264f, 166.66f), new Vector3(1.001789E-05f, -5.008956E-06f, 6.074984f), false, false);
+                CreateObject(-2002823169, new Vector3(-2565.12f, 1888.13f, 162.859f), new Vector3(0f, 0f, 41.99984f), false, false);
+                CreateObject(73817482, new Vector3(-2600.809f, 1863.298f, 166.57f), new Vector3(0f, 0f, -44.99998f), false, false);
+                CreateObject(238789712, new Vector3(-2639.9f, 1871.349f, 159.4f), new Vector3(0f, 0f, -34.99999f), false, false);
+                CreateObject(238789712, new Vector3(-2600.949f, 1896.26f, 166.56f), new Vector3(0f, 0f, -105.9999f), false, false);
+                CreateObject(238789712, new Vector3(-2586.208f, 1914.938f, 166.55f), new Vector3(0f, 0f, -140.9998f), false, false);
+                CreateObject(118627012, new Vector3(-2576.251f, 1871.716f, 166.3205f), new Vector3(0f, 0f, -25.19994f), false, false);
+				
+//XM_MW_LifeInvader
+                CreateObject(-2002823169, new Vector3(-1074.44f, -256.03f, 44.1596f), new Vector3(-0.0003451519f, 5.008976E-06f, 117.9734f), false, false);
+                CreateObject(-2002823169, new Vector3(-1069.478f, -253.45f, 44.1596f), new Vector3(1.00179E-05f, -5.008955E-06f, 117.9738f), false, false);
+                CreateObject(-2002823169, new Vector3(-1064.7f, -250.9441f, 44.1596f), new Vector3(1.00179E-05f, -5.008955E-06f, 117.9738f), false, false);
+                CreateObject(-2002823169, new Vector3(-1074.68f, -255.24f, 48.45961f), new Vector3(1.00179E-05f, -5.008956E-06f, 118.1238f), false, false);
+                CreateObject(-2002823169, new Vector3(-1069.99f, -252.823f, 48.45961f), new Vector3(1.001789E-05f, -5.008955E-06f, 118.1238f), false, false);
+                CreateObject(-2002823169, new Vector3(-1065.31f, -250.3661f, 48.45961f), new Vector3(1.001789E-05f, -5.008955E-06f, 118.1238f), false, false);
+                CreateObject(-2002823169, new Vector3(-1080.18f, -242.88f, 48.33463f), new Vector3(1.001789E-05f, 5.008957E-06f, 117.4488f), false, false);
+                CreateObject(118627012, new Vector3(-1115.564f, -266.8547f, 36.18646f), new Vector3(0f, 0f, 0f), false, false);
+                CreateObject(238789712, new Vector3(-1085.21f, -262.0013f, 37.04f), new Vector3(0f, 0f, -33.99998f), false, false);
+                CreateObject(238789712, new Vector3(-1087.091f, -252.7279f, 37.02f), new Vector3(0f, 0f, -88.99993f), false, false);
+                CreateObject(238789712, new Vector3(-1048.717f, -231.1979f, 38.28f), new Vector3(0f, 0f, 176.0003f), false, false);
+                CreateObject(238789712, new Vector3(-1080.554f, -254.5099f, 43.28f), new Vector3(0f, 0f, 107.0001f), false, false);
+                CreateObject(238789712, new Vector3(-1063.346f, -244.8476f, 43.29f), new Vector3(0f, 0f, 62.89971f), false, false);
+                CreateObject(238789712, new Vector3(-1048.394f, -234.4537f, 43.28f), new Vector3(0f, 0f, 12.89969f), false, false);
+                CreateObject(238789712, new Vector3(-1063.724f, -239.4247f, 43.28f), new Vector3(0f, 0f, -27.10031f), false, false);
+                CreateObject(-1405984223, new Vector3(-1077.635f, -257.4427f, 43.29f), new Vector3(4.07111E-13f, -5.008956E-06f, 27.9751f), false, false);
+                CreateObject(-1875200867, new Vector3(-1046.031f, -238.6797f, 44.14f), new Vector3(1.00179E-05f, -5.008955E-06f, -61.77454f), false, false);
+                CreateObject(-1875200867, new Vector3(-1047.747f, -235.5954f, 44.14f), new Vector3(1.00179E-05f, -5.008955E-06f, -61.77454f), false, false);
+                CreateObject(-1875200867, new Vector3(-1077.568f, -245.9463f, 39.23829f), new Vector3(1.001791E-05f, 5.008956E-06f, 115.5496f), false, false);
+                CreateObject(-1875200867, new Vector3(-1075.014f, -250.6342f, 39.23829f), new Vector3(1.001791E-05f, 5.008956E-06f, 115.5496f), false, false);
+                CreateObject(-2002823169, new Vector3(-1067.745f, -246.4597f, 39.33322f), new Vector3(0f, 0f, -62.69981f), false, false);
+                CreateObject(-2002823169, new Vector3(-1093.59f, -257.22f, 37.58901f), new Vector3(6.106665E-13f, 5.008956E-06f, 27.69981f), false, false);
+				
+//XM_MW_Fleeca_PillboxHill
+				
+                CreateObject(-2002823169, new Vector3(154.93f, -1040.054f, 30.36f), new Vector3(1.001791E-05f, 0.0001042741f, 69.94952f), false, false);
+                CreateObject(238789712, new Vector3(153.7369f, -1037.499f, 28.54f), new Vector3(1.00179E-05f, -5.008956E-06f, -8.749999f), false, false);
+                CreateObject(-2002823169, new Vector3(153.3301f, -1040.641f, 28.84f), new Vector3(1.001793E-05f, 0.0001042741f, 69.72454f), false, false);
+                CreateObject(-2002823169, new Vector3(150.23f, -1038.34f, 30.31f), new Vector3(1.001792E-05f, 0.0001042741f, 69.72453f), false, false);
+				
+//XM_MW_Fleeca_Alta
+		        CreateObject(238789712, new Vector3(312.0919f, -273.5148f, 53.19f), new Vector3(0f, 0f, -70.99995f), false, false);
+                CreateObject(238789712, new Vector3(318.6772f, -276.1243f, 53.17f), new Vector3(1.00185E-05f, -5.008955E-06f, -24.50001f), false, false);
+                CreateObject(-2002823169, new Vector3(317.7075f, -278.2568f, 55.03f), new Vector3(1.001791E-05f, 5.008956E-06f, 69.79986f), false, false);
+                CreateObject(-2002823169, new Vector3(317.5054f, -278.9561f, 53.66f), new Vector3(1.001791E-05f, 5.008956E-06f, 69.79986f), false, false);
+				
+//XM_MW_Fleeca_Burton
+		        CreateObject(-2002823169, new Vector3(-345.76f, -49.62f, 50.29f), new Vector3(1.00179E-05f, -5.008957E-06f, 70.77472f), false, false);
+                CreateObject(-2002823169, new Vector3(-349.45f, -48.34f, 50.29f), new Vector3(1.00179E-05f, -5.008957E-06f, 70.77473f), false, false);
+                CreateObject(-2002823169, new Vector3(-347.5315f, -49.7617f, 48.54f), new Vector3(1.00179E-05f, -5.008957E-06f, 70.77473f), false, false);
+                CreateObject(238789712, new Vector3(-346.6486f, -46.78413f, 48.29f), new Vector3(0f, 0f, -69.69994f), false, false);
+				
+//XM_MW_Fleeca_BanhamCanyon
+                CreateObject(-2002823169, new Vector3(-2968.029f, 472.2987f, 15.39775f), new Vector3(0f, 0f, -1.399995f), false, false);
+                CreateObject(-2002823169, new Vector3(-2967.818f, 476.8773f, 15.47275f), new Vector3(0f, 0f, -1.399995f), false, false);
+                CreateObject(-2002823169, new Vector3(-2967.473f, 482.0053f, 15.47275f), new Vector3(0f, 0f, -1.399995f), false, false);
+                CreateObject(-2002823169, new Vector3(-2963.942f, 479.697f, 15.21f), new Vector3(0f, 0f, -1.399995f), false, false);
+                CreateObject(238789712, new Vector3(-2968.123f, 486.1165f, 14.73f), new Vector3(0f, 0f, -12.99999f), false, false);
+				
+//XM_MW_Fleeca_GrandSenoraDesert
+                CreateObject(238789712, new Vector3(1177.79f, 2702.389f, 37.42f), new Vector3(0f, 0f, -5.999997f), false, false);
+                CreateObject(-2002823169, new Vector3(1182.19f, 2704.3f, 38.7f), new Vector3(0f, 0f, 90.09964f), false, false);
+                CreateObject(-2002823169, new Vector3(1177.32f, 2704.27f, 38.7f), new Vector3(0f, 0f, 90.09964f), false, false);
+                CreateObject(-2002823169, new Vector3(1178.351f, 2705.555f, 37.59f), new Vector3(0f, 0f, 90.09964f), false, false);
 				
 				/// MW_House1077 (ДОБАВИТЬ)
                 CreateObject(659269893, new Vector3(93.01f, -1984.28f, 19.14358f), new Vector3(1.001791E-05f, 5.008954E-06f, 133.4489f), false, false);

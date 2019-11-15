@@ -513,7 +513,7 @@ namespace Client
                 if (GetDistanceToSquared(playerPos, shopPos) > 1.2f) continue;
 
                 int playerVw = User.GetPlayerVirtualWorld();
-                if (!User.IsAdmin())
+                /*if (!User.IsAdmin())
                 {
                     if (playerVw < 0 && playerVw * -1 != User.Data.apartment_id)
                     {
@@ -527,7 +527,7 @@ namespace Client
                             Managers.Notification.SendWithTime("~r~Вы должны быть в своём доме");
                         return 0;
                     }
-                }
+                }*/
 
                 int kitchenId = User.GetPlayerVirtualWorld();
 

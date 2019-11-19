@@ -15333,16 +15333,19 @@ namespace Client
             if (User.Data.id_house > 0)
             {
                 HouseInfoGlobalData h = House.GetHouseFromId(User.Data.id_house);
+                HouseInfoGlobalData hId = House.GetHouseFromId(User.Data.id_house);
                 var nalog = h.price * (100 - Coffer.GetNalog()) / 100;
                 menu.AddMenuItem(UiMenu, "Продать дом", $"Продать дом государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
                     ShowAskSellHMenu();
+                    TriggerServerEvent("ARP:UpdateHouseInfoAntiHookup", h.id, User.Data.id);
                 };
                 menu.AddMenuItem(UiMenu, "~y~Продать дом игроку", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
                     ShowPlayerSellHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
+                    TriggerServerEvent("ARP:UpdateHouseInfoAntiHookup", h.id, User.Data.id);
                 };
                 menu.AddMenuItem(UiMenu, "~g~Подселить игрока к себе", $"~b~{h.address} #{h.id}").Activated += (uimenu, item) =>
                 {

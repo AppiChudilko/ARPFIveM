@@ -1017,6 +1017,9 @@ namespace Server.Managers
                         data.Add("Розыск", $"{((int) row["wanted_level"] > 0 ? "Да" : "Нет")}");
                         if ((int) row["wanted_level"] > 0)
                             data.Add("Причина розыска", $"{row["wanted_reason"]}");
+                        data.Add("Номер дома", $"{row["id_house"]}");
+                        data.Add("Апартаменты", $"{row["apartment_id"]}");
+                        data.Add("Склад", $"{row["condo_id"]}");
                     }
                 }
                     

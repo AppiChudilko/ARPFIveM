@@ -48,6 +48,8 @@ namespace Server.Managers
 
             EventHandlers.Add("ARP:UpdateHousePin", new Action<int, int>(House.UpdateHousePin));
             EventHandlers.Add("ARP:UpdateHouseInfo", new Action<Player, string, int, int, int>(UpdateHouseInfo));
+            EventHandlers.Add("ARP:UpdateHouseInfoHookup", new Action<Player, int, int, string>(UpdateHouseInfoHookup));
+            EventHandlers.Add("ARP:UpdateHouseInfoAntiHookup", new Action<Player, int, int>(UpdateHouseInfoAntiHookup));
             EventHandlers.Add("ARP:UpdateCondoInfo", new Action<Player, string, int, int>(UpdateCondoInfo));
             EventHandlers.Add("ARP:UpdateStockInfo", new Action<Player, string, int, int>(UpdateStockInfo));
             EventHandlers.Add("ARP:UpdateApartmentInfo", new Action<Player, string, int, int>(UpdateApartmentInfo));
@@ -647,7 +649,7 @@ namespace Server.Managers
                 User.SetVirtualWorld(player, rand.Next(1, 10000));
                 Main.SaveLog("Connect", $"[{GetPlayerEndpoint(player.Handle)}] [Connect] {player.Name} | {User.GetServerId(player)} | {license} | {guid}");
                 
-                deferrals.update("Привет! Добро пожаловать на Appi RolePlay :3");
+                deferrals.update("Привет! Добро пожаловать на Alamo RolePlay :3");
                 await Delay(2500);
                 deferrals.update("Желаем тебе приятной игры c:");
                 await Delay(2500);
@@ -747,6 +749,15 @@ namespace Server.Managers
             House.SaveHouse(houseId, isBuy, userName, playerId);
         }
         
+        protected static void UpdateHouseInfoHookup([FromSource]Player player, int houseId, int playerId, string pidn)
+        {
+            House.SaveHouseHookup(houseId, playerId, pidn);
+        }
+        
+        protected static void UpdateHouseInfoAntiHookup([FromSource]Player player, int houseId, int playerId)
+        {
+            House.SaveHouseAntiHookup(houseId, playerId);
+        }
         protected static void UpdateCondoInfo([FromSource]Player player, string userName, int playerId, int houseId)
         {
             Condo.SaveHouse(houseId, userName, playerId);
@@ -882,7 +893,7 @@ namespace Server.Managers
             string sql = "INSERT INTO ban_list (ban_from, ban_to, count, datetime, format, reason) VALUES ('Server','" + plban + "','10','" + Main.GetTimeStamp() + "','y.','До выяснения (Обратитесь к Appi)')";
             Appi.MySql.ExecuteQuery(sql);
             
-            DropPlayer(pl.Handle, $"[BAN] Check banlist: appi-rp.com");
+            DropPlayer(pl.Handle, $"[BAN] Check banlist: alamo-rp.com");
             Main.SaveLog("ban", $"Server ban {plban} | до выяснения 10y." );
         }
         
@@ -991,10 +1002,10 @@ namespace Server.Managers
                     data.Add("Права категории А", (bool) row["a_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории B", (bool) row["b_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
+                    data.Add("Права категории D", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Авиа лицензия", (bool) row["air_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
-                    data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия адвоката", (bool) row["law_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия бизнес", (bool) row["biz_lic"] ? "есть" : "~r~нет");
                     data.Add("Разрешение на охоту", (bool) row["animal_lic"] ? "есть" : "~r~нет");
@@ -1008,6 +1019,9 @@ namespace Server.Managers
                         data.Add("Розыск", $"{((int) row["wanted_level"] > 0 ? "Да" : "Нет")}");
                         if ((int) row["wanted_level"] > 0)
                             data.Add("Причина розыска", $"{row["wanted_reason"]}");
+                        data.Add("Номер дома", $"{row["id_house"]}");
+                        data.Add("Апартаменты", $"{row["apartment_id"]}");
+                        data.Add("Склад", $"{row["condo_id"]}");
                     }
                 }
                     
@@ -1036,10 +1050,10 @@ namespace Server.Managers
                     data.Add("Права категории А", (bool) row["a_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории B", (bool) row["b_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
+                    data.Add("Права категории D", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Авиа лицензия", (bool) row["air_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
-                    data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия адвоката", (bool) row["law_lic"] ? "есть" : "~r~нет");
                     data.Add("Мед. страховка", (bool) row["med_lic"] ? "есть" : "~r~нет");
                     data.Add("Рецепт марихуаны", (bool) row["allow_marg"] ? "есть" : "~r~нет");
@@ -1494,10 +1508,10 @@ namespace Server.Managers
                 data.Add("Права категории А", (bool) Server.Sync.Data.Get(plId, "a_lic") ? "есть" : "~r~нет");
                 data.Add("Права категории B", (bool) Server.Sync.Data.Get(plId, "b_lic") ? "есть" : "~r~нет");
                 data.Add("Права категории C", (bool) Server.Sync.Data.Get(plId, "c_lic") ? "есть" : "~r~нет");
+                data.Add("Права категории D", (bool) Server.Sync.Data.Get(plId, "taxi_lic") ? "есть" : "~r~нет");
                 data.Add("Авиа лицензия", (bool) Server.Sync.Data.Get(plId, "air_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на водный транспорт", (bool) Server.Sync.Data.Get(plId, "ship_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на оружие", (bool) Server.Sync.Data.Get(plId, "gun_lic") ? "есть" : "~r~нет");
-                data.Add("Лицензия таксиста", (bool) Server.Sync.Data.Get(plId, "taxi_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия адвоката", (bool) Server.Sync.Data.Get(plId, "law_lic") ? "есть" : "~r~нет");
                 data.Add("Мед. страховка", (bool) Server.Sync.Data.Get(plId, "med_lic") ? "есть" : "~r~нет");
                 data.Add("Рецепт марихуаны", (bool) Server.Sync.Data.Get(plId, "allow_marg") ? "есть" : "~r~нет");

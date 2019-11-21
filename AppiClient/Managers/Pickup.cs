@@ -35,6 +35,18 @@ namespace Client.Managers
         public static Vector3 ArcadiusUp = new Vector3(-145.3776f, -605.22f, 166.0067f);
         public static Vector3 ArcadiusDown = new Vector3(-146.2469f, -604.0237f, 166.0001f);
         
+        public static Vector3 TeleportUp1 = new Vector3(-1788.222f, 425.3369f, 121.7411f);
+        public static Vector3 TeleportDown1 = new Vector3(-1788.17f, 419.7766f, 131.3078f);
+        
+        public static Vector3 TeleportUp2 = new Vector3(-1798.062f, 409.0901f, 112.6726f);
+        public static Vector3 TeleportDown2 = new Vector3(-1799.449f, 414.217f, 127.3076f);
+        
+        public static Vector3 TeleportUp3 = new Vector3(-1836.144f, 447.6227f, 125.5144f);
+        public static Vector3 TeleportDown3 = new Vector3(-1848.783f, 444.8712f, 129.078f);
+        
+        public static Vector3 TeleportUp4 = new Vector3(-1838.549f, 437.5526f, 125.3198f);
+        public static Vector3 TeleportDown4 = new Vector3(-1843.076f, 438.6912f, 128.7066f);
+        
         //===========Больничные Койки============
         //public static Vector3 Koika1Pos = new Vector3(357.2887f, -583.5088f, 42.281f);
         //public static Vector3 Koika1Bed = new Vector3(356.7f, -584.99f, 43.2f);
@@ -873,6 +885,42 @@ namespace Client.Managers
             if (Main.GetDistanceToSquared(ArcadiusUp, playerPos) < DistanceCheck)
             {
                 User.Teleport(ArcadiusDown);
+            }
+            
+            if (Main.GetDistanceToSquared(TeleportDown1, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportUp1);
+            }
+            if (Main.GetDistanceToSquared(TeleportUp1, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportDown1);
+            }
+            
+            if (Main.GetDistanceToSquared(TeleportDown2, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportUp2);
+            }
+            if (Main.GetDistanceToSquared(TeleportUp2, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportDown2);
+            }
+            
+            if (Main.GetDistanceToSquared(TeleportDown3, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportUp3);
+            }
+            if (Main.GetDistanceToSquared(TeleportUp3, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportDown3);
+            }
+            
+            if (Main.GetDistanceToSquared(TeleportDown4, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportUp4);
+            }
+            if (Main.GetDistanceToSquared(TeleportUp4, playerPos) < DistanceCheck)
+            {
+                User.Teleport(TeleportDown4);
             }
             
             //Koiki

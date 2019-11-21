@@ -14,7 +14,7 @@ namespace Client.Fractions
                 return;
             }
 
-            if (User.GetMoneyWithoutSync() < 50)
+            if (User.GetMoneyWithoutSync() < 1000)
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_87"));
                 return;
@@ -32,7 +32,7 @@ namespace Client.Fractions
                 return;
             }
 
-            User.RemoveMoney(50);
+            User.RemoveMoney(1000);
             User.Data.taxi_lic = true;
             Sync.Data.Set(User.GetServerId(), "taxi_lic", true);
             Notification.SendWithTime(Lang.GetTextToPlayer("_lang_88"));
@@ -104,6 +104,12 @@ namespace Client.Fractions
             if (User.Data.age == 18 && User.GetMonth() < 6 && (job == "bus1" || job == "bus2" || job == "bus3" || job == "meh"))
             {
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_95"));
+                return;
+            }
+            
+            if (!User.Data.taxi_lic && (job == "bus1" || job == "bus2" || job == "bus3"))
+            {
+                Notification.SendWithTime(Lang.GetTextToPlayer("_lang_79"));
                 return;
             }
 

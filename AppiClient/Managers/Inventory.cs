@@ -1013,6 +1013,7 @@ namespace Client.Managers
                 {
                     var rand = new Random();
                     CitizenFX.Core.Vehicle v = Main.FindNearestVehicle();
+                    var veh = Main.FindNearestVehicle();
                     var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
                     if(use == 1)
                     {
@@ -1067,13 +1068,19 @@ namespace Client.Managers
 
                             if (rand.Next(0, 3) == 1)
                             {
+                                SetVehicleSiren(veh.Handle, true);
+                                Shared.TriggerEventToAllPlayers("ARP:SetSirenSoundVehicle", VehToNet(veh.Handle), true);
                                 v.LockStatus = VehicleLockStatus.Unlocked;
                                 Notification.SendWithTime("~g~Вы открыли транспорт");
+                                StartVehicleAlarm(veh.Handle);
                             }
                             else
                             {
                                 Notification.SendWithTime("~g~Вы сломали отмычку");
+                                StartVehicleAlarm(veh.Handle);
                                 DeleteItemServer(id);
+                                SetVehicleSiren(veh.Handle, true);
+                                Shared.TriggerEventToAllPlayers("ARP:SetSirenSoundVehicle", VehToNet(veh.Handle), true);
                             }
 
                             break;

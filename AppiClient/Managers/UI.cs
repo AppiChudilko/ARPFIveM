@@ -195,24 +195,13 @@ namespace Client.Managers
                 $"{Weather.Day.ToString("D2")}/{Weather.Month.ToString("D2")}/{Weather.Year.ToString("D2")}",
                 $"{World.CurrentDayTime.Hours.ToString("D2")}:{World.CurrentDayTime.Minutes.ToString("D2")}",
                 $"{Weather.Temp}°");
-            TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}",
-                _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты");
-            if (User.Data.item_clock)
-            {
-                TriggerEvent("ARPHUD:UpdateData:showWatch",  true);
-            }
-            else
-            {
-                TriggerEvent("ARPHUD:UpdateData:showWatch",  false);
-            }
-            if (IsPedInAnyVehicle(GetPlayerPed(-1), true))
-            {
-                TriggerEvent("ARPHUD:UpdateData:showSpeed",  true);
-            }
-            else
-            {
-                TriggerEvent("ARPHUD:UpdateData:showSpeed",  false);
-            }
+            TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}"
+                /*, _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты"*/);
+            TriggerEvent("ARPHUD:UpdateData:showWatch",  User.Data.item_clock);
+            TriggerEvent("ARPHUD:UpdateData:showSpeed",  IsPedInAnyVehicle(GetPlayerPed(-1), true));
+            var _eatLevel = Convert.ToInt32(User.GetEatLevel()/10);
+            var _waterLevel = Convert.ToInt32(User.GetWaterLevel());
+            TriggerEvent("ARPHUD:UpdateData:food", _eatLevel > 100 ? "100%" : _eatLevel + "%", _waterLevel > 100 ? "100%" : _waterLevel + "%");
             await Delay(1000);
         }
 
@@ -367,7 +356,7 @@ namespace Client.Managers
                 else if (User.Data.water_level <= 0)
                     network.ForegroundColor = UnknownColors.DarkRed;*/
 
-                BarTimerBar eat = new BarTimerBar("Сытость");
+                /*BarTimerBar eat = new BarTimerBar("Сытость");
                 eat.BackgroundColor = UnknownColors.Black;
                 eat.Percentage = User.Data.eat_level / 1000f;
                 eat.Height = 5;
@@ -407,7 +396,7 @@ namespace Client.Managers
                 else if (User.Data.water_level > 0)
                     drink.ForegroundColor = ColorRed;
                 else if (User.Data.water_level <= 0)
-                    drink.ForegroundColor = ColorRed900;
+                    drink.ForegroundColor = ColorRed900;*/
                 
                 /*
                 BarTimerBar fuel = new BarTimerBar("Топливо");
@@ -439,18 +428,17 @@ namespace Client.Managers
                     fuel.Percentage = fuelIndicator / 100f;
                 }
                 */
-
+/*
                 TimerBarPool = new TimerBarPool();
                 TimerBarPool.Add(drink);
-                TimerBarPool.Add(eat);
+                TimerBarPool.Add(eat);*/
                 /*if (User.Data.phone_code > 0)
                     TimerBarPool.Add(network);*/
                 /*TimerBarPool.Add(fuel);
                 TimerBarPool.Add(new TextTimerBar("Скорость", $"{GetCurrentSpeed()} MP/H"));*/
                 //TimerBarPool.Add(new TextTimerBar("Громкость", User.VoiceString));
                 
-                if (Voice.IsRadioEnable())
-                    TimerBarPool.Add(new TextTimerBar("", "~b~Вы говорите в рацию"));
+                TimerBarPool =  new TimerBarPool();
                 if (Business.Taxi.IsFindNpc)
                     TimerBarPool.Add(new TextTimerBar("", "~b~Идёт поиск клиентов"));
             }
@@ -515,11 +503,11 @@ namespace Client.Managers
                     rightOffset = 150;
                 
                 if (User.Data.jail_time > 0)
-                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
+                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else if (NoClip.NoClipEnabled)
-                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
+                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else
-                    DrawText(Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180 + rightOffset, 0, 2, false, false, 0, 0, 2);
+                    DrawText(Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180 + rightOffset, 0, 2, false, false, 0, 0, 2);
                 /*
                 if (User.Data.money < 0)
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 244, 67, 54, 255, 7, 2, false, true, 0, 0, 2);

@@ -595,7 +595,7 @@ namespace Client.Business
             }
             if (Vehicle.VehInfo.GetClassName(veh.Model.Hash) == "Commercials")
             {
-                Notification.SendWithTime("Нельзя тюнинговать коммерчесский транспорт");
+                Notification.SendWithTime("Нельзя тюнинговать коммерческий транспорт");
                 return;
             }
             

@@ -290,7 +290,7 @@ namespace Server
                 money = money * 3;
             if (Main.ServerName == "Earth")
                 money = money + 700;
-                
+
             password = Main.Sha256(password);
             string skin = "{\"SEX\":0,\"GTAO_SHAPE_FIRST_ID\":0,\"GTAO_SHAPE_SECOND_ID\":0,\"GTAO_SKIN_FIRST_ID\":0,\"GTAO_HAIR\":1,\"GTAO_HAIR_COLOR\":0,\"GTAO_EYE_COLOR\":0,\"GTAO_EYEBROWS\":0,\"GTAO_EYEBROWS_COLOR\":0}";
 
@@ -366,6 +366,14 @@ namespace Server
                         break;
                     }
                 }
+                /*else if ((int) Sync.Data.Get(GetServerId(player), "id_house") == 0)
+                {
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid2 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                }*/
                 else if ((int) Sync.Data.Get(GetServerId(player), "condo_id") != 0)
                 {
                     foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM condo WHERE id = '" + (int) Sync.Data.Get(GetServerId(player), "condo_id") + "'").Rows)
@@ -382,6 +390,52 @@ namespace Server
                     else
                     {
                         var rand = new Random();
+                        
+                        foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid2 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid3 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid4 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid5 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid6 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid7 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid8 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid9 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
+                    foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT * FROM houses WHERE pid10 = '" + (int) Sync.Data.Get(GetServerId(player), "id") + "'").Rows)
+                    {
+                        TriggerClientEvent(player, "ARP:SpawnPlayer", skin, (float) row["x"], (float) row["y"], (float) row["z"], 0f, true);
+                        break;
+                    }
                         switch (rand.Next(3))
                         {
                              case 0:

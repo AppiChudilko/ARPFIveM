@@ -102,6 +102,7 @@
     <Compile Include="Lang.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Managers\Apartment.cs" />
+    <Compile Include="Managers\BankGrab.cs" />
     <Compile Include="Managers\Blip.cs" />
     <Compile Include="Managers\Chat.cs" />
     <Compile Include="Managers\Condo.cs" />

@@ -319,13 +319,13 @@ namespace Client.Managers
             if (User.Data.mp0_strength < 99 && IsPedInAnyVehicle(PlayerPedId(), true))
             {
                 var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
-                if (vehicle.Model.Hash == 1131912276 ||
+                if ((vehicle.Model.Hash == 1131912276 ||
                     vehicle.Model.Hash == 448402357 ||
                     vehicle.Model.Hash == -836512833 ||
                     vehicle.Model.Hash == -186537451 ||
                     vehicle.Model.Hash == 1127861609 ||
                     vehicle.Model.Hash == -1233807380 ||
-                    vehicle.Model.Hash == -400295096)
+                    vehicle.Model.Hash == -400295096) && vehicle.Speed > 2)
                 {
                     User.Data.mp0_strength++;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_strength", User.Data.mp0_strength);
@@ -335,13 +335,13 @@ namespace Client.Managers
             if ((IsPedInAnyVehicle(PlayerPedId(), true) || IsPedRunning(GetPlayerPed(-1))) && User.Data.mp0_stamina < 99)
             {
                 var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
-                if (vehicle.Model.Hash == 1131912276 ||
-                    vehicle.Model.Hash == 448402357 ||
-                    vehicle.Model.Hash == -836512833 ||
-                    vehicle.Model.Hash == -186537451 ||
-                    vehicle.Model.Hash == 1127861609 ||
-                    vehicle.Model.Hash == -1233807380 ||
-                    vehicle.Model.Hash == -400295096)        
+                if ((vehicle.Model.Hash == 1131912276 ||
+                     vehicle.Model.Hash == 448402357 ||
+                     vehicle.Model.Hash == -836512833 ||
+                     vehicle.Model.Hash == -186537451 ||
+                     vehicle.Model.Hash == 1127861609 ||
+                     vehicle.Model.Hash == -1233807380 ||
+                     vehicle.Model.Hash == -400295096) && vehicle.Speed > 2)        
                 {
                     User.Data.mp0_stamina++;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_stamina", User.Data.mp0_stamina);

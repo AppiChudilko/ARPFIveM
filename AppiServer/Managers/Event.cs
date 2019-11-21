@@ -25,7 +25,7 @@ namespace Server.Managers
             EventHandlers.Add("ARP:BlackListPlayerServerId", new Action<Player, int, string>(BlackListPlayerServerId));
 
             EventHandlers.Add("ARP:LoginPlayer", new Action<Player, string, string>(Login));
-            EventHandlers.Add("ARP:RegPlayer", new Action<Player, string, string, string, string, string, bool>(Register));
+            EventHandlers.Add("ARP:RegPlayer", new Action<Player, string, string, string, string, string, string, bool>(Register));
             EventHandlers.Add("ARP:SendLog", new Action<string, string>(SendLog));
             EventHandlers.Add("ARP:SetVirtualWorld", new Action<Player, int>(SetVirtualWorld));
             EventHandlers.Add("ARP:PlayerFinishLoad", new Action<Player>(PlayerFinishLoad));
@@ -686,6 +686,8 @@ namespace Server.Managers
             Appi.MySql.ExecuteQuery("UPDATE users SET is_online='0' WHERE id = '" + Convert.ToInt32(Server.Sync.Data.Get(User.GetServerId(player), "id")) + "'");
             Save.UserAccount(player);
             Main.SaveLog("Connect", $"[{GetPlayerEndpoint(player.Handle)}] [Disconnect] " + player.Name + " " + kickReason);
+            //if ()
+                //Main.SaveLog("LeaveInAgony", $"{playerName}");
         }
     
         protected static async void PlayerFinishLoad([FromSource]Player player)
@@ -1637,7 +1639,7 @@ namespace Server.Managers
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Смс была удалена");
         }
         
-        protected static async void Register([FromSource] Player player, string name, string surname, string password, string email, string referer, bool acceptRules)
+        protected static async void Register([FromSource] Player player, string name, string surname, string password, string email, string promocode, string referer, bool acceptRules)
         {
             if (User.IsLogin(User.GetServerId(player)))
             {
@@ -1663,7 +1665,13 @@ namespace Server.Managers
                 return;
             }
 
-            User.CreatePlayerAccount(player, password, name + " " + surname, email, referer);
+            if (!User.DoesPromocodeValid(promocode))
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "~r~ОШИБКА~s~\nВведенный промокод не является валидным");
+                return;
+            }
+
+            User.CreatePlayerAccount(player, password, name + " " + surname, email, promocode, referer);
 
             await Delay(1500);
             

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.UI;
@@ -10,6 +11,7 @@ using Client.Vehicle;
 using NativeUI;
 using static CitizenFX.Core.Native.API;
 using Notification = Client.Managers.Notification;
+using Ped = CitizenFX.Core.Ped;
 using Weather = CitizenFX.Core.Weather;
 
 namespace Client 
@@ -110,7 +112,7 @@ namespace Client
             MenuPool.Add(UiMenu);
         }
         
-        public static void ShowRegMenu(string name = "", string surname = "", string password = "", string email = "", string referer = "", bool acceptRules = false)
+        public static void ShowRegMenu(string name = "", string surname = "", string password = "", string email = "", string promocode = "", string referer = "", bool acceptRules = false)
         {
             HideMenu();
             User.Freeze(PlayerId(), true);
@@ -122,6 +124,7 @@ namespace Client
             var passwordItem = menu.AddMenuItem(UiMenu, "Пароль", password != "" ? "~b~Ваш пароль введён" : "Введите ваш пароль на сервере");
             var emailItem = menu.AddMenuItem(UiMenu, "Email", email != "" ? $"~b~Ваш Email:~s~ {email}" : "Введите ваш email");
             var refererItem = menu.AddMenuItem(UiMenu, "Ник пригласившего (Через пробел)", referer != "" ? $"~b~Пригласивший:~s~ {referer}" : $"~b~Пригласивший:~s~ ~r~нет");
+            var promocodeItem = menu.AddMenuItem(UiMenu, "Промокод", promocode != "" ? $"~b~Промокод:~s~ {promocode}" : $"~b~Промокод:~s~ ~r~нет");
             var acceptRulesItem = menu.AddCheckBoxItem(UiMenu, "Согласен с правилами сервера", acceptRules, "https://appi-rp.com/newbie");
             var regButton = menu.AddMenuItem(UiMenu, "~g~Регистрация");
             var authButton = menu.AddMenuItem(UiMenu, "~y~Авторизация", "Перейти к авторизации");
@@ -135,6 +138,8 @@ namespace Client
                 emailItem.SetRightLabel(email);
             if (referer != "")
                 refererItem.SetRightLabel(referer);
+            if(promocode != "")
+                promocodeItem.SetRightLabel(promocode);
             if (password != "")
             {
                 var pass = "";
@@ -163,7 +168,7 @@ namespace Client
                     if (userInput == "NULL") return;
                     name = Main.RemoveQuotesAndSpace(userInput);
                     await Delay(500);
-                    ShowRegMenu(name, surname, password, email, referer, acceptRules);
+                    ShowRegMenu(name, surname, password, email, promocode, referer, acceptRules);
                 }
                 else if (item == surnameItem)
                 {
@@ -172,7 +177,7 @@ namespace Client
                     if (userInput == "NULL") return;
                     surname = Main.RemoveQuotesAndSpace(userInput);
                     await Delay(500);
-                    ShowRegMenu(name, surname, password, email, referer, acceptRules);
+                    ShowRegMenu(name, surname, password, email, promocode, referer, acceptRules);
                 }
                 else if (item == passwordItem)
                 {
@@ -181,7 +186,7 @@ namespace Client
                     if (userInput == "NULL") return;
                     password = userInput;
                     await Delay(500);
-                    ShowRegMenu(name, surname, password, email, referer, acceptRules);
+                    ShowRegMenu(name, surname, password, email, promocode, referer, acceptRules);
                 }
                 else if (item == emailItem)
                 {
@@ -191,7 +196,7 @@ namespace Client
                     //email = Main.RegEx(userInput, "\b[A-Za-z@-.]+\b");
                     email = Main.RemoveQuotesAndSpace(userInput);
                     await Delay(500);
-                    ShowRegMenu(name, surname, password, email, referer, acceptRules);
+                    ShowRegMenu(name, surname, password, email, promocode, referer, acceptRules);
                 }
                 else if (item == refererItem)
                 {
@@ -201,7 +206,17 @@ namespace Client
                     //email = Main.RegEx(userInput, "\b[A-Za-z@-.]+\b");
                     referer = Main.RemoveQuotes(userInput);
                     await Delay(500);
-                    ShowRegMenu(name, surname, password, email, referer, acceptRules);
+                    ShowRegMenu(name, surname, password, email, promocode, referer, acceptRules);
+                }
+                else if (item == promocodeItem)
+                {
+                    HideMenu();
+                    var userInput = await Menu.GetUserInput("Промокод", "", 100);
+                    if (userInput == "NULL") return;
+                    //email = Main.RegEx(userInput, "\b[A-Za-z@-.]+\b");
+                    promocode = Main.RemoveQuotes(userInput);
+                    await Delay(500);
+                    ShowRegMenu(name, surname, password, email, promocode, referer, acceptRules);
                 }
                 else if (item == regButton)
                 {
@@ -230,7 +245,7 @@ namespace Client
                         Notification.Send("Вы не согласились с правилами сервера");
                         return;
                     }
-                    TriggerServerEvent("ARP:RegPlayer", name, surname, password, email, referer, acceptRules);
+                    TriggerServerEvent("ARP:RegPlayer", name, surname, password, email, promocode, referer, acceptRules);
                 }
             };
             
@@ -5138,6 +5153,27 @@ namespace Client
                 SetPedMovementClipset(GetPlayerPed(-1), clipSet, 0);
             };
 
+            menu.AddMenuItem(UiMenu, "Спавн педа").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                
+                Managers.BankGrab.SpawnPed();
+            };
+            
+            menu.AddMenuItem(UiMenu, "Открыть двери хранилища").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+
+                BankGrab.VaultOpen();
+            };
+            
+            menu.AddMenuItem(UiMenu, "тест анимки").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+
+                BankGrab.AnimationTest();
+            };
+
             menu.AddMenuItem(UiMenu, "Взять педа 1").Activated += (uimenu, item) =>
             {
                 HideMenu();
@@ -9259,7 +9295,9 @@ namespace Client
             menu.AddMenuItem(UiMenu, "~b~Навык пилота:~s~").SetRightLabel((User.Data.mp0_flying_ability + 1) + "%");
             menu.AddMenuItem(UiMenu, "~b~Навык стрельбы:~s~").SetRightLabel((User.Data.mp0_shooting_ability + 1) + "%");
             menu.AddMenuItem(UiMenu, "~b~Навык владения консолью:~s~").SetRightLabel((User.Data.mp0_watchdogs + 1) + "%");
-          
+            //if ((User.Data.mp0_watchdogs + 1) == 100 && User.Data.phone_code == 403 && User.Data.s_is_instuctedhowtohack)
+                //menu.AddMenuItem(UiMenu, "~b~Навык взлома охранных систем:~s~").SetRightLabel((User.Data.mp0_hacksecurity + 1) + "%");
+            
             var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
             
@@ -9824,7 +9862,7 @@ namespace Client
                 Chat.SendMeCommand("обыскал человека напротив и изъял оружие");
             };
             
-            /*menu.AddMenuItem(UiMenu, "Взять на руки").Activated += async (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Взять на руки").Activated += async (uimenu, item) =>
             {
                 HideMenu();
                 var player = Main.GetPlayerOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1.5f);
@@ -9836,7 +9874,7 @@ namespace Client
                 TakePed1(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                 
                 
-            };*/
+            };
             
             var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
@@ -11107,6 +11145,7 @@ namespace Client
         {
             string smsList = "<li class=\"collection-item green-text\" act=\"newcont\" tabindex=\"0\">Новый контакт</li>";
             smsList += "<li class=\"collection-item\" act=\"911\" tabindex=\"1\">Экстренная служба<br><label>911</label></li>";
+            smsList += "<li class=\"collection-item\" act=\"jim\" tabindex=\"1\">Джим<br><label>Неизвестно</label></li>";
 
             if (User.IsCartel() && User.Data.rank > 4)
             {
@@ -11186,6 +11225,16 @@ namespace Client
                 Notification.SendWithTime("~b~Сообщение было отправлено");
                 Dispatcher.SendEms("Номер: " + User.Data.phone_code + "-" + User.Data.phone, text);
                 User.StopScenario();
+            };
+            
+            menu.AddMenuItem(UiMenu, "Джим", "~b~Телефон:~s~ Неизвестно").Activated += async (uimenu, item) =>
+            {
+                HideMenu();
+                /*if (Weather.Hour < 22 && Weather.Hour > 6)
+                {
+                    Notification.SendPicture("Набери мне с 22 до 6 утра", "Джим", "Наш маленький секрет", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+                }*/
+                BankGrab.OnPhoneRing();
             };
 
             var list = new List<dynamic> {"Покупка", "Продажа", "Разное"};
@@ -11919,7 +11968,7 @@ namespace Client
                         User.AddCashMoney(money * (100 - nalog - bankTarif) / 100);
                         Coffer.AddMoney(money * nalog / 100);
                         Business.Business.RemoveMoney(data.id, money);
-                        Notification.SendWithTime("~g~Вы сняли деньги с бизнеса с учетом налога ~y~" + nalog + bankTarif + "%");
+                        Notification.SendWithTime("~g~Вы сняли деньги с бизнеса с учетом налога ~y~" + (nalog+bankTarif) + "%");
                         Notification.SendWithTime($"~b~{bankTarif}% от суммы отправлен банку который вас обслуживает");
                     }
                 };
@@ -14840,26 +14889,41 @@ namespace Client
             
             var menu = new Menu();
             UiMenu = menu.Create("Список", "~b~Почётные жители штата");
-
-            menu.AddMenuItem(UiMenu, "Paul Vitti", "Основатель партии GRPA\n(( MilkyWay ))").Activated += (uimenu, item) =>
+            if (Main.ServerName == "MilkyWay")
             {
-                UI.ShowToolTip("Paul Vitti организовал работу правительства. Добился изменения и принятия конституции и законов штата, заложив правовую основу для последующих губернаторов.");
-            };
+                menu.AddMenuItem(UiMenu, "Paul Vitti", "Основатель партии GRPA\n(( MilkyWay ))").Activated += (uimenu, item) =>
+                {
+                    UI.ShowToolTip("Paul Vitti организовал работу правительства. Добился изменения и принятия конституции и законов штата, заложив правовую основу для последующих губернаторов.");
+                };
 
-            menu.AddMenuItem(UiMenu, "Diego Garcia", "Активное участие в соц. жизни штата\n(( MilkyWay ))").Activated += (uimenu, item) =>
-            {
-                UI.ShowToolTip("Diego Garcia внес огромный вклад в развитие социальной жизни Штата, благоустроил и реконструировал район Миррор-Парк за собственные средства и продолжает этим заниматься по сей день.");
-            };
+                menu.AddMenuItem(UiMenu, "Diego Garcia", "Активное участие в соц. жизни штата\n(( MilkyWay ))").Activated += (uimenu, item) =>
+                {
+                    UI.ShowToolTip("Diego Garcia внес огромный вклад в развитие социальной жизни Штата, благоустроил и реконструировал район Миррор-Парк за собственные средства и продолжает этим заниматься по сей день.");
+                };
 
-            menu.AddMenuItem(UiMenu, "Abagail Kovak", "Представитель закона\n(( MilkyWay ))").Activated += (uimenu, item) =>
-            {
-                UI.ShowToolTip("Бывший Шеф SAPD, был награждён Орденом Почёта за долгую и верную службу, а также особые заслуги перед гражданами штата, и занесен в Зал Почёта и Славы Полицейского Департамента штата San Andreas.");
-            };
+                menu.AddMenuItem(UiMenu, "Abagail Kovak", "Представитель закона\n(( MilkyWay ))").Activated += (uimenu, item) =>
+                {
+                    UI.ShowToolTip("Бывший Шеф SAPD, был награждён Орденом Почёта за долгую и верную службу, а также особые заслуги перед гражданами штата, и занесен в Зал Почёта и Славы Полицейского Департамента штата San Andreas.");
+                };
 
-            menu.AddMenuItem(UiMenu, "Tony Costello", "Бизнесмен\n(( MilkyWay ))").Activated += (uimenu, item) =>
+                menu.AddMenuItem(UiMenu, "Tony Costello", "Бизнесмен\n(( MilkyWay ))").Activated += (uimenu, item) =>
+                {
+                    UI.ShowToolTip("Основатель таких компаний как LifeInvader / Premium Deluxe Motors, активное участие в жизни штата, внёс огромный вклад в его экономику.");
+                };
+                menu.AddMenuItem(UiMenu, "Paul Lincoln", "Представитель закона\n(( MilkyWay ))").Activated += (uimenu, item) =>
+                {
+                    UI.ShowToolTip("Директор Федеральной Полиции, Шеф SAPD, первый Глава Генерального Совета, глава Демократической партии Америки");
+                };
+            }
+
+            if (Main.ServerName == "Andromeda")
             {
-                UI.ShowToolTip("Основатель таких компаний как LifeInvader / Premium Deluxe Motors, активное участие в жизни штата, внёс огромный вклад в его экономику.");
-            };
+                menu.AddMenuItem(UiMenu, "None", "На данный момент тут пусто").Activated += (uimenu, item) =>
+                {
+                    UI.ShowToolTip("На данный момент тут пусто");
+                };
+            }
+
             
             var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");

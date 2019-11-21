@@ -38,12 +38,8 @@ namespace Client.Managers
         //===========Больничные Койки============
         //public static Vector3 Koika1Pos = new Vector3(357.2887f, -583.5088f, 42.281f);
         //public static Vector3 Koika1Bed = new Vector3(356.7f, -584.99f, 43.2f);
-
-        
-        
         //=======================================
         
-
         public static readonly Vector3 BankMazeLiftOfficePos = new Vector3(-77.77799f, -829.6542f, 242.3859f);
         public static readonly Vector3 BankMazeLiftStreetPos = new Vector3(-66.66476f, -802.0474f, 43.22729f);
         public static readonly Vector3 BankMazeLiftRoofPos = new Vector3(-67.13605f, -821.9f, 320.2874f);
@@ -65,6 +61,10 @@ namespace Client.Managers
         public static readonly Vector3 MeriaGarderobPos = new Vector3(-1380.995f, -470.7387f, 71.04216f);
         public static readonly Vector3 MeriaHelpPos = new Vector3(-1381.844f, -477.9523f, 71.04205f);
         //public static readonly Vector3 MeriaKeyPos = new Vector3(-1381.507f, -466.2556f, 71.04215f);
+        
+        //--Pacific
+        //public static Vector3 Terminal = new Vector3(253.3081f, 228.4226f, 101.6833f);
+        
         
         public static readonly Vector3 SapdDutyPos = new Vector3(457.5687f, -992.9395f, 29.69f);
         public static readonly Vector3 SapdGarderobPos = new Vector3(455.5185f, -988.6027f, 29.6896f);

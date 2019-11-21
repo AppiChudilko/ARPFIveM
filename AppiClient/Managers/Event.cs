@@ -82,6 +82,7 @@ namespace Client.Managers
             EventHandlers.Add("ARP:ShowContList", new Action(ShowContList));
             EventHandlers.Add("ARP:HidePhone", new Action(HidePhone));
             EventHandlers.Add("ARP:911", new Action(C911));
+            //EventHandlers.Add("ARP:Jim", new Action(BankGrab.OnPhoneRing));
             EventHandlers.Add("ARP:Misterk1", new Action(Misterk1));
             EventHandlers.Add("ARP:Misterk2", new Action(Misterk2));
             EventHandlers.Add("ARP:NewCont", new Action(NewCont));

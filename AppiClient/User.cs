@@ -2522,6 +2522,13 @@ namespace Client
                     TriggerServerEvent("ARP:SendReferrer");
                 }
 
+                if (Data.age == 19 && !IsStringNullOrEmpty(Data.promocode))
+                {
+                    Notification.SendWithTime($"~g~ {Data.referer} поздравляем! Вы достигли 19 лет и получили $25.000");
+                    User.AddMoney(25000);
+                    TriggerServerEvent("ARP:PromocodeCount", Data.promocode);
+                }
+
                 fullMoney = fullMoney + 50;
             }
 
@@ -2966,6 +2973,7 @@ public class PlayerData
     public bool s_is_characher { get; set; }
     public bool s_is_spawn_aprt { get; set; }
     public bool s_is_usehackerphone { get; set; }
+    //public bool s_is_instuctedhowtohack { get; set; }
     public string s_lang { get; set; }
     public string s_clipset { get; set; }
     
@@ -2977,6 +2985,7 @@ public class PlayerData
     public string ip_last { get; set; }
     
     public string referer { get; set; }
+    public string promocode { get; set;  }
     
     public int mp0_stamina { get; set; }
     public int mp0_strength { get; set; }
@@ -2986,6 +2995,9 @@ public class PlayerData
     public int mp0_shooting_ability { get; set; }
     public int mp0_stealth_ability { get; set; }
     public int mp0_watchdogs { get; set; }
+    //public int mp0_hacksecurity { get; set; }
+    
+    //public int ring_num { get; set; }
 
     public int skill_builder { get; set; }
     public int skill_scrap { get; set; }

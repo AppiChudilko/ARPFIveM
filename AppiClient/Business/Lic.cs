@@ -122,6 +122,26 @@ namespace Client.Business
                     }
                     Notification.SendWithTime(Lang.GetTextToPlayer("_lang_70"));
                     break;
+                case 5:
+                    if (!User.Data.heli_lic)
+                    {
+                        if (User.GetMoneyWithoutSync() < 1400)
+                        {
+                            Notification.SendWithTime(Lang.GetTextToPlayer("_lang_15"));
+                            return;
+                        }
+
+                        User.Data.heli_lic = true;
+                        Sync.Data.Set(User.GetServerId(), "heli_lic", true);
+                        
+                        User.RemoveMoney(1400);
+                        Coffer.AddMoney(1400);
+                        
+                        Notification.SendWithTime(Lang.GetTextToPlayer("_lang_69"));
+                        break;
+                    }
+                    Notification.SendWithTime(Lang.GetTextToPlayer("_lang_70"));
+                    break;
             }
         }
     }

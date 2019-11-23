@@ -123,18 +123,18 @@ namespace Client.Managers
             if (User.GetVipStatus() == "none" && User.Data.last_login < User.Data.date_reg + 604800)
                 Notification.SendWithTime("~b~У Ваc активирован VIP Light на 1 неделю");
             await Delay(1500);
-            Notification.Send("~g~Приятной игры на Appi RolePlay :3");
+            Notification.Send("~g~Приятной игры на Alamo RolePlay :3");
         }
         public static async void PlaneDialog()
         {
             await Delay(5000);
-            UI.ShowToolTip("Привет! Добро пожаловать на проект ~b~Appi RolePlay ~s~. Сейчас в этом окне мы в краце расскажем о этом сервере.");
+            UI.ShowToolTip("Привет! Добро пожаловать на проект ~b~Alamo RolePlay ~s~. Сейчас в этом окне мы в краце расскажем о этом сервере.");
             await Delay(20000);
             UI.ShowToolTip("Это ~b~RolePlay~s~ сервер, где необходимо отыгрывать свою роль. Советуем Вам ознакомиться с правилами сервера и посетить наш дискорд ~b~dscrd.in/appi~s~ и сайт ~b~appi-rp.com~s~ на котором есть вся информация по серверу.");
             await Delay(20000);
             UI.ShowToolTip("~b~RolePlay~s~ - это режим который моделирует реальную жизнь, у вашего персонажа есть потребности, возможность иметь различное имущество, вы можете быть как преступником, так и полицейским, а может и обычным гражданским. Всё зависит только от вас.");
             await Delay(25000);
-            UI.ShowToolTip("Самолет скоро приземлится.\nЖелаем вам приятной игры и хорошего настроения на ~b~Appi RolePlay");
+            UI.ShowToolTip("Самолет скоро приземлится.\nЖелаем вам приятной игры и хорошего настроения на ~b~Alamo RolePlay");
         }
         
         private static async Task TickTimer()

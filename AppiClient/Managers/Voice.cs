@@ -86,6 +86,7 @@ namespace Client.Managers
             if (User.Data.s_radio_vol > 0)
                 TriggerEvent("ARPSound:RadioPeer");
         }
+        
 
         public static void RequestPeerFailed(string peer)
         {
@@ -153,6 +154,7 @@ namespace Client.Managers
 
         public static void SetRadioEnable(bool enable)
         {
+            if(User.Data.is_buy_walkietalkie == false ) return;
             _pushToTalkRadio = enable;
             SetMicroEnable(enable);
             var name = $"{Main.ServerName}_pl_{User.GetServerId()}";
@@ -163,7 +165,10 @@ namespace Client.Managers
                 User.PlayAnimation("random@arrests", "generic_radio_chatter");
             else
                 User.StopAnimation();
+            
+            
         }
+       
 
         public static bool IsMicroEnable()
         {
@@ -174,7 +179,7 @@ namespace Client.Managers
         {
             return _pushToTalkRadio;
         }
-
+        
         public static int GetVolume()
         {
             return _volume;

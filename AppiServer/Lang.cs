@@ -135,9 +135,9 @@ namespace Server
                 case "_lang_57":
                     return $"Вы покрасили транспорт. Цена: ~g~${GetParam(0)}";
                 case "_lang_58":
-                    return "Заправка";
+                    return "Заправочная станция";
                 case "_lang_59":
-                    return "Магазин 24/7";
+                    return "Продуктовый магазин";
                 case "_lang_60":
                     return "~r~В инвентаре нет места";
                 case "_lang_61":
@@ -161,7 +161,7 @@ namespace Server
                 case "_lang_70":
                     return "~r~У вас уже есть данная лицензия";
                 case "_lang_71":
-                    return "Пункт аренды транспорта";
+                    return "Аренда велосипедов/мопедов";
                 case "_lang_72":
                     return "Пункт аренды лодок";
                 case "_lang_73":
@@ -266,6 +266,8 @@ namespace Server
                     return "~g~Двигайтесь к следующей остановке";
                 case "_lang_123":
                     return "~r~Вы завершили досрочно свой рейс";
+                case "_lang_132":
+                    return "Ожидайте 5 секунд";
                 /*case "_lang_":
                     return "";
                 case "_lang_":

@@ -44,9 +44,12 @@ namespace Client.Managers
             EventHandlers.Add("ARP:SellBusinessToUserShowMenu", new Action<int, int, string, int>(MenuList.SellBusinessToUserShowMenu));
             EventHandlers.Add("ARP:SellHouseToUserShowMenu", new Action<int, int, string, int>(MenuList.SellHouseToUserShowMenu));
             EventHandlers.Add("ARP:HookupHouseToUserShowMenu", new Action<int, int, string, string>(MenuList.HookupHouseToUserShowMenu));
+            
             EventHandlers.Add("ARP:AcceptSellToUser", new Action<int, int, int>(Vehicle.AcceptSellToUser));
             EventHandlers.Add("ARP:AcceptBuyBusinessToUser", new Action<int>(Business.Business.AcceptBuyBusinessToUser));
             EventHandlers.Add("ARP:AcceptBuyHouseToUser", new Action<int>(House.AcceptBuyHouseToUser));
+            
+            
             
             EventHandlers.Add("ARP:TalkNpc", new Action<int, string, string, string>(TalkNpc));
             EventHandlers.Add("ARP:TalkNpcToNet", new Action<int, string, string, string>(TalkNpcToNet));
@@ -580,7 +583,7 @@ namespace Client.Managers
             }
             
             User.RemoveBankMoney(1000 * User.Data.wanted_level);
-            Notification.SendWithTime("~g~Вы воспользовались услугой, заплавтив: $" + (1000 * User.Data.wanted_level));
+            Notification.SendWithTime("~g~Вы воспользовались услугой, заплатив: $" + (1000 * User.Data.wanted_level));
             Shared.TriggerEventToAllPlayers("ARP:MisterK:ResetWanted:Accept", idFrom, (1000 * User.Data.wanted_level));
             
             Main.SaveLog("Cartel", $"[RESET_WANTED_FINISH] {User.Data.rp_name} {(1000 * User.Data.wanted_level)}");

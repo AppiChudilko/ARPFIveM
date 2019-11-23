@@ -424,7 +424,7 @@ namespace Client.Managers
                         await Delay(15000);
                         Chat.SendChatInfoMessage("Таксист", "Ох... Не знаю что еще и добавить");
                         Chat.SendChatInfoMessage("СПРАВКА", "(( Чтобы воспользоваться справкой нажмите: M - Помощь ))", "BDBDBD");
-                        Chat.SendChatInfoMessage("СПРАВКА", "(( Если есть вопросы по игре пишите в дискорд http://dscrd.in/appi в канал #ask ))", "BDBDBD");
+                        Chat.SendChatInfoMessage("СПРАВКА", "(( Если есть вопросы по игре пишите в дискорд http://dscrd.in/alamo в канал #ask ))", "BDBDBD");
                         break;
                     }
                 }

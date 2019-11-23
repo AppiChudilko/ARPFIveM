@@ -76,7 +76,7 @@ namespace Server.Managers
             EventHandlers.Add("ARP:SendPlayerShowPass", new Action<Player, int>(SendPlayerShowPass));
             EventHandlers.Add("ARP:SendPlayerShowDoc", new Action<Player, int>(SendPlayerShowDoc));
             EventHandlers.Add("ARP:SendPlayerShowGovDoc", new Action<Player, int>(SendPlayerShowGovDoc));
-            EventHandlers.Add("ARP:UpdatePlayerCashDisplay", new Action<int>(UpdateCashDisplay));
+          EventHandlers.Add("ARP:UpdatePlayerCashDisplay", new Action<int>(UpdateCashDisplay));
             EventHandlers.Add("ARP:SendSms", new Action<Player, string, string>(SendSms));
             EventHandlers.Add("ARP:OpenSmsListMenu", new Action<Player, string>(OpenSmsListMenu));
             EventHandlers.Add("ARP:OpenContacntListMenu", new Action<Player, string>(OpenContacntListMenu));
@@ -649,7 +649,7 @@ namespace Server.Managers
                 User.SetVirtualWorld(player, rand.Next(1, 10000));
                 Main.SaveLog("Connect", $"[{GetPlayerEndpoint(player.Handle)}] [Connect] {player.Name} | {User.GetServerId(player)} | {license} | {guid}");
                 
-                deferrals.update("Привет! Добро пожаловать на Appi RolePlay :3");
+                deferrals.update("Привет! Добро пожаловать на Alamo RolePlay :3");
                 await Delay(2500);
                 deferrals.update("Желаем тебе приятной игры c:");
                 await Delay(2500);
@@ -891,7 +891,7 @@ namespace Server.Managers
             string sql = "INSERT INTO ban_list (ban_from, ban_to, count, datetime, format, reason) VALUES ('Server','" + plban + "','10','" + Main.GetTimeStamp() + "','y.','До выяснения (Обратитесь к Appi)')";
             Appi.MySql.ExecuteQuery(sql);
             
-            DropPlayer(pl.Handle, $"[BAN] Check banlist: appi-rp.com");
+            DropPlayer(pl.Handle, $"[BAN] Check banlist: alamo-rp.com");
             Main.SaveLog("ban", $"Server ban {plban} | до выяснения 10y." );
         }
         
@@ -1000,7 +1000,8 @@ namespace Server.Managers
                     data.Add("Права категории А", (bool) row["a_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории B", (bool) row["b_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
-                    data.Add("Авиа лицензия", (bool) row["air_lic"] ? "есть" : "~r~нет");
+                    data.Add("Лицензия на пил. самолёта", (bool) row["air_lic"] ? "есть" : "~r~нет");
+                    data.Add("Лицензия на пил. вертолёта", (bool) row["heli_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
@@ -1009,6 +1010,7 @@ namespace Server.Managers
                     data.Add("Разрешение на охоту", (bool) row["animal_lic"] ? "есть" : "~r~нет");
                     data.Add("Разрешение на рыболовство", (bool) row["fish_lic"] ? "есть" : "~r~нет");
                     data.Add("Мед. страховка", (bool) row["med_lic"] ? "есть" : "~r~нет");
+                    data.Add("Справка о псих. здоровье", (bool) row["psy_lic"] ? "есть" : "~r~нет");
                     data.Add("Рецепт марихуаны", (bool) row["allow_marg"] ? "есть" : "~r~нет");
                     
                     if ((int) Server.Sync.Data.Get(User.GetServerId(player), "mp0_watchdogs") > 98 || User.IsSapd(User.GetServerId(player)))
@@ -1045,12 +1047,14 @@ namespace Server.Managers
                     data.Add("Права категории А", (bool) row["a_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории B", (bool) row["b_lic"] ? "есть" : "~r~нет");
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
-                    data.Add("Авиа лицензия", (bool) row["air_lic"] ? "есть" : "~r~нет");
+                    data.Add("Лицензия на пил. самолёта", (bool) row["air_lic"] ? "есть" : "~r~нет");
+                    data.Add("Лицензия на пил. вертолёта", (bool) row["heli_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия адвоката", (bool) row["law_lic"] ? "есть" : "~r~нет");
                     data.Add("Мед. страховка", (bool) row["med_lic"] ? "есть" : "~r~нет");
+                    data.Add("Справка о псих. здоровье", (bool) row["psy_lic"] ? "есть" : "~r~нет");
                     data.Add("Рецепт марихуаны", (bool) row["allow_marg"] ? "есть" : "~r~нет");
                     
                     if ((int) Server.Sync.Data.Get(User.GetServerId(player), "mp0_watchdogs") > 98 || (User.IsSapd(User.GetServerId(player)) || User.IsSheriff(User.GetServerId(player))))
@@ -1171,7 +1175,7 @@ namespace Server.Managers
             var data = Appi.MySql.ExecuteQueryWithResult("SELECT * FROM log_fraction_vehicle WHERE fraction_id = " + fractionId + " ORDER BY id DESC LIMIT 100").Rows.Cast<DataRow>().ToDictionary(row => ++i + ") " + (string) row["name"] + "|" + Main.UnixTimeStampToDateTimeShort((int) row["timestamp"]), row => (string) row["do"]);
             User.SendToPlayerLogVehicleMenu(player, data);
         }
-    
+       
         protected static void SendPlayerGunLog([FromSource] Player player)
         {
             int fractionId = (int) Server.Sync.Data.Get(User.GetServerId(player), "fraction_id");
@@ -1504,11 +1508,14 @@ namespace Server.Managers
                 data.Add("Права категории B", (bool) Server.Sync.Data.Get(plId, "b_lic") ? "есть" : "~r~нет");
                 data.Add("Права категории C", (bool) Server.Sync.Data.Get(plId, "c_lic") ? "есть" : "~r~нет");
                 data.Add("Авиа лицензия", (bool) Server.Sync.Data.Get(plId, "air_lic") ? "есть" : "~r~нет");
+                data.Add("Лицензия на пил. самолёта", (bool) Server.Sync.Data.Get(plId, "air_lic") ? "есть" : "~r~нет");
+                data.Add("Лицензия на пил. вертолёта", (bool) Server.Sync.Data.Get(plId, "heli_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на водный транспорт", (bool) Server.Sync.Data.Get(plId, "ship_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на оружие", (bool) Server.Sync.Data.Get(plId, "gun_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия таксиста", (bool) Server.Sync.Data.Get(plId, "taxi_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия адвоката", (bool) Server.Sync.Data.Get(plId, "law_lic") ? "есть" : "~r~нет");
                 data.Add("Мед. страховка", (bool) Server.Sync.Data.Get(plId, "med_lic") ? "есть" : "~r~нет");
+                data.Add("Справка о псих. здоровье", (bool) Server.Sync.Data.Get(plId, "psy_lic") ? "есть" : "~r~нет");
                 data.Add("Рецепт марихуаны", (bool) Server.Sync.Data.Get(plId, "allow_marg") ? "есть" : "~r~нет");
                     
                 User.SendToPlayerMenu(pl, Server.Sync.Data.Get(User.GetServerId(player), "rp_name"), "Документы", data);
@@ -1579,7 +1586,7 @@ namespace Server.Managers
             
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Отправлено~s~\nСМС была отправлена получателю");
         }
-    
+        
         protected static void OpenSmsListMenu([FromSource] Player player, string number)
         {
             var data = new Dictionary<string, string>();

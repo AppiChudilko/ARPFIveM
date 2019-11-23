@@ -91,11 +91,11 @@ namespace Client.Managers
                     : "~r~Вы не можете на себя надеть мужскую одежду");
                 return;
             }
-
             dynamic[,] clothList = User.Skin.SEX == 1 ? Cloth.ClothF : Cloth.ClothM;
             Cloth.Buy(0, (int) clothList[keyId, 1], (int) clothList[keyId, 2], number, (int) clothList[keyId, 4], (int) clothList[keyId, 5], (int) clothList[keyId, 6], (int) clothList[keyId, 7], 0, true);
             Characher.UpdateCloth();
             DeleteItemServer(id);
+           
         }
         
         public static void EquipProp(int id, int itemId, int prefix, int number, int keyId)
@@ -303,13 +303,28 @@ namespace Client.Managers
                     Notification.SendWithTime("~g~Вы экипировали ключи от квартиры");
                     DeleteItemServer(id);
                     break;
+                case 47:
+                    if (User.Data.is_buy_walkietalkie)
+                    {
+                        UnEquipItem(itemId);
+                        await Delay(1000);
+                    }
+                    Client.Sync.Data.Set(User.GetServerId(), "is_buy_walkietalkie", true);
+                    User.Data.is_buy_walkietalkie = true;
+                    Client.Sync.Data.Set(User.GetServerId(), "walkietalkie_num", User.Data.walkietalkie_num);
+                    Chat.SendMeCommand("надел рацию");
+                    Shared.TriggerEventToAllPlayers("ARP:PeerRadioUnmute", User.Data.id, User.Data.walkietalkie_num);
+                    TriggerEvent("ARPSound:RadioOn");
+                    
+                    DeleteItemServer(id);
+                    break;
                 case 50:
                     if (User.Data.bank_prefix != 0)
                     {
                         UnEquipItem(itemId);
                         await Delay(1000);
                     }
-                    
+
                     User.Data.bank_number = number;
                     Client.Sync.Data.Set(User.GetServerId(), "bank_number", number);
                     User.Data.bank_prefix = prefix;
@@ -381,11 +396,12 @@ namespace Client.Managers
                 case 265:
                 {
                     dynamic[,] cloth = User.Skin.SEX == 1 ? Cloth.ClothF : Cloth.ClothM;
-                    for (int i = 0; i < cloth.Length / 12; i++)
+                    for (int i = 0; i < cloth.Length; i++)
                     {
                         if ((int) cloth[i, 1] != 11) continue;
                         if ((int) cloth[i, 2] != User.Data.body) continue;
-                        AddItemServer(itemId, 1, InventoryTypes.Player, User.Data.id, 1, User.Skin.SEX, User.Data.body_color, i);
+                        
+                        AddItemServer(265, 1, InventoryTypes.Player, User.Data.id, 1, User.Skin.SEX, User.Data.body_color, i);
                         
                         if (User.Skin.SEX == 0)
                         {
@@ -410,7 +426,6 @@ namespace Client.Managers
                             Client.Sync.Data.Set(User.GetServerId(), "decal_color", 0);
                         }
                         Characher.UpdateCloth();
-                        return;
                         break;
                     }
                     break;
@@ -601,6 +616,15 @@ namespace Client.Managers
                     Client.Sync.Data.Set(User.GetServerId(), "apartment_id", 0);
                     
                     Notification.SendWithTime("~g~Вы убрали ключи от квартиры");
+                    break;
+                case 47:
+                    AddItemServer(47, 1, InventoryTypes.Player, User.Data.id, 1, -1, -1, -1);
+                    
+                    User.Data.is_buy_walkietalkie = false;
+                    Client.Sync.Data.Set(User.GetServerId(), "is_buy_walkietalkie", false);
+                    Notification.SendWithTime("~g~Вы убрали рацию");
+                    Voice.SetRadioEnable(false);
+                    User.StopAnimation();
                     break;
                 case 50:
                     AddItemServer(50, 1, InventoryTypes.Player, User.Data.id, User.Data.money_bank, User.Data.bank_prefix, User.Data.bank_number, -1);

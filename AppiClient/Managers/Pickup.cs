@@ -81,7 +81,7 @@ namespace Client.Managers
         public static readonly Vector3 SapdDutyPos = new Vector3(457.5687f, -992.9395f, 29.69f);
         public static readonly Vector3 SapdGarderobPos = new Vector3(455.5185f, -988.6027f, 29.6896f);
         public static readonly Vector3 SapdArsenalPos = new Vector3(452.057f, -980.2347f, 29.6896f);
-        public static readonly Vector3 SapdClearPos = new Vector3(440.5925f, -975.6348f, 29.69f);
+        public static readonly Vector3 SapdClearPosf = new Vector3(440.5925f, -975.6348f, 29.69f);
         public static readonly Vector3 SapdArrestPos = new Vector3(459.6778f, -989.071f, 23.91487f);
         public static readonly Vector3 SapdToCyberRoomPos = new Vector3(445.4317f, -989.8f, 34.93f);
         public static readonly Vector3 SapdFromCyberRoomPos = new Vector3(445.4317f, -987.8f, 34.93f);
@@ -213,6 +213,13 @@ namespace Client.Managers
         public static readonly Vector3 AutoRepairsPosCarShop = new Vector3(1154.168f, -785.3322f, 56.59872f);
         public static readonly Vector3 AutoRepairsPosCarPos = new Vector3(1150.372f, -776.313f, 56.59872f);
         
+        /*ExoticCars*/
+        public static readonly Vector3 ExoticCarsPos1 = new Vector3(540.368f, -196.6675f, 53.4903f);
+        public static readonly Vector3 ExoticCarsPos2 = new Vector3(542.0957f, -196.6553f, 53.48984f);
+        public static readonly Vector3 ExoticCarsPosShop = new Vector3(544.283f, -198.9674f, 53.48359f);
+        public static readonly Vector3 ExoticCarsPosCarShop = new Vector3(548.5602f, -172.7322f, 53.48133f);
+        public static readonly Vector3 ExoticCarsPosCarPos = new Vector3(538.6563f, -176.844f, 54.06823f);
+        
         /*Eat Prison*/
         public static readonly Vector3 EatPrisonPos = new Vector3(1753.543f, 2566.54f, 44.56501f);
         
@@ -341,6 +348,13 @@ namespace Client.Managers
             Checkpoint.Create(AutoRepairsPosCarShop, 1.4f, "show:menu");
             Marker.Create(AutoRepairsPosCarPos, 4f, 0.3f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(AutoRepairsPosCarPos, 4.4f, "ar:info");
+            
+            //ExoticCars
+            Marker.Create(ExoticCarsPosShop, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(ExoticCarsPosShop, 1.4f, "show:menu");
+            Marker.Create(ExoticCarsPosCarShop, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(ExoticCarsPosCarShop, 1.4f, "show:menu");
+            Checkpoint.Create(ExoticCarsPosCarPos, 4.4f, "ar:info");
             
             //Eat Prison
             Marker.Create(EatPrisonPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -544,8 +558,8 @@ namespace Client.Managers
             Marker.Create(StockSheriffPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(StockSheriffPos, 1.4f, "show:menu");
             
-            Marker.Create(SapdClearPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
-            Checkpoint.Create(SapdClearPos, 1.4f, "show:menu");
+            Marker.Create(SapdClearPosf, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(SapdClearPosf, 1.4f, "show:menu");
             
             Marker.Create(SapdArrestPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SapdArrestPos, 1.4f, "show:menu");
@@ -611,6 +625,11 @@ namespace Client.Managers
             Checkpoint.Create(AutoRepairsPos1, 1.4f, "pickup:teleport:menu");
             Marker.Create(AutoRepairsPos2, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
             Checkpoint.Create(AutoRepairsPos2, 1.4f, "pickup:teleport:menu");
+            
+            Marker.Create(ExoticCarsPos1, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
+            Checkpoint.Create(ExoticCarsPos1, 1.4f, "pickup:teleport:menu");
+            Marker.Create(ExoticCarsPos2, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
+            Checkpoint.Create(ExoticCarsPos2, 1.4f, "pickup:teleport:menu");
             
             //Apart
             Marker.Create(Apart0GaragePos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -1048,6 +1067,11 @@ namespace Client.Managers
             if (Main.GetDistanceToSquared(AutoRepairsPos1, playerPos) < DistanceCheck)
                 User.Teleport(AutoRepairsPos2);
             
+            if (Main.GetDistanceToSquared(ExoticCarsPos1, playerPos) < DistanceCheck)
+                User.Teleport(ExoticCarsPos2);
+            if (Main.GetDistanceToSquared(ExoticCarsPos2, playerPos) < DistanceCheck)
+                User.Teleport(ExoticCarsPos1);
+            
             /*Other*/
             if (Main.GetDistanceToSquared(Ems1OutPos, playerPos) < DistanceCheck)
                 User.Teleport(Ems1InPos);
@@ -1332,6 +1356,10 @@ namespace Client.Managers
                 MenuList.ShowAutoRepairShopMenu(125);
             if (Main.GetDistanceToSquared(AutoRepairsPosCarShop, playerPos) < DistanceCheck)
                 MenuList.ShowAutoRepairCarListShopMenu(125);
+            if (Main.GetDistanceToSquared(ExoticCarsPosShop, playerPos) < DistanceCheck)
+                MenuList.ShowAutoRepairShopMenu(87);
+            if (Main.GetDistanceToSquared(ExoticCarsPosCarShop, playerPos) < DistanceCheck)
+                MenuList.ShowAutoRepairCarListShopMenu(87);
             if (Main.GetDistanceToSquared(EatPrisonPos, playerPos) < DistanceCheck)
             {
                 User.SetWaterLevel(100);
@@ -1380,7 +1408,7 @@ namespace Client.Managers
                     if (Main.GetDistanceToSquared(SapdArsenalPos, playerPos) < DistanceCheck)
                         MenuList.ShowSapdArsenalMenu();
                     
-                    if (Main.GetDistanceToSquared(SapdClearPos, playerPos) < DistanceCheck)
+                    if (Main.GetDistanceToSquared(SapdClearPosf, playerPos) < DistanceCheck)
                         MenuList.ShowSapdClearOrUnjailMenu();
                     
                     if (Main.GetDistanceToSquared(SapdArrestPos, playerPos) < DistanceCheck)

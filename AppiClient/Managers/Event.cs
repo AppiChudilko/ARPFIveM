@@ -414,9 +414,38 @@ namespace Client.Managers
             TriggerServerEvent("ARP:OpenContacntListMenu", User.Data.phone_code + "-" + User.Data.phone);
         }
 
-        public static void HidePhone()
+        public static async void HidePhone()
         {
-            User.StopScenario();
+            if(!User.inPhone)
+                return;
+            User.inPhone = false;
+            var inAnim = "cellphone_text_in";
+            var outAnim = "cellphone_text_out";
+            var idleAnim = "cellphone_text_read_base";
+            
+            var phoneModel = (uint) GetHashKey("prop_npc_phone_02");
+
+            var phoneProp =
+                GetClosestObjectOfType(254.135f, 225.165f, 101.876f, 10.0f, phoneModel, false, false, false);
+            
+            if(User.IsDead())
+                return;
+
+            var dict = "cellphone@";
+            if (IsPedInAnyVehicle(GetPlayerPed(-1), false))
+                dict = dict + "in_car@ds";
+            
+            RequestAnimDict(dict);
+            while (!HasAnimDictLoaded(dict))
+                await Delay(10);
+
+            StopAnimTask(GetPlayerPed(-1), dict, inAnim, 1.0f);
+            TaskPlayAnim(GetPlayerPed(-1), dict, outAnim, 5.0f, -1, -1, 50, 0, false, false, false);
+
+            await Delay(700);
+            DeleteEntity(ref User.PhoneProp);
+            await Delay(500);
+            StopAnimTask(GetPlayerPed(-1), dict, outAnim, 1.0f);
         }
 
         public static void DeleteObject(int netId)

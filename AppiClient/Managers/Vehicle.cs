@@ -1399,7 +1399,7 @@ namespace Client.Managers
             var v = new CitizenFX.Core.Vehicle(vehicle); 
             string className = VehInfo.GetClassName(v.Model.Hash);
             if (className == "Helicopters" || className == "Planes" || className == "Boats" ||
-                className == "Motorcycles") return false;
+                className == "Motorcycles" || className == "Cycles") return false;
             return v.Rotation.X > 90 || v.Rotation.X < -90 || v.Rotation.Y > 90 || v.Rotation.Y < -90 || v.IsInAir;
         }
         

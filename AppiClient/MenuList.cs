@@ -8377,12 +8377,18 @@ namespace Client
                 User.SetWaypoint(-33.62676f, -154.6508f);
             };
 
-            menu.AddMenuItem(UiMenu, "Auto Repairs Mirror Park", "Починка личного транспорта").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Auto Repairs", "Починка личного транспорта").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 User.SetWaypoint(Managers.Pickup.AutoRepairsPosCarPos.X, Managers.Pickup.AutoRepairsPosCarPos.Y);
             };
 
+            menu.AddMenuItem(UiMenu, "Exotic Cars", "Починка личного транспорта").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                User.SetWaypoint(Managers.Pickup.ExoticCarsPosCarPos.X, Managers.Pickup.ExoticCarsPosCarPos.Y);
+            };
+            
             menu.AddMenuItem(UiMenu, "Аавтомойка").Activated += (uimenu, item) =>
             {
                 HideMenu();
@@ -10496,6 +10502,7 @@ namespace Client
                                 User.UnTieKnife();
                             };
                         }
+
                         if (itemId == 7 || itemId == 63)
                         {
                             menu.AddMenuItem(UiMenu, "~g~Использовать").Activated += (uimenu, item) =>
@@ -10504,6 +10511,7 @@ namespace Client
                                 Managers.Inventory.UseItem(id, itemId, 1);
                             };
                         }
+
                         menu.AddMenuItem(UiMenu, "~g~Экипировать").Activated += (uimenu, item) =>
                         {
                             HideMenu();
@@ -10530,7 +10538,7 @@ namespace Client
                                 itemId == 142 || itemId == 143 || itemId == 144 || itemId == 145 ||
                                 itemId == 163 || itemId == 164 || itemId == 165 || itemId == 166 ||
                                 itemId == 167 || itemId == 168 || itemId == 169 || itemId == 170
-                                )
+                            )
                             {
                                 if (countItems >= 10)
                                 {
@@ -10571,14 +10579,18 @@ namespace Client
                         }
                         else
                         {
-                            menu.AddMenuItem(UiMenu, "~g~Использовать").Activated += (uimenu, item) =>
+                            if (itemId != 195 || itemId != 196 || itemId != 197 || itemId != 198 || itemId != 199 ||
+                                itemId != 200 || itemId != 201 || itemId != 202 || itemId != 203)
                             {
-                                HideMenu();
-                                Managers.Inventory.UseItem(id, itemId, 1);
-                            };
+                                menu.AddMenuItem(UiMenu, "~g~Использовать").Activated += (uimenu, item) =>
+                                {
+                                    HideMenu();
+                                    Managers.Inventory.UseItem(id, itemId, 1);
+                                };
+                            }
                         }
                     }
-                    
+
                     if (itemId == 140 || itemId == 141)
                     {
                         menu.AddMenuItem(UiMenu, "~g~Посчитать").Activated += (uimenu, item) =>
@@ -10587,6 +10599,7 @@ namespace Client
                             Notification.SendWithTime($"~g~В пачке ${countItems:#,#}");
                         };
                     }
+
                     if ((itemId >= 146 && itemId <= 153) || (itemId >= 27 && itemId <= 30))
                     {
                         menu.AddMenuItem(UiMenu, "~g~Посчитать").Activated += (uimenu, item) =>
@@ -10595,32 +10608,41 @@ namespace Client
                             Notification.SendWithTime($"~g~В коробке {countItems:#,#}пт.");
                         };
                     }
+
                     menu.AddMenuItem(UiMenu, "~y~Передать").Activated += (uimenu, item) =>
                     {
                         HideMenu();
-                        ShowPlayerGiveInvItemMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), id, itemId);
+                        ShowPlayerGiveInvItemMenu(
+                            Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), id, itemId);
                     };
                     menu.AddMenuItem(UiMenu, "~y~Положить в транспорт").Activated += (uimenu, item) =>
                     {
                         HideMenu();
                         var vehList = Main.GetVehicleListOnRadius(plPos, 5f);
-                        ShowInvVehDropMenu(vehList.Select(vehItem => Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).ToList(), id, itemId, prefix, number, keyId, countItems);
+                        ShowInvVehDropMenu(
+                            vehList.Select(vehItem => Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).ToList(), id,
+                            itemId, prefix, number, keyId, countItems);
                     };
 
-                    if (User.IsSapd() && Main.GetDistanceToSquared(Managers.Pickup.StockSapdPos, plPos) < Managers.Pickup.DistanceCheck)
+                    if (User.IsSapd() && Main.GetDistanceToSquared(Managers.Pickup.StockSapdPos, plPos) <
+                        Managers.Pickup.DistanceCheck)
                     {
                         menu.AddMenuItem(UiMenu, "~y~Положить на склад").Activated += (uimenu, item) =>
                         {
                             HideMenu();
-                            Managers.Inventory.DropItemToStockGang(id, itemId, User.IsSapd() ? 2 : User.Data.fraction_id);
+                            Managers.Inventory.DropItemToStockGang(id, itemId,
+                                User.IsSapd() ? 2 : User.Data.fraction_id);
                         };
                     }
-                    if (User.IsSheriff() && Main.GetDistanceToSquared(Managers.Pickup.StockSheriffPos, plPos) < Managers.Pickup.DistanceCheck)
+
+                    if (User.IsSheriff() && Main.GetDistanceToSquared(Managers.Pickup.StockSheriffPos, plPos) <
+                        Managers.Pickup.DistanceCheck)
                     {
                         menu.AddMenuItem(UiMenu, "~y~Положить на склад").Activated += (uimenu, item) =>
                         {
                             HideMenu();
-                            Managers.Inventory.DropItemToStockGang(id, itemId, User.IsSheriff() ? 7 : User.Data.fraction_id);
+                            Managers.Inventory.DropItemToStockGang(id, itemId,
+                                User.IsSheriff() ? 7 : User.Data.fraction_id);
                         };
                     }
 
@@ -10633,7 +10655,7 @@ namespace Client
                             Managers.Inventory.DropItemToFridge(id, itemId, kitchenId);
                         };
                     }
-                    
+
                     if (User.GetPlayerVirtualWorld() > 50000)
                     {
                         menu.AddMenuItem(UiMenu, "~y~Положить на склад").Activated += (uimenu, item) =>
@@ -10644,13 +10666,37 @@ namespace Client
                         };
                     }
                     
+                    
+                        
                     if (User.GetPlayerVirtualWorld() == 0)
                     {
-                        menu.AddMenuItem(UiMenu, "~o~Выкинуть на землю").Activated += (uimenu, item) =>
+                        if (Inventory.ItemList[itemId, 5] < 500)
                         {
-                            HideMenu();
-                            Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true));
-                        };
+                            menu.AddMenuItem(UiMenu, "~o~Выкинуть").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true), true);
+                            };
+                        }
+
+                        if (itemId == 194 || itemId == 195 || itemId == 196 || itemId == 197 || itemId == 198 || itemId == 199
+                            || itemId == 203 || itemId == 202 || itemId == 200 || itemId == 201)
+                        {
+                            menu.AddMenuItem(UiMenu, "~o~Поставить на землю").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true), false);
+                            };
+                        }
+                        else
+                        {
+                            menu.AddMenuItem(UiMenu, "~o~Положить на землю").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                User.PlayAnimation("pickup_object","pickup_low", 8);
+                                Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true), false);
+                            };
+                        }
                     }
                 }
                 else
@@ -10767,11 +10813,33 @@ namespace Client
                     }
                     if (User.GetPlayerVirtualWorld() == 0 && ownerType != InventoryTypes.World)
                     {
-                        menu.AddMenuItem(UiMenu, "~o~Выкинуть на землю").Activated += (uimenu, item) =>
+                        if (Inventory.ItemList[itemId, 5] < 500)
                         {
-                            HideMenu();
-                            Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true));
-                        };
+                            menu.AddMenuItem(UiMenu, "~o~Выкинуть").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true), true);
+                            };
+                        }
+
+                        if (itemId == 194 || itemId == 195 || itemId == 196 || itemId == 197 || itemId == 198 || itemId == 199
+                            || itemId == 203 || itemId == 202 || itemId == 200 || itemId == 201)
+                        {
+                            menu.AddMenuItem(UiMenu, "~o~Поставить на землю").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true), false);
+                            };
+                        }
+                        else
+                        {
+                            menu.AddMenuItem(UiMenu, "~o~Положить на землю").Activated += (uimenu, item) =>
+                            {
+                                HideMenu();
+                                User.PlayAnimation("pickup_object","pickup_low", 8);
+                                Managers.Inventory.DropItem(id, itemId, GetEntityCoords(GetPlayerPed(-1), true), false);
+                            };
+                        }
                     }
                 }
             }
@@ -10901,6 +10969,10 @@ namespace Client
                 return;
             }
             
+            if (User.inPhone)
+            {
+                return;
+            }
             User.PlayPhoneAnimation();
             TriggerEvent("ARPPhone:Show");
             return;
@@ -11274,7 +11346,7 @@ namespace Client
         {
             string smsList = "<li class=\"collection-item green-text\" act=\"newcont\" tabindex=\"0\">Новый контакт</li>";
             smsList += "<li class=\"collection-item\" act=\"911\" tabindex=\"1\">Экстренная служба<br><label>911</label></li>";
-            smsList += "<li class=\"collection-item\" act=\"jim\" tabindex=\"1\">Джим<br><label>Неизвестно</label></li>";
+            //smsList += "<li class=\"collection-item\" act=\"jim\" tabindex=\"1\">Джим<br><label>Неизвестно</label></li>";
 
             if (User.IsCartel() && User.Data.rank > 4)
             {
@@ -11356,15 +11428,14 @@ namespace Client
                 User.StopScenario();
             };
             
-            menu.AddMenuItem(UiMenu, "Джим", "~b~Телефон:~s~ Неизвестно").Activated += async (uimenu, item) =>
+            /*menu.AddMenuItem(UiMenu, "Джим", "~b~Телефон:~s~ Неизвестно").Activated += async (uimenu, item) =>
             {
                 HideMenu();
-                /*if (Weather.Hour < 22 && Weather.Hour > 6)
+                if (Weather.Hour < 22 && Weather.Hour > 6)
                 {
                     Notification.SendPicture("Набери мне с 22 до 6 утра", "Джим", "Наш маленький секрет", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
-                }*/
-                BankGrab.OnPhoneRing();
-            };
+                }
+            };*/
 
             var list = new List<dynamic> {"Покупка", "Продажа", "Разное"};
 
@@ -14375,7 +14446,10 @@ namespace Client
             HideMenu();
             
             var menu = new Menu();
-            UiMenu = menu.Create("Auto Repairs", "~b~Магазин");
+            if(shopId == 125)
+                UiMenu = menu.Create("Auto Repairs", "~b~Магазин");
+            if(shopId == 87)
+                UiMenu = menu.Create("Exotic Cars", "~b~Магазин");
 
             menu.AddMenuItem(UiMenu, "Отмычка", $"Цена: ~g~$10").Activated += async (uimenu, item) =>
             {
@@ -14407,11 +14481,60 @@ namespace Client
                 Business.Shop.Buy(6, 240, shopId);
             };
             
+            menu.AddMenuItem(UiMenu, "Лом", $"Цена: ~g~$95").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(58, 95, shopId);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Фонарик", $"Цена: ~g~$30").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(59, 30, shopId);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Молоток", $"Цена: ~g~$50").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(61, 50, shopId);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Топорик", $"Цена: ~g~$120").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(62, 120, shopId);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Разводной ключ", $"Цена: ~g~$80").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(67, 80, shopId);
+            };
+            
             menu.AddMenuItem(UiMenu, "Моторное масло", $"Цена: ~g~$50").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Business.Shop.Buy(5, 50, shopId);
             };
+            
+            menu.AddMenuItem(UiMenu, "Красный конус", $"Цена: ~g~$60").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(202, 60, shopId);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Полосатый конус", $"Цена: ~g~$70").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(201, 70, shopId);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Длинный полосатый конус", $"Цена: ~g~$100").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(200, 100, shopId);
+            };
+            
             
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
             
@@ -14429,7 +14552,10 @@ namespace Client
             HideMenu();
             
             var menu = new Menu();
-            UiMenu = menu.Create("Auto Repairs", "~b~Магазин");
+            if(shopId == 125)
+                UiMenu = menu.Create("Auto Repairs", "~b~Магазин");
+            if(shopId == 87)
+                UiMenu = menu.Create("Exotic Cars", "~b~Магазин");
   
             foreach (var vehData in Managers.Vehicle.VehicleInfoGlobalDataList)
             {
@@ -14594,10 +14720,21 @@ namespace Client
         {
             HideMenu();
             
-            var vehList = Main.GetVehicleListOnRadius(Managers.Pickup.AutoRepairsPosCarPos, 4f);
+            var vehList = Main.GetVehicleListOnRadius(new Vector3(0,0,0), 4f);
+            
             var menu = new Menu();
-            UiMenu = menu.Create("Auto Repairs", "~b~Ремонт");
-
+            
+            if (shopId == 125)
+            {
+                vehList = Main.GetVehicleListOnRadius(Managers.Pickup.AutoRepairsPosCarPos, 4f);
+                UiMenu = menu.Create("Auto Repairs", "~b~Ремонт");
+            }
+            if (shopId == 87)
+            {
+                vehList = Main.GetVehicleListOnRadius(Managers.Pickup.ExoticCarsPosCarPos, 4f);
+                UiMenu = menu.Create("Exotic Cars", "~b~Ремонт");
+            }
+            
             foreach (var vehItem in vehList)
             {
                 menu.AddMenuItem(UiMenu, "~b~Номер авто:~s~ " + Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).Activated += (uimenu, index) =>
@@ -14617,6 +14754,7 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        
         
         
         public static void ShowAptekaMenu(int shopId)
@@ -20343,6 +20481,11 @@ namespace Client
                 //F10
                 if ((Game.IsControlJustPressed(0, (Control) 57) || Game.IsDisabledControlJustPressed(0, (Control) 57)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //E
                 {
+                    if (User.inPhone)
+                    {
+                        TriggerEvent("ARP:HidePhone");
+                        return;
+                    }
                     User.StopAnimation();
                     User.StopScenario();
                 }

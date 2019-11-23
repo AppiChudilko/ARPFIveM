@@ -49,6 +49,9 @@ namespace Client
         public static bool IsRpAnim = false;
         public static bool healing = false;
         
+        public static int PhoneProp = 0;
+        public static bool inPhone = false;
+        
         private static string _currentScenario = "";
         
         public User()
@@ -1890,10 +1893,45 @@ namespace Client
             PlayAnimation("move_m@drunk@transitions", "slightly_to_idle", 8);
         }
 
-        public static void PlayPhoneAnimation()
+        public static async void PlayPhoneAnimation()
         {
-            if (!IsPedUsingScenario(GetPlayerPed(-1), "WORLD_HUMAN_STAND_MOBILE"))
-                PlayScenario("WORLD_HUMAN_STAND_MOBILE");
+            inPhone = true;
+            var phoneModel = (uint) GetHashKey("prop_npc_phone_02");
+
+            var coords = GetEntityCoords(GetPlayerPed(-1), true);
+            var inAnim = "cellphone_text_in";
+            var outAnim = "cellphone_text_out";
+            var idleAnim = "cellphone_text_read_base";
+            
+            RequestModel(phoneModel);
+            while (!HasModelLoaded(phoneModel))
+                await Delay(1);
+            
+            PhoneProp = CreateObject((int) phoneModel, 1.0f, 1.0f, 1.0f, true, true, false);
+            
+            var bone = GetPedBoneIndex(GetPlayerPed(-1), 28422);
+            var dict = "cellphone@";
+            
+            if (IsPedInAnyVehicle(GetPlayerPed(-1), false))
+                dict = dict + "in_car@ds";
+
+            RequestAnimDict(dict);
+            while(!HasAnimDictLoaded(dict))
+                await Delay(1);
+
+
+            TaskPlayAnim(GetPlayerPed(-1), dict, inAnim, 4.0f, -1, -1, 48, 0, false, false, false);
+            await Delay(157);
+            
+            AttachEntityToEntity(PhoneProp, GetPlayerPed(-1), bone, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, true, true,
+                false, false, 2, true);
+            
+            if(IsDead())
+                return;
+
+            TaskPlayAnim(GetPlayerPed(-1), dict, idleAnim, 1.0f, -1, -1, 49, 0, false, false, false);
+            /*if (!IsPedUsingScenario(GetPlayerPed(-1), "WORLD_HUMAN_STAND_MOBILE"))
+                PlayScenario("WORLD_HUMAN_STAND_MOBILE");*/
         }
 
         public static async void PlayAnimation(string name, string name2, int flag = 49)

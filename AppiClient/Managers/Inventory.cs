@@ -1617,9 +1617,31 @@ namespace Client.Managers
             }
         }
         
-        public static void DropItem(int id, int itemId, Vector3 pos)
+        public static void DropItem(int id, int itemId, Vector3 pos, bool isDrop)
         {
-            Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X, pos.Y, pos.Z - 0.95);
+            CitizenFX.Core.Ped ped = new CitizenFX.Core.Ped(GetPlayerPed(-1));
+            
+            if (itemId == 194 || itemId == 198)
+            {
+                Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (1),pos.Y + Cos(ped.Rotation.Z) * (1) , pos.Z - 0.9);
+                return;
+            }
+            
+            if (itemId == 195 || itemId == 196 || itemId == 197 || itemId == 199 || itemId == 203 || itemId == 202 || itemId == 200 || itemId == 201)
+            {
+                Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (0.5),pos.Y + Cos(ped.Rotation.Z) * (0.5) , pos.Z - 0.9);
+                return;
+            }
+            
+            if (isDrop)
+            {
+                Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (0.25),pos.Y + Cos(ped.Rotation.Z) * (0.25) , pos.Z);
+                return;
+            }
+            
+
+            
+            Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (0.25),pos.Y + Cos(ped.Rotation.Z) * (0.25) , pos.Z - 0.95);
         }
 
         public static async void TakeNewItem(int itemId, int count = 1)
@@ -2330,9 +2352,13 @@ namespace Client.Managers
             var model = Client.Inventory.GetItemHashById(itemId);
             var prop = await Objects.CreateObjectLocally(model, itemPos, new Vector3(0, 0, 0), true);		    
 
+            if (itemId == 195 || itemId == 196 || itemId == 197 || itemId == 198 || itemId == 199 )
+                SetEntityHeading(prop.Handle, GetEntityRotationVelocity(GetPlayerPed(-1)).Z - 90);
+            
             prop.HasGravity = true;
             prop.ApplyForce(itemPos + new Vector3(0, 0, 0.1f), new Vector3(), ForceType.ForceNoRot);
-
+                
+            
             await Delay(1500);
             
             InventoryData objData = new InventoryData

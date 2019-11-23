@@ -12,7 +12,7 @@ namespace Client.Business
         public static double[,] NumberMarkers =
         {
             { -38.85731, -1082.644, 25.42234, 86, -33.4645, -1089.276, 26.00986 }, //Simon / Premium Delux Motorsport
-            { 548.5602, -172.7322, 53.48133, 87, 538.6563, -176.844, 54.06823 }, //Vinewood / Rent Exotic
+            //{ 548.5602, -172.7322, 53.48133, 87, 538.6563, -176.844, 54.06823 }, //Vinewood / Rent Exotic
         };
         
         public static void CreatePickups()

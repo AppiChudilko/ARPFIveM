@@ -55,6 +55,30 @@ namespace Client.Managers
             if (WeatherTemp > -99)
                 Weather.Temp = WeatherTemp;
             
+            if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 20)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 5F);
+            }
+            else if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 40)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 4F);
+            }
+            else if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 80)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 3F);
+            }
+            else if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 98)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 2F);
+            }
+            if (IsPedShooting(GetPlayerPed(-1)))
+            {
+                await Delay (5000);
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 0F);
+            }
+
+
+
             UI.DrawAdditionalHud();
             
             if (MenuList.UiMenu != null)
@@ -403,7 +427,9 @@ namespace Client.Managers
                 {
                     User.Data.mp0_shooting_ability++;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_shooting_ability", User.Data.mp0_shooting_ability);
+                    //ShakeGameplayCam("VIBRATE_SHAKE", 10F);
                 }
+                
           
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Client.Sync.Data.Set(User.Data.id, "qposX", pos.X);
@@ -575,6 +601,8 @@ namespace Client.Managers
                 if (!Client.Sync.Data.HasLocally(0, hash.ToString()) && name != "Unarmed")
                     RemoveWeaponFromPed(GetPlayerPed(-1), hash);
             }
+            
+           
             
             //NetworkSetVoiceChannel(User.GetPlayerVirtualWorld());
             /*NetworkSetTalkerProximity(5f);

@@ -126,7 +126,6 @@ namespace Client
             var refererItem = menu.AddMenuItem(UiMenu, "Ник пригласившего (Через пробел)", referer != "" ? $"~b~Пригласивший:~s~ {referer}" : $"~b~Пригласивший:~s~ ~r~нет");
             var acceptRulesItem = menu.AddCheckBoxItem(UiMenu, "Согласен с правилами сервера", acceptRules, "https://alamo-rp.com/newbie");
             var promocodeItem = menu.AddMenuItem(UiMenu, "Промокод", promocode != "" ? $"~b~Промокод:~s~ {promocode}" : $"~b~Промокод:~s~ ~r~нет");
-            var acceptRulesItem = menu.AddCheckBoxItem(UiMenu, "Согласен с правилами сервера", acceptRules, "https://alamo-rp.com/newbie");
             var regButton = menu.AddMenuItem(UiMenu, "~g~Регистрация");
             var authButton = menu.AddMenuItem(UiMenu, "~y~Авторизация", "Перейти к авторизации");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть и выйти");

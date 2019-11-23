@@ -196,7 +196,7 @@ namespace Client
         public static double[,] RentCarMarkers =
         {
             { -40.93587, -1081.907, 25.63692, 86, -47.22956, -1081.951, 26.34948 }, //Simon / Premium Delux Motorsport
-            { 551.2614, -203.3638, 53.39468, 87, 548.0169, -207.9812, 53.52542}, //Vinewood / Rent Exotic
+            //{ 551.2614, -203.3638, 53.39468, 87, 548.0169, -207.9812, 53.52542}, //Vinewood / Rent Exotic
             { -789.7569, -1451.667, 0.5952171, 88, -791.1743, -1446.605, 0.3094352}, //Rent Boat
             { -1127.256, -2862.057, 12.9462, 89, -1145.945, -2864.172, 13.84849}, //Rent Heli
             { -704.2238, -1398.512, 4.495285, 90, -724.9426, -1443.191, 4.903039}, //Rent Heli Vespuchi
@@ -514,7 +514,7 @@ namespace Client
                 if (GetDistanceToSquared(playerPos, shopPos) > 1.2f) continue;
 
                 int playerVw = User.GetPlayerVirtualWorld();
-                if (!User.IsAdmin())
+                /*if (!User.IsAdmin())
                 {
                     if (playerVw < 0 && playerVw * -1 != User.Data.apartment_id)
                     {
@@ -528,7 +528,7 @@ namespace Client
                             Managers.Notification.SendWithTime("~r~Вы должны быть в своём доме");
                         return 0;
                     }
-                }
+                }*/
 
                 int kitchenId = User.GetPlayerVirtualWorld();
 
@@ -851,7 +851,13 @@ namespace Client
             blip.IsShortRange = true;
             blip.Scale = 0.8f;
             
-            //TODO Добавить новых блипов, Позже. (Банки, и прочее)
+            blip = World.CreateBlip(Managers.Pickup.ExoticCarsPosCarPos);
+            blip.Sprite = (BlipSprite) 402;
+            blip.Name = "Exotic Cars";
+            blip.IsShortRange = true;
+            blip.Scale = 0.8f;
+
+                //TODO Добавить новых блипов, Позже. (Банки, и прочее)
             
             blip = World.CreateBlip(new Vector3(235.5093f, 216.8752f, 106.2867f));
             blip.Sprite = (BlipSprite) 374;

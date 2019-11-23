@@ -177,7 +177,7 @@ namespace Client
                 case "_lang_78":
                     return "~r~У Вас нет лицензии категории B";
                 case "_lang_79":
-                    return "~r~У Вас нет лицензии таксиста";
+                    return "~r~У Вас нет прав категории D";
                 case "_lang_80":
                     return $"~g~Вы купили телефон\nВаш номер: {GetParam(0)}";
                 case "_lang_81":
@@ -195,7 +195,7 @@ namespace Client
                 case "_lang_87":
                     return "~r~У Вас нет ~g~$50";
                 case "_lang_88":
-                    return "~g~Вы получили лицензию таксиста";
+                    return "~g~Вы получили права категории D";
                 case "_lang_89":
                     return "~y~Зачем Вам временная регистрация? O_o";
                 case "_lang_90":

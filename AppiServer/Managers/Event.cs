@@ -25,7 +25,7 @@ namespace Server.Managers
             EventHandlers.Add("ARP:BlackListPlayerServerId", new Action<Player, int, string>(BlackListPlayerServerId));
 
             EventHandlers.Add("ARP:LoginPlayer", new Action<Player, string, string>(Login));
-            EventHandlers.Add("ARP:RegPlayer", new Action<Player, string, string, string, string, string, bool>(Register));
+            EventHandlers.Add("ARP:RegPlayer", new Action<Player, string, string, string, string, string, string, bool>(Register));
             EventHandlers.Add("ARP:SendLog", new Action<string, string>(SendLog));
             EventHandlers.Add("ARP:SetVirtualWorld", new Action<Player, int>(SetVirtualWorld));
             EventHandlers.Add("ARP:PlayerFinishLoad", new Action<Player>(PlayerFinishLoad));
@@ -688,6 +688,8 @@ namespace Server.Managers
             Appi.MySql.ExecuteQuery("UPDATE users SET is_online='0' WHERE id = '" + Convert.ToInt32(Server.Sync.Data.Get(User.GetServerId(player), "id")) + "'");
             Save.UserAccount(player);
             Main.SaveLog("Connect", $"[{GetPlayerEndpoint(player.Handle)}] [Disconnect] " + player.Name + " " + kickReason);
+            //if ()
+                //Main.SaveLog("LeaveInAgony", $"{playerName}");
         }
     
         protected static async void PlayerFinishLoad([FromSource]Player player)
@@ -1002,9 +1004,9 @@ namespace Server.Managers
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на пил. самолёта", (bool) row["air_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на пил. вертолёта", (bool) row["heli_lic"] ? "есть" : "~r~нет");
+                    data.Add("Права категории D", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
-                    data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия адвоката", (bool) row["law_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия бизнес", (bool) row["biz_lic"] ? "есть" : "~r~нет");
                     data.Add("Разрешение на охоту", (bool) row["animal_lic"] ? "есть" : "~r~нет");
@@ -1019,6 +1021,9 @@ namespace Server.Managers
                         data.Add("Розыск", $"{((int) row["wanted_level"] > 0 ? "Да" : "Нет")}");
                         if ((int) row["wanted_level"] > 0)
                             data.Add("Причина розыска", $"{row["wanted_reason"]}");
+                        data.Add("Номер дома", $"{row["id_house"]}");
+                        data.Add("Апартаменты", $"{row["apartment_id"]}");
+                        data.Add("Склад", $"{row["condo_id"]}");
                     }
                 }
                     
@@ -1049,9 +1054,9 @@ namespace Server.Managers
                     data.Add("Права категории C", (bool) row["c_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на пил. самолёта", (bool) row["air_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на пил. вертолёта", (bool) row["heli_lic"] ? "есть" : "~r~нет");
+                    data.Add("Права категории D", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на водный транспорт", (bool) row["ship_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия на оружие", (bool) row["gun_lic"] ? "есть" : "~r~нет");
-                    data.Add("Лицензия таксиста", (bool) row["taxi_lic"] ? "есть" : "~r~нет");
                     data.Add("Лицензия адвоката", (bool) row["law_lic"] ? "есть" : "~r~нет");
                     data.Add("Мед. страховка", (bool) row["med_lic"] ? "есть" : "~r~нет");
                     data.Add("Справка о псих. здоровье", (bool) row["psy_lic"] ? "есть" : "~r~нет");
@@ -1507,12 +1512,12 @@ namespace Server.Managers
                 data.Add("Права категории А", (bool) Server.Sync.Data.Get(plId, "a_lic") ? "есть" : "~r~нет");
                 data.Add("Права категории B", (bool) Server.Sync.Data.Get(plId, "b_lic") ? "есть" : "~r~нет");
                 data.Add("Права категории C", (bool) Server.Sync.Data.Get(plId, "c_lic") ? "есть" : "~r~нет");
+                data.Add("Права категории D", (bool) Server.Sync.Data.Get(plId, "taxi_lic") ? "есть" : "~r~нет");
                 data.Add("Авиа лицензия", (bool) Server.Sync.Data.Get(plId, "air_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на пил. самолёта", (bool) Server.Sync.Data.Get(plId, "air_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на пил. вертолёта", (bool) Server.Sync.Data.Get(plId, "heli_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на водный транспорт", (bool) Server.Sync.Data.Get(plId, "ship_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия на оружие", (bool) Server.Sync.Data.Get(plId, "gun_lic") ? "есть" : "~r~нет");
-                data.Add("Лицензия таксиста", (bool) Server.Sync.Data.Get(plId, "taxi_lic") ? "есть" : "~r~нет");
                 data.Add("Лицензия адвоката", (bool) Server.Sync.Data.Get(plId, "law_lic") ? "есть" : "~r~нет");
                 data.Add("Мед. страховка", (bool) Server.Sync.Data.Get(plId, "med_lic") ? "есть" : "~r~нет");
                 data.Add("Справка о псих. здоровье", (bool) Server.Sync.Data.Get(plId, "psy_lic") ? "есть" : "~r~нет");
@@ -1655,7 +1660,7 @@ namespace Server.Managers
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Смс была удалена");
         }
         
-        protected static async void Register([FromSource] Player player, string name, string surname, string password, string email, string referer, bool acceptRules)
+        protected static async void Register([FromSource] Player player, string name, string surname, string password, string email, string promocode, string referer, bool acceptRules)
         {
             if (User.IsLogin(User.GetServerId(player)))
             {
@@ -1681,7 +1686,13 @@ namespace Server.Managers
                 return;
             }
 
-            User.CreatePlayerAccount(player, password, name + " " + surname, email, referer);
+            if (!User.DoesPromocodeValid(promocode))
+            {
+                TriggerClientEvent(player, "ARP:SendPlayerNotification", "~r~ОШИБКА~s~\nВведенный промокод не является валидным");
+                return;
+            }
+
+            User.CreatePlayerAccount(player, password, name + " " + surname, email, promocode, referer);
 
             await Delay(1500);
             

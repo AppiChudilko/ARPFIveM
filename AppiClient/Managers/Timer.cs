@@ -55,6 +55,30 @@ namespace Client.Managers
             if (WeatherTemp > -99)
                 Weather.Temp = WeatherTemp;
             
+            if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 20)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 5F);
+            }
+            else if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 40)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 4F);
+            }
+            else if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 80)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 3F);
+            }
+            else if (IsPedShooting(GetPlayerPed(-1)) && User.Data.mp0_shooting_ability < 98)
+            {
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 2F);
+            }
+            if (IsPedShooting(GetPlayerPed(-1)))
+            {
+                await Delay (5000);
+                ShakeGameplayCam("ROAD_VIBRATION_SHAKE", 0F);
+            }
+
+
+
             UI.DrawAdditionalHud();
             
             if (MenuList.UiMenu != null)
@@ -319,13 +343,13 @@ namespace Client.Managers
             if (User.Data.mp0_strength < 99 && IsPedInAnyVehicle(PlayerPedId(), true))
             {
                 var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
-                if (vehicle.Model.Hash == 1131912276 ||
+                if ((vehicle.Model.Hash == 1131912276 ||
                     vehicle.Model.Hash == 448402357 ||
                     vehicle.Model.Hash == -836512833 ||
                     vehicle.Model.Hash == -186537451 ||
                     vehicle.Model.Hash == 1127861609 ||
                     vehicle.Model.Hash == -1233807380 ||
-                    vehicle.Model.Hash == -400295096)
+                    vehicle.Model.Hash == -400295096) && vehicle.Speed > 2)
                 {
                     User.Data.mp0_strength++;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_strength", User.Data.mp0_strength);
@@ -335,13 +359,13 @@ namespace Client.Managers
             if ((IsPedInAnyVehicle(PlayerPedId(), true) || IsPedRunning(GetPlayerPed(-1))) && User.Data.mp0_stamina < 99)
             {
                 var vehicle = new CitizenFX.Core.Vehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false));
-                if (vehicle.Model.Hash == 1131912276 ||
-                    vehicle.Model.Hash == 448402357 ||
-                    vehicle.Model.Hash == -836512833 ||
-                    vehicle.Model.Hash == -186537451 ||
-                    vehicle.Model.Hash == 1127861609 ||
-                    vehicle.Model.Hash == -1233807380 ||
-                    vehicle.Model.Hash == -400295096)        
+                if ((vehicle.Model.Hash == 1131912276 ||
+                     vehicle.Model.Hash == 448402357 ||
+                     vehicle.Model.Hash == -836512833 ||
+                     vehicle.Model.Hash == -186537451 ||
+                     vehicle.Model.Hash == 1127861609 ||
+                     vehicle.Model.Hash == -1233807380 ||
+                     vehicle.Model.Hash == -400295096) && vehicle.Speed > 2)        
                 {
                     User.Data.mp0_stamina++;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_stamina", User.Data.mp0_stamina);
@@ -403,7 +427,9 @@ namespace Client.Managers
                 {
                     User.Data.mp0_shooting_ability++;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_shooting_ability", User.Data.mp0_shooting_ability);
+                    //ShakeGameplayCam("VIBRATE_SHAKE", 10F);
                 }
+                
           
                 var pos = GetEntityCoords(GetPlayerPed(-1), true);
                 Client.Sync.Data.Set(User.Data.id, "qposX", pos.X);
@@ -427,12 +453,9 @@ namespace Client.Managers
         private static async Task Min10Timer()
         {
             await Delay(1000 * 60 * 10);
-            
+
             if (Client.Sync.Data.HasLocally(User.GetServerId(), "hightSapd"))
                 PedAi.SendCode(99, false);
-            
-            if (Weather.CurrentWeather == "XMAS")
-                PedAi.SendCode(100, false, 10, UnitTypes.WinterCiv);
         }
         
         private static async Task Min30Timer()
@@ -444,7 +467,9 @@ namespace Client.Managers
                 TriggerServerEvent("ARP:OnVip");
             }
 
-            PedAi.SendCode(100, false, 15, UnitTypes.InvaderCiv);
+            //PedAi.SendCode(100, false, 15, UnitTypes.InvaderCiv);
+            if (Weather.CurrentWeather == "XMAS")
+                PedAi.SendCode(100, false, 10, UnitTypes.WinterCiv);
         }
         
         private static async Task Min60Timer()
@@ -576,6 +601,8 @@ namespace Client.Managers
                 if (!Client.Sync.Data.HasLocally(0, hash.ToString()) && name != "Unarmed")
                     RemoveWeaponFromPed(GetPlayerPed(-1), hash);
             }
+            
+           
             
             //NetworkSetVoiceChannel(User.GetPlayerVirtualWorld());
             /*NetworkSetTalkerProximity(5f);
@@ -888,8 +915,13 @@ namespace Client.Managers
         
         private static async Task SetTick()
         {
-            SetParkedVehicleDensityMultiplierThisFrame(0.5f);
-            SetVehicleDensityMultiplierThisFrame(User.GetPlayerVirtualWorld() > 0 ? 0f : 0.5f);
+            SetPedDensityMultiplierThisFrame(0.4f);
+            //SetVehicleDensityMultiplierThisFrame(0.4f);
+            SetParkedVehicleDensityMultiplierThisFrame(0.4f);
+            SetRandomVehicleDensityMultiplierThisFrame(0.4f);
+            SetScenarioPedDensityMultiplierThisFrame(0.4f, 0.4f);
+            //SetSomeVehicleDensityMultiplierThisFrame(0.4f);
+            SetVehicleDensityMultiplierThisFrame(User.GetPlayerVirtualWorld() > 0 ? 0f : 0.4f);
         
             SetPlayerHealthRechargeMultiplier(PlayerId(), 0);
             

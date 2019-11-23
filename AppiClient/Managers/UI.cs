@@ -197,22 +197,8 @@ namespace Client.Managers
                 $"{Weather.Temp}°");
             TriggerEvent("ARPHUD:UpdateData:money", $"${User.Data.money.ToString("#,#")}"
                 /*, _bankCard ? $"${User.Data.money_bank.ToString("#,#")}" : "Нет банковской карты"*/);
-            if (User.Data.item_clock)
-            {
-                TriggerEvent("ARPHUD:UpdateData:showWatch",  true);
-            }
-            else
-            {
-                TriggerEvent("ARPHUD:UpdateData:showWatch",  false);
-            }
-            if (IsPedInAnyVehicle(GetPlayerPed(-1), true))
-            {
-                TriggerEvent("ARPHUD:UpdateData:showSpeed",  true);
-            }
-            else
-            {
-                TriggerEvent("ARPHUD:UpdateData:showSpeed",  false);
-            }
+            TriggerEvent("ARPHUD:UpdateData:showWatch",  User.Data.item_clock);
+            TriggerEvent("ARPHUD:UpdateData:showSpeed",  IsPedInAnyVehicle(GetPlayerPed(-1), true));
             var _eatLevel = Convert.ToInt32(User.GetEatLevel()/10);
             var _waterLevel = Convert.ToInt32(User.GetWaterLevel());
             TriggerEvent("ARPHUD:UpdateData:food", _eatLevel > 100 ? "100%" : _eatLevel + "%", _waterLevel > 100 ? "100%" : _waterLevel + "%");
@@ -517,11 +503,11 @@ namespace Client.Managers
                     rightOffset = 150;
                 
                 if (User.Data.jail_time > 0)
-                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
+                    DrawText(User.Data.jail_time + "сек. | " + Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else if (NoClip.NoClipEnabled)
-                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
+                    DrawText(NoClip.Speeds[NoClip.CurrentSpeed] + " | " + Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180, 0, 2, false, false, 0, 0, 2);
                 else
-                    DrawText(Weather.FullRealDateTime + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180 + rightOffset, 0, 2, false, false, 0, 0, 2);
+                    DrawText(Weather.FullRealDateTime + " | " + "ID:" + User.Data.id + " | " + Main.ServerName, 130 + rightOffset, 8, 0.3f, 255, 255, 255, 180 + rightOffset, 0, 2, false, false, 0, 0, 2);
                 /*
                 if (User.Data.money < 0)
                     DrawText("$" + User.Data.money.ToString("#,#"), 15, 50, 0.6f, 244, 67, 54, 255, 7, 2, false, true, 0, 0, 2);

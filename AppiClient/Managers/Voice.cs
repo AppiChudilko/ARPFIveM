@@ -342,6 +342,11 @@ namespace Client.Managers
                     }
                 }
             }
+            else
+            {
+                TriggerEvent("ARPHUD:UpdateData:microOff");
+                SetMicroEnable(false);
+            }
         }
         
         private static async Task SecTimer()

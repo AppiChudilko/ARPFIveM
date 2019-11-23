@@ -210,6 +210,7 @@ namespace Server
                     s_is_characher = (bool) row["s_is_characher"],
                     s_is_spawn_aprt = (bool) row["s_is_spawn_aprt"],
                     s_is_usehackerphone = (bool) row["s_is_usehackerphone"],
+                    //s_is_instuctedhowtohack = (bool) row["s_is_instuctedhowtohack"],
                     s_lang = (string) row["s_lang"],
                     s_clipset = (string) row["s_clipset"],
 
@@ -217,6 +218,7 @@ namespace Server
                     sell_car_time = (int) row["sell_car_time"],
                     
                     referer = (string) row["referer"],
+                    promocode = (string) row["promocode"],
                     ip_last = GetPlayerEndpoint(player.Handle),
                     
                     mp0_stamina = (int) row["mp0_stamina"],
@@ -227,6 +229,9 @@ namespace Server
                     mp0_shooting_ability = (int) row["mp0_shooting_ability"],
                     mp0_stealth_ability = (int) row["mp0_stealth_ability"],
                     mp0_watchdogs = (int) row["mp0_watchdogs"],
+                    //mp0_hacksecurity = (int) row["mp0_hacksecurity"],
+                    
+                    //ring_num = (int) row["ring_num"],
 
                     skill_builder = (int) row["skill_builder"],
                     skill_scrap = (int) row["skill_scrap"],
@@ -277,7 +282,7 @@ namespace Server
             }
         }
         
-        public static void CreatePlayerAccount(Player player, string password, string rpName, string email, string referer)
+        public static void CreatePlayerAccount(Player player, string password, string rpName, string email,string promocode, string referer)
         {
             Random rand = new Random();
             
@@ -290,11 +295,12 @@ namespace Server
                 money = money * 3;
             if (Main.ServerName == "Earth")
                 money = money + 700;
-                
+
             password = Main.Sha256(password);
             string skin = "{\"SEX\":0,\"GTAO_SHAPE_FIRST_ID\":0,\"GTAO_SHAPE_SECOND_ID\":0,\"GTAO_SKIN_FIRST_ID\":0,\"GTAO_HAIR\":1,\"GTAO_HAIR_COLOR\":0,\"GTAO_EYE_COLOR\":0,\"GTAO_EYEBROWS\":0,\"GTAO_EYEBROWS_COLOR\":0}";
-            string sql = "INSERT INTO users (name, rp_name, password, rp_biography, money, parachute, parachute_color, body_color, leg_color, foot_color, body, leg, foot, skin, date_reg, ip_reg, email, referer) VALUES ('" + GetPlayerGuid(player.Handle) +
-                         "', '" + rpName + "', '" + password + "', 'Нет', '" + money + "', '0', '44', '" + rand.Next(5) + "', '" + rand.Next(15) + "', '" + rand.Next(15) + "', '0', '1', '1', '" + skin + "', '" + Main.GetTimeStamp() + "', '" + player.EndPoint + "', '" + email + "', '" + referer + "')";
+
+            string sql = "INSERT INTO users (name, rp_name, password, rp_biography, money, parachute, parachute_color, body_color, leg_color, foot_color, body, leg, foot, skin, date_reg, ip_reg, email,promocode, referer) VALUES ('" + GetPlayerGuid(player.Handle) +
+                         "', '" + rpName + "', '" + password + "', 'Нет', '" + money + "', '0', '44', '" + rand.Next(5) + "', '" + rand.Next(15) + "', '" + rand.Next(15) + "', '0', '1', '1', '" + skin + "', '" + Main.GetTimeStamp() + "', '" + player.EndPoint + "', '" + email + "', '" + promocode + "', '" + referer + "')";
 
             Appi.MySql.ExecuteQuery(sql);
         }
@@ -307,6 +313,16 @@ namespace Server
             foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT rp_name FROM users WHERE rp_name = '" + name + "'").Rows)
                 if (!string.IsNullOrEmpty((string)row["rp_name"])) isAccount = true;
             return isAccount;
+        }
+
+        public static bool DoesPromocodeValid(string code)
+        {
+            code = Main.DeleteSqlHack(code);
+            
+            bool isValid = false;
+            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT code FROM promocode_top_list WHERE code = '" + code + "'").Rows)
+                if (!string.IsNullOrEmpty((string)row["code"])) isValid = true;
+            return isValid;
         }
 
         public static bool Does3AccountExist(Player player)
@@ -853,6 +869,7 @@ public class PlayerData
     public bool s_is_characher { get; set; }
     public bool s_is_spawn_aprt { get; set; }
     public bool s_is_usehackerphone { get; set; }
+    //public bool s_is_instuctedhowtohack { get; set; }
     public string s_lang { get; set; }
     public string s_clipset { get; set; }
     
@@ -864,6 +881,7 @@ public class PlayerData
     public string ip_last { get; set; }
     
     public string referer { get; set; }
+    public string promocode { get; set;  }
 
     public int mp0_stamina { get; set; }
     public int mp0_strength { get; set; }
@@ -873,6 +891,9 @@ public class PlayerData
     public int mp0_shooting_ability { get; set; }
     public int mp0_stealth_ability { get; set; }
     public int mp0_watchdogs { get; set; }
+    //public int mp0_hacksecurity { get; set; }
+    
+    //public int ring_num { get; set; }
     
     public int skill_builder { get; set; }
     public int skill_scrap { get; set; }

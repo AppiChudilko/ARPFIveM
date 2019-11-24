@@ -5186,11 +5186,22 @@ namespace Client
                 SetPedMovementClipset(GetPlayerPed(-1), clipSet, 0);
             };
 
-            menu.AddMenuItem(UiMenu, "Спавн педа").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Анимации").Activated += async (uimenu, item) =>
             {
                 HideMenu();
                 
-                Managers.BankGrab.SpawnPed();
+                string directory = await Menu.GetUserInput("directory", "", 128);
+                string anim = await Menu.GetUserInput("anim", "", 60);
+                int flag = Convert.ToInt32(await Menu.GetUserInput("flag", "", 60));
+                int delay = Convert.ToInt32(await Menu.GetUserInput("delay", "", 60));
+                
+                RequestAnimDict(directory);
+                while (!HasAnimDictLoaded(directory))
+                    await Delay(1);
+
+                TaskPlayAnim(GetPlayerPed(-1), directory, anim, 8.0001f, -8.0001f, -1, flag, 0, false, false, false);
+                await Delay(delay);
+                Notification.SendWithTime("End");
             };
             
             menu.AddMenuItem(UiMenu, "Открыть двери хранилища").Activated += (uimenu, item) =>

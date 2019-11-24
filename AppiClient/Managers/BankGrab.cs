@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using Client.Vehicle;
+using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 
 namespace Client.Managers
@@ -16,6 +18,24 @@ namespace Client.Managers
         public static Vector3 Terminal = new Vector3(253.3081f, 228.4226f, 101.6833f);
         public static bool CodeEnteredCorrect = false;
         public static bool CodeNeeded = true;
+        public static int scaleform = 0;
+        public static bool ClickReturn = false;
+        public static int lives = 3;
+
+        public static readonly List<string> gamePasswordList = new List<string>()
+        {
+            "BLACKOUT",
+            "HACKTHIS",
+            "BACKDOOR",
+            "UPDATEME",
+            "ALAMOTOP",
+            "HONGKONG",
+            "CONNECTED",
+            "XDMAN15",
+            "DIAMOND1",
+            "UMBRELLA",
+            "VAULTHCK",
+        };
 
         public static Vector3 VaultPos = new Vector3(0, 0 ,0);
         //--Список для экипировки

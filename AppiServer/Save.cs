@@ -210,9 +210,11 @@ namespace Server
             sql = sql + ", s_is_pay_type_bank = '" + (data.s_is_pay_type_bank ? "1" : "0") + "'";
             sql = sql + ", law_lic = '" + (data.law_lic ? "1" : "0") + "'";
             sql = sql + ", gun_lic = '" + (data.gun_lic ? "1" : "0") + "'";
+            sql = sql + ", psy_lic = '" + (data.psy_lic ? "1" : "0") + "'";
             sql = sql + ", ship_lic = '" + (data.ship_lic ? "1" : "0") + "'";
             sql = sql + ", taxi_lic = '" + (data.taxi_lic ? "1" : "0") + "'";
             sql = sql + ", air_lic = '" + (data.air_lic ? "1" : "0") + "'";
+            sql = sql + ", heli_lic = '" + (data.heli_lic ? "1" : "0") + "'";
             sql = sql + ", c_lic = '" + (data.c_lic ? "1" : "0") + "'";
             sql = sql + ", b_lic = '" + (data.b_lic ? "1" : "0") + "'";
             sql = sql + ", a_lic = '" + (data.a_lic ? "1" : "0") + "'";

@@ -91,6 +91,7 @@ namespace Client
             
             EventHandlers.Add("ARP:SendAskToPlayerMessage", new Action<string, int, int, string>(SendAskToPlayerMessage));
             EventHandlers.Add("ARP:SendReportToPlayerMessage", new Action<string, int, int, string>(SendReportToPlayerMessage));
+            EventHandlers.Add("ARP:SendWarningToPlayerMessage", new Action<string, int, int, string>(SendWarningToPlayerMessage));
             EventHandlers.Add("ARP:HightSapd", new Action<int>(HightSapd));
         }
    
@@ -141,7 +142,13 @@ namespace Client
             if (Data.id != id) return;
             Chat.SendChatInfoMessage($"Ответ от администратора {rpName} ({playerId})", msg, "f44336");
         }
-   
+        public static void SendWarningToPlayerMessage(string msg, int id, int playerId, string rpName)
+        {
+            if (IsAdmin())
+                Chat.SendChatInfoMessage($"Предупреждение от администратора {rpName} ({playerId}) игроку {id}", msg, "ffa500");
+            if (Data.id != id) return;
+            Chat.SendChatInfoMessage($"Предупреждение от администратора {rpName} ({playerId})", msg, "ffa500");
+        }
         public static void UpdateServerName(string serverName)
         {
             Main.ServerName = serverName;
@@ -2934,6 +2941,7 @@ public class PlayerData
     public bool item_clock { get; set; }
     public bool is_buy_walkietalkie { get; set; }
     public string walkietalkie_num { get; set; }
+    
     public bool is_old_money { get; set; }
     public bool sell_car { get; set; }
     public int sell_car_time { get; set; }
@@ -2985,6 +2993,8 @@ public class PlayerData
     public string tattoo_left_leg_o { get; set; }
     public string tattoo_right_leg_c { get; set; }
     public string tattoo_right_leg_o { get; set; }
+    
+    
 
     public bool allow_marg { get; set; }
 
@@ -2997,9 +3007,11 @@ public class PlayerData
     public bool b_lic { get; set; }
     public bool c_lic { get; set; }
     public bool air_lic { get; set; }
+    public bool heli_lic { get; set; }
     public bool taxi_lic { get; set; }
     public bool ship_lic { get; set; }
     public bool gun_lic { get; set; }
+    public bool psy_lic { get; set; }
     public bool law_lic { get; set; }
     public bool med_lic { get; set; }
     public bool biz_lic { get; set; }

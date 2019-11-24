@@ -22,6 +22,7 @@ namespace Client.Managers
         public static Vector3 StockSapdPos = new Vector3(477.36f, -989.2f, 23.91476f);
         public static Vector3 StockSheriffPos = new Vector3(-439.1755f, 6010.428f, 26.98567f);
         
+        
         public static Vector3 SheriffLicense = new Vector3(-449.33f, 6008.115f, 35.50835f);
         public static Vector3 SapdLicense = new Vector3(441.3231f, -978.7f, 29.68967f);
         
@@ -32,6 +33,7 @@ namespace Client.Managers
         public static Vector3 SapdNews = new Vector3(447.03f, -973.31f, 29.69f);
         public static Vector3 EmsNews = new Vector3(361.9435f, -588.364f, 46.3222f);
         
+       
         public static Vector3 ArcadiusUp = new Vector3(-145.3776f, -605.22f, 166.0067f);
         public static Vector3 ArcadiusDown = new Vector3(-146.2469f, -604.0237f, 166.0001f);
         
@@ -57,7 +59,7 @@ namespace Client.Managers
         public static readonly Vector3 BankMazeLiftRoofPos = new Vector3(-67.13605f, -821.9f, 320.2874f);
         public static readonly Vector3 BankMazeLiftGaragePos = new Vector3(-84.9765f, -818.7122f, 35.02804f);
         public static readonly Vector3 BankMazeOfficePos = new Vector3(-72.80013f, -816.4397f, 242.3859f);
-        
+            
         public static readonly Vector3 LifeInvaderShopPos = new Vector3(-1083.074f, -248.3521f, 36.76329f);
         public static readonly Vector3 HackerSpaceShopPos = new Vector3(522.0684f, 167.0983f, 98.38704f);
         
@@ -69,7 +71,7 @@ namespace Client.Managers
         public static readonly Vector3 MeriaUpPos = new Vector3(-1395.997f, -479.8439f, 71.04215f);
         public static readonly Vector3 MeriaDownPos = new Vector3(-1379.659f, -499.748f, 32.15739f);
         public static readonly Vector3 MeriaRoofPos = new Vector3(-1369f, -471.5994f, 83.44699f);
-        public static readonly Vector3 MeriaGarPos = new Vector3(-1360.679f, -471.8841f, 30.59572f);
+        public static readonly Vector3 MeriaGarPos = new Vector3(-1360.679f, -471.8841f, 30.69572f);
         public static readonly Vector3 MeriaGarderobPos = new Vector3(-1380.995f, -470.7387f, 71.04216f);
         public static readonly Vector3 MeriaHelpPos = new Vector3(-1381.844f, -477.9523f, 71.04205f);
         //public static readonly Vector3 MeriaKeyPos = new Vector3(-1381.507f, -466.2556f, 71.04215f);
@@ -92,6 +94,7 @@ namespace Client.Managers
         //public static readonly Vector3 SapdToInterrogationPos = new Vector3(404.0302f, -997.302f, -100.004f);
         //public static readonly Vector3 SapdFromInterrogationPos = new Vector3(446.7996f, -985.8127f, 25.67422f);
         public static readonly Vector3 EmsLicensePos = new Vector3(353.706f, -584.1873f, 46.32218f);
+        public static readonly Vector3 EmsPsyLicPos = new Vector3(342.9993f, -596.6797f, 46.32219f);
         
         public static readonly Vector3 SheriffGarderobPos = new Vector3(-452.945f, 6013.818f, 30.716f);
         public static readonly Vector3 SheriffGarderobPos2 = new Vector3(1848.908f, 3689.9604f, 33.2670f);
@@ -124,7 +127,7 @@ namespace Client.Managers
         public static readonly Vector3 TrashKeyPos = new Vector3(1569.828f, -2130.211f, 77.33018f);
         public static readonly Vector3 Bus1KeyPos = new Vector3(-589.9058f, -2087.348f, 4.990996f);
         public static readonly Vector3 Bus2KeyPos = new Vector3(-675.2166f, -2166.933f, 4.992994f);
-        public static readonly Vector3 Bus3KeyPos = new Vector3(-675.2166f, -2166.933f, 4.992994f);
+        public static readonly Vector3 Bus3KeyPos = new Vector3(463.2085f, -575.5786f, 27.49981f);
         public static readonly Vector3 SunbKeyPos = new Vector3(-1185.243f, -1508.272f, 3.379671f);
         public static readonly Vector3 LabKeyPos = new Vector3(3605.323f, 3733.005f, 28.6894f);
         public static readonly Vector3 ConnorKeyPos = new Vector3(-1158.08f, -742.0112f, 18.66016f);
@@ -160,6 +163,7 @@ namespace Client.Managers
         public static readonly Vector3 EmsElevatorHosp5Pos = new Vector3(335.7971f, -580.0206f, 47.22446f);
         public static readonly Vector3 EmsElevatorHosp4Pos = new Vector3(335.7876f, -580.008f, 42.27963f);
         public static readonly Vector3 EmsElevatorHosp1Pos = new Vector3(335.7878f, -580.0073f, 27.89335f);
+        
         
         //Apteka
         public static readonly Vector3 AptekaPos = new Vector3(317.9063f, -1076.87f, 28.47855f);
@@ -376,6 +380,7 @@ namespace Client.Managers
             Marker.Create(EmsHealPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsHealPos, 1.4f, "show:menu");
             
+            
             //Koiki
             //Marker.Create(Koika1Pos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             //Checkpoint.Create(Koika1Pos, 1f, "show:menu");
@@ -421,6 +426,8 @@ namespace Client.Managers
             Checkpoint.Create(Bus1KeyPos, 1.4f, "show:menu");
             Marker.Create(Bus2KeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(Bus2KeyPos, 1.4f, "show:menu");
+            Marker.Create(Bus3KeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(Bus3KeyPos, 1.4f, "show:menu");
             Marker.Create(SunbKeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(SunbKeyPos, 1.4f, "show:menu");
             Marker.Create(LabKeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -480,6 +487,7 @@ namespace Client.Managers
             Checkpoint.Create(EmsElevatorHosp4Pos, 1.4f, "pickup:teleport:menu");
             Marker.Create(EmsElevatorHosp1Pos, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
             Checkpoint.Create(EmsElevatorHosp1Pos, 1.4f, "pickup:teleport:menu");
+            
             
             //SAPD
             /*
@@ -591,6 +599,8 @@ namespace Client.Managers
             Checkpoint.Create(SapdLicense, 1.4f, "show:menu");
             Marker.Create(EmsLicensePos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsLicensePos, 1.4f, "show:menu");
+            Marker.Create(EmsPsyLicPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(EmsPsyLicPos, 1.4f, "show:menu");
             
             //FIB
             Marker.Create(FibDutyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -1311,7 +1321,8 @@ namespace Client.Managers
                 MenuList.GovNewsMenu();
             if (Main.GetDistanceToSquared(GovCoffer, playerPos) < DistanceCheck)
                 MenuList.GovCofferMenu();
-            /*EMS*/
+            
+           /*EMS*/
             
             if (User.IsEms())
             {
@@ -1346,6 +1357,11 @@ namespace Client.Managers
                     
                     if (Main.GetDistanceToSquared(EmsLicensePos, playerPos) < DistanceCheck)
                         MenuList.ShowEmsLicenseMenu();
+                    
+                    if (Main.GetDistanceToSquared(EmsPsyLicPos, playerPos) < DistanceCheck)
+                        MenuList.ShowEms2LicenseMenu();
+                    
+                    
                 }
             }
                 
@@ -1366,7 +1382,7 @@ namespace Client.Managers
                 User.SetEatLevel(1000);
                 Chat.SendMeCommand("поел");
             }
-                
+            
             if (Main.GetDistanceToSquared(AptekaPos, playerPos) < DistanceCheck)
                 MenuList.ShowAptekaMenu(124);
                 
@@ -1502,7 +1518,8 @@ namespace Client.Managers
             if (Main.GetDistanceToSquared(AHouse254BarPos, playerPos) < DistanceCheck)
                 MenuList.ShowBarFreeMenu();
             
-            /*Guns*/
+            
+           /*Guns*/
            if ((User.IsSapd() || User.IsFib() || User.IsSheriff()) && Main.GetDistanceToSquared(StockSapdPos, playerPos) < DistanceCheck)
                 Inventory.GetItemList(2, InventoryTypes.StockGang);
             

@@ -124,8 +124,8 @@ namespace Client
             var passwordItem = menu.AddMenuItem(UiMenu, "Пароль", password != "" ? "~b~Ваш пароль введён" : "Введите ваш пароль на сервере");
             var emailItem = menu.AddMenuItem(UiMenu, "Email", email != "" ? $"~b~Ваш Email:~s~ {email}" : "Введите ваш email");
             var refererItem = menu.AddMenuItem(UiMenu, "Ник пригласившего (Через пробел)", referer != "" ? $"~b~Пригласивший:~s~ {referer}" : $"~b~Пригласивший:~s~ ~r~нет");
+            var acceptRulesItem = menu.AddCheckBoxItem(UiMenu, "Согласен с правилами сервера", acceptRules, "https://alamo-rp.com/newbie");
             var promocodeItem = menu.AddMenuItem(UiMenu, "Промокод", promocode != "" ? $"~b~Промокод:~s~ {promocode}" : $"~b~Промокод:~s~ ~r~нет");
-            var acceptRulesItem = menu.AddCheckBoxItem(UiMenu, "Согласен с правилами сервера", acceptRules, "https://appi-rp.com/newbie");
             var regButton = menu.AddMenuItem(UiMenu, "~g~Регистрация");
             var authButton = menu.AddMenuItem(UiMenu, "~y~Авторизация", "Перейти к авторизации");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть и выйти");
@@ -426,9 +426,7 @@ namespace Client
                 {
                     Stock.SellStock(Stock.GetStockFromId(User.Data.stock_id));  
                     HideMenu();
-                    
-                    
-                }
+                    }
                 if (item == noButton)
                 {
                     HideMenu();
@@ -441,32 +439,25 @@ namespace Client
         public static void ShowAskSellHMenu()
         {
             HideMenu();
-            
             var menu = new Menu();
             UiMenu = menu.Create("Maze", "~b~Согласны на продажу?", true, true);
-        
             var yesButton = menu.AddMenuItem(UiMenu, "~g~Да");
             var noButton = menu.AddMenuItem(UiMenu, "~r~Нет");
-            
             UiMenu.OnItemSelect += async (sender, item, index) =>
             {
                 if (item == yesButton)
                 {
-                    
                     House.SellHouse(House.GetHouseFromId(User.Data.id_house));
                     HideMenu();
-                    
-                    
                 }
                 if (item == noButton)
                 {
                     HideMenu();
-                    
                 }
             };
-            
             MenuPool.Add(UiMenu);
         }
+
         public static void ShowAskSellKMenu()
         {
             HideMenu();
@@ -5395,6 +5386,7 @@ namespace Client
                 {
                     id[i1] = idx;
                     SetPedComponentVariation(GetPlayerPed(-1), i1, id[i1], idColor[i1], 2);
+                    
                 };
                 menu.AddMenuItemList(UiMenu, "Цвет " + i, listColor).OnListChanged += (uimenu, idx) =>
                 {
@@ -5634,6 +5626,25 @@ namespace Client
                     if (id == "NULL") return;
                     var msg = await Menu.GetUserInput("Ответ", null, 200);
                     if (msg == "NULL") return;
+
+                    int money = 15 + (User.Data.admin_level * 5);
+
+                    Main.SaveLog("ReportAnswer", $"Admin: {User.Data.rp_name} to {id}. {msg}");
+
+                    User.AddCashMoney(money);
+                    User.Data.count_aask++;
+                    Client.Sync.Data.Set(User.GetServerId(), "count_aask", User.Data.count_aask);
+                    Shared.TriggerEventToAllPlayers("ARP:SendReportToPlayerMessage", msg, Convert.ToInt32(id),
+                        User.Data.id, User.Data.rp_name);
+                    Notification.SendWithTime("~g~Ответ отправлен. +$" + money);
+                };
+                menu.AddMenuItem(UiMenu, "~o~Предупредить игрока").Activated += async (uimenu, item) =>
+                {
+                    HideMenu();
+                    var id = await Menu.GetUserInput("ID игрока", null, 6);
+                    if (id == "NULL") return;
+                    var msg = await Menu.GetUserInput("Ответ", null, 200);
+                    if (msg == "NULL") return;
                 
                     int money = 15 + (User.Data.admin_level * 5);
                     
@@ -5642,8 +5653,8 @@ namespace Client
                     User.AddCashMoney(money);
                     User.Data.count_aask++;
                     Client.Sync.Data.Set(User.GetServerId(), "count_aask", User.Data.count_aask);
-                    Shared.TriggerEventToAllPlayers("ARP:SendReportToPlayerMessage", msg, Convert.ToInt32(id), User.Data.id, User.Data.rp_name);
-                    Notification.SendWithTime("~g~Ответ отправлен. +$" + money);
+                    Shared.TriggerEventToAllPlayers("ARP:SendWarningToPlayerMessage", msg, Convert.ToInt32(id), User.Data.id, User.Data.rp_name);
+                    Notification.SendWithTime("~g~Предупреждение отправлено. +$" + money);
                 };
             }
 
@@ -6308,6 +6319,10 @@ namespace Client
                         {
                             ShowGiveMedLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
                         };
+                        menu.AddMenuItem(UiMenu, "Выдать справку о мед").Activated += (uimenu, item) =>
+                        {
+                            ShowEmsGivePsyLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f));
+                        };
                     }*/
                     
                     /*if (User.IsLeader() || User.IsSubLeader())
@@ -6574,7 +6589,7 @@ namespace Client
                             HideMenu();
                             TriggerServerEvent("ARP:SendPlayerVehicleLog");
                         };
-                    }
+                       }
                     break;
                 case 11:
                 case 14:
@@ -8083,6 +8098,8 @@ namespace Client
                 Characher.UpdateFace();
                 Characher.UpdateTattoo();
                 Characher.UpdateCloth();
+                
+                
             };
             
             menu.AddMenuItem(UiMenu, "~b~Пофиксить кастомизацию #2").Activated += (uimenu, item) =>
@@ -8090,7 +8107,8 @@ namespace Client
                 Characher.UpdateFace(false);
                 Characher.UpdateTattoo(false);
                 Characher.UpdateCloth(false);
-            };
+                
+                };
             
             var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
@@ -8290,10 +8308,15 @@ namespace Client
                 HideMenu();
                 User.SetWaypoint(-1146, -745);
             };
-            menu.AddMenuItem(UiMenu, "Автобусный парк").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Автобусный парк Los Santos Transit").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 User.SetWaypoint(-717, -2175);
+            };
+            menu.AddMenuItem(UiMenu, "Автобусный парк Dashound").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                User.SetWaypoint(463, -575);
             };
             menu.AddMenuItem(UiMenu, "Чистка берега").Activated += (uimenu, item) =>
             {
@@ -9241,6 +9264,14 @@ namespace Client
                         Managers.Inventory.UnEquipItem(272);
                     };
                 }
+                if (User.Data.is_buy_walkietalkie)
+                {
+                    menu.AddMenuItem(UiMenu, "Рация").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+                        Managers.Inventory.UnEquipItem(47);
+                        };
+                }
 
                 if (User.Data.bracelet >= 0)
                 {
@@ -9350,8 +9381,9 @@ namespace Client
             menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"А\":~s~").SetRightLabel(User.Data.a_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"B\":~s~").SetRightLabel(User.Data.b_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"C\":~s~").SetRightLabel(User.Data.c_lic ? "Есть" : "Нет");
+            menu.AddMenuItem(UiMenu, "~b~Лицензия на пил. самолёта:~s~").SetRightLabel(User.Data.air_lic ? "Есть" : "Нет");
+            menu.AddMenuItem(UiMenu, "~b~Лицензия на пил. вертолёта:~s~").SetRightLabel(User.Data.heli_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия категории \"D\":~s~").SetRightLabel(User.Data.taxi_lic ? "Есть" : "Нет");
-            menu.AddMenuItem(UiMenu, "~b~Лицензия на авиатранспорт:~s~").SetRightLabel(User.Data.air_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на водный транспорт:~s~").SetRightLabel(User.Data.ship_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на оружие:~s~").SetRightLabel(User.Data.gun_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Лицензия на адвоката:~s~").SetRightLabel(User.Data.law_lic ? "Есть" : "Нет");
@@ -9359,6 +9391,7 @@ namespace Client
             menu.AddMenuItem(UiMenu, "~b~Разрешение на охоту:~s~").SetRightLabel(User.Data.animal_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Разрешение на рыболовство:~s~").SetRightLabel(User.Data.fish_lic ? "Есть" : "Нет");
             menu.AddMenuItem(UiMenu, "~b~Мед. страховка:~s~").SetRightLabel(User.Data.med_lic ? "Есть" : "Нет");
+            menu.AddMenuItem(UiMenu, "~b~Справка о псих. здоровье:~s~").SetRightLabel(User.Data.psy_lic ? "Есть" : "Нет");
 
             menu.AddMenuItem(UiMenu, "~b~Выносливость:~s~").SetRightLabel((User.Data.mp0_stamina + 1) + "%");
             menu.AddMenuItem(UiMenu, "~b~Сила:~s~").SetRightLabel((User.Data.mp0_strength + 1) + "%");
@@ -10513,7 +10546,6 @@ namespace Client
                                 User.UnTieKnife();
                             };
                         }
-
                         if (itemId == 7 || itemId == 63)
                         {
                             menu.AddMenuItem(UiMenu, "~g~Использовать").Activated += (uimenu, item) =>
@@ -10526,7 +10558,7 @@ namespace Client
                         menu.AddMenuItem(UiMenu, "~g~Экипировать").Activated += (uimenu, item) =>
                         {
                             HideMenu();
-                            Managers.Inventory.EquipItem(id, itemId, prefix, number, keyId, countItems);
+                            Managers.Inventory.EquipItem(id, itemId, prefix, number, keyId,countItems);
                         };
                     }
                     else
@@ -10980,6 +11012,7 @@ namespace Client
                 return;
             }
             
+            //User.PlayPhoneAnimation();//
             if (User.inPhone)
             {
                 return;
@@ -12279,10 +12312,15 @@ namespace Client
                 Fractions.Government.BuyTaxiLic();
             };
 
-            menu.AddMenuItem(UiMenu, "Авиатранспорт", "Цена: ~g~$1200").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Пилот самолёта", "Цена: ~g~$1200").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Business.Lic.BuyLic(3);
+            };
+            menu.AddMenuItem(UiMenu, "Пилот вертолёта", "Цена: ~g~$1400").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Lic.BuyLic(5);
             };
 
             menu.AddMenuItem(UiMenu, "Водный транспорт", "Цена: ~g~$920").Activated += (uimenu, item) =>
@@ -12848,10 +12886,18 @@ namespace Client
                 Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
             };
             
-            menu.AddMenuItem(UiMenu, "Изъять лицензию на авиатранспорт").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на пил. самолёта").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Sync.Data.Set(serverId, "air_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на пил. вертолёта").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "heli_lic", false);
                 TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
                 Notification.SendWithTime($"~y~Вы изъяли лицензию");
                 Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
@@ -12961,10 +13007,18 @@ namespace Client
                 Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
             };
             
-            menu.AddMenuItem(UiMenu, "Изъять лицензию на авиатранспорт").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на пил. самолёта").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Sync.Data.Set(serverId, "air_lic", false);
+                TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
+                Notification.SendWithTime($"~y~Вы изъяли лицензию");
+                Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
+            };
+            menu.AddMenuItem(UiMenu, "Изъять лицензию на пил. вертолёта").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Sync.Data.Set(serverId, "heli_lic", false);
                 TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "У Вас изъяли лицензию", serverId);
                 Notification.SendWithTime($"~y~Вы изъяли лицензию");
                 Chat.SendMeCommand("обыскал человека напротив и изъял какие-то бумаги");
@@ -13192,6 +13246,75 @@ namespace Client
                         Notification.SendWithTime($"~y~Вы выдали лицензию на оружие");
                         
                         Main.AddFractionGunLog(User.Data.rp_name, "Выдал лицензию на оружие", User.Data.fraction_id);
+                    };
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    throw;
+                }
+            }
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
+        public static void ShowEms2LicenseMenu()
+        {
+            if (User.IsEms())
+            {
+                HideMenu();
+
+                var menu = new Menu();
+                UiMenu = menu.Create("Выдача справки", "~b~Меню");
+        
+                menu.AddMenuItem(UiMenu, "Выдать справку о псих. здоровье").Activated += async (uimenu, item) =>
+                {
+                    HideMenu();
+                    ShowEmsGivePsyLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 2f));
+                };
+        
+        
+                var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+        
+                UiMenu.OnItemSelect += (sender, item, index) =>
+                { 
+                    if (item == closeButton) 
+                        HideMenu();
+                };
+        
+                MenuPool.Add(UiMenu);
+        
+            }
+        }
+        public static void ShowEmsGivePsyLicMenu(List<Player> pedList)
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("EMS", "~b~Выдать справку о психическом здоровье ");
+            
+            foreach (Player p in pedList)
+            {
+                try
+                {
+                    if (p.ServerId == GetPlayerServerId(PlayerId())) continue;
+                    if (!User.PlayerIdList.ContainsKey(p.ServerId.ToString())) continue;
+                    menu.AddMenuItem(UiMenu, $"~b~ID: ~s~{User.PlayerIdList[p.ServerId.ToString()]}").Activated += (uimenu, item) =>
+                    {
+                        HideMenu();
+
+                        Sync.Data.Set(p.ServerId, "psy_lic", true);
+                        TriggerServerEvent("ARP:SendServerToPlayerSubTitle", "Вам выдали справку о псих. здоровье", p.ServerId);
+                        Notification.SendWithTime($"~y~Вы выдали справку о псих. здоровье");
+                        
+                        Main.AddFractionGunLog(User.Data.rp_name, "Выдал справку о псих. здоровье", User.Data.fraction_id);
                     };
                 }
                 catch (Exception e)
@@ -14933,7 +15056,7 @@ namespace Client
                         ShowGiveMedLicMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true),
                             1f));
                     };
-                }
+                    }
 
 
                 var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
@@ -15373,17 +15496,17 @@ namespace Client
                 HideMenu();
                 Fractions.Government.GetJob("mail2");
             };
-            menu.AddMenuItem(UiMenu, "Водитель автобуса-1", "Городской автобус\n~y~Цвет:~s~ Оранжевый").Activated += (uimenu, item) =>
-            {
-                HideMenu();
-                Fractions.Government.GetJob("bus1");
-            };
-            menu.AddMenuItem(UiMenu, "Водитель автобуса-2", "Городской автобус\n~y~Цвет:~s~ Зеленый").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Водитель L.S.I.A. автобуса ", "Компания: ~y~Los Santos Transit").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Fractions.Government.GetJob("bus2");
             };
-            menu.AddMenuItem(UiMenu, "Водитель автобуса-3", "Городской автобус\n~y~Цвет:~s~ Синий").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Водитель городского автобуса", "Компания: ~y~Los Santos Transit").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Fractions.Government.GetJob("bus1");
+            };
+            menu.AddMenuItem(UiMenu, "Водитель междугороднего автобуса", "Компания: ~y~Dashound").Activated += (uimenu, item) =>
             {
                 HideMenu();
                 Fractions.Government.GetJob("bus3");
@@ -15551,6 +15674,7 @@ namespace Client
                 menu.AddMenuItem(UiMenu, "Продать дом", $"Продать дом государству\nЦена: ~g~${nalog:#,#}").Activated += (uimenu, item) =>
                 {
                     HideMenu();
+                    ShowPlayerAntiHookupHouseMenu(Main.GetPlayerListOnRadius(GetEntityCoords(GetPlayerPed(-1), true), 1f), User.Data.id_house, $"{h.address} #{h.id}");
                     ShowAskSellHMenu();
                     TriggerServerEvent("ARP:UpdateHouseInfoAntiHookup", h.id, User.Data.id);
                 };
@@ -16010,31 +16134,56 @@ namespace Client
             var menu = new Menu();
             UiMenu = menu.Create("Аренда", "Нажмите \"~g~Enter~s~\", чтобы арендовать.");
             
-            menu.AddMenuItem(UiMenu, "Велосипед", $"Цена: ~g~${(6 * price):#,#}").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Cruiser", $"Цена: ~g~${10}").Activated += (uimenu, item) =>
             {
                 HideMenu();
-                Business.Rent.Buy(0, 8 * price, shopId);
+                Business.Rent.Buy(1, 10, shopId);
             };
             
-            menu.AddMenuItem(UiMenu, "Скутер", $"Цена: ~g~${(8 * price):#,#}").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "BMX", $"Цена: ~g~${15}").Activated += (uimenu, item) =>
             {
                 HideMenu();
-                Business.Rent.Buy(1, 8 * price, shopId);
+                Business.Rent.Buy(2, 15, shopId);
             };
             
-            menu.AddMenuItem(UiMenu, "Горный мотоцикл", $"Цена: ~g~${(79 * price):#,#}").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Scorcher", $"Цена: ~g~${20}").Activated += (uimenu, item) =>
             {
                 HideMenu();
-                Business.Rent.Buy(2, 79 * price, shopId);
+                Business.Rent.Buy(3,20, shopId);
             };
             
-            menu.AddMenuItem(UiMenu, "Спортивный мотоцикл", $"Цена: ~g~${(135 * price):#,#}").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Fixter", $"Цена: ~g~${25}").Activated += (uimenu, item) =>
             {
                 HideMenu();
-                Business.Rent.Buy(3, 135 * price, shopId);
+                Business.Rent.Buy(4, 25, shopId);
             };
-                        
-            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            menu.AddMenuItem(UiMenu, "Tri-Cycles Race Bike", $"Цена: ~g~${30}").Activated += (uimenu, item) =>
+            {
+               HideMenu();
+               Business.Rent.Buy(5, 30, shopId);
+            };
+            menu.AddMenuItem(UiMenu, "Whippet Race Bike", $"Цена: ~g~${30}").Activated += (uimenu, item) =>
+            {
+               HideMenu();
+               Business.Rent.Buy(6, 30, shopId);
+            };
+            menu.AddMenuItem(UiMenu, "Endurex Race Bike", $"Цена: ~g~${30}").Activated += (uimenu, item) =>
+            {
+               HideMenu();
+               Business.Rent.Buy(7, 30, shopId);
+            };
+            menu.AddMenuItem(UiMenu, "Faggio", $"Цена: ~g~${60}").Activated += (uimenu, item) =>
+            {
+               HideMenu();
+               Business.Rent.Buy(8, 60, shopId);
+            };
+            menu.AddMenuItem(UiMenu, "Faggio Sport", $"Цена: ~g~${80}").Activated += (uimenu, item) =>
+            {
+               HideMenu();
+               Business.Rent.Buy(9, 80, shopId);
+            };
+
+        var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
             
             UiMenu.OnItemSelect += (sender, item, index) =>
             {
@@ -17434,9 +17583,6 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
-        
-
-
         
         public static void ShowTattooShopMenu(string title1, string title2, int shopId)
         {

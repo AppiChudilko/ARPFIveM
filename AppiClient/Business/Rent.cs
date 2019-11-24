@@ -406,7 +406,7 @@ namespace Client.Business
                 Vector3 shopPos = new Vector3((float) Main.RentMarkers[i, 0], (float) Main.RentMarkers[i, 1], (float) Main.RentMarkers[i, 2]);
 
                 var blip = World.CreateBlip(shopPos);
-                blip.Sprite = (BlipSprite) 226;
+                blip.Sprite = (BlipSprite) 559;
                 blip.Name = Lang.GetTextToPlayer("_lang_71");
                 blip.IsShortRange = true;
                 blip.Scale = 0.4f;
@@ -496,12 +496,12 @@ namespace Client.Business
             {
                 case 1:
                 {
-                    var vehicleHash = Convert.ToUInt32(VehicleHash.Faggio);
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.Cruiser);
                     
                     if (!await Main.LoadModel(vehicleHash))
                         return;
                     
-                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Faggio), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Cruiser), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
                     
                     CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
                     {
@@ -520,10 +520,10 @@ namespace Client.Business
                 }
                 case 2:
                 {
-                    var vehicleHash = Convert.ToUInt32(VehicleHash.Sanchez);
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.Bmx);
                     if (!await Main.LoadModel(vehicleHash))
                         return;
-                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Sanchez), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Bmx), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
                     
                     CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
                     {
@@ -542,10 +542,143 @@ namespace Client.Business
                 }
                 case 3:
                 {
-                    var vehicleHash = Convert.ToUInt32(VehicleHash.Bati);
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.Scorcher);
                     if (!await Main.LoadModel(vehicleHash))
                         return;
-                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Bati), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Scorcher), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    
+                    CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
+                    {
+                        IsEngineRunning = true
+                    };
+            
+                    SetVehicleColours(vehicle.Handle, color, color);
+                    SetVehicleNumberPlateText(vehicle.Handle, number);
+                    
+                    new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    SetVehicleOnGroundProperly(vehicle.Handle);
+                    
+                    if (!User.HasVehicleKey(number))
+                        User.AddVehicleKey(number);
+                    break;
+                }
+                case 4:
+                {
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.Fixter);
+                    if (!await Main.LoadModel(vehicleHash))
+                        return;
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Fixter), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    
+                    CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
+                    {
+                        IsEngineRunning = true
+                    };
+            
+                    SetVehicleColours(vehicle.Handle, color, color);
+                    SetVehicleNumberPlateText(vehicle.Handle, number);
+                    
+                    new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    SetVehicleOnGroundProperly(vehicle.Handle);
+                    
+                    if (!User.HasVehicleKey(number))
+                        User.AddVehicleKey(number);
+                    break;
+                }
+                case 5:
+                {
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.TriBike);
+                    if (!await Main.LoadModel(vehicleHash))
+                        return;
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.TriBike), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    
+                    CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
+                    {
+                        IsEngineRunning = true
+                    };
+            
+                    SetVehicleColours(vehicle.Handle, color, color);
+                    SetVehicleNumberPlateText(vehicle.Handle, number);
+                    
+                    new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    SetVehicleOnGroundProperly(vehicle.Handle);
+                    
+                    if (!User.HasVehicleKey(number))
+                        User.AddVehicleKey(number);
+                    break;
+                }
+                case 6:
+                {
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.TriBike2);
+                    if (!await Main.LoadModel(vehicleHash))
+                        return;
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.TriBike2), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    
+                    CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
+                    {
+                        IsEngineRunning = true
+                    };
+            
+                    SetVehicleColours(vehicle.Handle, color, color);
+                    SetVehicleNumberPlateText(vehicle.Handle, number);
+                    
+                    new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    SetVehicleOnGroundProperly(vehicle.Handle);
+                    
+                    if (!User.HasVehicleKey(number))
+                        User.AddVehicleKey(number);
+                    break;
+                }
+                case 7:
+                {
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.TriBike3);
+                    if (!await Main.LoadModel(vehicleHash))
+                        return;
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.TriBike3), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
+                    
+                    CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
+                    {
+                        IsEngineRunning = true
+                    };
+            
+                    SetVehicleColours(vehicle.Handle, color, color);
+                    SetVehicleNumberPlateText(vehicle.Handle, number);
+                    
+                    new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    SetVehicleOnGroundProperly(vehicle.Handle);
+                    
+                    if (!User.HasVehicleKey(number))
+                        User.AddVehicleKey(number);
+                    break;
+                }
+                case 8:
+                {
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.Faggio2);
+                    if (!await Main.LoadModel(vehicleHash))
+                        return;
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Faggio2), coords.X, coords.Y, coords.Z + 1f,
+                        GetEntityHeading(GetPlayerPed(-1)), true, false);
+
+                    CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
+                    {
+                        IsEngineRunning = true
+                    };
+
+                    SetVehicleColours(vehicle.Handle, color, color);
+                    SetVehicleNumberPlateText(vehicle.Handle, number);
+
+                    new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    SetVehicleOnGroundProperly(vehicle.Handle);
+
+                    if (!User.HasVehicleKey(number))
+                        User.AddVehicleKey(number);
+                    break;
+                }
+                case 9:
+                {
+                    var vehicleHash = Convert.ToUInt32(VehicleHash.Faggio);
+                    if (!await Main.LoadModel(vehicleHash))
+                        return;
+                    var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Faggio), coords.X, coords.Y, coords.Z + 1f, GetEntityHeading(GetPlayerPed(-1)), true, false);
                     
                     CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
                     {

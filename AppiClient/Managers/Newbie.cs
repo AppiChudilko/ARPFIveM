@@ -123,7 +123,7 @@ namespace Client.Managers
             if (User.GetVipStatus() == "none" && User.Data.last_login < User.Data.date_reg + 604800)
                 Notification.SendWithTime("~b~У Ваc активирован VIP Light на 1 неделю");
             await Delay(1500);
-            Notification.Send("~g~Приятной игры на Appi RolePlay :3");
+            Notification.Send("~g~Приятной игры на Alamo RolePlay :3");
         }
         public static async void PlaneDialog()
         {

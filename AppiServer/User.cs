@@ -175,6 +175,9 @@ namespace Server
                     tattoo_right_leg_c = (string) row["tattoo_right_leg_c"],
                     tattoo_right_leg_o = (string) row["tattoo_right_leg_o"],
                     
+                    
+                    
+                    
                     allow_marg = (bool) row["allow_marg"],
 
                     vip_status = (string) row["vip_status"],
@@ -186,11 +189,13 @@ namespace Server
                     b_lic = (bool) row["b_lic"],
                     c_lic = (bool) row["c_lic"],
                     air_lic = (bool) row["air_lic"],
+                    heli_lic = (bool) row["heli_lic"],
                     taxi_lic = (bool) row["taxi_lic"],
                     ship_lic = (bool) row["ship_lic"],
                     gun_lic = (bool) row["gun_lic"],
                     law_lic = (bool) row["law_lic"],
                     med_lic = (bool) row["med_lic"],
+                    psy_lic = (bool) row["psy_lic"],
                     animal_lic = (bool) row["animal_lic"],
                     fish_lic = (bool) row["fish_lic"],
                     biz_lic = (bool) row["biz_lic"],
@@ -836,7 +841,7 @@ public class PlayerData
     public string tattoo_left_leg_o { get; set; }
     public string tattoo_right_leg_c { get; set; }
     public string tattoo_right_leg_o { get; set; }
-
+    
     public bool allow_marg { get; set; }
 
     public string vip_status { get; set; }
@@ -848,9 +853,11 @@ public class PlayerData
     public bool b_lic { get; set; }
     public bool c_lic { get; set; }
     public bool air_lic { get; set; }
+    public bool heli_lic { get; set; }
     public bool taxi_lic { get; set; }
     public bool ship_lic { get; set; }
     public bool gun_lic { get; set; }
+    public bool psy_lic { get; set; }
     public bool law_lic { get; set; }
     public bool med_lic { get; set; }
     public bool biz_lic { get; set; }

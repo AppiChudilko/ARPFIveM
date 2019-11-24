@@ -418,6 +418,9 @@ namespace Client.Managers
 	        //Sheriff LS
 	        DeleteObject(GetHashKey("prop_sec_gate_01c"), 375.9481f, -1632.531f, 27.24899f);
 	        
+	        // Удалённая лавочка в Миррор-Парке для остановки
+            DeleteObject(-99500382, 1178.537f, -444.8034f, 65.94923f);
+	        
 	        //Тюрьма
 	        DeleteObject(-259008966, 1764.577f, 2528.797f, 44.36703f);
 	        DeleteObject(-259008966, 1715.242f, 2487.572f, 44.36692f);

@@ -135,7 +135,7 @@ namespace Client
             { -33.34319, -154.1892, 56.07654, 48 }, //4
             { -813.5332, -183.2378, 36.5689, 112 }, //5 Bob Mulét
         };
-
+        
         public static double[,] GunShops =
         {
             { 22.08832, -1106.986, 29.79703, 75 }, //Pillbox
@@ -399,6 +399,7 @@ namespace Client
             Business.Bank.LoadAll();
             Business.Bar.LoadAll();
             Business.Tattoo.LoadAll();
+            
             Business.Casino.LoadAll();
             Business.Cloth.LoadAll();
             Business.BarberShop.LoadAll();
@@ -726,21 +727,28 @@ namespace Client
         {
             var blip = World.CreateBlip(new Vector3(437.5687f, -982.9395f, 30.69f));
             blip.Sprite = (BlipSprite) 60;
-            blip.Name = "Los Santos Police Department";
+            blip.Name = "Полицейский департамент Лос-Сантоса";
             blip.IsShortRange = true;
             blip.Scale = 0.8f; //86
             
-            blip = World.CreateBlip(new Vector3(-439.1755f, 6010.428f, 26.98567f));
-            blip.Sprite = (BlipSprite) 570;
+            blip = World.CreateBlip(new Vector3(-443.1347f, 6016.682f, 26.98567f));
+            blip.Sprite = (BlipSprite) 526;
             blip.Color = (BlipColor) 71;
-            blip.Name = "Sheriff's Department";
+            blip.Name = "Шериф департамент Палето-Бей";
+            blip.IsShortRange = true;
+            blip.Scale = 0.8f;
+            
+            blip = World.CreateBlip(new Vector3(1855.342f, 3683.068f, 33.26752f));
+            blip.Sprite = (BlipSprite) 526;
+            blip.Color = (BlipColor) 71;
+            blip.Name = "Шериф департамент Сэнди-Шорс";
             blip.IsShortRange = true;
             blip.Scale = 0.8f;
             
             blip = World.CreateBlip(new Vector3(-138.8656f, -634.0953f, 168.8204f));
-            blip.Sprite = (BlipSprite) 535;
+            blip.Sprite = (BlipSprite) 269;
             blip.Color = (BlipColor) 67;
-            blip.Name = "Arcadius - Бизнес Центр";
+            blip.Name = "Бизнес центр \"Arcadius\"";
             blip.IsShortRange = true;
             blip.Scale = 0.8f;
             
@@ -757,9 +765,9 @@ namespace Client
             blip.IsShortRange = true;
             blip.Scale = 0.8f;
             
-            blip = World.CreateBlip(new Vector3(1830.489f, 2603.093f, 45.8891f));
-            blip.Sprite = (BlipSprite) 238;
-            blip.Name = "Федеральная тюрьма";
+            blip = World.CreateBlip(new Vector3(1845.971f, 2585.826f, 45.8891f));
+            blip.Sprite = (BlipSprite) 188;
+            blip.Name = "Федеральная тюрьма Болингброук";
             blip.IsShortRange = true;
             blip.Scale = 0.8f;
             
@@ -794,6 +802,13 @@ namespace Client
             blip.Sprite = (BlipSprite) 153;
             blip.Color = (BlipColor) 69;
             blip.Name = "Аптека";
+            blip.IsShortRange = true;
+            blip.Scale = 0.8f;
+            
+            blip = World.CreateBlip(new Vector3(-759.7983f, -709.1723f, 28f));
+            blip.Sprite = (BlipSprite) 305;
+            blip.Color = (BlipColor) 37;
+            blip.Name = "Церковь";
             blip.IsShortRange = true;
             blip.Scale = 0.8f;
             
@@ -879,6 +894,20 @@ namespace Client
             blip.IsShortRange = true;
             blip.Scale = 0.8f;
             
+            blip = World.CreateBlip(Managers.Pickup.Bus3KeyPos);
+            blip.Sprite = (BlipSprite) 50;
+            blip.Color = (BlipColor) 59;
+            blip.Name = "Автобусный Парк";
+            blip.IsShortRange = true;
+            blip.Scale = 0.4f;
+            
+            blip = World.CreateBlip(Managers.Pickup.Bus1KeyPos);
+            blip.Sprite = (BlipSprite) 50;
+            blip.Color = (BlipColor) 59;
+            blip.Name = "Автобусный Парк";
+            blip.IsShortRange = true;
+            blip.Scale = 0.4f;
+            
             blip = World.CreateBlip(Managers.Pickup.BgstarKeyPos);
             blip.Sprite = (BlipSprite) 50;
             blip.Color = (BlipColor) 59;
@@ -929,13 +958,6 @@ namespace Client
             blip.Scale = 0.4f;
             
             blip = World.CreateBlip(Managers.Pickup.TrashKeyPos);
-            blip.Sprite = (BlipSprite) 50;
-            blip.Color = (BlipColor) 59;
-            blip.Name = "Гараж рабочего транспорта";
-            blip.IsShortRange = true;
-            blip.Scale = 0.4f;
-            
-            blip = World.CreateBlip(Managers.Pickup.Bus1KeyPos);
             blip.Sprite = (BlipSprite) 50;
             blip.Color = (BlipColor) 59;
             blip.Name = "Гараж рабочего транспорта";

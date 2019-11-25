@@ -10437,6 +10437,7 @@ namespace Client
                 {
                     HideMenu();
 
+
                     if (ownerType == InventoryTypes.StockGang)
                     {
                         if (!User.IsLeader() && (itemId == 138 || itemId == 139 || itemId == 140 || itemId == 141))
@@ -10446,6 +10447,11 @@ namespace Client
                     }
                     else
                         Managers.Inventory.GetInfoItem(Convert.ToInt32(property.Key));
+
+                    if (ownerType == InventoryTypes.Fridge)
+                    {
+                        Main.SaveLog("FridgeLog", $"[TAKE] {User.Data.rp_name} ITEMID {itemId} KITCHENID {ownerId}");
+                    }
                 };
             }
             
@@ -10696,6 +10702,7 @@ namespace Client
                         {
                             HideMenu();
                             Managers.Inventory.DropItemToFridge(id, itemId, kitchenId);
+                            Main.SaveLog("FridgeLog", $"[DROP] {User.Data.rp_name} ITEMID {itemId} KITCHENID {kitchenId}");
                         };
                     }
 
@@ -10826,6 +10833,7 @@ namespace Client
                         {
                             HideMenu();
                             Managers.Inventory.DropItemToFridge(id, itemId, kitchenId);
+                            Main.SaveLog("FridgeLog", $"[DROP] {User.Data.rp_name} ITEMID {itemId} KITCHENID {kitchenId}");
                         };
                     }
                     if (User.GetPlayerVirtualWorld() > 50000)
@@ -14695,6 +14703,12 @@ namespace Client
             {
                 if (vehData.Number != Managers.Vehicle.GetVehicleNumber(v.Handle)) continue;
 
+                menu.AddMenuItem(UiMenu, "Сменить номер", "Цена: ~g~$40000").Activated += (uimenu, item) =>
+                {
+                    HideMenu();
+                    Business.CarNumber.ShowVehicleNumberList(shopId);
+                };
+                
                 if (vehData.SOil > 0)
                 {
                     int price = 100;

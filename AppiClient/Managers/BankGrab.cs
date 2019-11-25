@@ -119,28 +119,17 @@ namespace Client.Managers
             RequestAnimDict("anim@heists@ornate_bank@hack");
             while (!HasAnimDictLoaded("anim@heists@ornate_bank@hack"))
                 await Delay(1);
-                
+
+            var pp = GetPlayerPed(-1);
+
+            TaskPlayAnim(pp, "anim@heists@ornate_bank@hack", "hack_enter", 8.0001f, -8.0001f, -1, 8, 0, false, false,
+                false);
+            await Delay(9600);
             
-            User.PlayAnimation("anim@heists@ornate_bank@hack", "hack_enter_no_armour_bag", 49);
-            await Delay(4000);
-            Debug.WriteLine("UserPlayAnim");
-            var player = GetPlayerPed(-1);
-            TaskPlayAnim(player, "anim@heists@ornate_bank@hack", "hack_enter_no_armour_bag", 8.0f, 1.0f, -1, 8, 0.0f, false, false,
+            TaskPlayAnim(pp, "anim@heists@ornate_bank@hack", "hack_loop", 8.0001f, -8.0001f, -1, 9, 0, false, false,
                 false);
-            await Delay(4000);
-            Debug.WriteLine("8");
-            TaskPlayAnim(player, "anim@heists@ornate_bank@hack", "hack_enter_no_armour_bag", 8.0f, 1.0f, -1, 9, 0.0f, false, false,
-                false);
-            await Delay(4000);
-            Debug.WriteLine("9");
-            TaskPlayAnim(player, "anim@heists@ornate_bank@hack", "hack_enter_no_armour_bag", 8.0f, 1.0f, -1, 48, 0.0f, false, false,
-                false);
-            await Delay(4000);
-            Debug.WriteLine("48");
-            TaskPlayAnim(player, "anim@heists@ornate_bank@hack", "hack_enter_no_armour_bag", 8.0f, 1.0f, -1, 49, 0.0f, false, false,
-                false);
-            await Delay(4000);
-            Debug.WriteLine("49");
+            await Delay(3000);
+            
             
             await Delay(2500);
             var VaultDoor = GetClosestObjectOfType(254.135f, 225.165f, 101.876f, 10.0f, 961976194, false, false, false);

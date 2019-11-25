@@ -317,12 +317,23 @@ namespace Server
 
         public static bool DoesPromocodeValid(string code)
         {
-            code = Main.DeleteSqlHack(code);
-            
             bool isValid = false;
-            foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT code FROM promocode_top_list WHERE code = '" + code + "'").Rows)
-                if (!string.IsNullOrEmpty((string)row["code"])) isValid = true;
-            return isValid;
+
+            if (code == null)
+            {
+                isValid = true;
+                return isValid;
+            }
+                
+            else
+            {
+                code = Main.DeleteSqlHack(code);
+                
+                foreach (DataRow row in Appi.MySql.ExecuteQueryWithResult("SELECT code FROM promocode_top_list WHERE code = '" + code + "'").Rows)
+                    if (!string.IsNullOrEmpty((string)row["code"])) isValid = true;
+                return isValid;
+            }
+            
         }
 
         public static bool Does3AccountExist(Player player)

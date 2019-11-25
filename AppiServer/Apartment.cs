@@ -79,6 +79,7 @@ namespace Server
                 Sync.Data.Set(-100000 + (int) row["id"], "floor", (int) row["floor"]);
                 Sync.Data.Set(-100000 + (int) row["id"], "interior_id", (int) row["interior_id"]);
                 Sync.Data.Set(-100000 + (int) row["id"], "is_exterior", (bool) row["is_exterior"]);
+                Sync.Data.Set(-100000 + (int) row["id"], "pin", (int) row["pin"]);
 
                 Count++;
             }

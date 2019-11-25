@@ -356,6 +356,7 @@ namespace Server
                         var id = (int) row["id"];
                         var intId = (int) row["interior_id"];
                         var isEx = (bool) row["is_exterior"];
+                        var intpin = (int) row["pin"];
                         var pos = isEx ? new Vector3((float) Apartment.IntList[intId, 0], (float) Apartment.IntList[intId, 1], (float) Apartment.IntList[intId, 2]) : new Vector3((float) Apartment.HouseIntList[intId, 0], (float) Apartment.HouseIntList[intId, 1], (float) Apartment.HouseIntList[intId, 2]);
                         
                         SetVirtualWorld(player, id * -1);

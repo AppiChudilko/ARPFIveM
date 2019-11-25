@@ -3357,33 +3357,6 @@ namespace Client
                 };
             }
             
-            var userId = User.Data.id;
-            if (userId == data.user_id && data.pin > 0)
-            {
-                menu.AddMenuItem(UiMenu, "~y~Сменить пароль от дома").Activated += async (uimenu, item) =>
-                {
-                    HideMenu();
-                    int pin1 = Convert.ToInt32(await Menu.GetUserInput("Пароль", null, 5));
-                    int pin2 = Convert.ToInt32(await Menu.GetUserInput("Повторить пароль", null, 5));
-
-                    if (pin1 < 1)
-                    {
-                        Notification.SendWithTime("~r~Пароль должен быть больше нуля");
-                        return;
-                    }
-
-                    if (pin1 == pin2)
-                    {
-                        Notification.SendWithTime($"~g~Ваш новый пароль: ~s~{pin1}");
-                        TriggerServerEvent("ARP:UpdateApartmentPin", data.id, pin1);
-                    }
-                    else
-                    {
-                        Notification.SendWithTime("~r~Пароли не совпадают");
-                    }
-                };
-            }
-            
             var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
             
             UiMenu.OnItemSelect += (sender, item, index) =>
@@ -17191,30 +17164,6 @@ namespace Client
                 User.RemoveCashMoney(10000);
                 Business.Business.AddMoney(shopId, 3500);
                 Notification.SendWithTime("~g~Вы купили дверь с пинкодом для вашего дома");
-            };
-            
-            menu.AddMenuItem(UiMenu, "Дверь с пинкодом для апартаментов", "Цена: ~g~$10000").Activated += async (uimenu, item) =>
-            {
-                HideMenu();
-                if (User.Data.apartment_id == 0)
-                {
-                    Notification.SendWithTime("~r~У Вас нет апартаментов");
-                    return;
-                }
-                if ((int) await Client.Sync.Data.Get(100000 + User.Data.apartment_id, "pin") > 0)
-                {
-                    Notification.SendWithTime("~r~В ваших апартаментах уже установлена данная дверь");
-                    return;
-                }
-                if (await User.GetCashMoney() < 10000)
-                {
-                    Notification.SendWithTime("~r~У Вас нет столько налички");
-                    return;
-                }
-                TriggerServerEvent("ARP:UpdateApartmentPin", User.Data.apartment_id, 9999);
-                User.RemoveCashMoney(10000);
-                Business.Business.AddMoney(shopId, 3500);
-                Notification.SendWithTime("~g~Вы купили дверь с пинкодом для ваших апартаментов");
             };
             
             if (User.Data.fraction_id2 > 0)

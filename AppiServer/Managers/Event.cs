@@ -47,7 +47,6 @@ namespace Server.Managers
             EventHandlers.Add("ARP:SpawnServerVehicle", new Action<Player, int, int>(SpawnServerVehicle));
 
             EventHandlers.Add("ARP:UpdateHousePin", new Action<int, int>(House.UpdateHousePin));
-            EventHandlers.Add("ARP:UpdateApartmentPin", new Action<int, int>(House.UpdateApartmentPin));
             EventHandlers.Add("ARP:UpdateHouseInfo", new Action<Player, string, int, int, int>(UpdateHouseInfo));
             EventHandlers.Add("ARP:UpdateHouseInfoHookup", new Action<Player, int, int, string>(UpdateHouseInfoHookup));
             EventHandlers.Add("ARP:UpdateHouseInfoAntiHookup", new Action<Player, int, int>(UpdateHouseInfoAntiHookup));

@@ -111,7 +111,6 @@ namespace Client.Managers
             }
         }
         
-        
         public static void UpdateInfo(int id, string userName, int userId)
         {
             TriggerServerEvent("ARP:UpdateApartmentInfo", userName, userId, id);
@@ -159,7 +158,7 @@ namespace Client.Managers
         }
         
         public static async void Enter(int id)
-        {/*
+        {
             CurrentData = await GetAllData(id);
             if (CurrentData.id == 0)
             {
@@ -173,41 +172,7 @@ namespace Client.Managers
                 : new Vector3((float) House.HouseInts[i, 0], (float) House.HouseInts[i, 1],
                     (float) House.HouseInts[i, 2]));
 
-            User.SetVirtualWorld(CurrentData.id * -1);*/
-            
-            CurrentData = await GetAllData(id);
-            
-            if ((int) await Client.Sync.Data.Get(100000 + CurrentData.id, "pin") > 0)
-            {
-                if (User.IsAdmin(4))
-                    Notification.SendWithTime($"~g~Пароль: ~s~{(int) await Client.Sync.Data.Get(100000 + CurrentData.id, "pin")}");
-                
-                int pass = Convert.ToInt32(await Menu.GetUserInput("Пароль", null, 5));
-                if (pass == (int) await Client.Sync.Data.Get(100000 + CurrentData.id, "pin"))
-                {
-                    int i = CurrentData.interior_id;
-                    User.Teleport(CurrentData.is_exterior
-                        ? new Vector3((float) IntList[i, 0], (float) IntList[i, 1], (float) IntList[i, 2])
-                        : new Vector3((float) House.HouseInts[i, 0], (float) House.HouseInts[i, 1],
-                            (float) House.HouseInts[i, 2]));
-
-                    User.SetVirtualWorld(CurrentData.id * -1);
-                }
-                else
-                {
-                    Notification.SendWithTime("~r~Вы не верно ввели пароль");
-                }
-            }
-            else
-            {
-                int i = CurrentData.interior_id;
-                User.Teleport(CurrentData.is_exterior
-                    ? new Vector3((float) IntList[i, 0], (float) IntList[i, 1], (float) IntList[i, 2])
-                    : new Vector3((float) House.HouseInts[i, 0], (float) House.HouseInts[i, 1],
-                        (float) House.HouseInts[i, 2]));
-
-                User.SetVirtualWorld(CurrentData.id * -1);
-            }
+            User.SetVirtualWorld(CurrentData.id * -1);
         }
 
         public static async void Exit()
@@ -295,7 +260,6 @@ namespace Client.Managers
             User.SaveAccount();
             MenuList.HideMenu();
         }
-        
 
         public static async void Sell(int id)
         {
@@ -371,5 +335,4 @@ public class ApartmentData
     public int floor {get;set;}
     public int interior_id {get;set;}
     public bool is_exterior {get;set;}
-    public int pin {get;set;}
 }

@@ -1626,7 +1626,7 @@ namespace Client
                 }
                 if (vehItem.Job == "bus1")
                 {
-                    menu.AddMenuItem(UiMenu, "~g~Начать рейс", "Зарплата: ~g~$200").Activated += (sender, item) =>
+                    menu.AddMenuItem(UiMenu, "~g~Начать рейс", "Зарплата: ~g~$300").Activated += (sender, item) =>
                     {
                         Jobs.Bus.Start(1);
                     };
@@ -1637,7 +1637,7 @@ namespace Client
                 }
                 if (vehItem.Job == "bus2")
                 {
-                    menu.AddMenuItem(UiMenu, "~g~Начать рейс", "Зарплата: ~g~$70").Activated += (sender, item) =>
+                    menu.AddMenuItem(UiMenu, "~g~Начать рейс", "Зарплата: ~g~$100").Activated += (sender, item) =>
                     {
                         Jobs.Bus.Start(2);
                     };
@@ -1648,7 +1648,7 @@ namespace Client
                 }
                 if (vehItem.Job == "bus3")
                 {
-                    menu.AddMenuItem(UiMenu, "~g~Начать рейс", "Зарплата: ~g~$365").Activated += (sender, item) =>
+                    menu.AddMenuItem(UiMenu, "~g~Начать рейс", "Зарплата: ~g~$500").Activated += (sender, item) =>
                     {
                         Jobs.Bus.Start(3);
                     };

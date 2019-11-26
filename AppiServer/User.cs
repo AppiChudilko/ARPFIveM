@@ -319,7 +319,7 @@ namespace Server
         {
             bool isValid = false;
 
-            if (code == null)
+            if (code == "")
             {
                 isValid = true;
                 return isValid;

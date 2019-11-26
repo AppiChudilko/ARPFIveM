@@ -53,11 +53,6 @@ namespace Server.Managers
             Server.Sync.Data.Set(300000 + id, "pin", pin);
             Appi.MySql.ExecuteQuery("UPDATE condo SET pin = '" + pin + "' where id = '" + id + "'");
         }
-        public static void UpdateApartmentPin(int id, int pin)
-        {
-            Server.Sync.Data.Set(300000 + id, "pin", pin);
-            Appi.MySql.ExecuteQuery("UPDATE apartment SET pin = '" + pin + "' where id = '" + id + "'");
-        }
         
         public static void LoadHouse(DataRow row)
         {

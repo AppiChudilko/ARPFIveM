@@ -3360,7 +3360,7 @@ namespace Client
             var userId = User.Data.id;
             if (userId == data.user_id && data.pin > 0)
             {
-                menu.AddMenuItem(UiMenu, "~y~Сменить пароль от дома").Activated += async (uimenu, item) =>
+                menu.AddMenuItem(UiMenu, "~y~Сменить пароль от апартаментов").Activated += async (uimenu, item) =>
                 {
                     HideMenu();
                     int pin1 = Convert.ToInt32(await Menu.GetUserInput("Пароль", null, 5));
@@ -17226,7 +17226,7 @@ namespace Client
                     Notification.SendWithTime("~r~У Вас нет апартаментов");
                     return;
                 }
-                if ((int) await Client.Sync.Data.Get(100000 + User.Data.apartment_id, "pin") > 0)
+                if ((int) await Client.Sync.Data.Get(-100000 + User.Data.apartment_id, "pin") > 0)
                 {
                     Notification.SendWithTime("~r~В ваших апартаментах уже установлена данная дверь");
                     return;
@@ -17240,6 +17240,7 @@ namespace Client
                 User.RemoveCashMoney(10000);
                 Business.Business.AddMoney(shopId, 3500);
                 Notification.SendWithTime("~g~Вы купили дверь с пинкодом для ваших апартаментов");
+                Notification.SendWithTime("~g~Новый пин код: ~w~9999");
             };
             
             if (User.Data.fraction_id2 > 0)

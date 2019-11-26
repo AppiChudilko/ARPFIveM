@@ -125,7 +125,7 @@ namespace Server.Managers
         }
         public static void UpdateApartmentPin(int id, int pin)
         {
-            Server.Sync.Data.Set(100000 + id, "pin", pin);
+            Server.Sync.Data.Set(-100000 + id, "pin", pin);
             Appi.MySql.ExecuteQuery("UPDATE apartment SET pin = '" + pin + "' where id = '" + id + "'");
         }
         

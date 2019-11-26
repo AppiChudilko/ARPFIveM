@@ -1661,7 +1661,7 @@ namespace Server.Managers
             TriggerClientEvent(player, "ARP:SendPlayerNotification", "~g~Смс была удалена");
         }
         
-        protected static async void Register([FromSource] Player player, string name, string surname, string password, string email, string promocode, string referer, bool acceptRules)
+        protected static async void Register([FromSource] Player player, string name, string surname, string password, string email, string  promocode, string referer, bool acceptRules)
         {
             if (User.IsLogin(User.GetServerId(player)))
             {

@@ -176,14 +176,14 @@ namespace Client.Managers
             User.SetVirtualWorld(CurrentData.id * -1);*/
             
             CurrentData = await GetAllData(id);
-            
-            if ((int) await Client.Sync.Data.Get(100000 + CurrentData.id, "pin") > 0)
+            var userId = User.Data.id;
+            if ((int) await Client.Sync.Data.Get(-100000 + CurrentData.id, "pin") > 0 && CurrentData.user_id != userId)
             {
                 if (User.IsAdmin(4))
-                    Notification.SendWithTime($"~g~Пароль: ~s~{(int) await Client.Sync.Data.Get(100000 + CurrentData.id, "pin")}");
+                    Notification.SendWithTime($"~g~Пароль: ~s~{(int) await Client.Sync.Data.Get(-100000 + CurrentData.id, "pin")}");
                 
                 int pass = Convert.ToInt32(await Menu.GetUserInput("Пароль", null, 5));
-                if (pass == (int) await Client.Sync.Data.Get(100000 + CurrentData.id, "pin"))
+                if (pass == (int) await Client.Sync.Data.Get(-100000 + CurrentData.id, "pin"))
                 {
                     int i = CurrentData.interior_id;
                     User.Teleport(CurrentData.is_exterior
@@ -209,6 +209,7 @@ namespace Client.Managers
                 User.SetVirtualWorld(CurrentData.id * -1);
             }
         }
+        
 
         public static async void Exit()
         {

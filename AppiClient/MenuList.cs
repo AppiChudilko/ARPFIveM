@@ -5204,11 +5204,22 @@ namespace Client
                 SetPedMovementClipset(GetPlayerPed(-1), clipSet, 0);
             };
 
-            menu.AddMenuItem(UiMenu, "Спавн педа").Activated += (uimenu, item) =>
+            menu.AddMenuItem(UiMenu, "Анимации").Activated += async (uimenu, item) =>
             {
                 HideMenu();
                 
-                Managers.BankGrab.SpawnPed();
+                string directory = await Menu.GetUserInput("directory", "", 128);
+                string anim = await Menu.GetUserInput("anim", "", 60);
+                int flag = Convert.ToInt32(await Menu.GetUserInput("flag", "", 60));
+                int delay = Convert.ToInt32(await Menu.GetUserInput("delay", "", 60));
+                
+                RequestAnimDict(directory);
+                while (!HasAnimDictLoaded(directory))
+                    await Delay(1);
+
+                TaskPlayAnim(GetPlayerPed(-1), directory, anim, 8.0001f, -8.0001f, -1, flag, 0, false, false, false);
+                await Delay(delay);
+                Notification.SendWithTime("End");
             };
             
             menu.AddMenuItem(UiMenu, "Открыть двери хранилища").Activated += (uimenu, item) =>
@@ -10453,6 +10464,7 @@ namespace Client
                 {
                     HideMenu();
 
+
                     if (ownerType == InventoryTypes.StockGang)
                     {
                         if (!User.IsLeader() && (itemId == 138 || itemId == 139 || itemId == 140 || itemId == 141))
@@ -10462,6 +10474,11 @@ namespace Client
                     }
                     else
                         Managers.Inventory.GetInfoItem(Convert.ToInt32(property.Key));
+
+                    if (ownerType == InventoryTypes.Fridge)
+                    {
+                        Main.SaveLog("FridgeLog", $"[TAKE] {User.Data.rp_name} ITEMID {itemId} KITCHENID {ownerId}");
+                    }
                 };
             }
             
@@ -10712,6 +10729,7 @@ namespace Client
                         {
                             HideMenu();
                             Managers.Inventory.DropItemToFridge(id, itemId, kitchenId);
+                            Main.SaveLog("FridgeLog", $"[DROP] {User.Data.rp_name} ITEMID {itemId} KITCHENID {kitchenId}");
                         };
                     }
 
@@ -10842,6 +10860,7 @@ namespace Client
                         {
                             HideMenu();
                             Managers.Inventory.DropItemToFridge(id, itemId, kitchenId);
+                            Main.SaveLog("FridgeLog", $"[DROP] {User.Data.rp_name} ITEMID {itemId} KITCHENID {kitchenId}");
                         };
                     }
                     if (User.GetPlayerVirtualWorld() > 50000)
@@ -14711,6 +14730,12 @@ namespace Client
             {
                 if (vehData.Number != Managers.Vehicle.GetVehicleNumber(v.Handle)) continue;
 
+                menu.AddMenuItem(UiMenu, "Сменить номер", "Цена: ~g~$40000").Activated += (uimenu, item) =>
+                {
+                    HideMenu();
+                    Business.CarNumber.ShowVehicleNumberList(shopId);
+                };
+                
                 if (vehData.SOil > 0)
                 {
                     int price = 100;

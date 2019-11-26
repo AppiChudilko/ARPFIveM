@@ -75,6 +75,10 @@ namespace Client.Business
                     vehList = Main.GetVehicleListOnRadius(new Vector3((float) NumberMarkers[1, 4], (float) NumberMarkers[1, 5], (float) NumberMarkers[1, 6]), 4f);
                     MenuList.ShowVehicleNumberList(bizzId, vehList.Select(vehItem => Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).ToList());
                     break;
+                case 125:
+                    vehList = Main.GetVehicleListOnRadius(new Vector3((float) NumberMarkers[1, 4], (float) NumberMarkers[1, 5], (float) NumberMarkers[1, 6]), 4f);
+                    MenuList.ShowVehicleNumberList(bizzId, vehList.Select(vehItem => Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).ToList());
+                    break;
             }
         }
 

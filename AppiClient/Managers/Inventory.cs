@@ -1647,13 +1647,13 @@ namespace Client.Managers
             
             if (itemId == 194 || itemId == 198)
             {
-                Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (1),pos.Y + Cos(ped.Rotation.Z) * (1) , pos.Z - 0.9);
+                Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (1),pos.Y + Cos(ped.Rotation.Z) * (1) , pos.Z - 0.95);
                 return;
             }
             
             if (itemId == 195 || itemId == 196 || itemId == 197 || itemId == 199 || itemId == 203 || itemId == 202 || itemId == 200 || itemId == 201)
             {
-                Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (0.5),pos.Y + Cos(ped.Rotation.Z) * (0.5) , pos.Z - 0.9);
+                Shared.TriggerEventToAllPlayers("ARP:OnDropItem", User.Data.id, id, itemId, pos.X - Sin(ped.Rotation.Z) * (0.5),pos.Y + Cos(ped.Rotation.Z) * (0.5) , pos.Z - 0.95);
                 return;
             }
             

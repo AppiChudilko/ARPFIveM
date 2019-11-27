@@ -11,6 +11,7 @@ namespace Client.Business
     {
         public static double[,] NumberMarkers =
         {
+        
             { -38.85731, -1082.644, 25.42234, 86, -33.4645, -1089.276, 26.00986 }, //Simon / Premium Delux Motorsport
             //{ 548.5602, -172.7322, 53.48133, 87, 538.6563, -176.844, 54.06823 }, //Vinewood / Rent Exotic
         };
@@ -72,11 +73,11 @@ namespace Client.Business
                     MenuList.ShowVehicleNumberList(bizzId, vehList.Select(vehItem => Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).ToList());
                     break;
                 case 87:
-                    vehList = Main.GetVehicleListOnRadius(new Vector3((float) NumberMarkers[1, 4], (float) NumberMarkers[1, 5], (float) NumberMarkers[1, 6]), 4f);
+                    vehList = Main.GetVehicleListOnRadius(Managers.Pickup.ExoticCarsPosCarPos, 4f);
                     MenuList.ShowVehicleNumberList(bizzId, vehList.Select(vehItem => Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).ToList());
                     break;
                 case 125:
-                    vehList = Main.GetVehicleListOnRadius(new Vector3((float) NumberMarkers[1, 4], (float) NumberMarkers[1, 5], (float) NumberMarkers[1, 6]), 4f);
+                    vehList = Main.GetVehicleListOnRadius(Managers.Pickup.AutoRepairsPosCarPos, 4f);
                     MenuList.ShowVehicleNumberList(bizzId, vehList.Select(vehItem => Managers.Vehicle.GetVehicleNumber(vehItem.Handle)).ToList());
                     break;
             }

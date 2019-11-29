@@ -733,7 +733,27 @@ namespace Client.Business
                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_78"));
                 return;
             }
+
+            if (shopId == 88 && !User.Data.ship_lic)
+            {
+                Notification.SendWithTime(Lang.GetTextToPlayer("133"));
+                return;
+            }
             
+            if ((shopId == 89 || shopId == 90) && !User.Data.heli_lic)
+            {
+                Notification.SendWithTime(Lang.GetTextToPlayer("134"));
+                return;
+            }
+            
+            if (shopId == 93 && !User.Data.air_lic)
+            {
+                Notification.SendWithTime(Lang.GetTextToPlayer("135"));
+                return;
+            }
+            
+            
+
             User.RemoveMoney(price);
             Business.AddMoney(shopId, price);
             
@@ -746,21 +766,21 @@ namespace Client.Business
             var coords = new Vector3((float) Main.RentCarMarkers[0, 4], (float) Main.RentCarMarkers[0, 5],
                 (float) Main.RentCarMarkers[0, 6]);
 
-            if (shopId == 87)
+            /*if (shopId == 87)
+                coords = new Vector3((float) Main.RentCarMarkers[1, 4], (float) Main.RentCarMarkers[1, 5],
+                    (float) Main.RentCarMarkers[1, 6]);*/
+            if (shopId == 88)
                 coords = new Vector3((float) Main.RentCarMarkers[1, 4], (float) Main.RentCarMarkers[1, 5],
                     (float) Main.RentCarMarkers[1, 6]);
-            else if (shopId == 88)
+            else if (shopId == 89)
                 coords = new Vector3((float) Main.RentCarMarkers[2, 4], (float) Main.RentCarMarkers[2, 5],
                     (float) Main.RentCarMarkers[2, 6]);
-            else if (shopId == 89)
+            else if (shopId == 90)
                 coords = new Vector3((float) Main.RentCarMarkers[3, 4], (float) Main.RentCarMarkers[3, 5],
                     (float) Main.RentCarMarkers[3, 6]);
-            else if (shopId == 90)
+            else if (shopId == 93)
                 coords = new Vector3((float) Main.RentCarMarkers[4, 4], (float) Main.RentCarMarkers[4, 5],
                     (float) Main.RentCarMarkers[4, 6]);
-            else if (shopId == 93)
-                coords = new Vector3((float) Main.RentCarMarkers[5, 4], (float) Main.RentCarMarkers[5, 5],
-                    (float) Main.RentCarMarkers[5, 6]);
             
             var vehicleHash = Convert.ToUInt32(hash);
             if (!await Main.LoadModel(vehicleHash))

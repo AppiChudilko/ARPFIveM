@@ -77,6 +77,8 @@ namespace Client.Managers
             uint drill = (uint) GetHashKey("hei_prop_heist_drill");
             uint cash_pile = (uint) GetHashKey("hei_prop_heist_cash_pile");
             uint laptop = (uint) GetHashKey("gr_prop_gr_laptop_01a");
+            string hackdict = "anim@heists@ornate_bank@hack";
+            
             
 
             RequestModel(thermite);
@@ -116,15 +118,15 @@ namespace Client.Managers
             while(!HasAnimDictLoaded("anim@heists@ornate_bank@hack_heels"))
                 await Delay(1);
 
-            RequestAnimDict("anim@heists@ornate_bank@hack");
-            while (!HasAnimDictLoaded("anim@heists@ornate_bank@hack"))
+            RequestAnimDict(hackdict);
+            while (!HasAnimDictLoaded(hackdict))
                 await Delay(1);
 
             var pp = GetPlayerPed(-1);
 
-            TaskPlayAnim(pp, "anim@heists@ornate_bank@hack", "hack_enter", 8.0001f, -8.0001f, -1, 8, 0, false, false,
+            TaskPlayAnim(pp, hackdict, "hack_enter", 8.0001f, -8.0001f, -1, 8, 0, false, false,
                 false);
-            await Delay(9600);
+            await Delay((int) GetAnimDuration(hackdict, "hack_enter") * 1000);
             
             TaskPlayAnim(pp, "anim@heists@ornate_bank@hack", "hack_loop", 8.0001f, -8.0001f, -1, 9, 0, false, false,
                 false);

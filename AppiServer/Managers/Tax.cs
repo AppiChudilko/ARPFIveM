@@ -166,7 +166,7 @@ namespace Server.Managers
                 }
 
                 if (!isPlayerOnline)
-                    Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + price + "', condo_id = '0', money_tax = '0' WHERE id = '" + (int) row["id_user"] + "'");
+                    Appi.MySql.ExecuteQuery("UPDATE users SET money_bank = money_bank + '" + price + "', condo_id = '0', money_tax = '0', pin = '0' WHERE id = '" + (int) row["id_user"] + "'");
                 
                 Condo.SaveHouse((int) row["id"], "", 0);
                 AdWithNotification($"Квартира {(string) row["address"]} №{(int) row["id"]} поступил в продажу");

@@ -91,7 +91,7 @@ namespace Server
         {
             Sync.Data.Set(-100000 + id, "user_name", userName);
             Sync.Data.Set(-100000 + id, "user_id", userId);
-            string sql = "UPDATE apartment SET user_name = '" + userName + "', user_id = '" + userId + "', money_tax = '0' where id = '" + id + "'";
+            string sql = "UPDATE apartment SET user_name = '" + userName + "', user_id = '" + userId + "', money_tax = '0', pin = '0' where id = '" + id + "'";
             Appi.MySql.ExecuteQuery(sql);
         }
     }

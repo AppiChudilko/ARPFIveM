@@ -42,7 +42,7 @@ namespace Server.Managers
             Server.Sync.Data.Set(300000 + id, "name_user", userName);
             Server.Sync.Data.Set(300000 + id, "id_user", userId);
             
-            string sql = "UPDATE condo SET name_user = '" + userName + "', id_user = '" + userId + "', money_tax = '0' where id = '" + id + "'";
+            string sql = "UPDATE condo SET name_user = '" + userName + "', id_user = '" + userId + "', money_tax = '0', pin = '0' where id = '" + id + "'";
             Appi.MySql.ExecuteQuery(sql);
             
             TriggerClientEvent("ARP:UpdateClientCondoInfo", id, userName, userId);

@@ -23,7 +23,7 @@ namespace Server.Managers
             Server.Sync.Data.Set(100000 + id, "id_user", userId);
             Server.Sync.Data.Set(100000 + id, "is_buy", isBuy == 1);
             
-            string sql = "UPDATE houses SET is_buy = '" + isBuy + "', name_user = '" + userName + "', id_user = '" + userId + "', money_tax = '0' where id = '" + id + "'";
+            string sql = "UPDATE houses SET is_buy = '" + isBuy + "', name_user = '" + userName + "', id_user = '" + userId + "', money_tax = '0', pin = '0' where id = '" + id + "'";
             Appi.MySql.ExecuteQuery(sql);
             
             TriggerClientEvent("ARP:UpdateClientHouseInfo", id, isBuy, userName, userId);

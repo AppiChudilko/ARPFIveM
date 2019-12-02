@@ -17242,6 +17242,30 @@ namespace Client
                 Notification.SendWithTime("~g~Вы купили дверь с пинкодом для ваших апартаментов");
                 Notification.SendWithTime("~g~Новый пин код: ~w~9999");
             };
+            menu.AddMenuItem(UiMenu, "Дверь с пинкодом для квартиры", "Цена: ~g~$10000").Activated += async (uimenu, item) =>
+            {
+                HideMenu();
+                if (User.Data.condo_id == 0)
+                {
+                    Notification.SendWithTime("~r~У Вас нет квартиры");
+                    return;
+                }
+                if ((int) await Client.Sync.Data.Get(-100000 + User.Data.condo_id, "pin") > 0)
+                {
+                    Notification.SendWithTime("~r~В вашей квартире уже установлена данная дверь");
+                    return;
+                }
+                if (await User.GetCashMoney() < 10000)
+                {
+                    Notification.SendWithTime("~r~У Вас нет столько налички");
+                    return;
+                }
+                TriggerServerEvent("ARP:UpdateCondoPin", User.Data.condo_id, 9999);
+                User.RemoveCashMoney(10000);
+                Business.Business.AddMoney(shopId, 3500);
+                Notification.SendWithTime("~g~Вы купили дверь с пинкодом для вашей квартиры");
+                Notification.SendWithTime("~g~Новый пин код: ~w~9999");
+            };
             
             if (User.Data.fraction_id2 > 0)
             {

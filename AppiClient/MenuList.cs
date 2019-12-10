@@ -1471,7 +1471,26 @@ namespace Client
                 var menu = new Menu();
                 UiMenu = menu.Create("Транспорт", $"~b~Владелец: ~s~{ownerName}");
                 
-                var engineBtn = menu.AddMenuItem(UiMenu, "~g~Вкл~s~ / ~r~выкл~s~ двигатель");
+                //var engineBtn = menu.AddMenuItem(UiMenu, "~g~Вкл~s~ / ~r~выкл~s~ двигатель");
+
+                if (veh.Model.Hash == 1682114128)
+                {
+                    menu.AddMenuItem(UiMenu, "~g~Начать~s~ / ~r~Закончить~s~ поездку").Activated += (sender, item) =>
+                    {
+                        HideMenu();
+                        Managers.Vehicle.EngineCityBee(veh);
+                    };
+                }
+                else
+                {
+                    menu.AddMenuItem(UiMenu, "~g~Вкл.~s~ / ~r~Выкл.~s~ двигатель").Activated += (sender, item) =>
+                    {
+                        HideMenu();
+                        Managers.Vehicle.Engine(veh);
+                    };
+                }
+                
+                
                 var vehItemNoOwner = VehInfo.Get(veh.Model.Hash);
                 if (vehItemNoOwner.FullFuel == 1)
                 {
@@ -1541,11 +1560,12 @@ namespace Client
                 {
                     if (item == closeButton)
                         HideMenu();
+                    /*
                     if (item == engineBtn)
                     {
                         HideMenu();
                         Managers.Vehicle.Engine(veh);
-                    }
+                    }*/
                     if (item == vehStatsBtn)
                         ShowVehicleStatsMenu(veh);
                     if (item == vehDoBtn)
@@ -1732,6 +1752,14 @@ namespace Client
                     menu.AddMenuItem(UiMenu, "~g~Взять инструменты").Activated += (sender, item) =>
                     {
                         Jobs.Bugstars.TakeTool();
+                    };
+                }
+                if (vehItem.Job == "citybee")
+                {
+                    menu.AddMenuItem(UiMenu, "~g~Пизда").Activated += (sender, item) =>
+                    {
+                        HideMenu();
+                        Jobs.Bugstars.FindHouse();
                     };
                 }
                 if (vehItem.Job == "water")

@@ -359,6 +359,34 @@ namespace Client.Managers
                 Notification.SendWithTime("~r~Либо попробуйте еще раз");
             }
         }
+        public static void EngineCityBee(CitizenFX.Core.Vehicle veh)
+        {
+            if (User.Data.phone_code == 0 || User.Data.phone == 0)
+            {
+                Notification.SendWithTime("~r~У Вас должен быть телефон");
+                return;
+            }
+            if (veh.EngineHealth > 500.0)
+                veh.IsDriveable = veh.IsEngineRunning = !veh.IsEngineRunning;
+            
+            else
+            {
+                Chat.SendDoCommand("транспорт не заводится");
+                Notification.SendWithTime("~r~Проблемы с двигателем, вам нужен рем. комплект");
+                return;
+            }
+
+            if (veh.IsEngineRunning)
+            {
+                Notification.SendWithTime("~b~Поездка началась");
+                Notification.SendWithTime("~b~Тариф: ~w~10$");
+            }
+            else if (!veh.IsEngineRunning)
+            {
+                Notification.SendWithTime("~g~Поездка прекращена");
+            }
+        }
+        
 
 
         public static int GetVehicleIdByNetId(int netid)

@@ -35,6 +35,7 @@ namespace Client.Managers
             Tick += Min30Timer;
             Tick += Min10Timer;
             Tick += Min5Timer;
+            Tick += Min2Timer;
             Tick += Min3Timer;
             Tick += Min1Timer;
             Tick += Sec10Timer;
@@ -319,9 +320,10 @@ namespace Client.Managers
 
         private static async Task Min5Timer()
         {
-            await Delay(1000 * 60 * 5);
+            
+            await Delay(100 * 60 * 5);
 
-            /*if (Weather.CurrentWeather != "XMAS")
+            /*if (Weather.CurrentWeather != "XMAS")    
             {
                 var vHandle = FindFirstVehicle(ref VehFind);
                 do
@@ -333,7 +335,70 @@ namespace Client.Managers
                 } while (FindNextVehicle(vHandle, ref PedFind));
                 EndFindVehicle(vHandle);
             }*/
+            var number = "IPEGASUS";
+            var vehicleHash = Convert.ToUInt32(VehicleHash.Dilettante2);
+                    
+            if (!await Main.LoadModel(vehicleHash))
+            {
+                Notification.SendWithTime("~b~return");
+                return;
+            }
             
+            //Notification.SendWithTime("~r~я запрещаю вам обращать вниамние на это уведомление");
+                    
+            var veh = CreateVehicle(Convert.ToUInt32(VehicleHash.Dilettante2), 2332f, 2556.7122f, 55.02804f + 1f, 0, true, false);
+                    
+            CitizenFX.Core.Vehicle vehicle = new CitizenFX.Core.Vehicle(veh)
+            {
+                IsEngineRunning = true
+            };
+            
+            SetVehicleColours(vehicle.Handle, 11, 28);
+            SetVehicleNumberPlateText(vehicle.Handle, number);
+                    
+            //new CitizenFX.Core.Ped(PlayerPedId()).SetIntoVehicle(vehicle, VehicleSeat.Driver);
+            SetVehicleOnGroundProperly(vehicle.Handle);
+                    
+            //if (!User.HasVehicleKey(number))
+                //User.AddVehicleKey(number);
+                
+            await Delay(100 * 60 * 5);
+        }
+        private static async Task Min2Timer()
+        {
+            var veh = new CitizenFX.Core.Vehicle(GetVehiclePedIsUsing(GetPlayerPed(-1)));
+            if (GetPedInVehicleSeat(veh.Handle, -1) == GetPlayerPed(-1))
+            {
+                //Notification.SendWithTime("~g~GetPlayerInVehicle seat works");
+            }
+            else
+                return;
+
+            if (veh.IsEngineRunning == true)
+            {
+                //Notification.SendWithTime("~g~veh.IsEngineRunning == true");
+            }
+            else
+                return;
+            
+            if (GetVehicleNumberPlateText(veh.Handle) == "IPEGASUS")
+            {
+                //Notification.SendWithTime("~g~5");
+            }
+            else
+                return;
+
+            if (veh.Model.Hash != 1682114128)
+            {
+                return;
+            }
+            
+            User.RemoveMoney(10);
+            Notification.SendWithTime("Оплата: ~g~10$");
+
+            //Notification.SendWithTime($"~y~Транспорт на месте.\nНомера:{GetVehicleNumberPlateText(veh.Handle)}Р");
+            
+            await Delay(100 * 60 * 5);
         }
 
         private static async Task Min3Timer()

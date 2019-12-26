@@ -344,8 +344,11 @@ namespace Client.Managers
             }
             else
             {
-                TriggerEvent("ARPHUD:UpdateData:microOff");
-                SetMicroEnable(false);
+                if (User.IsLogin() && User.IsDead())
+                {
+                    TriggerEvent("ARPHUD:UpdateData:microOff");
+                    SetMicroEnable(false);
+                }
             }
         }
         

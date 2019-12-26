@@ -209,6 +209,7 @@ namespace Server
                     s_is_load_blip_house = (bool) row["s_is_load_blip_house"],
                     s_is_characher = (bool) row["s_is_characher"],
                     s_is_spawn_aprt = (bool) row["s_is_spawn_aprt"],
+                    //s_is_spawn_aprt = (bool) row["s_is_spawn_camp"],
                     s_is_usehackerphone = (bool) row["s_is_usehackerphone"],
                     //s_is_instuctedhowtohack = (bool) row["s_is_instuctedhowtohack"],
                     s_lang = (string) row["s_lang"],
@@ -880,6 +881,7 @@ public class PlayerData
     public bool s_is_load_blip_house { get; set; }
     public bool s_is_characher { get; set; }
     public bool s_is_spawn_aprt { get; set; }
+    //public bool s_is_spawn_camper { get; set; }
     public bool s_is_usehackerphone { get; set; }
     //public bool s_is_instuctedhowtohack { get; set; }
     public string s_lang { get; set; }

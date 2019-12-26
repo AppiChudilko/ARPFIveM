@@ -77,7 +77,8 @@ namespace Client.Business
                 case 151:
                 case 152:
                 case 153:
-                    
+                case 276:
+
                     int ptFull = count;
                     while (ptFull > 0)
                     {

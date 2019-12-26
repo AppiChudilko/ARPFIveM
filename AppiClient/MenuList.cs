@@ -25,6 +25,8 @@ namespace Client
         
         protected static NativeUI.PauseMenu.TabView TabTest = null;
         
+        public static bool SitButtonPressed = false;
+        
         private static float _screenX = 0f;
         private static float _screenY = 0f;
         public static int welding = 0;
@@ -4499,7 +4501,7 @@ namespace Client
             if (User.IsAdmin(3) || Main.ServerName == "Earth")
             {
                 var list = new List<dynamic>();
-                for (int i = 0; i < 223; i++)
+                for (int i = 0; i < 278; i++)
                     list.Add(Inventory.ItemList[i, 0].ToString());
                 
                 menu.AddMenuItemList(UiMenu, "Взять предмет", list).OnListSelected += (uimenu, idx) =>
@@ -8088,8 +8090,21 @@ namespace Client
                 Screen.Hud.IsRadarVisible = index == 0;
             };
 
+            if (User.Data.id_house > 0 && User.Data.apartment_id > 0 )
+            {
+                
+                var list2 = new List<dynamic> {"Дом", "Апартаменты"};
+                menu.AddMenuItemList(UiMenu, "Точка появления", list2, "Нажмите ~g~Enter~s~ чтобы применить").OnListSelected += (uimenu, index) =>
+                {
+                    User.Data.s_is_spawn_aprt = index == 1;
+                    Sync.Data.Set(User.GetServerId(), "s_is_spawn_aprt", User.Data.s_is_spawn_aprt);
+                    Notification.SendWithTime("~b~Точка появления: " + list2[index]);
+                };
+            }
+            
             if (User.Data.id_house > 0 && User.Data.apartment_id > 0)
             {
+                
                 var list2 = new List<dynamic> {"Дом", "Апартаменты"};
                 menu.AddMenuItemList(UiMenu, "Точка появления", list2, "Нажмите ~g~Enter~s~ чтобы применить").OnListSelected += (uimenu, index) =>
                 {
@@ -10607,6 +10622,7 @@ namespace Client
                                 User.UnTieKnife();
                             };
                         }
+                        
                         if (itemId == 7 || itemId == 63)
                         {
                             menu.AddMenuItem(UiMenu, "~g~Использовать").Activated += (uimenu, item) =>
@@ -16441,7 +16457,7 @@ namespace Client
             var menu = new Menu();
             UiMenu = menu.Create(" ", "~b~Магазин оружия");
             menu.SetMenuBannerSprite(UiMenu, "shopui_title_gunclub", "shopui_title_gunclub");
-            
+
             menu.AddMenuItem(UiMenu, "Кастет", $"Цена: ~g~${(30 * price):#,#}").Activated += (uimenu, item) =>
             {
                 HideMenu();
@@ -17346,6 +17362,12 @@ namespace Client
                     return;
                 }
                 Business.Shop.Buy(4, 10 * price, shopId, count);
+            };
+            
+            menu.AddMenuItem(UiMenu, "Бинокль", $"Цена: ~g~${(8760 * price):#,#}").Activated += (uimenu, item) =>
+            {
+                HideMenu();
+                Business.Shop.Buy(276, 8760 * price, shopId);
             };
             
             menu.AddMenuItem(UiMenu, "Верёвка", $"Цена: ~g~${(10 * price):#,#}").Activated += (uimenu, item) =>
@@ -20652,13 +20674,26 @@ namespace Client
                 {
                     ShowAnimationMenu();
                 }
-                if ((Game.IsControlJustPressed(0, (Control) 161) || Game.IsDisabledControlJustPressed(0, (Control) 161)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //9
+                if ((Game.IsControlJustPressed(0, (Control) 161) || Game.IsDisabledControlJustPressed(0, (Control) 161)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //7
                 {
                     ShowAnimationActionMenu();
+                }
+
+                if ((Game.IsControlJustPressed(0, (Control) 26) || Game.IsDisabledControlJustPressed(0, (Control) 26)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
+                {
+                    User.SetPlayerNonStaticClipset("move_ped_crouched");
                 }
                 if (Game.IsControlJustPressed(0, (Control) 19) || Game.IsDisabledControlJustPressed(0, (Control) 19)) //LALT
                 {
                     Managers.Pickup.CheckPlayerPosToPickup();
+                }
+                if (Game.IsControlJustPressed(0, (Control) 51) || Game.IsDisabledControlJustPressed(0, (Control) 51)) //E
+                {
+                    ShowPlayerDocListMenu();
+                }
+                if (Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303)) //U
+                {
+                    Managers.Inventory.GetItemList(User.Data.id, InventoryTypes.Player);
                 }
                 /*if (Game.IsControlJustPressed(0, (Control) 47) || Game.IsDisabledControlJustPressed(0, (Control) 47)) //G
                 {

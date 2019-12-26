@@ -126,7 +126,7 @@ namespace Client.Managers
 
             TaskPlayAnim(pp, hackdict, "hack_enter", 8.0001f, -8.0001f, -1, 8, 0, false, false,
                 false);
-            await Delay((int) GetAnimDuration(hackdict, "hack_enter") * 1000);
+            await Delay((int) GetAnimDuration(hackdict, "hack_enter") * 1000 + 1000);
             
             TaskPlayAnim(pp, "anim@heists@ornate_bank@hack", "hack_loop", 8.0001f, -8.0001f, -1, 9, 0, false, false,
                 false);

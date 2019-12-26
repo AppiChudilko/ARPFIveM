@@ -842,7 +842,11 @@ namespace Client.Managers
                     Grab.GrabGrSix();
                     break;
                 }
-                    
+                case 276:
+                {
+                    TriggerEvent("ARPbinocuar:open", true);
+                    break;
+                }
                 
                 case 0:
                 {

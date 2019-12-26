@@ -699,7 +699,7 @@ namespace Client.Managers
 
             User.Amount = User.Data.mp0_strength * 100 + 45100;
             
-            if (GetEntityHealth(GetPlayerPed(-1)) < 130 && GetEntityHealth(GetPlayerPed(-1)) < 100)
+            if (GetEntityHealth(GetPlayerPed(-1)) < 130 && GetEntityHealth(GetPlayerPed(-1)) > 100)
             {
                 IsDisableClipset = true;
                 User.SetPlayerNonStaticClipset("move_heist_lester");

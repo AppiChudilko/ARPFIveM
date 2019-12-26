@@ -122,6 +122,7 @@ namespace Client.Managers
         public static readonly Vector3 GovKeyPos = new Vector3(-1366.483f, -480.0415f, 30.59574f);
         public static readonly Vector3 SapdKeyPos = new Vector3(458.65f, -1007.944f, 27.27073f);
         public static readonly Vector3 SheriffKeyPos = new Vector3(-459.5084f, 6016.024f, 30.4901f);
+        public static readonly Vector3 SheriffSandyKeyPos = new Vector3(1854.828f, 3679.489f, 32.82781f);
         public static readonly Vector3 FibKeyPos = new Vector3(138.4407f, -702.3063f, 32.12376f);
         public static readonly Vector3 CartelKeyPos = new Vector3(1401.796f, 1114.37f, 113.8376f);
         public static readonly Vector3 TrashKeyPos = new Vector3(1569.828f, -2130.211f, 77.33018f);
@@ -139,6 +140,7 @@ namespace Client.Managers
         public static readonly Vector3 Mail2KeyPos = new Vector3(78.81596f, 112.1012f, 80.16817f);
         public static readonly Vector3 Ems1KeyPos = new Vector3(325.8369f, -573.5953f, 27.89865f);
         public static readonly Vector3 Ems2KeyPos = new Vector3(204.3715f, -1642.363f, 28.8032f);
+        public static readonly Vector3 EmsSandyKeyPos = new Vector3(1836.468f, 3668.447f, 32.67833f);
         public static readonly Vector3 GroupSixKeyPos = new Vector3(-41.86055f, -663.8578f, 32.48044f);
         
         /*EMS*/
@@ -164,6 +166,12 @@ namespace Client.Managers
         public static readonly Vector3 EmsElevatorHosp4Pos = new Vector3(335.7876f, -580.008f, 42.27963f);
         public static readonly Vector3 EmsElevatorHosp1Pos = new Vector3(335.7878f, -580.0073f, 27.89335f);
         
+        //Sandy EMS
+        public static readonly Vector3 EmsSandyGarderobPos = new Vector3(314.2783f, -603.3641f, 42.29278f);
+        public static readonly Vector3 EmsSandyDutyPos = new Vector3(314.2783f, -603.3641f, 42.29278f);
+        public static readonly Vector3 EmsSandyHealPos = new Vector3(314.2783f, -603.3641f, 42.29278f);
+        public static readonly Vector3 EmsSandyPcPos = new Vector3(1825.198f, 3670.384f, 33.27105f);
+        public static readonly Vector3 EmsSandyDirectorPcPos = new Vector3(1835.713f, 3691.424f, 33.27065f);
         
         //Apteka
         public static readonly Vector3 AptekaPos = new Vector3(317.9063f, -1076.87f, 28.47855f);
@@ -380,6 +388,13 @@ namespace Client.Managers
             Marker.Create(EmsHealPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(EmsHealPos, 1.4f, "show:menu");
             
+            //Sandy EMS
+            Marker.Create(EmsSandyGarderobPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(EmsSandyGarderobPos, 1.4f, "show:menu");
+            Marker.Create(EmsSandyDutyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(EmsSandyDutyPos, 1.4f, "show:menu");
+            
+            
             
             //Koiki
             //Marker.Create(Koika1Pos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -399,6 +414,7 @@ namespace Client.Managers
             Checkpoint.Create(GovCoffer, 1.4f, "show:menu");
             Marker.Create(GovNews, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(GovNews, 1.4f, "show:menu");*/
+            
             //Apteka
             Marker.Create(AptekaPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(AptekaPos, 1.4f, "show:menu");

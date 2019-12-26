@@ -435,6 +435,52 @@ namespace Client.Vehicle
                         SMp = 0 
                     };
         
+                case -447711397:
+                    return new VehicleInfoData {
+                        DisplayName = "Paragon",
+                        ClassName = "Coupes", 
+                        IsBroke = false, 
+                        Stock = 475000, 
+                        StockFull = 520000, 
+                        StockItem = 0,
+                        FullFuel = 88, 
+                        FuelMinute = 12, 
+                        Fuel = 88, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                    
+                case 1416466158:
+                    return new VehicleInfoData {
+                        DisplayName = "Paragon2",
+                        ClassName = "Coupes", 
+                        IsBroke = false, 
+                        Stock = 475000, 
+                        StockFull = 520000, 
+                        StockItem = 0,
+                        FullFuel = 88, 
+                        FuelMinute = 14, 
+                        Fuel = 88, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+        
                 case -624529134:
                     return new VehicleInfoData {
                         DisplayName = "Jackal",
@@ -2275,6 +2321,75 @@ namespace Client.Vehicle
                         SMp = 0 
                     };
                 
+                case 722226637:
+                    return new VehicleInfoData {
+                        DisplayName = "Gauntlet3",
+                        ClassName = "Muscle", 
+                        IsBroke = false, 
+                        Stock = 185000, 
+                        StockFull = 280000, 
+                        StockItem = 0,
+                        FullFuel = 78, 
+                        FuelMinute = 11, 
+                        Fuel = 78, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case 1934384720:
+                    return new VehicleInfoData {
+                        DisplayName = "Gauntlet4",
+                        ClassName = "Muscle", 
+                        IsBroke = false, 
+                        Stock = 225000, 
+                        StockFull = 280000, 
+                        StockItem = 0,
+                        FullFuel = 75, 
+                        FuelMinute = 13, 
+                        Fuel = 75, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                    
+                case -882629065:
+                    return new VehicleInfoData {
+                        DisplayName = "Nebula",
+                        ClassName = "Muscle", 
+                        IsBroke = false, 
+                        Stock = 385000, 
+                        StockFull = 300000, 
+                        StockItem = 0,
+                        FullFuel = 65, 
+                        FuelMinute = 6, 
+                        Fuel = 65, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
                 case 15219735:
                     return new VehicleInfoData {
                         DisplayName = "Hermes",
@@ -3505,6 +3620,75 @@ namespace Client.Vehicle
                         FullFuel = 120, 
                         FuelMinute = 20, 
                         Fuel = 120, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case -1349095620:
+                    return new VehicleInfoData {
+                        DisplayName = "Caracara 4x4",
+                        ClassName = "Off-Road", 
+                        IsBroke = false, 
+                        Stock = 1204000, 
+                        StockFull = 1004000, 
+                        StockItem = 0,
+                        FullFuel = 140, 
+                        FuelMinute = 17, 
+                        Fuel = 140, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                    
+                case -362150785:
+                    return new VehicleInfoData {
+                        DisplayName = "Hellion",
+                        ClassName = "Off-Road", 
+                        IsBroke = false, 
+                        Stock = 1905000, 
+                        StockFull = 980000, 
+                        StockItem = 0,
+                        FullFuel = 88, 
+                        FuelMinute = 10, 
+                        Fuel = 88, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case -1829436850:
+                    return new VehicleInfoData {
+                        DisplayName = "Novak",
+                        ClassName = "Suv", 
+                        IsBroke = false, 
+                        Stock = 265000, 
+                        StockFull = 430000, 
+                        StockItem = 0,
+                        FullFuel = 85, 
+                        FuelMinute = 9, 
+                        Fuel = 85, 
                         SWhBkl = 0, 
                         SWhBl = 0, 
                         SWhBkr = 0, 
@@ -5401,6 +5585,29 @@ namespace Client.Vehicle
                         SOil = 0, 
                         SMp = 0 
                     };
+                    
+                    case 686471183:
+                        return new VehicleInfoData {
+                            DisplayName = "Drafter",
+                            ClassName = "Sports", 
+                            IsBroke = false, 
+                            Stock = 315000, 
+                            StockFull = 240000, 
+                            StockItem = 0,
+                            FullFuel = 72, 
+                            FuelMinute = 8, 
+                            Fuel = 72, 
+                            SWhBkl = 0, 
+                            SWhBl = 0, 
+                            SWhBkr = 0, 
+                            SWhBr = 0, 
+                            SEngine = 0, 
+                            SSuspension = 0, 
+                            SBody = 0, 
+                            SCandle = 0, 
+                            SOil = 0, 
+                            SMp = 0 
+                        };
         
                 case -304802106:
                     return new VehicleInfoData {
@@ -5620,6 +5827,29 @@ namespace Client.Vehicle
                         FullFuel = 85, 
                         FuelMinute = 10, 
                         Fuel = 85, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                    
+                case -208911803:
+                    return new VehicleInfoData {
+                        DisplayName = "Jugular",
+                        ClassName = "Sports", 
+                        IsBroke = false, 
+                        Stock = 250000, 
+                        StockFull = 180000, 
+                        StockItem = 0,
+                        FullFuel = 78, 
+                        FuelMinute = 9, 
+                        Fuel = 78, 
                         SWhBkl = 0, 
                         SWhBl = 0, 
                         SWhBkr = 0, 
@@ -7173,6 +7403,29 @@ namespace Client.Vehicle
                         SMp = 0 
                     };
         
+                case -1804415708:
+                    return new VehicleInfoData {
+                        DisplayName = "Peyote2",
+                        ClassName = "Sports Classics", 
+                        IsBroke = false, 
+                        Stock = 264000, 
+                        StockFull = 135000, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 14, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+        
                 case 1078682497:
                     return new VehicleInfoData {
                         DisplayName = "Pigalle",
@@ -8437,7 +8690,168 @@ namespace Client.Vehicle
                         SOil = 0, 
                         SMp = 0 
                     };
-        
+                
+                case 1044193113:
+                    return new VehicleInfoData {
+                        DisplayName = "Thrax",
+                        ClassName = "Super", 
+                        IsBroke = false, 
+                        Stock = 18000, 
+                        StockFull = 180000, 
+                        StockItem = 0,
+                        FullFuel = 88, 
+                        FuelMinute = 12, 
+                        Fuel = 88, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case -324618589:
+                    return new VehicleInfoData {
+                        DisplayName = "S80RR",
+                        ClassName = "Super", 
+                        IsBroke = false, 
+                        Stock = 0, 
+                        StockFull = 0, 
+                        StockItem = 0,
+                        FullFuel = 90, 
+                        FuelMinute = 13, 
+                        Fuel = 90, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case -664141241:
+                    return new VehicleInfoData {
+                        DisplayName = "Krieger",
+                        ClassName = "Super", 
+                        IsBroke = false, 
+                        Stock = 0, 
+                        StockFull = 0, 
+                        StockItem = 0,
+                        FullFuel = 95, 
+                        FuelMinute = 13, 
+                        Fuel = 95, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                    
+                    case 1323778901:
+                        return new VehicleInfoData {
+                            DisplayName = "Emerus",
+                            ClassName = "Super", 
+                            IsBroke = false, 
+                            Stock = 0, 
+                            StockFull = 0, 
+                            StockItem = 0,
+                            FullFuel = 95, 
+                            FuelMinute = 13, 
+                            Fuel = 95, 
+                            SWhBkl = 0,
+                            SWhBl = 0, 
+                            SWhBkr = 0, 
+                            SWhBr = 0, 
+                            SEngine = 0, 
+                            SSuspension = 0, 
+                            SBody = 0, 
+                            SCandle = 0, 
+                            SOil = 0, 
+                            SMp = 0 
+                        };
+                    
+                case -682108547:
+                    return new VehicleInfoData {
+                        DisplayName = "Zorrusso",
+                        ClassName = "Super", 
+                        IsBroke = false, 
+                        Stock = 0, 
+                        StockFull = 0, 
+                        StockItem = 0,
+                        FullFuel = 82, 
+                        FuelMinute = 12, 
+                        Fuel = 82, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case -1620126302:
+                    return new VehicleInfoData {
+                        DisplayName = "Neo",
+                        ClassName = "Super", 
+                        IsBroke = false, 
+                        Stock = 80000, 
+                        StockFull = 220000, 
+                        StockItem = 0,
+                        FullFuel = 85, 
+                        FuelMinute = 12, 
+                        Fuel = 85, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };                
+
+                case -941272559:
+                    return new VehicleInfoData {
+                        DisplayName = "Locust",
+                        ClassName = "Super", 
+                        IsBroke = false, 
+                        Stock = 0, 
+                        StockFull = 0, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 10, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    }; 
+
                 case -2048333973:
                     return new VehicleInfoData {
                         DisplayName = "Italigtb",
@@ -16079,6 +16493,29 @@ namespace Client.Vehicle
                         FullFuel = 35, 
                         FuelMinute = 8, 
                         Fuel = 35, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+		
+                case 1854776567:
+                    return new VehicleInfoData {
+                        DisplayName = "Issi7",
+                        ClassName = "Compacts", 
+                        IsBroke = false, 
+                        Stock = 440000, 
+                        StockFull = 230000, 
+                        StockItem = 0,
+                        FullFuel = 68, 
+                        FuelMinute = 10, 
+                        Fuel = 68, 
                         SWhBkl = 0, 
                         SWhBl = 0, 
                         SWhBkr = 0, 

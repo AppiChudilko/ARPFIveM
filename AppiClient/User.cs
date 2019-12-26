@@ -1635,13 +1635,13 @@ namespace Client
                 await Delay(1);
         }
 
-        public static async void HealthCheck()
+        /*public static async void HealthCheck()
         {
             if (GetEntityHealth(GetPlayerPed(-1)) < 130)
             {
                 User.SetPlayerNonStaticClipset("move_heist_lester");
             }
-        }
+        }*/
 
         public static async void Respawn(Vector3 pos, float rot)
         {
@@ -1691,31 +1691,31 @@ namespace Client
             if (User.IsEms())
             {
                 
-                    if (User.IsDuty())
-                    {
-                        Fractions.Ems.Garderob(0);
-                        Notification.SendWithTime("~b~Вы ушли с дежурства");
-                        Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
-                    }
+                if (User.IsDuty())
+                {
+                    Fractions.Ems.Garderob(0);
+                    Notification.SendWithTime("~b~Вы ушли с дежурства");
+                    Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
+                }
             }
             if (User.IsFib())
             {
 
                 if (User.IsDuty())
-                    {
-                        Notification.SendWithTime("~b~Вы ушли с дежурства");
-                        Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
-                    }
+                {
+                    Notification.SendWithTime("~b~Вы ушли с дежурства"); 
+                    Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
+                }
             }
             
             if (User.IsSapd())
             {
                 if (User.IsDuty())
-                    {
-                        Fractions.Sapd.Garderob(0);
-                        Notification.SendWithTime("~b~Вы ушли с дежурства");
-                        Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
-                    }
+                {
+                    Fractions.Sapd.Garderob(0);
+                    Notification.SendWithTime("~b~Вы ушли с дежурства");
+                    Client.Sync.Data.ResetLocally(User.GetServerId(), "duty");
+                }
             }
             
 
@@ -3021,7 +3021,8 @@ public class PlayerData
     public bool s_is_pay_type_bank { get; set; }
     public bool s_is_load_blip_house { get; set; }
     public bool s_is_characher { get; set; }
-    public bool s_is_spawn_aprt { get; set; }
+    public bool s_is_spawn_aprt { get; set; } 
+    //public bool s_is_spawn_camper { get; set; }
     public bool s_is_usehackerphone { get; set; }
     //public bool s_is_instuctedhowtohack { get; set; }
     public string s_lang { get; set; }

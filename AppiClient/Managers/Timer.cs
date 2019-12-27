@@ -34,8 +34,8 @@ namespace Client.Managers
             Tick += Min60Timer;
             Tick += Min30Timer;
             Tick += Min10Timer;
-            Tick += Min5Timer;
-            Tick += Min2Timer;
+            /*Tick += Min5Timer;
+            Tick += Min2Timer;*/
             Tick += Min3Timer;
             Tick += Min1Timer;
             Tick += Sec10Timer;
@@ -318,7 +318,7 @@ namespace Client.Managers
             }
         }
 
-        private static async Task Min5Timer()
+        /*private static async Task Min5Timer()
         {
             
             await Delay(100 * 60 * 5);
@@ -334,7 +334,7 @@ namespace Client.Managers
 
                 } while (FindNextVehicle(vHandle, ref PedFind));
                 EndFindVehicle(vHandle);
-            }*/
+            }
             var number = "IPEGASUS";
             var vehicleHash = Convert.ToUInt32(VehicleHash.Dilettante2);
                     
@@ -399,7 +399,7 @@ namespace Client.Managers
             //Notification.SendWithTime($"~y~Транспорт на месте.\nНомера:{GetVehicleNumberPlateText(veh.Handle)}Р");
             
             await Delay(100 * 60 * 5);
-        }
+        }*/
 
         private static async Task Min3Timer()
         {

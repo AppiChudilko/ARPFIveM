@@ -20681,7 +20681,18 @@ namespace Client
 
                 if ((Game.IsControlJustPressed(0, (Control) 26) || Game.IsDisabledControlJustPressed(0, (Control) 26)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
                 {
-                    User.SetPlayerNonStaticClipset("move_ped_crouched");
+                    if(IsPedInVehicle(GetPlayerPed(-1)))
+                    {
+                        return;
+                    }
+                    if (SitButtonPressed)
+                    {
+                        User.SetPlayerNewClipset("");
+                        SitButtonPressed = false;
+                        return;
+                    }
+                    User.SetPlayerNewClipset("move_ped_crouched");
+                    SitButtonPressed = true;
                 }
                 if (Game.IsControlJustPressed(0, (Control) 19) || Game.IsDisabledControlJustPressed(0, (Control) 19)) //LALT
                 {
@@ -20689,6 +20700,10 @@ namespace Client
                 }
                 if (Game.IsControlJustPressed(0, (Control) 51) || Game.IsDisabledControlJustPressed(0, (Control) 51)) //E
                 {
+                    if(IsPedInVehicle(GetPlayerPed(-1)))
+                    {
+                        return;
+                    }
                     ShowPlayerDocListMenu();
                 }
                 if (Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303)) //U

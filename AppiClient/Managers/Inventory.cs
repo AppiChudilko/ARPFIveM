@@ -844,7 +844,7 @@ namespace Client.Managers
                 }
                 case 276:
                 {
-                    TriggerEvent("ARPbinocuar:open", true);
+                    TriggerEvent("ARPbinocular:open", true);
                     break;
                 }
                 

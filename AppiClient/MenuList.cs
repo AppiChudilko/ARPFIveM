@@ -20708,9 +20708,9 @@ namespace Client
                     ShowAnimationActionMenu();
                 }
 
-                if ((Game.IsControlJustPressed(0, (Control) 26) || Game.IsDisabledControlJustPressed(0, (Control) 26)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
+                if ((Game.IsControlJustPressed(0, (Control) 47) || Game.IsDisabledControlJustPressed(0, (Control) 47)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
                 {
-                    if(IsPedInVehicle(GetPlayerPed(-1)))
+                    if(IsPedInAnyVehicle(GetPlayerPed(-1), false))
                     {
                         return;
                     }
@@ -20729,7 +20729,7 @@ namespace Client
                 }
                 if (Game.IsControlJustPressed(0, (Control) 51) || Game.IsDisabledControlJustPressed(0, (Control) 51)) //E
                 {
-                    if(IsPedInVehicle(GetPlayerPed(-1)))
+                    if(IsPedInAnyVehicle(GetPlayerPed(-1), false))
                     {
                         return;
                     }

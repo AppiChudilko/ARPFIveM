@@ -3681,7 +3681,7 @@ namespace Client.Vehicle
                 case -1829436850:
                     return new VehicleInfoData {
                         DisplayName = "Novak",
-                        ClassName = "Suv", 
+                        ClassName = "SUVs", 
                         IsBroke = false, 
                         Stock = 265000, 
                         StockFull = 430000, 

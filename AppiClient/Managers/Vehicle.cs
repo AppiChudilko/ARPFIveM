@@ -359,7 +359,7 @@ namespace Client.Managers
                 Notification.SendWithTime("~r~Либо попробуйте еще раз");
             }
         }
-        public static void EngineCityBee(CitizenFX.Core.Vehicle veh)
+        /*public static void EngineCityBee(CitizenFX.Core.Vehicle veh)
         {
             if (User.Data.phone_code == 0 || User.Data.phone == 0)
             {
@@ -385,7 +385,7 @@ namespace Client.Managers
             {
                 Notification.SendWithTime("~g~Поездка прекращена");
             }
-        }
+        }*/
         
 
 

@@ -1473,9 +1473,9 @@ namespace Client
                 var menu = new Menu();
                 UiMenu = menu.Create("Транспорт", $"~b~Владелец: ~s~{ownerName}");
                 
-                //var engineBtn = menu.AddMenuItem(UiMenu, "~g~Вкл~s~ / ~r~выкл~s~ двигатель");
+                var engineBtn = menu.AddMenuItem(UiMenu, "~g~Вкл~s~ / ~r~выкл~s~ двигатель");
 
-                if (veh.Model.Hash == 1682114128)
+               /* if (veh.Model.Hash == 1682114128)
                 {
                     menu.AddMenuItem(UiMenu, "~g~Начать~s~ / ~r~Закончить~s~ поездку").Activated += (sender, item) =>
                     {
@@ -1490,7 +1490,7 @@ namespace Client
                         HideMenu();
                         Managers.Vehicle.Engine(veh);
                     };
-                }
+                }*/
                 
                 
                 var vehItemNoOwner = VehInfo.Get(veh.Model.Hash);
@@ -1756,14 +1756,14 @@ namespace Client
                         Jobs.Bugstars.TakeTool();
                     };
                 }
-                if (vehItem.Job == "citybee")
+                /*if (vehItem.Job == "citybee")
                 {
                     menu.AddMenuItem(UiMenu, "~g~Пизда").Activated += (sender, item) =>
                     {
                         HideMenu();
                         Jobs.Bugstars.FindHouse();
                     };
-                }
+                }*/
                 if (vehItem.Job == "water")
                 {
                     menu.AddMenuItem(UiMenu, "~g~Получить задание").Activated += (sender, item) =>
@@ -8711,7 +8711,33 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
-        
+        public static void ShowGaitMenu()
+        {
+            HideMenu();
+
+            var menu = new Menu();
+            UiMenu = menu.Create("Анимации", "~b~Походки");
+
+            for (int i = 0; i < Main.ClipsetFemale.Length / 2; i++)
+            {
+                var i1 = i;
+                menu.AddMenuItem(UiMenu, (string) Main.ClipsetFemale[i1,0]).Activated += (uimenu, item) =>
+                {
+                    User.SetPlayerNewClipset((string) Main.ClipsetFemale[i1,1]);
+                    Notification.SendWithTime($"~g~Походка \"{Main.ClipsetFemale[i1,1].ToString()}\" установлена");
+                };
+            }
+            var backButton = menu.AddMenuItem(UiMenu, "~g~Назад");
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+
+            MenuPool.Add(UiMenu);
+        }
         public static void ShowAnimationMenu()
         {
             HideMenu();
@@ -8765,7 +8791,10 @@ namespace Client
             {
                 ShowAnimationRemainMenu();
             };
-            
+            menu.AddMenuItem(UiMenu, "Походки").Activated += (uimenu, item) =>
+            {
+                ShowGaitMenu();
+            };
             var listRagdoll = new List<dynamic> {"Вкл", "Выкл"};
             menu.AddMenuItemList(UiMenu, "Ragdoll", listRagdoll).OnListSelected += (uimenu, idx) =>
             {
@@ -9105,18 +9134,18 @@ namespace Client
 
             if (User.Skin.SEX == 1)
             {
-                for (int i = 0; i < Main.ClipsetFemale.Length / 2; i++)
+                for (int i = 0; i < Main.ClipsetFemale2.Length / 2; i++)
                 {
-                    list.Add(Main.ClipsetFemale[i, 0]);
-                    list2.Add(Main.ClipsetFemale[i, 1]);
+                    list.Add(Main.ClipsetFemale2[i, 0]);
+                    list2.Add(Main.ClipsetFemale2[i, 1]);
                 }
             }
             else
             {
-                for (int i = 0; i < Main.ClipsetMale.Length / 2; i++)
+                for (int i = 0; i < Main.ClipsetMale2.Length / 2; i++)
                 {
-                    list.Add(Main.ClipsetMale[i, 0]);
-                    list2.Add(Main.ClipsetMale[i, 1]);
+                    list.Add(Main.ClipsetMale2[i, 0]);
+                    list2.Add(Main.ClipsetMale2[i, 1]);
                 }
             }
             

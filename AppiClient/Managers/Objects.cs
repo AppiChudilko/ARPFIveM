@@ -3113,7 +3113,7 @@ namespace Client.Managers
 		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1834.243f, 435.4392f, 126.1088f), -166.9997f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
 		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1849.35f, 450.8371f, 125.7626f), 72.99983f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1837.05f, 450.0325f, 126.5147f), -103.9995f, false, "WORLD_HUMAN_GUARD_STAND");
-		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1818.997f, 412.0063f, 128.3069f), -166.9991f, false, "CODE_HUMAN_CROSS_ROAD_WAIT")
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1818.997f, 412.0063f, 128.3069f), -166.9991f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
 		        
 		        //MW_house
 		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1137.589f, 382.3323f, 70.7290f), -17.8614f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");

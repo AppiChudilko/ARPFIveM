@@ -3113,7 +3113,18 @@ namespace Client.Managers
 		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1834.243f, 435.4392f, 126.1088f), -166.9997f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
 		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1849.35f, 450.8371f, 125.7626f), 72.99983f, false, "WORLD_HUMAN_GUARD_STAND");
 		        await Managers.Ped.CreatePed("u_m_m_jewelsec_01", new Vector3(-1837.05f, 450.0325f, 126.5147f), -103.9995f, false, "WORLD_HUMAN_GUARD_STAND");
-		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1818.997f, 412.0063f, 128.3069f), -166.9991f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_m_highsec_02", new Vector3(-1818.997f, 412.0063f, 128.3069f), -166.9991f, false, "CODE_HUMAN_CROSS_ROAD_WAIT")
+		        
+		        //MW_house
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1137.589f, 382.3323f, 70.7290f), -17.8614f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1133.580f, 389.6953f, 70.9682f), -174.3789f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1126.943f, 371.5197f, 70.7257f), -16.6486f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1102.902f, 354.2108f, 68.4829f), 15.7278f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+			    await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1124.954f, 356.5956f, 74.9326f), -160.8626f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1167.537f, 361.6275f, 71.6861f), -92.6121f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1170.912f, 371.6763f, 71.6876f), -46.4530f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        await Managers.Ped.CreatePed("s_m_y_devinsec_01", new Vector3(-1142.673f, 384.9866f, 71.3092f), 102.3493f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
+		        
 
 		        // MW_Benny
                 CreateObject(168901740, new Vector3(-204.23f, -1311.479f, 37.12f), new Vector3(0f, 0f, -13.99984f), false, false);

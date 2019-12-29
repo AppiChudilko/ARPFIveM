@@ -20708,9 +20708,20 @@ namespace Client
                     ShowAnimationActionMenu();
                 }
 
-                if ((Game.IsControlJustPressed(0, (Control) 26) || Game.IsDisabledControlJustPressed(0, (Control) 26)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
+                if ((Game.IsControlJustPressed(0, (Control) 47) || Game.IsDisabledControlJustPressed(0, (Control) 47)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
                 {
-                    User.SetPlayerNonStaticClipset("move_ped_crouched");
+                    if(IsPedInAnyVehicle(GetPlayerPed(-1), false))
+                    {
+                        return;
+                    }
+                    if (SitButtonPressed)
+                    {
+                        User.SetPlayerNewClipset("");
+                        SitButtonPressed = false;
+                        return;
+                    }
+                    User.SetPlayerNewClipset("move_ped_crouched");
+                    SitButtonPressed = true;
                 }
                 if (Game.IsControlJustPressed(0, (Control) 19) || Game.IsDisabledControlJustPressed(0, (Control) 19)) //LALT
                 {
@@ -20718,6 +20729,10 @@ namespace Client
                 }
                 if (Game.IsControlJustPressed(0, (Control) 51) || Game.IsDisabledControlJustPressed(0, (Control) 51)) //E
                 {
+                    if(IsPedInAnyVehicle(GetPlayerPed(-1), false))
+                    {
+                        return;
+                    }
                     ShowPlayerDocListMenu();
                 }
                 if (Game.IsControlJustPressed(0, (Control) 303) || Game.IsDisabledControlJustPressed(0, (Control) 303)) //U

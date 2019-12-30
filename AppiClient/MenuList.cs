@@ -20708,7 +20708,7 @@ namespace Client
                     ShowAnimationActionMenu();
                 }
 
-                if ((Game.IsControlJustPressed(0, (Control) 47) || Game.IsDisabledControlJustPressed(0, (Control) 47)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
+                if ((Game.IsControlJustPressed(0, (Control) 26) || Game.IsDisabledControlJustPressed(0, (Control) 26)) && !Sync.Data.HasLocally(User.GetServerId(), "isTie") && !Sync.Data.HasLocally(User.GetServerId(), "isCuff")) //C
                 {
                     if(IsPedInAnyVehicle(GetPlayerPed(-1), false))
                     {
@@ -20727,7 +20727,7 @@ namespace Client
                 {
                     Managers.Pickup.CheckPlayerPosToPickup();
                 }
-                if (Game.IsControlJustPressed(0, (Control) 51) || Game.IsDisabledControlJustPressed(0, (Control) 51)) //E
+                if (Game.IsControlJustPressed(0, (Control) 47) || Game.IsDisabledControlJustPressed(0, (Control) 47)) //G
                 {
                     if(IsPedInAnyVehicle(GetPlayerPed(-1), false))
                     {

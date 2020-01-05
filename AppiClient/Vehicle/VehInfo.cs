@@ -12069,7 +12069,145 @@ namespace Client.Vehicle
                         SOil = 0, 
                         SMp = 0 
                     };
+                      
+                case -625758931:
+                    return new VehicleInfoData {
+                        DisplayName = "PoliceBuffaloS",
+                        ClassName = "Emergency", 
+                        IsBroke = false, 
+                        Stock = 270000, 
+                        StockFull = 310000, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 10, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+
+                case 1966161177:
+                    return new VehicleInfoData {
+                        DisplayName = "UmkBuffaloSmk2",
+                        ClassName = "Emergency", 
+                        IsBroke = false, 
+                        Stock = 270000, 
+                        StockFull = 310000, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 10, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case 1771010041:
+                    return new VehicleInfoData {
+                        DisplayName = "UmkBuffaloSmk1",
+                        ClassName = "Emergency", 
+                        IsBroke = false, 
+                        Stock = 270000, 
+                        StockFull = 310000, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 10, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
+                case 1134123498:
+                    return new VehicleInfoData {
+                        DisplayName = "UmkBuffaloSmk3",
+                        ClassName = "Emergency", 
+                        IsBroke = false, 
+                        Stock = 270000, 
+                        StockFull = 310000, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 10, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
                     
+                case 334009806:
+                    return new VehicleInfoData {
+                        DisplayName = "HWAYBuffaloS",
+                        ClassName = "Emergency", 
+                        IsBroke = false, 
+                        Stock = 270000, 
+                        StockFull = 310000, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 10, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+
+                case -840087408:
+                    return new VehicleInfoData {
+                        DisplayName = "HWAYBUffals2",
+                        ClassName = "Emergency", 
+                        IsBroke = false, 
+                        Stock = 270000, 
+                        StockFull = 310000, 
+                        StockItem = 0,
+                        FullFuel = 80, 
+                        FuelMinute = 10, 
+                        Fuel = 80, 
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+
                 case 1982188179:
                     return new VehicleInfoData {
                         DisplayName = "Scpd1 Buffalo",

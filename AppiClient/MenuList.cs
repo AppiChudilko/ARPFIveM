@@ -1459,7 +1459,13 @@ namespace Client
                 case "scpd7 elegy2":
                 case "scpd10 felon":
                 case "scpd11 f620":
-                case "Intercept2":
+                case "intercept2":
+                case "policebuffalos":
+                case "umkbuffalosmk1":
+                case "umkbuffalosmk2":
+                case "umkbuffalosmk3":
+                case "hwaybuffalos":
+                case "hwaybuffalos2":
                         canEnabledRadar = true;
                     break;
                 case "unk":

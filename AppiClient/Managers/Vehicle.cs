@@ -695,6 +695,47 @@ namespace Client.Managers
             var vehicle = GetVehiclePedIsIn(ped, false);
             var v = new CitizenFX.Core.Vehicle(vehicle);
             
+            foreach (var item in VehicleInfoGlobalDataList)
+            {
+                var rand = new Random();
+                if (item.Number != GetVehicleNumber(vehicle)) continue;
+
+                if (IsVehicleTyreBurst(vehicle, 1, true) || IsVehicleTyreBurst(vehicle, 2, true) ||
+                    IsVehicleTyreBurst(vehicle, 3, true) || IsVehicleTyreBurst(vehicle, 4, true))
+                {
+                    VehicleInfoGlobalDataList[item.VehId].SWhBkl = 4;
+                    Client.Sync.Data.Set(110000 + item.VehId, "SWhBkl", VehicleInfoGlobalDataList[item.VehId].SWhBkl);
+                }
+
+                if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl >= 2 && !IsVehicleTyreBurst(vehicle, 2, true) )
+                {
+                    
+                    
+                    if (rand.Next(0, 3) == 0)
+                    {
+                        SetVehicleTyreBurst(vehicle, 1, true, 1);
+                        SetVehicleTyreBurst(vehicle, 2, true, 1);
+                    }
+
+                    if (rand.Next(0, 3) == 1)
+                    {
+                        SetVehicleTyreBurst(vehicle, 3, true, 1);
+                        SetVehicleTyreBurst(vehicle, 4, true, 1);
+                    }
+
+                    if (rand.Next(0, 3) == 2)
+                    {
+                        SetVehicleTyreBurst(vehicle, 5, true, 1);
+                    }
+
+                    if (rand.Next(0, 3) == 3)
+                    {
+                        SetVehicleTyreBurst(vehicle, 45, true, 1);
+                        SetVehicleTyreBurst(vehicle, 47, true, 1);
+                    }
+                }
+            }
+            
             if (LastSpeed > 190 && LastSpeed > UI.GetCurrentSpeed() + 120f)
             {
                 SetEngineStatus(v, false);
@@ -707,11 +748,18 @@ namespace Client.Managers
                     VehicleInfoGlobalDataList[item.VehId].SEngine = 4;
                     VehicleInfoGlobalDataList[item.VehId].SSuspension = 4;
                     VehicleInfoGlobalDataList[item.VehId].SWhBkl = 4;
+                    Client.Sync.Data.Set(110000 + item.VehId, "SBody", VehicleInfoGlobalDataList[item.VehId].SBody);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SCandle", VehicleInfoGlobalDataList[item.VehId].SCandle);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SEngine", VehicleInfoGlobalDataList[item.VehId].SEngine);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SMp", VehicleInfoGlobalDataList[item.VehId].SMp);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SSuspension", VehicleInfoGlobalDataList[item.VehId].SSuspension);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SOil", VehicleInfoGlobalDataList[item.VehId].SOil);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SWhBkl", VehicleInfoGlobalDataList[item.VehId].SWhBkl);
                 }
                 
                 SetEntityHealth(GetPlayerPed(-1), 0);
             }
-            else if (LastSpeed > 130 && LastSpeed > UI.GetCurrentSpeed() + 100f)
+            else if (LastSpeed > 90 && LastSpeed > UI.GetCurrentSpeed() + 100f)
             {
                 SetEngineStatus(v, false);
                 v.EngineHealth = 300;
@@ -722,14 +770,26 @@ namespace Client.Managers
                 {
                     if (item.Number != GetVehicleNumber(vehicle)) continue;
                     
-                    if (rand.Next(3) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody < 1)
+                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SBody += 1;
-                    if (rand.Next(6) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine < 1)
+                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SEngine += 1;
-                    if (rand.Next(6) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension < 1)
+                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension >= 1)
                         VehicleInfoGlobalDataList[item.VehId].SSuspension += 1;
-                    if (rand.Next(3) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl < 1)
+                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SWhBkl += 1;
+                    
+                    /*VehicleInfoGlobalDataList[item.VehId].SBody += 1;
+                    VehicleInfoGlobalDataList[item.VehId].SEngine += 1;
+                    VehicleInfoGlobalDataList[item.VehId].SSuspension += 1;
+                    VehicleInfoGlobalDataList[item.VehId].SWhBkl += 1;*/
+                    Client.Sync.Data.Set(110000 + item.VehId, "SBody", VehicleInfoGlobalDataList[item.VehId].SBody);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SCandle", VehicleInfoGlobalDataList[item.VehId].SCandle);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SEngine", VehicleInfoGlobalDataList[item.VehId].SEngine);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SMp", VehicleInfoGlobalDataList[item.VehId].SMp);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SSuspension", VehicleInfoGlobalDataList[item.VehId].SSuspension);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SOil", VehicleInfoGlobalDataList[item.VehId].SOil);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SWhBkl", VehicleInfoGlobalDataList[item.VehId].SWhBkl);
                 }
             }
             else if (LastSpeed > 130 && LastSpeed > UI.GetCurrentSpeed() + 50f)
@@ -750,14 +810,26 @@ namespace Client.Managers
                 {
                     if (item.Number != GetVehicleNumber(vehicle)) continue;
                     
-                    if (rand.Next(4) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody < 1)
+                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SBody += 1;
-                    if (rand.Next(10) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine < 1)
+                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine >= 1)
                         VehicleInfoGlobalDataList[item.VehId].SEngine += 1;
-                    if (rand.Next(10) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension < 1)
+                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SSuspension += 1;
-                    if (rand.Next(4) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl < 1)
+                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SWhBkl += 1;
+                    
+                    /*VehicleInfoGlobalDataList[item.VehId].SBody = 4;
+                    VehicleInfoGlobalDataList[item.VehId].SEngine = 4;
+                    VehicleInfoGlobalDataList[item.VehId].SSuspension = 4;
+                    VehicleInfoGlobalDataList[item.VehId].SWhBkl = 4;*/
+                    Client.Sync.Data.Set(110000 + item.VehId, "SBody", VehicleInfoGlobalDataList[item.VehId].SBody);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SCandle", VehicleInfoGlobalDataList[item.VehId].SCandle);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SEngine", VehicleInfoGlobalDataList[item.VehId].SEngine);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SMp", VehicleInfoGlobalDataList[item.VehId].SMp);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SSuspension", VehicleInfoGlobalDataList[item.VehId].SSuspension);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SOil", VehicleInfoGlobalDataList[item.VehId].SOil);
+                    Client.Sync.Data.Set(110000 + item.VehId, "SWhBkl", VehicleInfoGlobalDataList[item.VehId].SWhBkl);
                 }
             }
             else if (LastSpeed > 100)
@@ -771,10 +843,13 @@ namespace Client.Managers
                     SetEngineStatus(v, false);
                     v.EngineHealth = v.EngineHealth - 120;
                 }
+                
             }
 
             LastSpeed = UI.GetCurrentSpeed();
             LastHealthSpeed = v.BodyHealth;
+            
+            
         }
 
         public static async Task<VehicleInfoGlobalData> GetAllData(int id)

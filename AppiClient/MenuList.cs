@@ -14831,7 +14831,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SOil", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(shopId, price);
+                        Business.Business.AddMoney(147, price);
                         Notification.SendWithTime("~g~Вашему транспорту произвели замену масла");
                     };
                 }
@@ -14857,13 +14857,13 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SBody", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(shopId, price);
+                        Business.Business.AddMoney(147, price);
                         Notification.SendWithTime("~g~Вашему транспорту починили кузов");
                     };
                 }
                 else
                 {
-                    int price = 200;
+                    int price = 500;
 
                     menu.AddMenuItem(UiMenu, "Починка кузова", $"Цена: ~g~${price:#,#}").Activated += async (uimenu, item) =>
                     {
@@ -14875,7 +14875,7 @@ namespace Client
                         }
                         Managers.Vehicle.Repair(v);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(shopId, price);
+                        Business.Business.AddMoney(147, price);
                         Notification.SendWithTime("~g~Вашему транспорту починили кузов");
                     };
                 }
@@ -14901,7 +14901,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SEngine", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(shopId, price);
+                        Business.Business.AddMoney(147, price);
                         Notification.SendWithTime("~g~Вашему транспорту заменили двигатель");
                     };
                 }
@@ -14927,7 +14927,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SSuspension", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(shopId, price);
+                        Business.Business.AddMoney(147, price);
                         Notification.SendWithTime("~g~Вашему транспорту заменили подвеску");
                     };
                 }
@@ -14953,7 +14953,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SWhBkl", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(shopId, price);
+                        Business.Business.AddMoney(147, price);
                         Notification.SendWithTime("~g~Вашему транспорту заменили колёса");
                     };
                 }

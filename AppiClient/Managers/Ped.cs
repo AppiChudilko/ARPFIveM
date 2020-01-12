@@ -599,6 +599,47 @@ namespace Client.Managers
 			    await CreatePed("s_m_m_security_01", new Vector3(-114.6676f, 6462.918f, 31.46845f), 142.9996f, false, "WORLD_HUMAN_GUARD_STAND");
 			    await CreatePed("s_m_m_security_01", new Vector3(-140.0592f, 6462.314f, 31.67567f), -147.9575f, false, "WORLD_HUMAN_CLIPBOARD");
 			    
+			    
+			    //9983
+			    await CreatePed("s_m_m_security_01", new Vector3(-1142.82f, -1983.2f, 13.46f), 231.09f, false, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_m_chemwork_01", new Vector3(-1170.6600f, -2013.7100f, 13.2300f), 286.3500f, true, "WORLD_HUMAN_GUARD_STAND");
+			    //maga
+			    await CreatePed("s_m_m_highsec_01", new Vector3(19.08f, 550.21f, 176.28f), 101.1900f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(15.86f, 544.16f, 176.03f), 37.0100f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(14.20f, 543.01f, 176.02f), 26.8000f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(9.75f, 540.17f, 176.03f), 5.0800f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(7.43f, 541.1f, 176.03f), 276.2100f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(2.23f, 542.75f, 178.61f), 357.2600f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-11.6f, 535.75f, 178.61f), 31.0000f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-28.07f, 528.6f, 178.61f), 85.8700f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-19.9f, 513.07f, 178.61f), 243.0400f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-5.75f, 509.77f, 178.61f), 205.5700f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-14.66f, 511.77f, 170.63f), 128.5000f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-9.07f, 507.8f, 170.63f), 317.7200f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(0.684322f, 508.45f, 170.6277f),  159.0139f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-0.07f, 520.07f, 170.63f), 215.7000f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(5.98f, 523.16f, 170.63f), 222.0100f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(16.64f, 526.26f, 170.63f), 160.2100f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(15.73f, 529.06f, 170.63f), 307.2400f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(28.75f, 538.61f, 176.02f), 119.7500f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(26.36f, 535.81f, 176.02f), 217.4800f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(21.61f, 518.55f, 170.23f), 2.8800f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_highsec_01", new Vector3(-18.99f, 523.18f, 174.63f), 129.5100f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(-20.02f, 522.69f, 174.63f), 299.3800f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(-16.99f, 512.24f, 174.63f), 153.4200f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(-7.38f, 507.79f, 174.63f), 34.6500f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(-1.15f, 519.48f, 174.63f), 231.8500f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(17.22f, 526.48f, 174.63f), 244.6400f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(20.77f, 533.04f, 174.63f), 38.2700f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(19.86f, 537.53f, 174.63f), 167.9900f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(4.37f, 531.63f, 175.34f), 343.2600f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(8.1f, 525.67f, 174.63f), 32.6800f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(10.86f, 536.41f, 176.03f), 81.2000f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(15.31f, 538.23f, 174.27f), 72.0400f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(14.5f, 541.12f, 174.27f), 170.6600f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(-5.65f, 530.2f, 170.62f), 14.9400f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("s_m_m_bouncer_01", new Vector3(-10.26f, 530.91f, 170.62f), 307.5700f, true, "WORLD_HUMAN_GUARD_STAND");
+			    
 			    //1139
 			    await CreatePed("s_m_y_doorman_01", new Vector3(-1366.121f, 6733.49f, 2.582926f), -99.96954f, false, "WORLD_HUMAN_CLIPBOARD");
 			    await CreatePed("s_m_m_highsec_01", new Vector3(-1381.059f, 6742.416f, 8.971489f), -96.99951f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");

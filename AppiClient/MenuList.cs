@@ -4649,6 +4649,200 @@ namespace Client
             
             MenuPool.Add(UiMenu);
         }
+        public static async void ShowFakeNumberMenu()
+        {
+            HideMenu();
+
+            await User.GetAllData();
+
+            var menu = new Menu();
+            UiMenu = menu.Create("Автомастерская", "~o~Меню транспорта");
+            
+            menu.AddMenuItem(UiMenu, "Поставить ненастоящие номера авто", "Цена: ~g~$2000").Activated += async (uimenu, item) =>
+            {
+                HideMenu();
+                if (User.Data.money < 2000)
+                {
+                    Notification.SendWithTime("~r~У Вас нет столько налички");
+                    return;
+                }
+                
+                if (!IsPedInAnyVehicle(PlayerPedId(), true)) return;
+                var veh = GetVehiclePedIsUsing(PlayerPedId());
+                //var newNumber = await Menu.GetUserInput("Номер ТС", "", 8);
+                //SetVehicleNumberPlateText(veh, number.ToUpper());
+                Notification.SendWithTime("~b~Вы сменили номер ТС");
+                User.RemoveMoney(2000);
+                var rand = new Random();
+                
+                if (rand.Next(0, 30) == 0)
+                {
+                    var number = "XHF46TSA";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if (rand.Next(0, 30) == 1)
+                {
+                    var number = "4016AHF0";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 2)
+                {
+                    var number = "GFDF8425";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 3)
+                {
+                    var number = "08D4GJPQ";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 4)
+                {
+                    var number = "8V25QTCO";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 5)
+                {
+                    var number = "9FV40ART";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 6)
+                {
+                    var number = "Z8TQ541A";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 7)
+                {
+                    var number = "FFDGYXA8";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 8)
+                {
+                    var number = "DXCV5UIA";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 9)
+                {
+                    var number = "QODFBZA";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 10)
+                {
+                    var number = "SDFUA584";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 11)
+                {
+                    var number = "5DC4A1A7";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 12)
+                {
+                    var number = "T482AS7I";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 13)
+                {
+                    var number = "PCBATF57";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 14)
+                {
+                    var number = "45FY814A";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 15)
+                {
+                    var number = "QCJXZCG2";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 16)
+                {
+                    var number = "VTAJ659E";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 17)
+                {
+                    var number = "PFHQ6423";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 18)
+                {
+                    var number = "4DGH16SD";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 19)
+                {
+                    var number = "46DVA345";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 20)
+                {
+                    var number = "RIVER";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 21)
+                {
+                    var number = "1QTDVQ34";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 22)
+                {
+                    var number = "3RGSVBA";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 23)
+                {
+                    var number = "47TGAAB7";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 24)
+                {
+                    var number = "054G1BNE";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 25)
+                {
+                    var number = "4755SDF4";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 26)
+                {
+                    var number = "12DHQABA";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 27)
+                {
+                    var number = "4532DFFV";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 28)
+                {
+                    var number = "34VZ653F";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 29)
+                {
+                    var number = "34DF644A";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                else if(rand.Next(0, 30) == 30)
+                {
+                    var number = "5RBHQB44";
+                    SetVehicleNumberPlateText(veh, number.ToUpper());
+                }
+                
+            };
+            
+            var closeButton = menu.AddMenuItem(UiMenu, "~r~Закрыть");
+            
+            UiMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == closeButton)
+                    HideMenu();
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
         
         public static async void ShowAdminVehicleMenu()
         {
@@ -14831,7 +15025,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SOil", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(147, price);
+                        Business.Business.AddMoney(shopId, price);
                         Notification.SendWithTime("~g~Вашему транспорту произвели замену масла");
                     };
                 }
@@ -14857,7 +15051,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SBody", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(147, price);
+                        Business.Business.AddMoney(shopId, price);
                         Notification.SendWithTime("~g~Вашему транспорту починили кузов");
                     };
                 }
@@ -14875,7 +15069,7 @@ namespace Client
                         }
                         Managers.Vehicle.Repair(v);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(147, price);
+                        Business.Business.AddMoney(shopId, price);
                         Notification.SendWithTime("~g~Вашему транспорту починили кузов");
                     };
                 }
@@ -14901,7 +15095,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SEngine", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(147, price);
+                        Business.Business.AddMoney(shopId, price);
                         Notification.SendWithTime("~g~Вашему транспорту заменили двигатель");
                     };
                 }
@@ -14927,7 +15121,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SSuspension", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(147, price);
+                        Business.Business.AddMoney(shopId, price);
                         Notification.SendWithTime("~g~Вашему транспорту заменили подвеску");
                     };
                 }
@@ -14953,7 +15147,7 @@ namespace Client
                         Sync.Data.Set(110000 + vehData.VehId, "SWhBkl", 0);
                         TriggerServerEvent("ARP:SaveVehicle", vehData.VehId);
                         User.RemoveCashMoney(price);
-                        Business.Business.AddMoney(147, price);
+                        Business.Business.AddMoney(shopId, price);
                         Notification.SendWithTime("~g~Вашему транспорту заменили колёса");
                     };
                 }

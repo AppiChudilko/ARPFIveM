@@ -551,7 +551,8 @@ namespace Client
         public static void FinishLoad()
         {
             #pragma warning disable 4014
-            Spawn.SpawnPlayer("S_M_Y_Cop_01", -10.10947f, 508.5056f, 174.3281f, 180f, false, false, false);
+            //Spawn.SpawnPlayer("S_M_Y_Cop_01", -10.10947f, 508.5056f, 174.3281f, 180f, false, false, false);
+            Spawn.SpawnPlayer("S_M_Y_Cop_01", 229.5473f, -1067.743f, 62.8821f, 19.59398f, false, false, false);
             #pragma warning restore 4014
             
             User.Invisible(PlayerId(), true);

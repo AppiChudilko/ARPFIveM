@@ -15,7 +15,7 @@ namespace Client.Managers
         public static float LoadRange = 400f;
         public static int VehicleFind = -1;
         public static int CurrentItem = -1;
-        
+       
         /*
             -Кинуть
             -Положить
@@ -329,10 +329,12 @@ namespace Client.Managers
                     Client.Sync.Data.Set(User.GetServerId(), "bank_number", number);
                     User.Data.bank_prefix = prefix;
                     Client.Sync.Data.Set(User.GetServerId(), "bank_prefix", prefix);
-                    
                     User.AddBankMoney(countItems);
-                    
                     Notification.SendWithTime("~g~Вы экипировали банковскую карту");
+                    
+                    //LOG
+                    Main.SaveLog("money", $"[EKIP-BANKCARD] {User.Data.rp_name} {User.Data.bank_prefix}-{User.Data.bank_number} {countItems}$");
+                    
                     DeleteItemServer(id);
                     break;
                 case int n when (n <= 136 && n >= 54 ):
@@ -629,6 +631,9 @@ namespace Client.Managers
                 case 50:
                     AddItemServer(50, 1, InventoryTypes.Player, User.Data.id, User.Data.money_bank, User.Data.bank_prefix, User.Data.bank_number, -1);
                     
+                    //LOG
+                    Main.SaveLog("money", $"[DEEKIP-BANKCARD] {User.Data.rp_name} {User.Data.bank_prefix}-{User.Data.bank_number} {User.Data.money_bank}$");
+                    
                     User.Data.bank_number = 0;
                     Client.Sync.Data.Set(User.GetServerId(), "bank_number", 0);
                     User.Data.bank_prefix = 0;
@@ -637,6 +642,7 @@ namespace Client.Managers
                     User.SetBankMoney(0);
                     
                     Notification.SendWithTime("~g~Вы убрали банковскую карту");
+
                     break;
                 case int n when (n <= 136 && n >= 54 ):
                     if (type == InventoryTypes.StockGang)

@@ -482,7 +482,7 @@ namespace Client.Managers
 		    await CreatePed("s_f_y_bartender_01", new Vector3(-564.6986f, 287.3053f, 85.37729f), 260.9834f, false, "WORLD_HUMAN_STAND_IMPATIENT");
 		    await CreatePed("ig_dale", new Vector3(-560.601f, 281.9693f, 85.67645f), 261.9857f, false, "WORLD_HUMAN_STAND_MOBILE");
 		    await CreatePed("s_m_m_bouncer_01", new Vector3(-569.0171f, 291.8075f, 79.17664f), 266.5707f, false, "WORLD_HUMAN_LEANING");
-		   
+		    
 		    
 		    if (Main.ServerName == "MilkyWay")
 		    {
@@ -599,6 +599,11 @@ namespace Client.Managers
 			    await CreatePed("s_m_m_security_01", new Vector3(-114.6676f, 6462.918f, 31.46845f), 142.9996f, false, "WORLD_HUMAN_GUARD_STAND");
 			    await CreatePed("s_m_m_security_01", new Vector3(-140.0592f, 6462.314f, 31.67567f), -147.9575f, false, "WORLD_HUMAN_CLIPBOARD");
 			    
+			    
+			    //LSC_1
+			    await CreatePed("s_m_m_security_01", new Vector3(-1142.82f, -1983.2f, 13.46f), 231.09f, false, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_m_chemwork_01", new Vector3(-1170.6600f, -2013.7100f, 13.2300f), 286.3500f, true, "WORLD_HUMAN_GUARD_STAND");
+			    
 			    //1139
 			    await CreatePed("s_m_y_doorman_01", new Vector3(-1366.121f, 6733.49f, 2.582926f), -99.96954f, false, "WORLD_HUMAN_CLIPBOARD");
 			    await CreatePed("s_m_m_highsec_01", new Vector3(-1381.059f, 6742.416f, 8.971489f), -96.99951f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
@@ -626,9 +631,22 @@ namespace Client.Managers
 		    }
 		    else if (Main.ServerName == "Andromeda")
 		    {
+			    //maga
+			    await CreatePed("s_m_y_devinsec_01", new Vector3(7.376978f, 541.6549f, 176.0282f), 272.5632f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("u_m_m_jewelsec_01", new Vector3(9.312526f, 540.8694f, 176.0276f), 25.28074f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_m_highsec_01", new Vector3(14.40257f, 542.4634f, 176.0251f), 31.45363f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_m_bouncer_01", new Vector3(18.49887f, 535.0507f, 174.6274f), 30.50821f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_y_doorman_01", new Vector3(18.82999f, 532.4968f, 174.628f), 236.1587f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_y_devinsec_01", new Vector3(8.459168f, 524.3223f, 170.6276f), 206.4254f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("u_m_m_jewelsec_01", new Vector3(4.357765f, 530.9534f, 175.3428f), 332.535f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("ig_maryann", new Vector3(10.60941f, 520.2619f, 170.2276f), 211.1746f, true, "WORLD_HUMAN_YOGA");
 			    //h1077
 			    await CreatePed("g_m_y_ballaeast_01", new Vector3(110.2269f, -1962.862f, 20.94876f), 22.61524f, false, "WORLD_HUMAN_AA_SMOKE");
 			    await CreatePed("g_m_y_ballaorig_01", new Vector3(110.2392f, -1975.529f, 20.93855f), -67.69401f, false, "WORLD_HUMAN_GUARD_STAND");
+			    
+			    //LSC_1
+			    await CreatePed("s_m_m_security_01", new Vector3(-1142.82f, -1983.2f, 13.46f), 231.09f, false, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_m_chemwork_01", new Vector3(-1170.6600f, -2013.7100f, 13.2300f), 286.3500f, true, "WORLD_HUMAN_GUARD_STAND");
 			    
 			    //604
 			    await CreatePed("s_m_y_doorman_01", new Vector3(1096.046f, -420.5536f, 67.19109f), 3.686397f, false, "WORLD_HUMAN_GUARD_STAND");

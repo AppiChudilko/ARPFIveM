@@ -283,6 +283,9 @@ namespace Client.Managers
         /*Sombrerp*/
         public static readonly Vector3 VanilaTeleportPos1 = new Vector3(132.8929f, -1293.792f, 28.26953f);
         public static readonly Vector3 VanilaTeleportPos2 = new Vector3(136.1532f, -1287.856f, 28.26954f);
+        //9983
+        public static readonly Vector3 LSC1TeleportPos1 = new Vector3(-1162.921f, -2016.372f, 12.89044f); //-1162.921, -2016.372, 12.89044, 315.0523
+        public static readonly Vector3 LSC1TeleportPos2 = new Vector3(-1169.317f, -2022.787f, 11.87196f);  //-1169.317, -2022.787, 11.87196, 137.0372
         
         /*HousesAndromeda*/
         public static readonly Vector3 HA813TeleportPos1 = new Vector3(-3265.857f, 1032.263f, 15.63677f);
@@ -689,6 +692,12 @@ namespace Client.Managers
             Marker.Create(ArcMotorsPos2, 4f, 0.3f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
             Checkpoint.Create(ArcMotorsPos2, 4.3f, "pickup:teleport");
             
+            //LSC1
+            //Marker.Create(LSC1TeleportPos1, 4f, 0.3f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
+            Checkpoint.Create(LSC1TeleportPos1, 4.3f, "pickup:teleport");
+            //Marker.Create(LSC1TeleportPos2, 4f, 0.3f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
+            Checkpoint.Create(LSC1TeleportPos2, 4.3f, "pickup:teleport");
+            
             //Other
             Marker.Create(Ems1OutPos, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
             Checkpoint.Create(Ems1OutPos, 1.4f, "pickup:teleport:menu");
@@ -836,7 +845,7 @@ namespace Client.Managers
                 Checkpoint.Create(VanilaTeleportPos1, 1.4f, "pickup:teleport");
                 Marker.Create(VanilaTeleportPos2, 1f, 1f, Marker.Blue100.R, Marker.Blue100.G, Marker.Blue100.B, Marker.Blue100.A);
                 Checkpoint.Create(VanilaTeleportPos2, 1.4f, "pickup:teleport");
-                
+             
                 Marker.Create(SH1139BarPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
                 Checkpoint.Create(SH1139BarPos, 1.4f, "show:menu");
             }
@@ -891,6 +900,12 @@ namespace Client.Managers
                 User.VTeleport(ArcMotorsPos2, 160.3578f);
             if (Main.GetDistanceToSquared(ArcMotorsPos2, playerPos) < DistanceCheck)
                 User.VTeleport(ArcMotorsPos1, 128.2233f);
+            
+            //LSC1
+            if (Main.GetDistanceToSquared(LSC1TeleportPos1, playerPos) < DistanceCheck)
+                User.VTeleport(LSC1TeleportPos2, 137.6203f ); 
+            if (Main.GetDistanceToSquared(LSC1TeleportPos2, playerPos) < DistanceCheck)
+                User.VTeleport(LSC1TeleportPos1, 315.7973f); 
             
             /*Maze*/
             if (Main.GetDistanceToSquared(BankMazeLiftStreetPos, playerPos) < DistanceCheck)

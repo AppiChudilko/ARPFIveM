@@ -759,7 +759,7 @@ namespace Client.Managers
                 
                 SetEntityHealth(GetPlayerPed(-1), 0);
             }
-            else if (LastSpeed > 90 && LastSpeed > UI.GetCurrentSpeed() + 100f)
+            else if (LastSpeed > 130 && LastSpeed > UI.GetCurrentSpeed() + 100f)
             {
                 SetEngineStatus(v, false);
                 v.EngineHealth = 300;
@@ -770,13 +770,13 @@ namespace Client.Managers
                 {
                     if (item.Number != GetVehicleNumber(vehicle)) continue;
                     
-                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody >= 0)
+                    if (rand.Next(12) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SBody += 1;
-                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine >= 0)
+                    if (rand.Next(12) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SEngine += 1;
-                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension >= 1)
+                    if (rand.Next(12) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension >= 1)
                         VehicleInfoGlobalDataList[item.VehId].SSuspension += 1;
-                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl >= 0)
+                    if (rand.Next(12) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SWhBkl += 1;
                     
                     /*VehicleInfoGlobalDataList[item.VehId].SBody += 1;
@@ -792,7 +792,7 @@ namespace Client.Managers
                     Client.Sync.Data.Set(110000 + item.VehId, "SWhBkl", VehicleInfoGlobalDataList[item.VehId].SWhBkl);
                 }
             }
-            else if (LastSpeed > 130 && LastSpeed > UI.GetCurrentSpeed() + 50f)
+            else if (LastSpeed > 160 && LastSpeed > UI.GetCurrentSpeed() + 50f)
             {
                 if (LastHealthSpeed > v.BodyHealth + 50)
                 {
@@ -810,13 +810,13 @@ namespace Client.Managers
                 {
                     if (item.Number != GetVehicleNumber(vehicle)) continue;
                     
-                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody >= 0)
+                    if (rand.Next(10) == 0 && VehicleInfoGlobalDataList[item.VehId].SBody >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SBody += 1;
-                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine >= 1)
+                    if (rand.Next(10) == 0 && VehicleInfoGlobalDataList[item.VehId].SEngine >= 1)
                         VehicleInfoGlobalDataList[item.VehId].SEngine += 1;
-                    if (rand.Next(2) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension >= 0)
+                    if (rand.Next(10) == 0 && VehicleInfoGlobalDataList[item.VehId].SSuspension >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SSuspension += 1;
-                    if (rand.Next(1) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl >= 0)
+                    if (rand.Next(10) == 0 && VehicleInfoGlobalDataList[item.VehId].SWhBkl >= 0)
                         VehicleInfoGlobalDataList[item.VehId].SWhBkl += 1;
                     
                     /*VehicleInfoGlobalDataList[item.VehId].SBody = 4;

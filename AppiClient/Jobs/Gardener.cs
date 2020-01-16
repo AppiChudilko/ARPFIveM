@@ -8,7 +8,6 @@ namespace Client.Jobs
     public class Gardener : BaseScript
     {
         public static bool IsProcess = false;
-
         public static readonly double[,] Pickups =
         {
             { -1623.738, 96.66486, 62.11858 },
@@ -34,7 +33,8 @@ namespace Client.Jobs
             { -1128.506, -1253.044, 6.866948 },
             { -1863.341, 214.3598, 84.29323 },
             { -1134.065, -1239.2, 6.233136 },
-            { 1049.006, -605.6581, 57.25797 },
+            { 1049.006, -605.6581, 60.25797 },
+            //{ 1049.006, -605.6581, 57.25797 },
             { 971.6022, -611.0195, 58.47553 },
             { -1304.935, -952.8572, 9.341719 },
             { -1328.938, -961.0013, 8.179737 },
@@ -91,8 +91,11 @@ namespace Client.Jobs
             User.IsBlockAnimation = true;
             
             await Delay(30000);
-
-            User.GiveJobMoney(40);
+           
+            // anti CE
+            Random zufall = new Random();
+            int number = zufall.Next(40,120);
+            User.GiveJobMoney(number);
             Stop();
         }
 

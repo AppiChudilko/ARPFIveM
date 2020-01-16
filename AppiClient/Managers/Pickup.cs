@@ -247,6 +247,12 @@ namespace Client.Managers
         public static readonly Vector3 SH1139BarPos = new Vector3(-1437.855f, 6758.31f, 7.980458f);
         public static readonly Vector3 AHouse254BarPos = new Vector3(-1436.864f, 207.1095f, 56.82117f);
         
+        
+        public static  Vector3 RobBank1 = new Vector3(146.7091f, -1045.741f, 28.36805f);
+        public static  Vector3 RobBank2 = new Vector3(148.3756f, -1050.235f, 28.346f);
+        
+        public static Vector3 FakeNumber = new Vector3(258.9601f, 2587.598f, 43.95412f);
+        
         /*Jobs*/
         public static readonly Vector3 RoadWorkerStartPos = new Vector3(52.84556f, -722.4211f, 30.7647f);
 
@@ -467,6 +473,12 @@ namespace Client.Managers
             Checkpoint.Create(Mail2KeyPos, 1.4f, "show:menu");
             Marker.Create(GroupSixKeyPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(GroupSixKeyPos, 1.4f, "show:menu");
+            
+            Marker.Create(FakeNumber, 4f, 0f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            //Checkpoint.Create(FakeNumber, 4.4f, "show:menu");
+            
+            Marker.Create(RobBank1, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank1, 1.4f, "show:menu");
 
             //Hackerspace
             Marker.Create(HackerSpaceShopPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -935,6 +947,16 @@ namespace Client.Managers
                     return;
                 }
                 User.Teleport(HackerSpaceInPos);
+            }
+            
+            if (Main.GetDistanceToSquared(FakeNumber, playerPos) < DistanceCheck)
+            {
+                MenuList.ShowFakeNumberMenu();
+            }
+
+            if (Main.GetDistanceToSquared(RobBank1, playerPos) < DistanceCheck)
+            {
+                //Grab.GrabBank();
             }
             
             //ArcadiusPrivate

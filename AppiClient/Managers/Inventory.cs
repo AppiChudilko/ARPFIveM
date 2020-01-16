@@ -361,8 +361,17 @@ namespace Client.Managers
                     break;
                 case 140:
                 case 141:
-                    User.AddCashMoney(countItems);
-                    Notification.SendWithTime($"~g~Вы положили ${countItems} в кошелёк");
+                    if (countItems <= 30000)
+                    {
+                        User.AddCashMoney(countItems);
+                        Notification.SendWithTime($"~g~Вы положили ${countItems} в кошелёк");
+                    }
+
+                    if (countItems > 30000)
+                    {
+                        Notification.SendWithTime($"~r~Не надо использовать читы на сервере");
+                        Main.SaveLog("money", $"[CE-CASH] {User.Data.rp_name} Пробовал накрутить {countItems}$");
+                    }
                     DeleteItemServer(id);
                     break;
                 case 27:

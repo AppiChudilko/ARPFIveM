@@ -93,7 +93,7 @@ namespace Client.Jobs
             await Delay(30000);
            
             // anti CE
-            Random zufall = new Random();
+            var zufall = new Random();
             int number = zufall.Next(40,120);
             User.GiveJobMoney(number);
             Stop();

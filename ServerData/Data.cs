@@ -98,7 +98,7 @@ namespace Server.Sync
             }
         }
         
-        public static void SaveLog(string log)
+      /*  public static void SaveLog(string log)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace Server.Sync
             {
                 SaveLog($"ServerLog TRY-CATCH {log} | {e}");
             }
-        }
+        }*/
         
         private static void GetAllClient([FromSource] Player player, int id)
         {

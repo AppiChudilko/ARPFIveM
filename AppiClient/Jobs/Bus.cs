@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using System;
 using Client.Managers;
 using static CitizenFX.Core.Native.API;
 
@@ -250,6 +251,8 @@ namespace Client.Jobs
             {
                 
                 var veh = GetVehiclePedIsUsing(PlayerPedId());
+                
+                
                 if (GetPedInVehicleSeat(veh, -1) == PlayerPedId())
                 {
                     var v = new CitizenFX.Core.Vehicle(veh);
@@ -269,8 +272,9 @@ namespace Client.Jobs
                             if (_currentId >= 67)
                             {
                                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_121"));
-
-                                User.GiveJobMoney(300);
+                                var rand = new Random();
+                                int number = rand.Next(600,900);
+                                User.GiveJobMoney(number);
 
                                 Managers.Blip.Delete();
                                 Managers.Checkpoint.DeleteWithMarker(_currentCheckpoint);
@@ -307,9 +311,10 @@ namespace Client.Jobs
                             if (_currentId >= 15)
                             {
                                 Notification.SendWithTime(Lang.GetTextToPlayer("_lang_121"));
-
-                                User.GiveJobMoney(100);
-
+                                var rand = new Random();
+                                int number = rand.Next(300,400);
+                                User.GiveJobMoney(number);
+                                
                                 Managers.Blip.Delete();
                                 Managers.Checkpoint.DeleteWithMarker(_currentCheckpoint);
 
@@ -345,8 +350,10 @@ namespace Client.Jobs
                                 Managers.Blip.Delete();
                                 Managers.Checkpoint.DeleteWithMarker(_currentCheckpoint);
                                 
-                                User.GiveJobMoney(500);
-
+                                var rand = new Random();
+                                int number = rand.Next(1200,1800);
+                                User.GiveJobMoney(number);
+                                
                                 _isBus3 = false;
                                 _currentCheckpoint = 0;
                                 _currentId = 0;

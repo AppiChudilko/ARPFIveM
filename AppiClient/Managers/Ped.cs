@@ -497,6 +497,15 @@ namespace Client.Managers
 				await CreatePed("s_m_y_dwservice_01", new Vector3(-205.621f, -1339.558f, 34.89401f), 62.54784f, false, "WORLD_HUMAN_AA_COFFEE");
 				await CreatePed("s_m_m_autoshop_01", new Vector3(-204.8545f, -1327.568f, 30.89039f), -5.008956f, false, "WORLD_HUMAN_LEANING");
 				
+				//VagosMW
+				await CreatePed("g_m_y_mexgoon_01", new Vector3(851.4146f, -2097.416f, 30.28455f), 354.4222f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("g_m_y_mexgoon_01", new Vector3(810.2521f, -2147.769f, 29.40854f), 0.002218109f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("g_m_y_mexgoon_02", new Vector3(813.7679f, -2147.734f, 29.51174f), 359.5854f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("g_m_y_mexgang_01", new Vector3(795.0757f,-2128.74f, 29.50934f), 358.1478f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("g_m_y_mexgoon_01", new Vector3(297.4744f, -2015.621f, 19.95225f), 5.250579f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("g_m_y_mexgoon_02", new Vector3(304.983f, -2008.053f, 20.41158f), 93.48673f, true, "WORLD_HUMAN_GUARD_STAND");
+				await CreatePed("g_m_y_mexgoon_03", new Vector3(524.1359f, -1651.104f, 29.31757f), 219.7189f, true, "WORLD_HUMAN_AA_SMOKE");
+				await CreatePed("g_m_y_mexgoon_02", new Vector3(525.3604f, -1652.066f, 29.31724f), 45.8571f, true, "WORLD_HUMAN_AA_SMOKE");
 				
 				// MW_House1126
 				await CreatePed("s_m_m_highsec_01", new Vector3(-137.6827f, 974.5458f, 235.75f), -99.98929f, false, "WORLD_HUMAN_GUARD_STAND");
@@ -564,6 +573,16 @@ namespace Client.Managers
 			    await CreatePed("g_m_y_salvagoon_01", new Vector3(1157.851f, -1643.692f, 36.9641f), 208.6681f, true, "WORLD_HUMAN_LEANING");
 			    await CreatePed("g_m_y_salvagoon_03", new Vector3(1167.329f, -1657.836f, 36.80291f), 194.4609f, true, "WORLD_HUMAN_GUARD_STAND");
 			    
+			    //VagosMW
+			    await CreatePed("g_m_y_mexgoon_01", new Vector3(851.4146f, -2097.416f, 30.28455f), 354.4222f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_01", new Vector3(809.2521f, -2147.197f, 29.37761f), 273.4178f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_02", new Vector3(813.7679f, -2147.734f, 29.51174f), 359.5854f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgang_01", new Vector3(795.0757f,-2128.74f, 29.50934f), 358.1478f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_01", new Vector3(297.4744f, -2015.621f, 19.95225f), 5.250579f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_02", new Vector3(304.983f, -2008.053f, 20.41158f), 93.48673f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_03", new Vector3(524.1359f, -1651.104f, 29.31757f), 219.7189f, true, "WORLD_HUMAN_AA_SMOKE");
+			    await CreatePed("g_m_y_mexgoon_02", new Vector3(525.3604f, -1652.066f, 29.31724f), 45.8571f, true, "WORLD_HUMAN_AA_SMOKE");
+			    
 			    //Invader
 			    await CreatePed("s_m_m_highsec_01", new Vector3(-1070.441f, -241.8547f, 42.2711f), -177.083f, true, "WORLD_HUMAN_CLIPBOARD");
 			    
@@ -604,6 +623,33 @@ namespace Client.Managers
 			    await CreatePed("s_m_m_security_01", new Vector3(-1142.82f, -1983.2f, 13.46f), 231.09f, false, "WORLD_HUMAN_GUARD_STAND");
 			    await CreatePed("g_m_m_chemwork_01", new Vector3(-1170.6600f, -2013.7100f, 13.2300f), 286.3500f, true, "WORLD_HUMAN_GUARD_STAND");
 			    
+			    //VagosMW
+			    await CreatePed("g_m_y_mexgoon_01", new Vector3(851.4146f, -2097.416f, 30.28455f), 354.4222f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_01", new Vector3(809.2521f, -2147.197f, 29.37761f), 273.4178f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_02", new Vector3(813.7679f, -2147.734f, 29.51174f), 359.5854f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgang_01", new Vector3(795.0757f,-2128.74f, 29.50934f), 358.1478f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_01", new Vector3(297.4744f, -2015.621f, 19.95225f), 5.250579f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_02", new Vector3(304.983f, -2008.053f, 20.41158f), 93.48673f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("g_m_y_mexgoon_03", new Vector3(524.1359f, -1651.104f, 29.31757f), 219.7189f, true, "WORLD_HUMAN_AA_SMOKE");
+			    await CreatePed("g_m_y_mexgoon_02", new Vector3(525.3604f, -1652.066f, 29.31724f), 45.8571f, true, "WORLD_HUMAN_AA_SMOKE");
+			    
+			    
+			    //PD(A)
+			    await CreatePed("s_m_y_cop_01", new Vector3(433.840f, -978.540f, 30.71f), 94.7000f, true, "WORLD_HUMAN_GUARD_STAND"); 
+			    await CreatePed("s_f_y_cop_01", new Vector3(449.240f, -984.940f, 30.69f), 102.0000f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_y_cop_01", new Vector3(450.580f, -978.670f, 30.71f), 224.7000f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_y_cop_01", new Vector3(463.800f, -982.530f, 43.69f), 94.3500f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_y_cop_01", new Vector3(461.880f, -987.910f, 30.71f), 320.8000f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_y_cop_01", new Vector3(470.650f, -1015.680f, 26.39f), 98.2100f, true, "WORLD_HUMAN_AA_SMOKE");
+			    await CreatePed("s_m_y_cop_01 ", new Vector3(454.9981f, -987.39f, 25.67417f), 87.16196f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("s_m_y_prismuscl_01", new Vector3(460.353f, -993.0063f, 24.91471f), 178.3494f, true, "WORLD_HUMAN_GUARD_STAND");
+			    await CreatePed("u_m_y_prisoner_01", new Vector3(459.8658f, -996.7213f, 24.33775f), 178.0473f, true, "PROP_HUMAN_SEAT_CHAIR");
+			    await CreatePed("s_m_y_prisoner_01", new Vector3(459.6129f, -1002.786f, 25.04399f), 0.3276507f, true, "WORLD_HUMAN_SEAT_WALL");
+			    await CreatePed("ig_rashcosvki", new Vector3(467.9991f,-994.6945f, 23.9147f), 23.9147f, true, "WORLD_HUMAN_AA_SMOKE");
+			    await CreatePed("s_m_y_prismuscl_01", new Vector3(473.6106f,-993.3213f, 24.34513f), 90.02234f, true, "PROP_HUMAN_SEAT_CHAIR");
+			    await CreatePed("u_m_y_prisoner_01", new Vector3(475.325f, -994.7294f, 23.91471f), 262.1698f, true, "PROP_HUMAN_SEAT_CHAIR");
+
+			    
 			    //1139
 			    await CreatePed("s_m_y_doorman_01", new Vector3(-1366.121f, 6733.49f, 2.582926f), -99.96954f, false, "WORLD_HUMAN_CLIPBOARD");
 			    await CreatePed("s_m_m_highsec_01", new Vector3(-1381.059f, 6742.416f, 8.971489f), -96.99951f, false, "CODE_HUMAN_CROSS_ROAD_WAIT");
@@ -629,6 +675,7 @@ namespace Client.Managers
 			    await CreatePed("cs_paper", new Vector3(905.8243f, -616.5538f, 58.04898f), 316.3369f, true, "WORLD_HUMAN_GUARD_STAND");
 			    await CreatePed("csb_reporter", new Vector3(903.2858f, -614.2041f, 58.04898f), 310.8976f, true, "WORLD_HUMAN_LEANING");
 		    }
+		    
 		    else if (Main.ServerName == "Andromeda")
 		    {
 			    //maga

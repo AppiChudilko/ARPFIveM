@@ -17264,6 +17264,29 @@ namespace Client.Vehicle
                         SMp = 0 
                     };
                 
+                case 508798420:
+                    return new VehicleInfoData {
+                        DisplayName = "g770",
+                        ClassName = "SUVs", 
+                        IsBroke = false, 
+                        Stock = 265000, 
+                        StockFull = 430000, 
+                        StockItem = 0,
+                        FullFuel = 85, 
+                        FuelMinute = 9, 
+                        Fuel = 85,  
+                        SWhBkl = 0, 
+                        SWhBl = 0, 
+                        SWhBkr = 0, 
+                        SWhBr = 0, 
+                        SEngine = 0, 
+                        SSuspension = 0, 
+                        SBody = 0, 
+                        SCandle = 0, 
+                        SOil = 0, 
+                        SMp = 0 
+                    };
+                
                 default:
                     return new VehicleInfoData {
                         DisplayName = "Unk",

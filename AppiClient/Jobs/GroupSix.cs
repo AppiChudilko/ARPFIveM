@@ -55,13 +55,13 @@ namespace Client.Jobs
         
         public static double[,] Pickups =
         {
-            { 253.4611, 220.7204, 106.2865 },
-            { 251.749, 221.4658, 106.2865 },
-            { 248.3227, 222.5736, 106.2867 },
-            { 246.4875, 223.2582, 106.2867 },
-            { 243.1434, 224.4678, 106.2868 },
-            { 241.1435, 225.0419, 106.2868 },
-            { 148.5, -1039.971, 29.37775 },
+            { 253.36228, 223.3578, 106.2868 }, //PACIFIc OK
+            { -1120.187, -2841.251, 13.9455 }, // Airport Heli
+            { -1151.223, -1425.327, 4.9545 }, // 4 tatu
+            { -1336.647, -1276.475, 4.8895 }, //mask
+            { -1285.041, -1116.597, 6.9901 }, // 4 Parikmaherskaja
+            { -821.5232, -1071.300, 11.3281 }, // 1 poNso
+            { 148.5, -1039.971, 28.87775 }, //Fleeca 1
             { 1175.054, 2706.404, 38.09407 },
             { -1212.83, -330.3573, 37.78702 },
             { 314.3541, -278.5519, 54.17077 },
@@ -93,10 +93,8 @@ namespace Client.Jobs
             { -207.0201, -1331.493, 34.89437 },
             { 1187.764, 2639.15, 38.43521 },
             { 101.0262, 6618.267, 32.43771 },
-            { -146.2072, -584.2731, 167.0002 },
-            //{ 472.2666, -1310.529, 28.22178 },
-            { -146.2072, -584.2731, 166.0002 },
-            //{ 472.2666, -1310.529, 28.22178 },
+            { 473.5029, -1312.409, 29.20171 }, //LSC 8
+            { -148.6160, -584.1832, 167.0002 },
             { 26.213, -1345.442, 29.49702 },
             { -1223.059, -906.7239, 12.32635 },
             { -1487.533, -379.3019, 40.16339 },
@@ -173,7 +171,7 @@ namespace Client.Jobs
                 return;
             }
             Random random = new Random();
-            var r = random.Next(0, 53);
+            var r = random.Next(0, 53); //54
             var pos = new Vector3((float) Pickups[r, 0], (float) Pickups[r, 1], (float) Pickups[r, 2] - 1);
             
             //var pos = new Vector3((float) Pickups[Temp, 0], (float) Pickups[Temp, 1], (float) Pickups[Temp, 2] - 1);
@@ -262,12 +260,12 @@ namespace Client.Jobs
                 Notification.SendWithTime("~r~ Недостаточно денег");
                 return;
             }
-            User.GiveWeapon((uint) WeaponHash.SMG, 180, false, false);
+            User.GiveWeapon((uint) WeaponHash.SMG, 140, false, false);
             User.GiveWeapon((uint) WeaponHash.PistolMk2, 60, false, false);
             Notification.SendWithTime("~g~Вы взяли оружие");
             Sync.Data.SetLocally(User.GetServerId(), "GrSix:Equip", true);
-            User.RemoveMoney(2250);
-            Coffer.AddMoney(2250);
+            User.RemoveMoney(2500);
+            Coffer.AddMoney(2500);
         }
 
         public static void DeleteVeh(int money, int vehicle)
@@ -345,7 +343,7 @@ namespace Client.Jobs
             if (Sync.Data.HasLocally(User.GetServerId(), "GrSix:Uniform") &&
                 Sync.Data.HasLocally(User.GetServerId(), "GrSix:Equip"))
             {
-                if(GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.SMG) >60 && GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2) > 20)
+                if(GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.SMG) >= 140 && GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2) >= 60)
                 { 
                     Notification.SendWithTime("~g~Вы сдали оружие и форму");
                     RemoveWeaponFromPed(GetPlayerPed(-1), (uint) WeaponHash.SMG);
@@ -364,10 +362,12 @@ namespace Client.Jobs
                     Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Uniform");
                     Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Equip");
                     
-                        User.AddMoney(1000);
+                        User.AddMoney(3500);
+                        Notification.SendWithTime("~r~Вам вернули полностью залог 3500$");
                 }
-                if(GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.SMG) < 60 && GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2) < 20)
-                { 
+
+                else if (GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.SMG) < 140 || GetAmmoInPedWeapon(GetPlayerPed(-1), (uint) WeaponHash.PistolMk2) < 60)
+                {
                     Notification.SendWithTime("~g~Вы сдали оружие и форму");
                     RemoveWeaponFromPed(GetPlayerPed(-1), (uint) WeaponHash.SMG);
                     SetPedAmmo(GetPlayerPed(-1), (uint) WeaponHash.SMG, 0);
@@ -385,7 +385,9 @@ namespace Client.Jobs
                     Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Uniform");
                     Sync.Data.ResetLocally(User.GetServerId(), "GrSix:Equip");
                     
-                    User.AddMoney(600);
+                    User.AddMoney(2900);
+                    Notification.SendWithTime("~r~недочёт патронов придется компенсировать");
+                    Notification.SendWithTime("~r~Вам вернули часть залога 2900$");
                 }
             }
             else

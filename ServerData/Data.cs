@@ -98,17 +98,17 @@ namespace Server.Sync
             }
         }
         
-      /*  public static void SaveLog(string log)
+       public static void SaveLog(string log)
         {
             try
             {
-                File.AppendAllText($"sync-debug.log", $"[{DateTime.Now:dd/MM/yyyy}] [{DateTime.Now:HH:mm:ss tt}] {log}\n");
+                //File.AppendAllText($"sync-debug.log", $"[{DateTime.Now:dd/MM/yyyy}] [{DateTime.Now:HH:mm:ss tt}] {log}\n");
             }
             catch (Exception e)
             {
                 SaveLog($"ServerLog TRY-CATCH {log} | {e}");
             }
-        }*/
+        }
         
         private static void GetAllClient([FromSource] Player player, int id)
         {

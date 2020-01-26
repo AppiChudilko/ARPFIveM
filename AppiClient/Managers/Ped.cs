@@ -497,16 +497,6 @@ namespace Client.Managers
 				await CreatePed("s_m_y_dwservice_01", new Vector3(-205.621f, -1339.558f, 34.89401f), 62.54784f, false, "WORLD_HUMAN_AA_COFFEE");
 				await CreatePed("s_m_m_autoshop_01", new Vector3(-204.8545f, -1327.568f, 30.89039f), -5.008956f, false, "WORLD_HUMAN_LEANING");
 				
-				//VagosMW
-				await CreatePed("g_m_y_mexgoon_01", new Vector3(851.4146f, -2097.416f, 30.28455f), 354.4222f, true, "WORLD_HUMAN_GUARD_STAND");
-				await CreatePed("g_m_y_mexgoon_01", new Vector3(810.2521f, -2147.769f, 29.40854f), 0.002218109f, true, "WORLD_HUMAN_GUARD_STAND");
-				await CreatePed("g_m_y_mexgoon_02", new Vector3(813.7679f, -2147.734f, 29.51174f), 359.5854f, true, "WORLD_HUMAN_GUARD_STAND");
-				await CreatePed("g_m_y_mexgang_01", new Vector3(795.0757f,-2128.74f, 29.50934f), 358.1478f, true, "WORLD_HUMAN_GUARD_STAND");
-				await CreatePed("g_m_y_mexgoon_01", new Vector3(297.4744f, -2015.621f, 19.95225f), 5.250579f, true, "WORLD_HUMAN_GUARD_STAND");
-				await CreatePed("g_m_y_mexgoon_02", new Vector3(304.983f, -2008.053f, 20.41158f), 93.48673f, true, "WORLD_HUMAN_GUARD_STAND");
-				await CreatePed("g_m_y_mexgoon_03", new Vector3(524.1359f, -1651.104f, 29.31757f), 219.7189f, true, "WORLD_HUMAN_AA_SMOKE");
-				await CreatePed("g_m_y_mexgoon_02", new Vector3(525.3604f, -1652.066f, 29.31724f), 45.8571f, true, "WORLD_HUMAN_AA_SMOKE");
-				
 				// MW_House1126
 				await CreatePed("s_m_m_highsec_01", new Vector3(-137.6827f, 974.5458f, 235.75f), -99.98929f, false, "WORLD_HUMAN_GUARD_STAND");
 				await CreatePed("s_m_m_highsec_02", new Vector3(-132.2644f, 972.4172f, 235.7416f), 64.99982f, false, "WORLD_HUMAN_GUARD_STAND");

@@ -687,6 +687,7 @@ namespace Server.Managers
                 }
             }
             
+            
             Appi.MySql.ExecuteQuery("UPDATE users SET is_online='0' WHERE id = '" + Convert.ToInt32(Server.Sync.Data.Get(User.GetServerId(player), "id")) + "'");
             Save.UserAccount(player);
             Main.SaveLog("Connect", $"[{GetPlayerEndpoint(player.Handle)}] [Disconnect] " + player.Name + " " + kickReason);

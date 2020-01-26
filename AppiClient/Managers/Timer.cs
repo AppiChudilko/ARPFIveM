@@ -318,6 +318,44 @@ namespace Client.Managers
             }
         }
 
+        public async Task OpenFleecaDoor(Entity targetDoor, uint doorHash)
+        {
+            CreateModelSwap(targetDoor.Position.X, targetDoor.Position.Y, targetDoor.Position.Z, 1f,
+                (uint) doorHash, (uint) GetHashKey("hei_prop_heist_sec_door"), true);
+            await BaseScript.Delay(5000);
+            RequestAnimDict("anim@heists@fleeca_bank@bank_vault_door");
+            while (!HasAnimDictLoaded("anim@heists@fleeca_bank@bank_vault_door"))
+                await BaseScript.Delay(0);
+            PlayEntityAnim(targetDoor.Handle, "bank_vault_door_opens", "anim@heists@fleeca_bank@bank_vault_door", 4f,
+                false, true, false, 0f, 8);
+            ForceEntityAiAndAnimationUpdate(targetDoor.Handle);
+            RequestScriptAudioBank("vault_door", false);
+            PlaySoundFromCoord(-1, "vault_unlock", Game.PlayerPed.Position.X,
+                Game.PlayerPed.Position.Y, Game.PlayerPed.Position.Z,
+                "dlc_heist_fleeca_bank_door_sounds", false, 0, false);
+            await BaseScript.Delay(500);
+            Debug.Write("Checking if the animation is playing\n");
+        
+            while (IsEntityPlayingAnim(targetDoor.Handle, "anim@heists@fleeca_bank@bank_vault_door",
+                "bank_vault_door_opens", 3))
+            {
+                Debug.Write("Animation is playing\n");
+                if (GetEntityAnimCurrentTime(targetDoor.Handle, "anim@heists@fleeca_bank@bank_vault_door",
+                        "bank_vault_door_opens") >= 1f)
+                {
+                    var test = GetEntityRotation(targetDoor.Handle, 2) + new Vector3(0, 0, -80);
+                    FreezeEntityPosition(targetDoor.Handle, true);
+                    StopEntityAnim(targetDoor.Handle, "bank_vault_door_opens",
+                        "anim@heists@fleeca_bank@bank_vault_door", -1000f);
+                    SetEntityRotation(targetDoor.Handle, test.X, test.Y, test.Z, 2, true);
+                    ForceEntityAiAndAnimationUpdate(targetDoor.Handle);
+                    SetModelAsNoLongerNeeded((uint) GetHashKey("hei_prop_heist_sec_door"));
+                    Debug.Write("Finished");
+                }
+
+                await BaseScript.Delay(0);
+            }
+        }
         /*private static async Task Min5Timer()
         {
             
@@ -485,6 +523,8 @@ namespace Client.Managers
         private static async Task Sec10Timer()
         {
             await Delay(1000 * 10);
+            
+            var distancetobank = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(146.7091f, -1045.741f, 28.36805f));
 
             if (User.IsLogin())
             {
@@ -493,6 +533,11 @@ namespace Client.Managers
                     User.Data.mp0_shooting_ability++;
                     Client.Sync.Data.Set(User.GetServerId(), "mp0_shooting_ability", User.Data.mp0_shooting_ability);
                     //ShakeGameplayCam("VIBRATE_SHAKE", 10F);
+                }
+
+                if (Client.Sync.Data.HasLocally(User.GetServerId(), "hasBuyMask") && distancetobank < 10)
+                {
+                    Dispatcher.SendEms("Код 3", "Подозрительный человек в маске");
                 }
                 
           

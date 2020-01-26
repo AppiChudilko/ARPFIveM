@@ -459,6 +459,26 @@ namespace Client
             };
             MenuPool.Add(UiMenu);
         }
+        public static void ShowStopGrab()
+        {
+            HideMenu();
+            
+            var menu = new Menu();
+            UiMenu = menu.Create("Ограбление", "", true, true);
+        
+            var yesButton = menu.AddMenuItem(UiMenu, "~r~Завершить ограбление");
+            
+            UiMenu.OnItemSelect += async (sender, item, index) =>
+            {
+                if (item == yesButton)
+                {
+                    User.IsBlockAnimation = false;
+                    HideMenu();
+                }
+            };
+            
+            MenuPool.Add(UiMenu);
+        }
 
         public static void ShowAskSellKMenu()
         {

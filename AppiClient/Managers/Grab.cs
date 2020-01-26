@@ -24,6 +24,42 @@ namespace Client.Managers
 
         public static Vector3 GrabPos = new Vector3(-193.1882f, -2707.356f, 5.010916f);
         public static Vector3 GrabVehPos = new Vector3(-195.071f, -2707.035f, 5.595252f);
+        
+        
+        public static  Vector3 RobBank101 = new Vector3(146.7091f, -1045.741f, 28.36805f);
+        public static  Vector3 RobBank102 = new Vector3(148.3756f, -1050.235f, 28.346f);
+        public static Vector3 VehRobBank1 = new Vector3(116.1841f, -1081.145f, 29.2f);
+        
+        public static  Vector3 RobBank201 = new Vector3(310.79f, -283.753f, 53.17f);
+        public static  Vector3 RobBank202 = new Vector3(312.86f, -288.57f, 53.14f);
+        public static  Vector3 VehRobBank2 = new Vector3(298.658f, -333f, 44.9f);
+        
+        public static  Vector3 RobBank301 = new Vector3(-354.03f, -54.77f, 48.03f);
+        public static  Vector3 RobBank302 = new Vector3(-352.302f, -59.302f, 48f);
+        public static  Vector3 VehRobBank3 = new Vector3(-316.14f, -72.67f, 54.42f);
+        
+        public static  Vector3 RobBank401 = new Vector3(-1211.52f, -335.81f, 36.7f);
+        public static  Vector3 RobBank402 = new Vector3(-1206.952f, -338.24f, 36.75f);
+        public static  Vector3 VehRobBank4 = new Vector3(-1212.73f, -352f, 37.3f);
+        
+        public static  Vector3 RobBank501 = new Vector3(253.4969f, 228.44f, 100.68f);
+        public static  Vector3 RobBank502 = new Vector3(265.65f, 213.98f, 100.67f);
+        public static  Vector3 VehRobBank5 = new Vector3(259.49f, 276.66f, 105.62f);
+        
+        public static  Vector3 RobBank601 = new Vector3(1176.08f, 2712.275f, 37.08f);
+        public static  Vector3 RobBank602 = new Vector3(1172.801f, 2716.4f, 37.06f);
+        public static  Vector3 VehRobBank6 = new Vector3(1210.2f, 2711.508f, 38f);
+        
+        public static  Vector3 RobBank701 = new Vector3(-2957f, 481.23f, 14.7f);
+        public static  Vector3 RobBank702 = new Vector3(-2953.1f, 484.56f, 14.6f);
+        public static  Vector3 VehRobBank7 = new Vector3(-2944.53f, 491.32f, 45.28f);
+        
+        public static  Vector3 RobBank801 = new Vector3(-105.1297f, 6471f, 30.62f);
+        public static  Vector3 RobBank802 = new Vector3(-104.12f, 6477.8f, 30.62f);
+        public static  Vector3 VehRobBank8 = new Vector3(-89.45374f, 6474.44f, 31.259f);
+        
+        
+        
 
         public static void LoadBlips()
         {
@@ -54,6 +90,7 @@ namespace Client.Managers
                 Checkpoint.Create(blip.Position, 1.4f, "grab:start");
             }*/
         }
+        
 
         public static void GetGrabRandomVehicle()
         {
@@ -356,6 +393,301 @@ namespace Client.Managers
             Notification.Send("~y~Вы ограбили магазин");
         }
         
+        public static async void GrabBank()
+        {
+            var distance1 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(146.7091f, -1045.741f, 28.36805f));
+            var distance12 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(148.3756f, -1050.235f, 28.346f));
+            var distance13 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(116.1841f, -1081.145f, 29.2f));
+        
+            var distance2 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(310.79f, -283.753f, 53.17f));
+            var distance21 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(312.86f, -288.57f, 53.14f));
+            var distance23 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(298.658f, -333f, 44.9f));
+        
+            var distance3 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-354.03f, -54.77f, 48.03f));
+            var distance31 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-352.302f, -59.302f, 48f));
+            var distance32 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-316.14f, -72.67f, 54.42f));
+        
+            var distance4 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-1211.52f, -335.81f, 36.7f));
+            var distance41 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-1206.952f, -338.24f, 36.75f));
+            var distance42 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-1212.73f, -352f, 37.3f));
+        
+            var distance5 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(253.4969f, 228.44f, 100.68f));
+            var distance51 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(265.65f, 213.98f, 100.67f));
+            var distance52= Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(259.49f, 276.66f, 105.62f));
+        
+            var distance6 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(1176.08f, 2712.275f, 37.08f));
+            var distance61 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(1172.801f, 2716.4f, 37.06f));
+            var distance62 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(1210.2f, 2711.508f, 38f));
+        
+            var distance7 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-2957f, 481.23f, 14.7f));
+            var distance71 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-2953.1f, 484.56f, 14.6f));
+            var distance72 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-2944.53f, 491.32f, 45.28f));
+        
+            var distance8 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-105.1297f, 6471f, 30.62f));
+            var distance81 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-104.12f, 6477.8f, 30.62f));
+            var distance82 = Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), new Vector3(-89.45374f, 6474.44f, 31.259f));
+            
+            var pos1 = new Vector3(146.7091f, -1045.741f, 28.36805f);
+            var pos2 = new Vector3(148.3756f, -1050.235f, 28.346f);
+            var carpos = new Vector3(116.1841f, -1081.145f, 29.2f);
+
+            if (distance1 <= distance2 && distance1 <= distance3 && distance1 <= distance4 && distance1 <= distance5 &&
+                distance1 <= distance6 && distance1 <= distance7 && distance1 <= distance8)
+            {
+                pos1 = new Vector3(146.7091f, -1045.741f, 28.36805f);
+                pos2 = new Vector3(148.3756f, -1050.235f, 28.346f);
+                carpos = new Vector3(116.1841f, -1081.145f, 29.2f);
+            }
+            
+            else if (distance2 <= distance1 && distance2 <= distance2 && distance2 <= distance3 && distance2 <= distance4 && distance2 <= distance5 &&
+                distance2 <= distance6 && distance2 <= distance7 && distance2 <= distance8)
+            {
+                pos1 = new Vector3(310.79f, -283.753f, 53.17f);
+                pos2 = new Vector3(312.86f, -288.57f, 53.14f);
+                carpos = new Vector3(298.658f, -333f, 44.9f);
+            }
+            else if (distance3 <= distance1 && distance3 <= distance2 && distance3 <= distance3 && distance3 <= distance4 && distance3 <= distance5 &&
+                distance3 <= distance6 && distance3 <= distance7 && distance3 <= distance8)
+            {
+                pos1 = new Vector3(-354.03f, -54.77f, 48.03f);
+                pos2 = new Vector3(-352.302f, -59.302f, 48f);
+                carpos = new Vector3(-316.14f, -72.67f, 54.42f);
+            }
+            else if (distance4 <= distance1 && distance4 <= distance2 && distance4 <= distance3 && distance4 <= distance4 && distance4 <= distance5 &&
+                     distance4 <= distance6 && distance4 <= distance7 && distance4 <= distance8)
+            {
+                pos1 = new Vector3(-1211.52f, -335.81f, 36.7f);
+                pos2 = new Vector3(-1206.952f, -338.24f, 36.75f);
+                carpos = new Vector3(-1212.73f, -352f, 37.3f);
+            }
+            else if (distance5 <= distance1 && distance5 <= distance2 && distance5 <= distance3 && distance5 <= distance4 && distance5 <= distance5 &&
+                     distance5 <= distance6 && distance5 <= distance7 && distance5 <= distance8)
+            {
+                pos1 = new Vector3(253.4969f, 228.44f, 100.68f);
+                pos2 = new Vector3(265.65f, 213.98f, 100.67f);
+                carpos = new Vector3(259.49f, 276.66f, 105.62f);
+            }
+            else if (distance6 <= distance1 && distance6 <= distance2 && distance6 <= distance3 && distance6 <= distance4 && distance6 <= distance5 &&
+                     distance6 <= distance6 && distance6 <= distance7 && distance6 <= distance8)
+            {
+                pos1 = new Vector3(1176.08f, 2712.275f, 37.08f);
+                pos2 = new Vector3(1172.801f, 2716.4f, 37.06f);
+                carpos = new Vector3(1210.2f, 2711.508f, 38f);
+            }
+            else if (distance7 <= distance1 && distance7 <= distance2 && distance7 <= distance3 && distance7 <= distance4 && distance7 <= distance5 &&
+                     distance7 <= distance6 && distance7 <= distance7 && distance7 <= distance8)
+            {
+                pos1 = new Vector3(-2957f, 481.23f, 14.7f);
+                pos2 = new Vector3(-2953.1f, 484.56f, 14.6f);
+                carpos = new Vector3(-2944.53f, 491.32f, 14.28f);
+            }
+            else if (distance8 <= distance1 && distance8 <= distance2 && distance8 <= distance3 && distance8 <= distance4 && distance8 <= distance5 &&
+                     distance8 <= distance6 && distance8 <= distance7 && distance8 <= distance8)
+            {
+                pos1 = new Vector3(-105.1297f, 6471f, 30.62f);
+                pos2 = new Vector3(-104.12f, 6477.8f, 30.62f);
+                carpos = new Vector3(-89.45374f, 6474.44f, 31.259f);
+            }
+            
+            
+
+            int moneygot = 0;
+            if (Main.GetPlayerListOnRadius(8).Count < 4)
+            {
+                Notification.SendWithTime("~r~Для ограбления банка нужно 4 и более человек");
+                //return;
+            }
+
+            if (User.IsBlockAnimation == true)
+            {
+                return;
+            }
+            /*
+            if (await Client.Sync.Data.Has(1100000, "GrabShop" + shopId))
+            {
+                Notification.SendWithTime("~r~Банк недавно грабили");
+                return;
+            }
+            if (Weather.Hour > 1 && Weather.Hour < 23)
+            {
+                Notification.SendWithTime("~r~Грабить можно с 23:00 до 5:00");
+                return;
+            }
+            if (new PlayerList().Count() < 20)
+            {
+                Notification.SendWithTime("~r~Онлайн на сервере должен быть не менее 20 человек");
+                return;
+            }
+            if (User.GetPlayerVirtualWorld() != 0)
+            {
+                Notification.SendWithTime("~r~[ОШИБКА] Пожалуйста зайдите в любой дом/квартиру и выйдете");
+                return;
+            }*/
+            if (Client.Sync.Data.HasLocally(User.GetServerId(), "HasGrab"))
+            {
+                Notification.Send("~r~Вы еще не отмыли предыдущие деньги");
+                return;
+            }
+
+            if (User.Data.mp0_watchdogs < 50)
+            {
+                Notification.Send("~r~Слишком низкий навык взлома");
+                return;
+            }
+            Chat.SendMeCommand("начинает взлом системы бесопасности..");
+            User.PlayScenario("forcestop");
+            User.Freeze(PlayerId(), true);
+            User.IsBlockAnimation = true;
+            Notification.SendPicture("Подключаюсь..", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+
+            Chat.SendDoCommand("Connecting...");
+            User.PlayAnimation("amb@prop_human_movie_studio_light@idle_a", "idle_a", 8);
+            Chat.SendDoCommand("REQUEST RECEIVED");
+            Chat.SendDoCommand("awaiting for 'V4ult.py'..");
+            await Delay(10000);
+            Chat.SendDoCommand("Status 21%..");
+            await Delay(1000);
+            Chat.SendDoCommand("Status 41%..");
+            User.PlayAnimation("amb@prop_human_movie_studio_light@idle_a", "idle_a", 8);
+            await Delay(10000);
+            Chat.SendDoCommand("Status 54%..");
+            User.PlayAnimation("amb@prop_human_movie_studio_light@idle_a", "idle_a", 8);
+            Chat.SendDoCommand("Status 89%..");
+            await Delay(10000);
+            
+            var ran = new Random();
+            if (ran.Next(0,2) == 0 || ran.Next(0,2) == 2)
+            {
+                Chat.SendMeCommand("ACCESS DENIED, try again later..");
+                Notification.SendPicture("Черт! Попробуйте еще раз, что-то пошло не так.", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+                Dispatcher.SendEms("Код 3", "SUSPICIOUS ACTIVITY, REQUESTING ALL PATROLS");
+                User.IsBlockAnimation = false;
+                User.Freeze(PlayerId(), false);
+                User.PlayScenario("forcestop");
+                return;
+            }
+            Chat.SendDoCommand("Success! script by SH05");
+            Notification.SendPicture("Отлично! Набивайте сумки!", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+
+
+            Client.Sync.Data.SetLocally(User.GetServerId(), "HasGrab", true);
+            Client.Sync.Data.SetLocally(User.GetServerId(), "GrabPos", GetEntityCoords(GetPlayerPed(-1), true));
+            User.Teleport(pos2);
+            await Delay(1000);
+            User.PlayAnimation("anim@heists@money_grab@duffel", "loop", 9);
+            await Delay(5000);
+            
+            SetPedComponentVariation(GetPlayerPed(-1), 5, 45, 0, 2);
+            
+            if (!Client.Sync.Data.HasLocally(User.GetServerId(), "hasBuyMask"))
+            {
+                string rpname = User.Data.rp_name;
+                Notification.Send("~r~Вас заметила камера наблюдения");
+                User.AddWantedLevel(8, "Оргабление банка");
+                Dispatcher.SendEms("Код 3", "Ограбление банка, подозреваемый: " + rpname);
+            }
+            
+            var random = new Random();
+            Dispatcher.SendEms("Код 3", "Всем патрулям, ограбление банка");
+            Notification.SendPicture("Черт, копы уже едут к вам, обороняйтесь!", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+
+            
+            User.Freeze(PlayerId(), true);
+            User.IsBlockAnimation = true;
+            Notification.SendPicture("Сваливайте когда посчитаете нужным", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+            await Delay(1000);
+            Notification.SendPicture("Приготовьтесь к обороне!", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+            if (User.IsBlockAnimation == true)
+            {
+                for (int i = 1; i <= 40000; i++)
+                {
+                    if (i == 100)
+                    {
+                        MenuList.ShowStopGrab();
+                    }
+                    if (i == 5000)
+                    {
+                        Notification.Send("~b~Куш достиг 5.000$");
+                    }
+                    if (i == 10000)
+                    {
+                        Notification.Send("~b~Куш достиг 10.000$");
+                    }
+                    if (i == 15000)
+                    {
+                        Notification.Send("~g~Куш достиг 15.000$");
+                    }
+                    if (i == 20000)
+                    {
+                        Notification.Send("~y~Куш достиг 20.000$");
+                    }
+                    if (i == 35000)
+                    {
+                        Notification.Send("~o~Куш достиг 35.000$");
+                    }
+                    if (i == 40000)
+                    {
+                        Notification.Send("~r~Куш достиг 40.000$");
+                    }
+
+                    if (!User.IsBlockAnimation == true)
+                    {
+                        break;
+                    }
+
+                    moneygot = i;
+                    await Delay(2);
+
+                }
+            }
+            //await Delay(120);
+
+            //Client.Sync.Data.Set(1100000, "GrabShop" + shopId, true);
+            //Client.Sync.Data.Set(1100000, "TimerGrabShop" + shopId, 96);
+            
+            User.IsBlockAnimation = false;
+            User.Freeze(PlayerId(), false);
+            User.PlayScenario("forcestop");
+
+            if (Main.GetDistanceToSquared(GetEntityCoords(GetPlayerPed(-1), true), (Vector3) Client.Sync.Data.GetLocally(User.GetServerId(), "GrabPos")) > 10f)
+            {
+                Client.Sync.Data.ResetLocally(User.GetServerId(), "HasGrab");
+                Notification.Send("~r~Вы слишком далеко от места ограбления");
+                Notification.SendPicture("Вы куда?!", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+
+                return;
+            }
+
+            var rand = new Random();
+            int money = moneygot;
+            
+            if (Client.Sync.Data.HasLocally(User.GetServerId(), "GrabCash"))
+                Client.Sync.Data.SetLocally(User.GetServerId(), "GrabCash", (int) Client.Sync.Data.GetLocally(User.GetServerId(), "GrabCash") + money);
+            else
+                Client.Sync.Data.SetLocally(User.GetServerId(), "GrabCash", money);
+            
+            var pPos = GetEntityCoords(GetPlayerPed(-1), true);
+            Main.SaveLog("Grab", $"[GRAB] {User.Data.rp_name} | {pPos.X} {pPos.Y} {pPos.Z} | ${money}");
+            
+            //if (!await Ctos.IsBlackout())
+            //    PedAi.SendCode(2, false);
+            
+            await Delay(500);
+            Client.Sync.Data.ResetLocally(User.GetServerId(), "HasGrab");
+            SetPlayerWantedLevel(PlayerId(), 7, false);
+            Notification.Send("~y~Вы ограбили банк");
+            User.Teleport(pos1);
+            
+            await Managers.Vehicle.SpawnByName("rumpo3", carpos, 0f);
+            //Notification.SendPicture("Теперь скройтесь от полиции!", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+
+            Notification.SendPicture("Ищите авто для побега на задней стоянке", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+            User.Teleport(pos1);
+            await Delay(5000);
+            Notification.SendPicture("Скройтесь от копов и затем отмойте деньги", "Shon", "Дело", "CHAR_HUMANDEFAULT", Notification.TypeChatbox);
+
+        }
+        
         public static async void GrabGrSix()
         {
             var veh = Main.FindNearestVehicle();
@@ -365,7 +697,7 @@ namespace Client.Managers
             if (User.Data.job == "GrSix")
             {
                 Main.SaveLog("GrSixGrabGrSix", $"USER: {User.GetServerId()} COORDS: {NetworkGetPlayerCoords(User.GetServerId())}");
-                Notification.SendWithTime("Инкассатор грабит инкассатора? Не стоит так делать, логи я созранил.");
+                Notification.SendWithTime("Вот ето тебе сейчас блокировка будет чучело.");
                 return;
             }
             if (vehItem.Hash != 1747439474)

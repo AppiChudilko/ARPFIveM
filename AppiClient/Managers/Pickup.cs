@@ -251,6 +251,27 @@ namespace Client.Managers
         public static  Vector3 RobBank1 = new Vector3(146.7091f, -1045.741f, 28.36805f);
         public static  Vector3 RobBank2 = new Vector3(148.3756f, -1050.235f, 28.346f);
         
+        public static  Vector3 RobBank201 = new Vector3(310.79f, -283.753f, 53.17f);
+        
+        
+        public static  Vector3 RobBank301 = new Vector3(-354.03f, -54.77f, 48.03f);
+        
+        
+        public static  Vector3 RobBank401 = new Vector3(-1211.52f, -335.81f, 36.7f);
+        
+        
+        public static  Vector3 RobBank501 = new Vector3(253.4969f, 228.44f, 100.68f);
+        
+        
+        public static  Vector3 RobBank601 = new Vector3(1176.08f, 2712.275f, 37.08f);
+       
+        
+        public static  Vector3 RobBank701 = new Vector3(-2957f, 481.23f, 14.7f);
+        
+        
+        public static  Vector3 RobBank801 = new Vector3(-105.1297f, 6471f, 30.62f);
+        
+        
         public static Vector3 FakeNumber = new Vector3(258.9601f, 2587.598f, 43.95412f);
         
         /*Jobs*/
@@ -479,6 +500,27 @@ namespace Client.Managers
             
             Marker.Create(RobBank1, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
             Checkpoint.Create(RobBank1, 1.4f, "show:menu");
+            
+            Marker.Create(RobBank201, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank201, 1.4f, "show:menu");
+            
+            Marker.Create(RobBank301, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank301, 1.4f, "show:menu");
+            
+            Marker.Create(RobBank401, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank401, 1.4f, "show:menu");
+            
+            Marker.Create(RobBank501, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank501, 1.4f, "show:menu");
+            
+            Marker.Create(RobBank601, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank601, 1.4f, "show:menu");
+            
+            Marker.Create(RobBank701, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank701, 1.4f, "show:menu");
+            
+            Marker.Create(RobBank801, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
+            Checkpoint.Create(RobBank801, 1.4f, "show:menu");
 
             //Hackerspace
             Marker.Create(HackerSpaceShopPos, 1f, 1f, Marker.Blue.R, Marker.Blue.G, Marker.Blue.B, Marker.Blue.A);
@@ -956,7 +998,35 @@ namespace Client.Managers
 
             if (Main.GetDistanceToSquared(RobBank1, playerPos) < DistanceCheck)
             {
-                //Grab.GrabBank();
+                Grab.GrabBank();
+            }
+            if (Main.GetDistanceToSquared(RobBank201, playerPos) < DistanceCheck)
+            {
+                Grab.GrabBank();
+            }
+            if (Main.GetDistanceToSquared(RobBank301, playerPos) < DistanceCheck)
+            {
+                Grab.GrabBank();
+            }
+            if (Main.GetDistanceToSquared(RobBank401, playerPos) < DistanceCheck)
+            {
+                Grab.GrabBank();
+            }
+            if (Main.GetDistanceToSquared(RobBank501, playerPos) < DistanceCheck)
+            {
+                Grab.GrabBank();
+            }
+            if (Main.GetDistanceToSquared(RobBank601, playerPos) < DistanceCheck)
+            {
+                Grab.GrabBank();
+            }
+            if (Main.GetDistanceToSquared(RobBank701, playerPos) < DistanceCheck)
+            {
+                Grab.GrabBank();
+            }
+            if (Main.GetDistanceToSquared(RobBank801, playerPos) < DistanceCheck)
+            {
+                Grab.GrabBank();
             }
             
             //ArcadiusPrivate
